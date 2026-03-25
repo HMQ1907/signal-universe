@@ -1,0 +1,548 @@
+{
+  "common": {
+    "loading": "Đang tải...",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "confirm": "Xác nhận",
+    "submit": "Gửi",
+    "back": "Quay lại",
+    "close": "Đóng",
+    "search": "Tìm kiếm",
+    "filter": "Lọc",
+    "all": "Tất cả",
+    "yes": "Có",
+    "no": "Không",
+    "or": "hoặc",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép!",
+    "error": "Lỗi",
+    "success": "Thành công",
+    "warning": "Cảnh báo",
+    "info": "Thông tin",
+    "status": "Trạng thái",
+    "amount": "Số tiền",
+    "date": "Ngày",
+    "action": "Hành động",
+    "details": "Chi tiết",
+    "note": "Ghi chú",
+    "total": "Tổng",
+    "balance": "Số dư",
+    "profit": "Lợi nhuận",
+    "pending": "Chờ duyệt",
+    "completed": "Hoàn thành",
+    "rejected": "Từ chối",
+    "cancelled": "Đã hủy",
+    "approved": "Đã duyệt",
+    "usd": "USD",
+    "upload": "Tải lên",
+    "download": "Tải xuống",
+    "logout": "Đăng xuất",
+    "days": "ngày",
+    "hours": "giờ",
+    "minutes": "phút",
+    "seconds": "giây"
+  },
+  "nav": {
+    "home": "Trang chủ",
+    "dashboard": "Bảng điều khiển",
+    "investment": "Gói đầu tư",
+    "signals": "Tín hiệu",
+    "referral": "Giới thiệu",
+    "wallet": "Ví",
+    "settings": "Cài đặt",
+    "notifications": "Thông báo",
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "admin": "Quản trị"
+  },
+  "home": {
+    "hero": {
+      "badge": "Tín hiệu giao dịch AI",
+      "title": "Signal Universe",
+      "subtitle": "Nền tảng Tín hiệu Giao dịch Thông minh",
+      "description": "Nhận tín hiệu giao dịch chuyên nghiệp, kiếm lợi nhuận hàng ngày và xây dựng thu nhập thụ động qua mạng lưới giới thiệu mạnh mẽ.",
+      "cta_primary": "Bắt đầu Đầu tư",
+      "cta_secondary": "Tìm hiểu thêm",
+      "stats": {
+        "users": "Người dùng",
+        "daily_signals": "Tín hiệu/ngày",
+        "max_profit": "Lợi nhuận tối đa",
+        "languages": "Ngôn ngữ"
+      }
+    },
+    "features": {
+      "title": "Tại sao chọn Signal Universe?",
+      "subtitle": "Mọi thứ bạn cần để thành công trong giao dịch",
+      "signal": {
+        "title": "Tín hiệu AI Giao dịch",
+        "description": "Nhận 2 tín hiệu giao dịch mỗi ngày lúc 14:00 và 21:00. Xác nhận 1 chạm và kiếm lợi nhuận."
+      },
+      "referral": {
+        "title": "Chương trình Giới thiệu",
+        "description": "Kiếm hoa hồng lên đến 3 cấp. 5% hoa hồng nạp F1 và tới 15% lợi nhuận giao dịch."
+      },
+      "leader": {
+        "title": "Thưởng Leader",
+        "description": "Nhận thưởng hàng tuần lên đến $1,000 dựa trên số lượng thành viên trực tiếp của bạn."
+      },
+      "secure": {
+        "title": "An toàn & Minh bạch",
+        "description": "Tất cả giao dịch được ghi lại và theo dõi. Lợi nhuận được admin duyệt đảm bảo minh bạch."
+      }
+    },
+    "how_it_works": {
+      "title": "Cách Hoạt Động",
+      "step1": { "title": "Đăng ký & Nạp tiền", "description": "Tạo tài khoản và nạp tối thiểu $200 để kích hoạt gói DeFi." },
+      "step2": { "title": "Xác nhận Tín hiệu", "description": "Lúc 14:00 và 21:00, xác nhận tín hiệu AI. Mỗi tín hiệu dùng 1% số dư tài khoản." },
+      "step3": { "title": "Nhận Lợi nhuận", "description": "Admin duyệt lợi nhuận giao dịch của bạn. Tối đa 2% lợi nhuận mỗi ngày." },
+      "step4": { "title": "Rút & Phát triển", "description": "Rút lợi nhuận bất cứ lúc nào. Xây dựng mạng lưới để kiếm thêm hoa hồng." }
+    },
+    "packages": {
+      "title": "Gói Đầu tư",
+      "subtitle": "Chọn gói phù hợp với mục tiêu của bạn",
+      "defi_badge": "DeFi",
+      "min_deposit": "Nạp tối thiểu",
+      "daily_profit": "Lợi nhuận/ngày",
+      "max_profit": "Tối đa 2%/ngày",
+      "join": "Bắt đầu",
+      "popular": "Phổ biến nhất"
+    },
+    "cta": {
+      "title": "Sẵn sàng bắt đầu?",
+      "description": "Tham gia cùng hàng nghìn nhà đầu tư đang kiếm lợi nhuận hàng ngày với Signal Universe.",
+      "button": "Tạo tài khoản ngay"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Chào mừng trở lại",
+      "subtitle": "Đăng nhập vào tài khoản của bạn",
+      "email": "Địa chỉ Email",
+      "password": "Mật khẩu",
+      "forgot_password": "Quên mật khẩu?",
+      "submit": "Đăng nhập",
+      "no_account": "Chưa có tài khoản?",
+      "register_link": "Đăng ký tại đây",
+      "error": {
+        "invalid_credentials": "Email hoặc mật khẩu không đúng",
+        "account_disabled": "Tài khoản của bạn đã bị vô hiệu hóa"
+      }
+    },
+    "register": {
+      "title": "Tạo Tài khoản",
+      "subtitle": "Tham gia Signal Universe hôm nay",
+      "full_name": "Họ và tên",
+      "email": "Địa chỉ Email",
+      "password": "Mật khẩu",
+      "confirm_password": "Xác nhận mật khẩu",
+      "referral_code": "Mã giới thiệu (không bắt buộc)",
+      "submit": "Tạo tài khoản",
+      "have_account": "Đã có tài khoản?",
+      "login_link": "Đăng nhập",
+      "terms": "Khi đăng ký, bạn đồng ý với Điều khoản dịch vụ của chúng tôi",
+      "error": {
+        "email_exists": "Email đã được đăng ký",
+        "password_mismatch": "Mật khẩu không khớp",
+        "invalid_referral": "Mã giới thiệu không hợp lệ",
+        "password_weak": "Mật khẩu phải có ít nhất 8 ký tự"
+      }
+    },
+    "forgot_password": {
+      "title": "Đặt lại Mật khẩu",
+      "subtitle": "Nhập email để nhận mã xác nhận",
+      "email": "Địa chỉ Email",
+      "submit": "Gửi mã xác nhận",
+      "back_to_login": "Quay lại đăng nhập",
+      "code_sent": "Mã xác nhận đã được gửi đến email của bạn",
+      "enter_code": "Nhập mã 6 chữ số được gửi đến",
+      "new_password": "Mật khẩu mới",
+      "confirm_new_password": "Xác nhận mật khẩu mới",
+      "reset_submit": "Đặt lại mật khẩu",
+      "success": "Đặt lại mật khẩu thành công. Vui lòng đăng nhập."
+    }
+  },
+  "dashboard": {
+    "title": "Bảng điều khiển",
+    "welcome": "Chào mừng trở lại",
+    "profit_balance": "Số dư lợi nhuận",
+    "locked_capital": "Vốn đang khóa",
+    "total_balance": "Tổng số dư",
+    "investment_package": "Gói đầu tư",
+    "package_none": "Chưa có gói",
+    "capital_locked_until": "Vốn khóa đến",
+    "capital_unlocked": "Vốn có thể rút",
+    "quick_stats": {
+      "total_deposited": "Tổng đã nạp",
+      "total_profit": "Tổng lợi nhuận",
+      "total_referral": "Hoa hồng giới thiệu",
+      "direct_members": "Thành viên trực tiếp (F1)"
+    },
+    "signals_today": "Tín hiệu hôm nay",
+    "signal_14": "Tín hiệu 14:00",
+    "signal_21": "Tín hiệu 21:00",
+    "recent_transactions": "Giao dịch gần đây"
+  },
+  "investment": {
+    "title": "Gói Đầu tư",
+    "subtitle": "Chọn và kích hoạt gói DeFi của bạn",
+    "current_package": "Gói hiện tại",
+    "no_package": "Chưa có gói đầu tư",
+    "select_package": "Chọn gói",
+    "upgrade": "Nâng cấp gói",
+    "topup": "Nạp thêm",
+    "packages": {
+      "200": { "name": "Starter", "description": "Phù hợp cho người mới bắt đầu" },
+      "300": { "name": "Basic", "description": "Tăng trưởng ổn định" },
+      "500": { "name": "Standard", "description": "Đầu tư cân bằng" },
+      "1000": { "name": "Advanced", "description": "Lợi nhuận cao hơn" },
+      "2000": { "name": "Premium", "description": "Giao dịch hiệu suất cao" },
+      "5000": { "name": "Elite", "description": "Tiềm năng tối đa" }
+    },
+    "rules": {
+      "title": "Quy tắc đầu tư",
+      "rule1": "Tối thiểu $200 để kích hoạt gói DeFi",
+      "rule2": "Vốn bị khóa 28 ngày kể từ lần nạp đầu tiên",
+      "rule3": "Mỗi tín hiệu sử dụng 1% số dư tài khoản",
+      "rule4": "Lợi nhuận tối đa 2% mỗi ngày",
+      "rule5": "Có thể rút lợi nhuận bất cứ lúc nào",
+      "rule6": "Rút vốn cần admin xem xét"
+    }
+  },
+  "signals": {
+    "title": "Tín hiệu Giao dịch",
+    "subtitle": "Tín hiệu AI lúc 14:00 và 21:00 mỗi ngày",
+    "session_14": "Phiên Chiều",
+    "session_21": "Phiên Tối",
+    "confirm_btn": "Xác nhận AI",
+    "confirmed": "Đã xác nhận",
+    "waiting": "Chờ phiên giao dịch",
+    "session_open": "Phiên đang mở",
+    "session_closed": "Phiên đã đóng",
+    "time_remaining": "Nút còn hiệu lực",
+    "confirm_amount": "Số tiền tín hiệu (1% số dư)",
+    "confirm_dialog": {
+      "title": "Xác nhận Tín hiệu AI",
+      "description": "Bạn đang xác nhận tín hiệu giao dịch. Sẽ sử dụng 1% số dư hiện tại của bạn.",
+      "amount_label": "Số tiền tín hiệu",
+      "balance_label": "Số dư hiện tại",
+      "warning": "Hành động này không thể hoàn tác.",
+      "confirm": "Xác nhận",
+      "cancel": "Hủy"
+    },
+    "history": {
+      "title": "Lịch sử Tín hiệu",
+      "session": "Phiên",
+      "amount": "Số tiền",
+      "profit": "Lợi nhuận",
+      "status": "Trạng thái"
+    },
+    "no_package": "Bạn cần có gói đầu tư để xác nhận tín hiệu.",
+    "insufficient_balance": "Số dư không đủ để xác nhận tín hiệu.",
+    "already_confirmed": "Bạn đã xác nhận phiên này rồi."
+  },
+  "referral": {
+    "title": "Mạng lưới Giới thiệu",
+    "my_code": "Mã giới thiệu của tôi",
+    "invite_link": "Link mời",
+    "share": "Chia sẻ link giới thiệu để kiếm hoa hồng",
+    "commission_structure": {
+      "title": "Cấu trúc Hoa hồng",
+      "deposit_bonus": "Hoa hồng Nạp tiền",
+      "profit_bonus": "Hoa hồng Lợi nhuận (Lãi chồng lãi)",
+      "f1": "Cấp 1 (F1)",
+      "f2": "Cấp 2 (F2)",
+      "f3": "Cấp 3 (F3)"
+    },
+    "team": {
+      "title": "Đội nhóm của tôi",
+      "total_members": "Tổng thành viên",
+      "f1_members": "Thành viên F1",
+      "f2_members": "Thành viên F2",
+      "f3_members": "Thành viên F3",
+      "member_name": "Thành viên",
+      "level": "Cấp",
+      "joined": "Ngày tham gia",
+      "total_deposited": "Tổng đã nạp"
+    },
+    "leader_bonus": {
+      "title": "Thưởng Leader",
+      "subtitle": "Thưởng hàng tuần dựa trên số lượng thành viên F1 trực tiếp",
+      "current_level": "Cấp Leader hiện tại",
+      "next_level": "Cấp tiếp theo",
+      "f1_needed": "Cần thêm thành viên F1",
+      "weekly_bonus": "Thưởng tuần",
+      "levels": {
+        "1": "Leader 1 (≥10 F1) - $50/tuần",
+        "2": "Leader 2 (≥20 F1) - $100/tuần",
+        "3": "Leader 3 (≥50 F1) - $200/tuần",
+        "4": "Leader 4 (≥100 F1) - $500/tuần",
+        "5": "Leader 5 (≥200 F1) - $1,000/tuần"
+      }
+    }
+  },
+  "wallet": {
+    "deposit": {
+      "title": "Nạp tiền",
+      "subtitle": "Thêm tiền vào tài khoản",
+      "select_package": "Chọn gói đầu tư",
+      "package_label": "Gói",
+      "amount": "Số tiền nạp",
+      "min_amount": "Nạp tối thiểu: $200",
+      "network": "Mạng",
+      "wallet_address": "Địa chỉ ví nạp tiền",
+      "copy_address": "Sao chép địa chỉ",
+      "confirm_btn": "Tôi đã chuyển tiền",
+      "qr_title": "Quét mã QR",
+      "instructions": {
+        "title": "Hướng dẫn nạp tiền",
+        "step1": "Chọn gói đầu tư",
+        "step2": "Chuyển USDT (TRC20) đến địa chỉ trên",
+        "step3": "Bấm \"Tôi đã chuyển tiền\" trong vòng 5 phút",
+        "step4": "Chờ admin xác nhận (trong vòng 24 giờ)"
+      },
+      "pending_notice": "Yêu cầu nạp tiền đang được xem xét. Vui lòng chờ admin xác nhận.",
+      "success": "Đã gửi yêu cầu nạp tiền. Vui lòng chờ xác nhận."
+    },
+    "withdraw": {
+      "title": "Rút tiền",
+      "profit_tab": "Rút lợi nhuận",
+      "capital_tab": "Rút tiền gốc",
+      "amount": "Số tiền rút",
+      "min_amount": "Tối thiểu: $10",
+      "wallet_address": "Địa chỉ ví của bạn (TRC20)",
+      "wallet_placeholder": "Nhập địa chỉ USDT TRC20",
+      "fee": "Phí rút tiền (3%)",
+      "you_receive": "Thực nhận",
+      "submit": "Gửi yêu cầu rút",
+      "available": "Có thể rút",
+      "capital_locked": "Vốn vẫn đang khóa",
+      "capital_unlocked": "Vốn đã mở khóa",
+      "capital_warning": "Rút vốn sẽ đóng đầu tư của bạn. Yêu cầu này sẽ được admin xem xét.",
+      "time_notice": "Rút tiền được xử lý từ 22:00 - 24:00 mỗi ngày",
+      "success": "Gửi yêu cầu rút tiền thành công.",
+      "error": {
+        "insufficient": "Số dư không đủ",
+        "below_minimum": "Số tiền thấp hơn mức tối thiểu",
+        "capital_locked": "Vốn vẫn còn khóa {days} ngày nữa",
+        "no_address": "Vui lòng nhập địa chỉ ví"
+      }
+    },
+    "history": {
+      "title": "Lịch sử Giao dịch",
+      "all": "Tất cả",
+      "deposits": "Nạp tiền",
+      "withdrawals": "Rút tiền",
+      "profits": "Lợi nhuận tín hiệu",
+      "referrals": "Hoa hồng giới thiệu",
+      "adjustments": "Điều chỉnh Admin",
+      "type": {
+        "deposit": "Nạp tiền",
+        "withdraw_profit": "Rút lợi nhuận",
+        "withdraw_capital": "Rút tiền gốc",
+        "signal_profit": "Lợi nhuận tín hiệu",
+        "signal_referral": "Hoa hồng tín hiệu",
+        "deposit_referral": "Hoa hồng nạp tiền",
+        "leader_bonus": "Thưởng Leader",
+        "admin_adjust": "Điều chỉnh Admin"
+      }
+    }
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "profile": {
+      "title": "Hồ sơ",
+      "full_name": "Họ và tên",
+      "email": "Email",
+      "update": "Cập nhật hồ sơ"
+    },
+    "password": {
+      "title": "Đổi mật khẩu",
+      "current": "Mật khẩu hiện tại",
+      "new": "Mật khẩu mới",
+      "confirm": "Xác nhận mật khẩu mới",
+      "submit": "Đổi mật khẩu",
+      "success": "Đổi mật khẩu thành công",
+      "error": {
+        "wrong_current": "Mật khẩu hiện tại không đúng",
+        "mismatch": "Mật khẩu mới không khớp"
+      }
+    },
+    "cccd": {
+      "title": "Xác minh danh tính",
+      "subtitle": "Tải lên Căn cước công dân (1 mặt)",
+      "upload": "Tải lên CCCD",
+      "uploaded": "Đã tải lên CCCD",
+      "change": "Đổi ảnh CCCD",
+      "note": "Vui lòng tải ảnh rõ nét mặt trước của CCCD",
+      "success": "Tải lên CCCD thành công"
+    }
+  },
+  "notifications": {
+    "title": "Thông báo",
+    "mark_all_read": "Đánh dấu tất cả đã đọc",
+    "no_notifications": "Chưa có thông báo",
+    "types": {
+      "deposit": "Nạp tiền",
+      "withdrawal": "Rút tiền",
+      "signal": "Tín hiệu giao dịch",
+      "referral": "Hoa hồng giới thiệu",
+      "leader": "Thưởng Leader",
+      "admin": "Thông báo Admin",
+      "system": "Hệ thống"
+    }
+  },
+  "admin": {
+    "nav": {
+      "dashboard": "Tổng quan",
+      "users": "Người dùng",
+      "signals": "Phiên tín hiệu",
+      "deposits": "Nạp tiền",
+      "withdrawals": "Rút tiền",
+      "transactions": "Giao dịch",
+      "compound": "Lãi chồng lãi",
+      "leader": "Thưởng Leader",
+      "cccd": "Xác minh CCCD",
+      "wallets": "Ví tiền",
+      "settings": "Cài đặt"
+    },
+    "dashboard": {
+      "title": "Tổng quan Admin",
+      "total_users": "Tổng người dùng",
+      "active_users": "Đang hoạt động",
+      "total_deposited": "Tổng đã nạp",
+      "total_withdrawn": "Tổng đã rút",
+      "pending_deposits": "Chờ duyệt nạp",
+      "pending_withdrawals": "Chờ duyệt rút",
+      "total_balance": "Tổng số dư user"
+    },
+    "users": {
+      "title": "Quản lý Người dùng",
+      "search": "Tìm theo email hoặc tên",
+      "add_balance": "Cộng tiền",
+      "subtract_balance": "Trừ tiền",
+      "adjust_balance": "Điều chỉnh số dư",
+      "adjust_reason": "Lý do điều chỉnh",
+      "view_tree": "Xem cây giới thiệu",
+      "referral_tree": "Cây giới thiệu",
+      "disable": "Vô hiệu hóa",
+      "enable": "Kích hoạt",
+      "columns": {
+        "id": "ID",
+        "name": "Tên",
+        "email": "Email",
+        "package": "Gói",
+        "balance": "Số dư lợi nhuận",
+        "capital": "Vốn khóa",
+        "f1": "Số F1",
+        "joined": "Ngày đăng ký",
+        "status": "Trạng thái"
+      }
+    },
+    "signals": {
+      "title": "Quản lý Tín hiệu",
+      "create_session": "Tạo phiên",
+      "approve_profit": "Duyệt lợi nhuận",
+      "bulk_approve": "Duyệt tất cả",
+      "confirmations": "Danh sách xác nhận",
+      "profit_percent": "% Lợi nhuận",
+      "profit_amount": "Số tiền lợi nhuận",
+      "columns": {
+        "user": "Người dùng",
+        "balance": "Số dư khi xác nhận",
+        "amount": "Số tiền tín hiệu",
+        "profit": "Lợi nhuận",
+        "status": "Trạng thái",
+        "time": "Thời gian xác nhận"
+      }
+    },
+    "deposits": {
+      "title": "Duyệt Nạp tiền",
+      "approve": "Duyệt",
+      "reject": "Từ chối",
+      "columns": {
+        "user": "Người dùng",
+        "package": "Gói",
+        "amount": "Số tiền",
+        "network": "Mạng",
+        "date": "Ngày",
+        "status": "Trạng thái"
+      }
+    },
+    "withdrawals": {
+      "title": "Duyệt Rút tiền",
+      "profit_tab": "Rút lợi nhuận",
+      "capital_tab": "Rút vốn gốc (28 ngày)",
+      "approve": "Duyệt",
+      "reject": "Từ chối",
+      "wallet": "Địa chỉ ví",
+      "columns": {
+        "user": "Người dùng",
+        "amount": "Số tiền",
+        "fee": "Phí",
+        "net": "Thực rút",
+        "wallet": "Địa chỉ ví",
+        "date": "Ngày",
+        "status": "Trạng thái"
+      }
+    },
+    "transactions": {
+      "title": "Lịch sử Giao dịch",
+      "deposit_referral_tab": "Nạp tiền & Hoa hồng nạp & Rút tiền",
+      "signal_compound_tab": "Xác nhận AI & Lãi chồng lãi"
+    },
+    "compound": {
+      "title": "Lãi chồng lãi",
+      "subtitle": "Hoa hồng lợi nhuận từ tín hiệu của đội nhóm",
+      "beneficiary": "Người nhận",
+      "source_user": "Từ thành viên",
+      "level": "Cấp",
+      "source_profit": "Lợi nhuận gốc",
+      "commission_rate": "Tỷ lệ",
+      "commission": "Hoa hồng nhận được"
+    },
+    "leader": {
+      "title": "Quản lý Thưởng Leader",
+      "week": "Tuần",
+      "generate": "Tạo thưởng tuần",
+      "pay": "Đánh dấu đã trả",
+      "columns": {
+        "user": "Người dùng",
+        "f1_count": "Số F1",
+        "level": "Cấp Leader",
+        "bonus": "Thưởng",
+        "week": "Tuần",
+        "status": "Trạng thái"
+      }
+    },
+    "cccd": {
+      "title": "Xác minh CCCD",
+      "subtitle": "Người dùng đã tải lên CCCD",
+      "view": "Xem CCCD",
+      "columns": {
+        "user": "Người dùng",
+        "email": "Email",
+        "uploaded": "Ngày tải lên",
+        "action": "Hành động"
+      }
+    },
+    "wallets": {
+      "title": "Cài đặt Ví",
+      "trc20_address": "Địa chỉ ví USDT TRC20 nhận tiền nạp",
+      "save": "Lưu địa chỉ ví"
+    },
+    "settings": {
+      "title": "Cài đặt Hệ thống",
+      "trading": "Cài đặt Giao dịch",
+      "referral": "Cài đặt Giới thiệu",
+      "leader": "Cài đặt Thưởng Leader",
+      "withdrawal": "Cài đặt Rút tiền"
+    }
+  },
+  "errors": {
+    "not_found": "Không tìm thấy trang",
+    "unauthorized": "Vui lòng đăng nhập để tiếp tục",
+    "forbidden": "Bạn không có quyền truy cập trang này",
+    "server_error": "Lỗi máy chủ. Vui lòng thử lại.",
+    "network_error": "Lỗi kết nối mạng. Vui lòng kiểm tra."
+  }
+}

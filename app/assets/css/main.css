@@ -1,0 +1,265 @@
+@import "tailwindcss";
+
+/* Signal Universe - Custom Design System */
+
+:root {
+  --su-primary: #6366f1;
+  --su-primary-dark: #4f46e5;
+  --su-accent: #8b5cf6;
+  --su-gold: #f59e0b;
+  --su-green: #10b981;
+  --su-red: #ef4444;
+  --su-bg-dark: #0a0f1e;
+  --su-bg-card: #0f172a;
+  --su-bg-card2: #1e293b;
+  --su-border: #1e293b;
+  --su-text: #e2e8f0;
+  --su-text-muted: #94a3b8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--su-bg-dark);
+  color: var(--su-text);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+}
+
+/* Page transitions */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--su-bg-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Glow effects */
+.glow-primary {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+}
+.glow-green {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+}
+.glow-gold {
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-gold {
+  background: linear-gradient(135deg, #f59e0b, #fbbf24, #f97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Cards */
+.su-card {
+  background: var(--su-bg-card);
+  border: 1px solid var(--su-border);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.su-card-hover {
+  transition: all 0.2s ease;
+}
+.su-card-hover:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Hero background */
+.hero-bg {
+  background: radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+              var(--su-bg-dark);
+}
+
+/* Grid background pattern */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Status badges */
+.status-pending {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+.status-completed {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+.status-rejected {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* Investment package cards */
+.package-card {
+  background: linear-gradient(135deg, var(--su-bg-card) 0%, var(--su-bg-card2) 100%);
+  border: 1px solid var(--su-border);
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.package-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.package-card:hover::before {
+  opacity: 1;
+}
+
+.package-card:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+.package-card-popular {
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
+}
+
+.package-card-popular::before {
+  opacity: 1;
+}
+
+/* Signal timer */
+.signal-timer {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+/* Animated pulse for active signal */
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+.pulse-ring {
+  animation: pulse-ring 1.5s ease-out infinite;
+}
+
+/* Admin sidebar */
+.admin-sidebar {
+  background: var(--su-bg-card);
+  border-right: 1px solid var(--su-border);
+}
+
+/* Tables */
+.su-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.su-table th {
+  background: var(--su-bg-card2);
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--su-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--su-border);
+}
+
+.su-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+  font-size: 14px;
+}
+
+.su-table tr:hover td {
+  background: rgba(99, 102, 241, 0.03);
+}
+
+/* Loading skeleton */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #1e293b 25%, #2d3f5a 50%, #1e293b 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Number counter animation */
+.counter-text {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Mobile nav */
+@media (max-width: 768px) {
+  .su-card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+}

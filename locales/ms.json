@@ -1,0 +1,122 @@
+{
+  "common": {
+    "loading": "Memuatkan...",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "confirm": "Sahkan",
+    "submit": "Hantar",
+    "back": "Kembali",
+    "close": "Tutup",
+    "search": "Cari",
+    "filter": "Tapis",
+    "all": "Semua",
+    "yes": "Ya",
+    "no": "Tidak",
+    "or": "atau",
+    "copy": "Salin",
+    "copied": "Disalin!",
+    "error": "Ralat",
+    "success": "Berjaya",
+    "warning": "Amaran",
+    "info": "Maklumat",
+    "status": "Status",
+    "amount": "Jumlah",
+    "date": "Tarikh",
+    "action": "Tindakan",
+    "details": "Butiran",
+    "note": "Nota",
+    "total": "Jumlah",
+    "balance": "Baki",
+    "profit": "Keuntungan",
+    "pending": "Menunggu",
+    "completed": "Selesai",
+    "rejected": "Ditolak",
+    "cancelled": "Dibatalkan",
+    "approved": "Diluluskan",
+    "usd": "USD",
+    "upload": "Muat naik",
+    "download": "Muat turun",
+    "logout": "Log keluar",
+    "days": "hari",
+    "hours": "jam",
+    "minutes": "minit",
+    "seconds": "saat"
+  },
+  "nav": {
+    "home": "Laman Utama",
+    "dashboard": "Papan Pemuka",
+    "investment": "Pakej Pelaburan",
+    "signals": "Isyarat",
+    "referral": "Rujukan",
+    "wallet": "Dompet",
+    "settings": "Tetapan",
+    "notifications": "Pemberitahuan",
+    "login": "Log Masuk",
+    "register": "Daftar",
+    "admin": "Panel Admin"
+  },
+  "home": {
+    "hero": {
+      "badge": "Isyarat Dagangan Berkuasa AI",
+      "title": "Signal Universe",
+      "subtitle": "Platform Isyarat Dagangan Pintar",
+      "description": "Terima isyarat dagangan profesional, jana keuntungan harian dan bina pendapatan pasif melalui rangkaian rujukan yang kuat.",
+      "cta_primary": "Mula Melabur",
+      "cta_secondary": "Ketahui Lebih Lanjut",
+      "stats": {
+        "users": "Pengguna Aktif",
+        "daily_signals": "Isyarat Harian",
+        "max_profit": "Keuntungan Harian Maks",
+        "languages": "Bahasa"
+      }
+    },
+    "features": {
+      "title": "Mengapa Signal Universe?",
+      "subtitle": "Semua yang anda perlukan untuk berjaya dalam dagangan",
+      "signal": { "title": "Isyarat Dagangan AI", "description": "Terima 2 isyarat dagangan profesional setiap hari pada pukul 14:00 dan 21:00. Sahkan dengan satu klik dan jana keuntungan." },
+      "referral": { "title": "Program Rujukan", "description": "Jana komisen sehingga 3 peringkat. 5% komisen deposit F1 dan sehingga 15% keuntungan dagangan." },
+      "leader": { "title": "Bonus Pemimpin", "description": "Jana bonus mingguan sehingga $1,000 berdasarkan saiz rangkaian terus anda." },
+      "secure": { "title": "Selamat & Telus", "description": "Semua transaksi direkod dan dijejak. Keuntungan diluluskan admin memastikan ketelusan penuh." }
+    },
+    "how_it_works": {
+      "title": "Cara Ia Berfungsi",
+      "step1": { "title": "Daftar & Deposit", "description": "Buat akaun dan deposit minimum $200 untuk aktifkan pakej DeFi anda." },
+      "step2": { "title": "Sahkan Isyarat", "description": "Pada pukul 14:00 dan 21:00, sahkan isyarat AI. Setiap isyarat menggunakan 1% baki akaun." },
+      "step3": { "title": "Jana Keuntungan", "description": "Admin meluluskan keuntungan dagangan anda. Maksimum 2% keuntungan harian." },
+      "step4": { "title": "Keluarkan & Kembangkan", "description": "Keluarkan keuntungan bila-bila masa. Bina rangkaian rujukan untuk komisen tambahan." }
+    },
+    "packages": {
+      "title": "Pakej Pelaburan",
+      "subtitle": "Pilih pakej yang sesuai dengan matlamat anda",
+      "defi_badge": "DeFi",
+      "min_deposit": "Deposit Min",
+      "daily_profit": "Keuntungan Harian",
+      "max_profit": "Maks 2%/hari",
+      "join": "Mulakan",
+      "popular": "Paling Popular"
+    },
+    "cta": {
+      "title": "Bersedia Untuk Mulakan?",
+      "description": "Sertai ribuan pelabur yang menjana keuntungan harian dengan Signal Universe.",
+      "button": "Buat Akaun Sekarang"
+    }
+  },
+  "auth": {
+    "login": { "title": "Selamat Kembali", "subtitle": "Log masuk ke akaun anda", "email": "Alamat E-mel", "password": "Kata Laluan", "forgot_password": "Lupa Kata Laluan?", "submit": "Log Masuk", "no_account": "Tiada akaun?", "register_link": "Daftar di sini", "error": { "invalid_credentials": "E-mel atau kata laluan tidak sah", "account_disabled": "Akaun anda telah dilumpuhkan" } },
+    "register": { "title": "Buat Akaun", "subtitle": "Sertai Signal Universe hari ini", "full_name": "Nama Penuh", "email": "Alamat E-mel", "password": "Kata Laluan", "confirm_password": "Sahkan Kata Laluan", "referral_code": "Kod Rujukan (pilihan)", "submit": "Buat Akaun", "have_account": "Sudah ada akaun?", "login_link": "Log masuk", "terms": "Dengan mendaftar, anda bersetuju dengan Terma Perkhidmatan kami", "error": { "email_exists": "E-mel sudah didaftarkan", "password_mismatch": "Kata laluan tidak sepadan", "invalid_referral": "Kod rujukan tidak sah", "password_weak": "Kata laluan mestilah sekurang-kurangnya 8 aksara" } },
+    "forgot_password": { "title": "Set Semula Kata Laluan", "subtitle": "Masukkan e-mel anda untuk menerima kod set semula", "email": "Alamat E-mel", "submit": "Hantar Kod Set Semula", "back_to_login": "Kembali ke Log Masuk", "code_sent": "Kod set semula dihantar ke e-mel anda", "enter_code": "Masukkan kod 6 digit yang dihantar ke", "new_password": "Kata Laluan Baru", "confirm_new_password": "Sahkan Kata Laluan Baru", "reset_submit": "Set Semula Kata Laluan", "success": "Kata laluan berjaya ditetapkan semula. Sila log masuk." }
+  },
+  "dashboard": { "title": "Papan Pemuka", "welcome": "Selamat kembali", "profit_balance": "Baki Keuntungan", "locked_capital": "Modal Terkunci", "total_balance": "Jumlah Baki", "investment_package": "Pakej Pelaburan", "package_none": "Tiada pakej aktif", "capital_locked_until": "Modal terkunci sehingga", "capital_unlocked": "Modal boleh dikeluarkan", "quick_stats": { "total_deposited": "Jumlah Deposit", "total_profit": "Jumlah Keuntungan", "total_referral": "Bonus Rujukan", "direct_members": "Ahli Terus (F1)" }, "signals_today": "Isyarat Hari Ini", "signal_14": "Isyarat 14:00", "signal_21": "Isyarat 21:00", "recent_transactions": "Transaksi Terkini" },
+  "investment": { "title": "Pakej Pelaburan", "subtitle": "Pilih dan aktifkan pakej DeFi anda", "current_package": "Pakej Semasa", "no_package": "Tiada pakej aktif", "select_package": "Pilih Pakej", "upgrade": "Naik Taraf Pakej", "topup": "Tambah Dana", "packages": { "200": { "name": "Pemula", "description": "Sesuai untuk pemula" }, "300": { "name": "Asas", "description": "Pertumbuhan mantap" }, "500": { "name": "Standard", "description": "Pelaburan seimbang" }, "1000": { "name": "Lanjutan", "description": "Pulangan lebih tinggi" }, "2000": { "name": "Premium", "description": "Dagangan hasil tinggi" }, "5000": { "name": "Elite", "description": "Potensi maksimum" } }, "rules": { "title": "Peraturan Pelaburan", "rule1": "Minimum $200 untuk aktifkan pakej DeFi", "rule2": "Modal dikunci 28 hari dari deposit pertama", "rule3": "Setiap isyarat menggunakan 1% baki akaun", "rule4": "Keuntungan harian maksimum 2%", "rule5": "Keuntungan boleh dikeluarkan bila-bila masa", "rule6": "Pengeluaran modal memerlukan semakan admin" } },
+  "signals": { "title": "Isyarat Dagangan", "subtitle": "Isyarat AI pada pukul 14:00 dan 21:00 setiap hari", "session_14": "Sesi Petang", "session_21": "Sesi Malam", "confirm_btn": "Sahkan Isyarat AI", "confirmed": "Isyarat Disahkan", "waiting": "Menunggu sesi", "session_open": "Sesi Dibuka", "session_closed": "Sesi Ditutup", "time_remaining": "Butang sah untuk", "confirm_amount": "Jumlah isyarat (1% baki)", "confirm_dialog": { "title": "Sahkan Isyarat AI", "description": "Anda akan mengesahkan isyarat dagangan ini, menggunakan 1% baki semasa anda.", "amount_label": "Jumlah Isyarat", "balance_label": "Baki Semasa", "warning": "Tindakan ini tidak boleh dibatalkan.", "confirm": "Sahkan", "cancel": "Batal" }, "history": { "title": "Sejarah Isyarat", "session": "Sesi", "amount": "Jumlah", "profit": "Keuntungan", "status": "Status" }, "no_package": "Anda memerlukan pakej pelaburan aktif untuk mengesahkan isyarat.", "insufficient_balance": "Baki tidak mencukupi untuk mengesahkan isyarat.", "already_confirmed": "Anda telah mengesahkan sesi ini." },
+  "referral": { "title": "Rangkaian Rujukan Saya", "my_code": "Kod Rujukan Saya", "invite_link": "Pautan Jemputan", "share": "Kongsi pautan rujukan anda untuk jana komisen", "commission_structure": { "title": "Struktur Komisen", "deposit_bonus": "Komisen Deposit", "profit_bonus": "Komisen Keuntungan (Faedah Kompaun)", "f1": "Peringkat 1 (F1)", "f2": "Peringkat 2 (F2)", "f3": "Peringkat 3 (F3)" }, "team": { "title": "Pasukan Saya", "total_members": "Jumlah Ahli", "f1_members": "Ahli F1", "f2_members": "Ahli F2", "f3_members": "Ahli F3", "member_name": "Ahli", "level": "Peringkat", "joined": "Tarikh Sertai", "total_deposited": "Jumlah Deposit" }, "leader_bonus": { "title": "Bonus Pemimpin", "subtitle": "Bonus mingguan berdasarkan bilangan ahli F1 terus anda", "current_level": "Peringkat Pemimpin Semasa", "next_level": "Peringkat Seterusnya", "f1_needed": "Ahli F1 diperlukan", "weekly_bonus": "Bonus Mingguan", "levels": { "1": "Pemimpin 1 (≥10 F1) - $50/minggu", "2": "Pemimpin 2 (≥20 F1) - $100/minggu", "3": "Pemimpin 3 (≥50 F1) - $200/minggu", "4": "Pemimpin 4 (≥100 F1) - $500/minggu", "5": "Pemimpin 5 (≥200 F1) - $1,000/minggu" } } },
+  "wallet": {
+    "deposit": { "title": "Deposit", "subtitle": "Tambah dana ke akaun anda", "select_package": "Pilih Pakej Pelaburan", "package_label": "Pakej", "amount": "Jumlah Deposit", "min_amount": "Deposit minimum: $200", "network": "Rangkaian", "wallet_address": "Deposit ke alamat ini", "copy_address": "Salin Alamat", "confirm_btn": "Saya Telah Membuat Pembayaran", "qr_title": "Imbas Kod QR", "instructions": { "title": "Arahan Deposit", "step1": "Pilih pakej pelaburan anda", "step2": "Hantar USDT (TRC20) ke alamat di atas", "step3": "Klik \"Saya Telah Membuat Pembayaran\" dalam 5 minit", "step4": "Tunggu pengesahan admin (dalam 24 jam)" }, "pending_notice": "Deposit anda sedang disemak. Sila tunggu pengesahan admin.", "success": "Permohonan deposit dihantar. Sila tunggu pengesahan." },
+    "withdraw": { "title": "Pengeluaran", "profit_tab": "Keluarkan Keuntungan", "capital_tab": "Keluarkan Modal", "amount": "Jumlah Pengeluaran", "min_amount": "Minimum: $10", "wallet_address": "Alamat Dompet Anda (TRC20)", "wallet_placeholder": "Masukkan alamat USDT TRC20", "fee": "Yuran Pengeluaran (3%)", "you_receive": "Anda Akan Terima", "submit": "Hantar Permohonan", "available": "Boleh dikeluarkan", "capital_locked": "Modal masih dikunci", "capital_unlocked": "Modal boleh dikeluarkan", "capital_warning": "Mengeluarkan modal akan menutup pelaburan anda. Permohonan ini akan disemak oleh admin.", "time_notice": "Pengeluaran diproses antara pukul 22:00 - 24:00 setiap hari", "success": "Permohonan pengeluaran berjaya dihantar.", "error": { "insufficient": "Baki tidak mencukupi", "below_minimum": "Jumlah di bawah minimum pengeluaran", "capital_locked": "Modal masih dikunci {days} hari lagi", "no_address": "Sila masukkan alamat dompet anda" } },
+    "history": { "title": "Sejarah Transaksi", "all": "Semua", "deposits": "Deposit", "withdrawals": "Pengeluaran", "profits": "Keuntungan Isyarat", "referrals": "Bonus Rujukan", "adjustments": "Pelarasan Admin", "type": { "deposit": "Deposit", "withdraw_profit": "Keluarkan Keuntungan", "withdraw_capital": "Keluarkan Modal", "signal_profit": "Keuntungan Isyarat", "signal_referral": "Keuntungan Rujukan", "deposit_referral": "Komisen Deposit", "leader_bonus": "Bonus Pemimpin", "admin_adjust": "Pelarasan Admin" } }
+  },
+  "settings": { "title": "Tetapan", "profile": { "title": "Profil", "full_name": "Nama Penuh", "email": "E-mel", "update": "Kemaskini Profil" }, "password": { "title": "Tukar Kata Laluan", "current": "Kata Laluan Semasa", "new": "Kata Laluan Baru", "confirm": "Sahkan Kata Laluan Baru", "submit": "Tukar Kata Laluan", "success": "Kata laluan berjaya ditukar", "error": { "wrong_current": "Kata laluan semasa tidak betul", "mismatch": "Kata laluan baru tidak sepadan" } }, "cccd": { "title": "Pengesahan Identiti", "subtitle": "Muat naik Kad Pengenalan (satu muka)", "upload": "Muat Naik KP", "uploaded": "KP Dimuat Naik", "change": "Tukar KP", "note": "Sila muat naik foto jelas bahagian hadapan kad pengenalan anda", "success": "Kad pengenalan berjaya dimuat naik" } },
+  "notifications": { "title": "Pemberitahuan", "mark_all_read": "Tandakan Semua Sebagai Dibaca", "no_notifications": "Tiada pemberitahuan lagi", "types": { "deposit": "Deposit", "withdrawal": "Pengeluaran", "signal": "Isyarat Dagangan", "referral": "Bonus Rujukan", "leader": "Bonus Pemimpin", "admin": "Notis Admin", "system": "Sistem" } },
+  "admin": { "nav": { "dashboard": "Papan Pemuka", "users": "Pengguna", "signals": "Sesi Isyarat", "deposits": "Deposit", "withdrawals": "Pengeluaran", "transactions": "Transaksi", "compound": "Faedah Kompaun", "leader": "Bonus Pemimpin", "cccd": "Pengesahan KP", "wallets": "Dompet", "settings": "Tetapan" }, "dashboard": { "title": "Papan Pemuka Admin", "total_users": "Jumlah Pengguna", "active_users": "Pengguna Aktif", "total_deposited": "Jumlah Deposit", "total_withdrawn": "Jumlah Dikeluarkan", "pending_deposits": "Deposit Tertangguh", "pending_withdrawals": "Pengeluaran Tertangguh", "total_balance": "Jumlah Baki Pengguna" }, "users": { "title": "Pengurusan Pengguna", "search": "Cari mengikut e-mel atau nama", "add_balance": "Tambah Baki", "subtract_balance": "Tolak Baki", "adjust_balance": "Laraskan Baki", "adjust_reason": "Sebab pelarasan", "view_tree": "Lihat Pokok Rujukan", "referral_tree": "Pokok Rujukan", "disable": "Lumpuhkan Akaun", "enable": "Aktifkan Akaun", "columns": { "id": "ID", "name": "Nama", "email": "E-mel", "package": "Pakej", "balance": "Baki Keuntungan", "capital": "Modal Terkunci", "f1": "Bilangan F1", "joined": "Tarikh Daftar", "status": "Status" } }, "signals": { "title": "Pengurusan Sesi Isyarat", "create_session": "Buat Sesi", "approve_profit": "Luluskan Keuntungan", "bulk_approve": "Luluskan Semua", "confirmations": "Senarai Pengesahan", "profit_percent": "% Keuntungan", "profit_amount": "Jumlah Keuntungan", "columns": { "user": "Pengguna", "balance": "Baki Semasa Pengesahan", "amount": "Jumlah Isyarat", "profit": "Keuntungan", "status": "Status", "time": "Masa Pengesahan" } }, "deposits": { "title": "Permohonan Deposit", "approve": "Luluskan", "reject": "Tolak", "columns": { "user": "Pengguna", "package": "Pakej", "amount": "Jumlah", "network": "Rangkaian", "date": "Tarikh", "status": "Status" } }, "withdrawals": { "title": "Permohonan Pengeluaran", "profit_tab": "Pengeluaran Keuntungan", "capital_tab": "Pengeluaran Modal (28 hari)", "approve": "Luluskan", "reject": "Tolak", "wallet": "Alamat Dompet", "columns": { "user": "Pengguna", "amount": "Jumlah", "fee": "Yuran", "net": "Jumlah Bersih", "wallet": "Alamat Dompet", "date": "Tarikh", "status": "Status" } }, "transactions": { "title": "Sejarah Transaksi", "deposit_referral_tab": "Deposit & Komisen Deposit & Pengeluaran", "signal_compound_tab": "Pengesahan AI & Faedah Kompaun" }, "compound": { "title": "Faedah Kompaun", "subtitle": "Komisen rujukan dari keuntungan isyarat ahli pasukan", "beneficiary": "Penerima Manfaat", "source_user": "Daripada Ahli", "level": "Peringkat", "source_profit": "Keuntungan Sumber", "commission_rate": "Kadar", "commission": "Komisen Diterima" }, "leader": { "title": "Pengurusan Bonus Pemimpin", "week": "Minggu", "generate": "Jana Bonus Mingguan", "pay": "Tandakan Sebagai Dibayar", "columns": { "user": "Pengguna", "f1_count": "Bilangan F1", "level": "Peringkat Pemimpin", "bonus": "Bonus", "week": "Minggu", "status": "Status" } }, "cccd": { "title": "Pengesahan KP (CCCD)", "subtitle": "Pengguna yang telah memuat naik Kad Pengenalan", "view": "Lihat KP", "columns": { "user": "Pengguna", "email": "E-mel", "uploaded": "Tarikh Muat Naik", "action": "Tindakan" } }, "wallets": { "title": "Tetapan Dompet", "trc20_address": "Alamat Deposit USDT TRC20", "save": "Simpan Alamat Dompet" }, "settings": { "title": "Tetapan Sistem", "trading": "Tetapan Dagangan", "referral": "Tetapan Rujukan", "leader": "Tetapan Bonus Pemimpin", "withdrawal": "Tetapan Pengeluaran" } },
+  "errors": { "not_found": "Halaman tidak dijumpai", "unauthorized": "Sila log masuk untuk meneruskan", "forbidden": "Anda tidak mempunyai kebenaran untuk mengakses halaman ini", "server_error": "Ralat pelayan. Sila cuba lagi.", "network_error": "Ralat rangkaian. Sila semak sambungan anda." }
+}

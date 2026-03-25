@@ -1,0 +1,37 @@
+{
+  "name": "signal-universe",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "build:cf": "cross-env NITRO_PRESET=cloudflare-module nuxt build",
+    "deploy:cf": "npm run build:cf && wrangler deploy",
+    "postinstall": "nuxt prepare",
+    "seed": "tsx supabase/seed.ts"
+  },
+  "dependencies": {
+    "@nuxt/ui": "^3.0.2",
+    "@nuxtjs/i18n": "^9.5.3",
+    "@supabase/supabase-js": "^2.49.4",
+    "@vueuse/core": "^12.8.2",
+    "@vueuse/nuxt": "^12.8.2",
+    "bcryptjs": "^3.0.2",
+    "nanoid": "^5.1.5",
+    "nuxt": "^4.3.0",
+    "resend": "^4.5.1",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@iconify-json/heroicons": "^1.2.2",
+    "@iconify-json/lucide": "^1.2.38",
+    "@types/bcryptjs": "^2.4.6",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.5.0",
+    "tsx": "^4.19.3"
+  }
+}

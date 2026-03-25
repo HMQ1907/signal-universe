@@ -1,0 +1,548 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "submit": "Submit",
+    "back": "Back",
+    "close": "Close",
+    "search": "Search",
+    "filter": "Filter",
+    "all": "All",
+    "yes": "Yes",
+    "no": "No",
+    "or": "or",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Info",
+    "status": "Status",
+    "amount": "Amount",
+    "date": "Date",
+    "action": "Action",
+    "details": "Details",
+    "note": "Note",
+    "total": "Total",
+    "balance": "Balance",
+    "profit": "Profit",
+    "pending": "Pending",
+    "completed": "Completed",
+    "rejected": "Rejected",
+    "cancelled": "Cancelled",
+    "approved": "Approved",
+    "usd": "USD",
+    "upload": "Upload",
+    "download": "Download",
+    "logout": "Logout",
+    "days": "days",
+    "hours": "hours",
+    "minutes": "minutes",
+    "seconds": "seconds"
+  },
+  "nav": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "investment": "Investment",
+    "signals": "Signals",
+    "referral": "Referral",
+    "wallet": "Wallet",
+    "settings": "Settings",
+    "notifications": "Notifications",
+    "login": "Login",
+    "register": "Register",
+    "admin": "Admin Panel"
+  },
+  "home": {
+    "hero": {
+      "badge": "AI-Powered Trading Signals",
+      "title": "Signal Universe",
+      "subtitle": "Smart Trading Signal Platform",
+      "description": "Receive professional trading signals, earn daily profits, and build your passive income through our powerful referral network.",
+      "cta_primary": "Start Investing",
+      "cta_secondary": "Learn More",
+      "stats": {
+        "users": "Active Users",
+        "daily_signals": "Daily Signals",
+        "max_profit": "Max Daily Profit",
+        "languages": "Languages"
+      }
+    },
+    "features": {
+      "title": "Why Signal Universe?",
+      "subtitle": "Everything you need to succeed in trading",
+      "signal": {
+        "title": "AI Trading Signals",
+        "description": "Receive 2 professional trading signals daily at 14:00 and 21:00. Confirm with one click and earn profits."
+      },
+      "referral": {
+        "title": "Referral Program",
+        "description": "Earn commissions up to 3 levels deep. Get 5% on F1 deposits and up to 15% on trading profits."
+      },
+      "leader": {
+        "title": "Leader Bonus",
+        "description": "Earn weekly bonuses up to $1,000 based on the size of your direct network."
+      },
+      "secure": {
+        "title": "Secure & Transparent",
+        "description": "All transactions recorded and tracked. Admin-approved profits ensure complete transparency."
+      }
+    },
+    "how_it_works": {
+      "title": "How It Works",
+      "step1": { "title": "Register & Deposit", "description": "Create your account and deposit a minimum of $200 to activate your DeFi package." },
+      "step2": { "title": "Confirm Signals", "description": "At 14:00 and 21:00, confirm the AI trading signal. Each signal uses 1% of your balance." },
+      "step3": { "title": "Earn Profits", "description": "Admin approves your trading profit. Maximum 2% daily profit on your account balance." },
+      "step4": { "title": "Withdraw & Grow", "description": "Withdraw profits anytime. Build your referral network to earn extra commissions." }
+    },
+    "packages": {
+      "title": "Investment Packages",
+      "subtitle": "Choose the package that fits your goals",
+      "defi_badge": "DeFi Access",
+      "min_deposit": "Min. Deposit",
+      "daily_profit": "Daily Profit",
+      "max_profit": "Max 2%/day",
+      "join": "Get Started",
+      "popular": "Most Popular"
+    },
+    "cta": {
+      "title": "Ready to Start?",
+      "description": "Join thousands of investors earning daily profits with Signal Universe.",
+      "button": "Create Account Now"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your account",
+      "email": "Email Address",
+      "password": "Password",
+      "forgot_password": "Forgot Password?",
+      "submit": "Sign In",
+      "no_account": "Don't have an account?",
+      "register_link": "Register here",
+      "error": {
+        "invalid_credentials": "Invalid email or password",
+        "account_disabled": "Your account has been disabled"
+      }
+    },
+    "register": {
+      "title": "Create Account",
+      "subtitle": "Join Signal Universe today",
+      "full_name": "Full Name",
+      "email": "Email Address",
+      "password": "Password",
+      "confirm_password": "Confirm Password",
+      "referral_code": "Referral Code (optional)",
+      "submit": "Create Account",
+      "have_account": "Already have an account?",
+      "login_link": "Sign in",
+      "terms": "By registering, you agree to our Terms of Service",
+      "error": {
+        "email_exists": "Email already registered",
+        "password_mismatch": "Passwords do not match",
+        "invalid_referral": "Invalid referral code",
+        "password_weak": "Password must be at least 8 characters"
+      }
+    },
+    "forgot_password": {
+      "title": "Reset Password",
+      "subtitle": "Enter your email to receive a reset code",
+      "email": "Email Address",
+      "submit": "Send Reset Code",
+      "back_to_login": "Back to Login",
+      "code_sent": "Reset code sent to your email",
+      "enter_code": "Enter the 6-digit code sent to",
+      "new_password": "New Password",
+      "confirm_new_password": "Confirm New Password",
+      "reset_submit": "Reset Password",
+      "success": "Password reset successfully. Please login."
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back",
+    "profit_balance": "Profit Balance",
+    "locked_capital": "Locked Capital",
+    "total_balance": "Total Balance",
+    "investment_package": "Investment Package",
+    "package_none": "No active package",
+    "capital_locked_until": "Capital locked until",
+    "capital_unlocked": "Capital available for withdrawal",
+    "quick_stats": {
+      "total_deposited": "Total Deposited",
+      "total_profit": "Total Profit Earned",
+      "total_referral": "Total Referral Bonus",
+      "direct_members": "Direct Members (F1)"
+    },
+    "signals_today": "Today's Signals",
+    "signal_14": "14:00 Signal",
+    "signal_21": "21:00 Signal",
+    "recent_transactions": "Recent Transactions"
+  },
+  "investment": {
+    "title": "Investment Packages",
+    "subtitle": "Select and activate your DeFi investment package",
+    "current_package": "Current Package",
+    "no_package": "No active package",
+    "select_package": "Select Package",
+    "upgrade": "Upgrade Package",
+    "topup": "Top Up",
+    "packages": {
+      "200": { "name": "Starter", "description": "Perfect for beginners" },
+      "300": { "name": "Basic", "description": "Great for steady growth" },
+      "500": { "name": "Standard", "description": "Balanced investment" },
+      "1000": { "name": "Advanced", "description": "Enhanced returns" },
+      "2000": { "name": "Premium", "description": "High-yield trading" },
+      "5000": { "name": "Elite", "description": "Maximum potential" }
+    },
+    "rules": {
+      "title": "Investment Rules",
+      "rule1": "Minimum $200 to activate DeFi package",
+      "rule2": "Capital is locked for 28 days from first deposit",
+      "rule3": "Each signal uses 1% of your account balance",
+      "rule4": "Maximum 2% daily profit",
+      "rule5": "Profits can be withdrawn anytime",
+      "rule6": "Capital withdrawal requires admin review"
+    }
+  },
+  "signals": {
+    "title": "Trading Signals",
+    "subtitle": "AI-powered signals at 14:00 and 21:00 daily",
+    "session_14": "Afternoon Session",
+    "session_21": "Evening Session",
+    "confirm_btn": "Confirm AI Signal",
+    "confirmed": "Signal Confirmed",
+    "waiting": "Waiting for session",
+    "session_open": "Session Open",
+    "session_closed": "Session Closed",
+    "time_remaining": "Button available for",
+    "confirm_amount": "Signal amount (1% of balance)",
+    "confirm_dialog": {
+      "title": "Confirm AI Signal",
+      "description": "You are about to confirm the trading signal. This will use 1% of your current balance.",
+      "amount_label": "Signal Amount",
+      "balance_label": "Current Balance",
+      "warning": "This action cannot be undone.",
+      "confirm": "Confirm",
+      "cancel": "Cancel"
+    },
+    "history": {
+      "title": "Signal History",
+      "session": "Session",
+      "amount": "Signal Amount",
+      "profit": "Profit",
+      "status": "Status"
+    },
+    "no_package": "You need an active investment package to confirm signals.",
+    "insufficient_balance": "Insufficient balance to confirm signal.",
+    "already_confirmed": "You have already confirmed this session."
+  },
+  "referral": {
+    "title": "My Referral Network",
+    "my_code": "My Referral Code",
+    "invite_link": "Invite Link",
+    "share": "Share your referral link to earn commissions",
+    "commission_structure": {
+      "title": "Commission Structure",
+      "deposit_bonus": "Deposit Commission",
+      "profit_bonus": "Profit Commission (Compound Interest)",
+      "f1": "Level 1 (F1)",
+      "f2": "Level 2 (F2)",
+      "f3": "Level 3 (F3)"
+    },
+    "team": {
+      "title": "My Team",
+      "total_members": "Total Members",
+      "f1_members": "F1 Members",
+      "f2_members": "F2 Members",
+      "f3_members": "F3 Members",
+      "member_name": "Member",
+      "level": "Level",
+      "joined": "Joined",
+      "total_deposited": "Total Deposited"
+    },
+    "leader_bonus": {
+      "title": "Leader Bonus",
+      "subtitle": "Weekly bonus based on your direct F1 members",
+      "current_level": "Current Leader Level",
+      "next_level": "Next Level",
+      "f1_needed": "F1 members needed",
+      "weekly_bonus": "Weekly Bonus",
+      "levels": {
+        "1": "Leader 1 (≥10 F1) - $50/week",
+        "2": "Leader 2 (≥20 F1) - $100/week",
+        "3": "Leader 3 (≥50 F1) - $200/week",
+        "4": "Leader 4 (≥100 F1) - $500/week",
+        "5": "Leader 5 (≥200 F1) - $1,000/week"
+      }
+    }
+  },
+  "wallet": {
+    "deposit": {
+      "title": "Deposit",
+      "subtitle": "Add funds to your account",
+      "select_package": "Select Investment Package",
+      "package_label": "Package",
+      "amount": "Deposit Amount",
+      "min_amount": "Minimum deposit: $200",
+      "network": "Network",
+      "wallet_address": "Deposit to this address",
+      "copy_address": "Copy Address",
+      "confirm_btn": "I have sent the payment",
+      "qr_title": "Scan QR Code",
+      "instructions": {
+        "title": "Deposit Instructions",
+        "step1": "Select your investment package",
+        "step2": "Send USDT (TRC20) to the address above",
+        "step3": "Click \"I have sent the payment\" within 5 minutes",
+        "step4": "Wait for admin confirmation (within 24 hours)"
+      },
+      "pending_notice": "Your deposit is being reviewed. Please wait for admin confirmation.",
+      "success": "Deposit request submitted. Please wait for confirmation."
+    },
+    "withdraw": {
+      "title": "Withdraw",
+      "profit_tab": "Withdraw Profit",
+      "capital_tab": "Withdraw Capital",
+      "amount": "Withdrawal Amount",
+      "min_amount": "Minimum: $10",
+      "wallet_address": "Your Wallet Address (TRC20)",
+      "wallet_placeholder": "Enter your USDT TRC20 address",
+      "fee": "Withdrawal Fee (3%)",
+      "you_receive": "You Will Receive",
+      "submit": "Submit Withdrawal",
+      "available": "Available for withdrawal",
+      "capital_locked": "Capital is still locked",
+      "capital_unlocked": "Capital available for withdrawal",
+      "capital_warning": "Withdrawing your capital will close your investment. This request will be reviewed by admin.",
+      "time_notice": "Withdrawals are processed between 22:00 - 24:00 daily",
+      "success": "Withdrawal request submitted successfully.",
+      "error": {
+        "insufficient": "Insufficient balance",
+        "below_minimum": "Amount below minimum withdrawal",
+        "capital_locked": "Capital is still locked for {days} more days",
+        "no_address": "Please enter your wallet address"
+      }
+    },
+    "history": {
+      "title": "Transaction History",
+      "all": "All",
+      "deposits": "Deposits",
+      "withdrawals": "Withdrawals",
+      "profits": "Signal Profits",
+      "referrals": "Referral Bonus",
+      "adjustments": "Admin Adjustments",
+      "type": {
+        "deposit": "Deposit",
+        "withdraw_profit": "Withdraw Profit",
+        "withdraw_capital": "Withdraw Capital",
+        "signal_profit": "Signal Profit",
+        "signal_referral": "Referral Profit",
+        "deposit_referral": "Deposit Commission",
+        "leader_bonus": "Leader Bonus",
+        "admin_adjust": "Admin Adjustment"
+      }
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "profile": {
+      "title": "Profile",
+      "full_name": "Full Name",
+      "email": "Email",
+      "update": "Update Profile"
+    },
+    "password": {
+      "title": "Change Password",
+      "current": "Current Password",
+      "new": "New Password",
+      "confirm": "Confirm New Password",
+      "submit": "Change Password",
+      "success": "Password changed successfully",
+      "error": {
+        "wrong_current": "Current password is incorrect",
+        "mismatch": "New passwords do not match"
+      }
+    },
+    "cccd": {
+      "title": "Identity Verification",
+      "subtitle": "Upload your National ID Card (one side)",
+      "upload": "Upload ID Card",
+      "uploaded": "ID Card Uploaded",
+      "change": "Change ID Card",
+      "note": "Please upload a clear photo of your National ID Card (front side only)",
+      "success": "ID Card uploaded successfully"
+    }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "mark_all_read": "Mark All as Read",
+    "no_notifications": "No notifications yet",
+    "types": {
+      "deposit": "Deposit",
+      "withdrawal": "Withdrawal",
+      "signal": "Trading Signal",
+      "referral": "Referral Bonus",
+      "leader": "Leader Bonus",
+      "admin": "Admin Notice",
+      "system": "System"
+    }
+  },
+  "admin": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "users": "Users",
+      "signals": "Signal Sessions",
+      "deposits": "Deposits",
+      "withdrawals": "Withdrawals",
+      "transactions": "Transactions",
+      "compound": "Compound Interest",
+      "leader": "Leader Bonus",
+      "cccd": "ID Verification",
+      "wallets": "Wallets",
+      "settings": "Settings"
+    },
+    "dashboard": {
+      "title": "Admin Dashboard",
+      "total_users": "Total Users",
+      "active_users": "Active Users",
+      "total_deposited": "Total Deposited",
+      "total_withdrawn": "Total Withdrawn",
+      "pending_deposits": "Pending Deposits",
+      "pending_withdrawals": "Pending Withdrawals",
+      "total_balance": "Total User Balance"
+    },
+    "users": {
+      "title": "User Management",
+      "search": "Search by email or name",
+      "add_balance": "Add Balance",
+      "subtract_balance": "Subtract Balance",
+      "adjust_balance": "Adjust Balance",
+      "adjust_reason": "Reason for adjustment",
+      "view_tree": "View Referral Tree",
+      "referral_tree": "Referral Tree",
+      "disable": "Disable Account",
+      "enable": "Enable Account",
+      "columns": {
+        "id": "ID",
+        "name": "Name",
+        "email": "Email",
+        "package": "Package",
+        "balance": "Profit Balance",
+        "capital": "Locked Capital",
+        "f1": "F1 Count",
+        "joined": "Joined",
+        "status": "Status"
+      }
+    },
+    "signals": {
+      "title": "Signal Sessions",
+      "create_session": "Create Session",
+      "approve_profit": "Approve Profit",
+      "bulk_approve": "Bulk Approve",
+      "confirmations": "Confirmations",
+      "profit_percent": "Profit %",
+      "profit_amount": "Profit Amount",
+      "columns": {
+        "user": "User",
+        "balance": "Balance at Confirm",
+        "amount": "Signal Amount",
+        "profit": "Profit",
+        "status": "Status",
+        "time": "Confirmed At"
+      }
+    },
+    "deposits": {
+      "title": "Deposit Requests",
+      "approve": "Approve",
+      "reject": "Reject",
+      "columns": {
+        "user": "User",
+        "package": "Package",
+        "amount": "Amount",
+        "network": "Network",
+        "date": "Date",
+        "status": "Status"
+      }
+    },
+    "withdrawals": {
+      "title": "Withdrawal Requests",
+      "profit_tab": "Profit Withdrawals",
+      "capital_tab": "Capital Withdrawals (28-day lock)",
+      "approve": "Approve",
+      "reject": "Reject",
+      "wallet": "Wallet Address",
+      "columns": {
+        "user": "User",
+        "amount": "Amount",
+        "fee": "Fee",
+        "net": "Net Amount",
+        "wallet": "Wallet Address",
+        "date": "Date",
+        "status": "Status"
+      }
+    },
+    "transactions": {
+      "title": "Transaction History",
+      "deposit_referral_tab": "Deposits & Deposit Referrals & Withdrawals",
+      "signal_compound_tab": "Signal Confirmations & Compound Interest"
+    },
+    "compound": {
+      "title": "Compound Interest (Lãi chồng lãi)",
+      "subtitle": "Referral profit earned from team members' signal profits",
+      "beneficiary": "Beneficiary",
+      "source_user": "From Member",
+      "level": "Level",
+      "source_profit": "Source Profit",
+      "commission_rate": "Rate",
+      "commission": "Commission Earned"
+    },
+    "leader": {
+      "title": "Leader Bonus Management",
+      "week": "Week",
+      "generate": "Generate Weekly Bonuses",
+      "pay": "Mark as Paid",
+      "columns": {
+        "user": "User",
+        "f1_count": "F1 Count",
+        "level": "Leader Level",
+        "bonus": "Bonus",
+        "week": "Week",
+        "status": "Status"
+      }
+    },
+    "cccd": {
+      "title": "ID Verification (CCCD)",
+      "subtitle": "Users who have uploaded their National ID",
+      "view": "View ID",
+      "columns": {
+        "user": "User",
+        "email": "Email",
+        "uploaded": "Upload Date",
+        "action": "Action"
+      }
+    },
+    "wallets": {
+      "title": "Wallet Settings",
+      "trc20_address": "USDT TRC20 Deposit Address",
+      "save": "Save Wallet Address"
+    },
+    "settings": {
+      "title": "System Settings",
+      "trading": "Trading Settings",
+      "referral": "Referral Settings",
+      "leader": "Leader Bonus Settings",
+      "withdrawal": "Withdrawal Settings"
+    }
+  },
+  "errors": {
+    "not_found": "Page not found",
+    "unauthorized": "Please login to continue",
+    "forbidden": "You don't have permission to access this page",
+    "server_error": "Server error. Please try again later.",
+    "network_error": "Network error. Please check your connection."
+  }
+}
