@@ -1,61 +1,117 @@
 <template>
-  <div>
-    <div class="su-card">
-      <template v-if="step === 'email'">
-        <h1 class="text-2xl font-bold text-white mb-1">{{ $t('auth.forgot_password.title') }}</h1>
-        <p class="text-slate-400 text-sm mb-8">{{ $t('auth.forgot_password.subtitle') }}</p>
+  <UCard
+    class="auth-form-card border-white/10 bg-slate-900/70 shadow-2xl ring-1 ring-white/10 backdrop-blur-xl"
+    :ui="{
+      root: 'overflow-hidden rounded-2xl',
+      header: 'border-b border-white/5 pb-0',
+      body: { padding: 'p-6 sm:p-8' }
+    }"
+  >
+    <template #header>
+      <div v-if="step === 'email'" class="px-6 pb-2 pt-6 sm:px-8 sm:pt-8">
+        <h1 class="text-2xl font-bold text-white">{{ $t('auth.forgot_password.title') }}</h1>
+        <p class="mt-1 text-sm text-slate-400">{{ $t('auth.forgot_password.subtitle') }}</p>
+      </div>
+      <div v-else class="px-6 pb-2 pt-6 sm:px-8 sm:pt-8">
+        <h1 class="text-2xl font-bold text-white">Enter Reset Code</h1>
+        <p class="mt-1 text-sm text-slate-400">{{ $t('auth.forgot_password.enter_code') }}</p>
+        <p class="mt-2 text-sm font-medium text-primary-400">{{ emailState.email }}</p>
+      </div>
+    </template>
 
-        <UForm :state="emailState" @submit="sendCode" class="space-y-4">
-          <UFormGroup :label="$t('auth.forgot_password.email')" name="email">
-            <UInput v-model="emailState.email" type="email" icon="i-heroicons-envelope" />
-          </UFormGroup>
+    <UForm v-if="step === 'email'" :state="emailState" @submit="sendCode" class="space-y-6">
+      <UFormField :label="$t('auth.forgot_password.email')" name="email" size="lg">
+        <UInput
+          v-model="emailState.email"
+          type="email"
+          leading-icon="i-heroicons-envelope"
+          size="lg"
+          variant="outline"
+          color="neutral"
+          class="auth-input"
+        />
+      </UFormField>
 
-          <UAlert v-if="error" :description="error" color="red" variant="soft" icon="i-heroicons-exclamation-circle" />
+      <UAlert
+        v-if="error"
+        :description="error"
+        color="error"
+        variant="soft"
+        icon="i-heroicons-exclamation-circle"
+      />
 
-          <UButton type="submit" block :loading="loading" class="bg-indigo-600 hover:bg-indigo-500 text-white">
-            {{ $t('auth.forgot_password.submit') }}
-          </UButton>
-        </UForm>
-      </template>
+      <UButton type="submit" block size="lg" color="primary" :loading="loading" class="font-semibold">
+        {{ $t('auth.forgot_password.submit') }}
+      </UButton>
+    </UForm>
 
-      <template v-else-if="step === 'code'">
-        <h1 class="text-2xl font-bold text-white mb-1">Enter Reset Code</h1>
-        <p class="text-slate-400 text-sm mb-2">{{ $t('auth.forgot_password.enter_code') }}</p>
-        <p class="text-indigo-400 font-medium text-sm mb-8">{{ emailState.email }}</p>
+    <UForm v-else :state="resetState" @submit="resetPassword" class="space-y-6">
+      <UFormField label="Verification Code" name="code" size="lg">
+        <UInput
+          v-model="resetState.code"
+          placeholder="000000"
+          maxlength="6"
+          size="lg"
+          variant="outline"
+          color="neutral"
+          class="auth-input text-center font-mono text-2xl tracking-widest"
+        />
+      </UFormField>
 
-        <UForm :state="resetState" @submit="resetPassword" class="space-y-4">
-          <UFormGroup label="Verification Code" name="code">
-            <UInput v-model="resetState.code" placeholder="000000" maxlength="6" class="text-center text-2xl font-mono tracking-widest" />
-          </UFormGroup>
+      <UFormField :label="$t('auth.forgot_password.new_password')" name="new_password" size="lg">
+        <UInput
+          v-model="resetState.new_password"
+          :type="showPassword ? 'text' : 'password'"
+          leading-icon="i-heroicons-lock-closed"
+          size="lg"
+          variant="outline"
+          color="neutral"
+          class="auth-input"
+        >
+          <template #trailing>
+            <UButton
+              color="neutral"
+              variant="ghost"
+              size="xs"
+              square
+              class="shrink-0"
+              :aria-label="showPassword ? 'Hide password' : 'Show password'"
+              :icon="showPassword ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
+              @click.prevent="showPassword = !showPassword"
+            />
+          </template>
+        </UInput>
+      </UFormField>
 
-          <UFormGroup :label="$t('auth.forgot_password.new_password')" name="new_password">
-            <UInput v-model="resetState.new_password" :type="showPassword ? 'text' : 'password'" icon="i-heroicons-lock-closed">
-              <template #trailing>
-                <UButton color="gray" variant="ghost" size="xs" class="mr-1"
-                  :icon="showPassword ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
-                  @click="showPassword = !showPassword" />
-              </template>
-            </UInput>
-          </UFormGroup>
+      <UFormField :label="$t('auth.forgot_password.confirm_new_password')" name="confirm" size="lg">
+        <UInput
+          v-model="resetState.confirm"
+          :type="showPassword ? 'text' : 'password'"
+          leading-icon="i-heroicons-lock-closed"
+          size="lg"
+          variant="outline"
+          color="neutral"
+          class="auth-input"
+        />
+      </UFormField>
 
-          <UFormGroup :label="$t('auth.forgot_password.confirm_new_password')" name="confirm">
-            <UInput v-model="resetState.confirm" :type="showPassword ? 'text' : 'password'" icon="i-heroicons-lock-closed" />
-          </UFormGroup>
+      <UAlert v-if="error" :description="error" color="error" variant="soft" />
 
-          <UAlert v-if="error" :description="error" color="red" variant="soft" />
+      <UButton type="submit" block size="lg" color="primary" :loading="loading" class="font-semibold">
+        {{ $t('auth.forgot_password.reset_submit') }}
+      </UButton>
+    </UForm>
 
-          <UButton type="submit" block :loading="loading" class="bg-indigo-600 hover:bg-indigo-500 text-white">
-            {{ $t('auth.forgot_password.reset_submit') }}
-          </UButton>
-        </UForm>
-      </template>
-
-      <NuxtLink to="/auth/login" class="flex items-center justify-center gap-2 text-slate-400 hover:text-white text-sm mt-6 transition-colors">
+    <template #footer>
+      <NuxtLink
+        to="/auth/login"
+        class="flex items-center justify-center gap-2 px-6 pb-6 text-sm text-slate-400 transition-colors duration-200 hover:text-white sm:px-8"
+      >
         <UIcon name="i-heroicons-arrow-left" />
         {{ $t('auth.forgot_password.back_to_login') }}
       </NuxtLink>
-    </div>
-  </div>
+    </template>
+  </UCard>
 </template>
 
 <script setup lang="ts">

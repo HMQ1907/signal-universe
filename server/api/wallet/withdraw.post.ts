@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { getDaysUntilUnlock } from '~/server/utils/helpers'
 
 const schema = z.object({
   amount: z.number().min(10),
@@ -18,11 +17,13 @@ export default defineEventHandler(async (event) => {
   const { amount, withdraw_address, type } = parsed.data
   const supabase = getSupabaseAdmin()
 
-  const { data: fullUser } = await supabase
-    .from('users')
-    .select('balance, locked_capital, first_deposit_at, investment_package')
-    .eq('id', user.id)
-    .single()
+  // Enforce withdraw window (22:00 - 24:00)
+  if (!isWithdrawWindowOpen()) {
+    throw createError({ statusCode: 400, message: 'Withdrawals are only allowed between 22:00 - 24:00' })
+  }
+
+  const { data } = await supabase.from('users').select('balance, locked_capital, first_deposit_at').eq('id', user.id).single()
+  const fullUser = data as any
 
   if (!fullUser) throw createError({ statusCode: 404, message: 'User not found' })
 
@@ -46,7 +47,7 @@ export default defineEventHandler(async (event) => {
   const fee = amount * 0.03
   const netAmount = amount - fee
 
-  const { error } = await supabase.from('transactions').insert({
+  const payload: any = {
     user_id: user.id,
     type,
     amount,
@@ -54,7 +55,9 @@ export default defineEventHandler(async (event) => {
     withdraw_address,
     withdraw_fee: fee,
     admin_note: `Net: $${netAmount.toFixed(2)} after 3% fee`
-  })
+  }
+
+  const { error } = await supabase.from('transactions').insert(payload)
 
   if (error) throw createError({ statusCode: 500, message: 'Failed to create withdrawal request' })
 

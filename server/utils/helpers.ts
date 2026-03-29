@@ -1,6 +1,60 @@
 import { customAlphabet } from 'nanoid'
+import bcrypt from 'bcryptjs'
 
 const nanoid = customAlphabet('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 8)
+
+const SESSION_DAYS = 30
+const OTP_TTL_MS = 15 * 60 * 1000
+
+export async function hashPassword(plain: string): Promise<string> {
+  return bcrypt.hash(plain, 10)
+}
+
+export function validatePassword(password: string): { valid: true } | { valid: false; message: string } {
+  if (!password || password.length < 8) {
+    return { valid: false, message: 'Password must be at least 8 characters' }
+  }
+  return { valid: true }
+}
+
+export function getPaginationParams(query: Record<string, unknown>): { page: number; limit: number } {
+  const page = Math.max(1, Number.parseInt(String(query.page ?? '1'), 10) || 1)
+  const rawLimit = Number.parseInt(String(query.limit ?? '20'), 10) || 20
+  const limit = Math.min(100, Math.max(1, rawLimit))
+  return { page, limit }
+}
+
+export function createPaginatedResult<T>(
+  data: T[],
+  total: number,
+  opts: { page: number; limit: number }
+) {
+  return {
+    data,
+    total,
+    page: opts.page,
+    limit: opts.limit,
+    totalPages: Math.max(1, Math.ceil(total / opts.limit))
+  }
+}
+
+/** Alias for auth session token (same as login). */
+export function generateSessionToken(): string {
+  return generateToken()
+}
+
+export function getSessionExpiry(): Date {
+  return new Date(Date.now() + SESSION_DAYS * 24 * 60 * 60 * 1000)
+}
+
+/** 6-digit OTP (same as generateOtpCode). */
+export function generateOtp(): string {
+  return generateOtpCode()
+}
+
+export function getOtpExpiry(): Date {
+  return new Date(Date.now() + OTP_TTL_MS)
+}
 
 export function generateToken(): string {
   return customAlphabet('abcdefghijklmnopqrstuvwxyz0123456789', 64)()
@@ -23,6 +77,9 @@ export function getClientIp(event: import('h3').H3Event): string {
   )
 }
 
+/** Allowed DeFi tiers (USD); highest tier where total balance >= tier applies */
+export const PACKAGE_TIERS_DESC = [5000, 2000, 1000, 500, 300, 200] as const
+
 export const INVESTMENT_PACKAGES = [200, 300, 500, 1000, 2000, 5000] as const
 export type InvestmentPackage = (typeof INVESTMENT_PACKAGES)[number]
 
@@ -30,26 +87,13 @@ export function isValidPackage(amount: number): amount is InvestmentPackage {
   return INVESTMENT_PACKAGES.includes(amount as InvestmentPackage)
 }
 
-export function getLeaderLevel(f1Count: number): number {
-  if (f1Count >= 200) return 5
-  if (f1Count >= 100) return 4
-  if (f1Count >= 50) return 3
-  if (f1Count >= 20) return 2
-  if (f1Count >= 10) return 1
-  return 0
-}
-
-export function getLeaderBonus(level: number): number {
-  const bonuses: Record<number, number> = { 1: 50, 2: 100, 3: 200, 4: 500, 5: 1000 }
-  return bonuses[level] || 0
-}
-
-export function getMondayOfWeek(date: Date = new Date()): string {
-  const d = new Date(date)
-  const day = d.getDay()
-  const diff = d.getDate() - day + (day === 0 ? -6 : 1)
-  d.setDate(diff)
-  return d.toISOString().split('T')[0]
+/** Total = profit balance + locked capital. Returns null if below $200 (no DeFi tier). */
+export function investmentTierFromTotal(total: number): number | null {
+  if (total < 200) return null
+  for (const t of PACKAGE_TIERS_DESC) {
+    if (total >= t) return t
+  }
+  return 200
 }
 
 export function isWithdrawWindowOpen(): boolean {
@@ -58,15 +102,11 @@ export function isWithdrawWindowOpen(): boolean {
   return hours >= 22
 }
 
-export function isSignalWindowOpen(timeWindow: '14:00' | '21:00'): boolean {
+/** AI confirm button: 11:00–23:59 local server time (same TZ as withdraw helpers). */
+export function isDailyAiConfirmWindowOpen(): boolean {
   const now = new Date()
-  const hours = now.getHours()
-  const minutes = now.getMinutes()
-  const currentMinutes = hours * 60 + minutes
-  const [wHours, wMins] = timeWindow.split(':').map(Number)
-  const windowStart = wHours * 60 + wMins
-  const windowEnd = windowStart + 20
-  return currentMinutes >= windowStart && currentMinutes < windowEnd
+  const h = now.getHours()
+  return h >= 11 && h <= 23
 }
 
 export function getDaysUntilUnlock(firstDepositAt: string): number {

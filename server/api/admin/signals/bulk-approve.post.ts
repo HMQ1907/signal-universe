@@ -1,8 +1,7 @@
 import { z } from 'zod'
 
 const schema = z.object({
-  session_id: z.number(),
-  profit_percent: z.number().min(0).max(2)
+  session_id: z.number()
 })
 
 export default defineEventHandler(async (event) => {
@@ -11,7 +10,7 @@ export default defineEventHandler(async (event) => {
   const parsed = schema.safeParse(body)
   if (!parsed.success) throw createError({ statusCode: 400, message: 'Invalid input' })
 
-  const { session_id, profit_percent } = parsed.data
+  const { session_id } = parsed.data
   const supabase = getSupabaseAdmin()
 
   const { data: confirmations } = await supabase
@@ -29,7 +28,7 @@ export default defineEventHandler(async (event) => {
     try {
       await $fetch(`/api/admin/signals/${confirmation.id}/approve`, {
         method: 'POST',
-        body: { profit_percent }
+        body: {}
       })
       processed++
     } catch {}

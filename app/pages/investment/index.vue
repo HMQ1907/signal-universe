@@ -60,10 +60,21 @@
         </div>
 
         <NuxtLink :to="`/wallet/deposit?pkg=${pkg.amount}`">
-          <UButton block :class="user?.investment_package === pkg.amount
-            ? 'bg-green-600/20 text-green-400 cursor-default'
-            : pkg.amount === 500 ? 'bg-indigo-600 hover:bg-indigo-500 text-white'
-            : ''">
+          <UButton
+            block
+            :disabled="user?.investment_package === pkg.amount"
+            :color="
+              user?.investment_package === pkg.amount
+                ? 'success'
+                : pkg.amount === 500
+                  ? 'primary'
+                  : 'neutral'
+            "
+            :variant="
+              user?.investment_package === pkg.amount ? 'soft' : pkg.amount === 500 ? 'solid' : 'outline'
+            "
+            :class="user?.investment_package === pkg.amount ? 'cursor-default opacity-90' : ''"
+          >
             {{ user?.investment_package === pkg.amount ? 'Active Package' : $t('investment.select_package') }}
           </UButton>
         </NuxtLink>

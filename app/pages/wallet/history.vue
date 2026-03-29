@@ -4,10 +4,10 @@
       <h1 class="text-2xl font-bold text-white">{{ $t('wallet.history.title') }}</h1>
       <div class="flex gap-2">
         <NuxtLink to="/wallet/deposit">
-          <UButton size="sm" color="indigo" icon="i-heroicons-arrow-down-tray">Deposit</UButton>
+          <UButton size="sm" color="primary" icon="i-heroicons-arrow-down-tray">Deposit</UButton>
         </NuxtLink>
         <NuxtLink to="/wallet/withdraw">
-          <UButton size="sm" color="gray" icon="i-heroicons-arrow-up-tray">Withdraw</UButton>
+          <UButton size="sm" color="neutral" icon="i-heroicons-arrow-up-tray">Withdraw</UButton>
         </NuxtLink>
       </div>
     </div>

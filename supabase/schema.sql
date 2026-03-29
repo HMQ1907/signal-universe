@@ -15,7 +15,6 @@ CREATE TYPE transaction_type AS ENUM (
   'signal_profit',
   'signal_referral',
   'deposit_referral',
-  'leader_bonus',
   'admin_adjust'
 );
 
@@ -115,13 +114,13 @@ CREATE INDEX idx_transactions_signal_session_id ON transactions(signal_session_i
 
 -- =============================================
 -- Signal Sessions Table
--- 2 sessions per day: 14:00 and 21:00
+-- One logical session per day (time_window = 'daily'); confirm window 11:00–23:59 server/local time in app
 -- =============================================
 
 CREATE TABLE signal_sessions (
   id BIGSERIAL PRIMARY KEY,
   session_date DATE NOT NULL DEFAULT CURRENT_DATE,
-  time_window VARCHAR(10) NOT NULL,  -- '14:00' or '21:00'
+  time_window VARCHAR(10) NOT NULL DEFAULT 'daily',
   status VARCHAR(20) DEFAULT 'open',  -- open, closed, processed
 
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -144,6 +143,7 @@ CREATE TABLE signal_confirmations (
   session_id BIGINT NOT NULL REFERENCES signal_sessions(id) ON DELETE CASCADE,
 
   amount DECIMAL(18,2) NOT NULL,        -- 1% of user balance at confirmation time
+  package_tier INT NOT NULL,             -- DeFi tier (200/300/500/...) at confirm; referral base
   profit_amount DECIMAL(18,2) DEFAULT NULL,  -- filled by admin when approving
   balance_snapshot DECIMAL(18,2) NOT NULL,  -- user balance at confirmation time
 
@@ -160,33 +160,6 @@ CREATE TABLE signal_confirmations (
 CREATE INDEX idx_signal_confirmations_user_id ON signal_confirmations(user_id);
 CREATE INDEX idx_signal_confirmations_session_id ON signal_confirmations(session_id);
 CREATE INDEX idx_signal_confirmations_status ON signal_confirmations(status);
-
--- =============================================
--- Leader Bonus Records Table
--- Weekly payout based on F1 direct count
--- =============================================
-
-CREATE TABLE leader_bonus_records (
-  id BIGSERIAL PRIMARY KEY,
-  user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-
-  week_start DATE NOT NULL,  -- Monday of the week
-  f1_count INT NOT NULL DEFAULT 0,
-  leader_level INT NOT NULL,  -- 1-5
-  amount DECIMAL(18,2) NOT NULL,
-
-  status VARCHAR(20) DEFAULT 'pending',  -- pending, paid
-  paid_at TIMESTAMP WITH TIME ZONE,
-  paid_by BIGINT REFERENCES users(id) ON DELETE SET NULL,
-
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-
-  CONSTRAINT unique_leader_week UNIQUE (user_id, week_start)
-);
-
-CREATE INDEX idx_leader_bonus_user_id ON leader_bonus_records(user_id);
-CREATE INDEX idx_leader_bonus_week_start ON leader_bonus_records(week_start DESC);
-CREATE INDEX idx_leader_bonus_status ON leader_bonus_records(status);
 
 -- =============================================
 -- OTP Codes Table
@@ -268,24 +241,14 @@ INSERT INTO site_settings (key, value, description) VALUES
   ('withdraw_time_start', '22:00', 'Withdrawal window start'),
   ('withdraw_time_end', '24:00', 'Withdrawal window end'),
   ('capital_lock_days', '28', 'Capital lock period (days)'),
-  ('signal_confirm_window', '20', 'Minutes AI confirm button is visible'),
+  ('deposit_confirm_window', '5', 'Minutes to confirm deposit via I have sent the payment button'),
   ('signal_profit_percent', '1', 'Signal uses X% of balance'),
-  ('max_daily_profit_percent', '2', 'Max daily profit percent'),
-  ('deposit_referral_f1', '5', 'Deposit referral commission F1 (%)'),
-  ('deposit_referral_f2', '3', 'Deposit referral commission F2 (%)'),
-  ('signal_referral_f1', '15', 'Signal profit referral F1 (%)'),
-  ('signal_referral_f2', '10', 'Signal profit referral F2 (%)'),
-  ('signal_referral_f3', '5', 'Signal profit referral F3 (%)'),
-  ('leader1_f1_min', '10', 'Leader 1 minimum F1 count'),
-  ('leader1_bonus', '50', 'Leader 1 weekly bonus (USD)'),
-  ('leader2_f1_min', '20', 'Leader 2 minimum F1 count'),
-  ('leader2_bonus', '100', 'Leader 2 weekly bonus (USD)'),
-  ('leader3_f1_min', '50', 'Leader 3 minimum F1 count'),
-  ('leader3_bonus', '200', 'Leader 3 weekly bonus (USD)'),
-  ('leader4_f1_min', '100', 'Leader 4 minimum F1 count'),
-  ('leader4_bonus', '500', 'Leader 4 weekly bonus (USD)'),
-  ('leader5_f1_min', '200', 'Leader 5 minimum F1 count'),
-  ('leader5_bonus', '1000', 'Leader 5 weekly bonus (USD)'),
+  ('max_daily_profit_percent', '2', 'AI approve: credit to user = this % of package tier (e.g. 2% of $200 = $4)'),
+  ('deposit_referral_f1', '5', 'Deposit commission when depositor is direct referral (paid to parent %)'),
+  ('deposit_referral_f2', '3', 'Deposit commission when depositor is 2nd-level (paid to grandparent %)'),
+  ('signal_referral_f1', '15', 'AI confirm referral: 1st upline (% of credited profit, not package)'),
+  ('signal_referral_f2', '10', 'AI confirm referral: 2nd upline (% of credited profit)'),
+  ('signal_referral_f3', '5', 'AI confirm referral: 3rd upline (% of credited profit)'),
   ('site_name', 'Signal Universe', 'Site name'),
   ('support_email', 'support@signal-universe.io', 'Support email'),
   ('telegram_link', '', 'Telegram support link');
@@ -375,7 +338,6 @@ ALTER TABLE users ENABLE ROW LEVEL SECURITY;
 ALTER TABLE transactions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE signal_sessions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE signal_confirmations ENABLE ROW LEVEL SECURITY;
-ALTER TABLE leader_bonus_records ENABLE ROW LEVEL SECURITY;
 ALTER TABLE otp_codes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE sessions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE admin_logs ENABLE ROW LEVEL SECURITY;
@@ -385,7 +347,6 @@ CREATE POLICY "service_role_all" ON users FOR ALL USING (true);
 CREATE POLICY "service_role_all" ON transactions FOR ALL USING (true);
 CREATE POLICY "service_role_all" ON signal_sessions FOR ALL USING (true);
 CREATE POLICY "service_role_all" ON signal_confirmations FOR ALL USING (true);
-CREATE POLICY "service_role_all" ON leader_bonus_records FOR ALL USING (true);
 CREATE POLICY "service_role_all" ON otp_codes FOR ALL USING (true);
 CREATE POLICY "service_role_all" ON sessions FOR ALL USING (true);
 CREATE POLICY "service_role_all" ON admin_logs FOR ALL USING (true);

@@ -1,5 +1,3 @@
-import { getLeaderLevel, getLeaderBonus } from '~/server/utils/helpers'
-
 export default defineEventHandler(async (event) => {
   const user = await requireAuth(event)
   const supabase = getSupabaseAdmin()
@@ -10,11 +8,6 @@ export default defineEventHandler(async (event) => {
     .eq('referred_by', user.id)
 
   const directF1 = f1Count || 0
-  const leaderLevel = getLeaderLevel(directF1)
-  const leaderBonus = getLeaderBonus(leaderLevel)
-  const nextLevel = leaderLevel < 5 ? leaderLevel + 1 : null
-  const nextLevelThresholds = [10, 20, 50, 100, 200]
-  const nextLevelF1Needed = nextLevel ? nextLevelThresholds[nextLevel - 1] - directF1 : 0
 
   const { data: depositReferral } = await supabase
     .from('transactions')
@@ -35,10 +28,6 @@ export default defineEventHandler(async (event) => {
 
   return {
     direct_f1: directF1,
-    leader_level: leaderLevel,
-    leader_bonus_weekly: leaderBonus,
-    next_level: nextLevel,
-    next_level_f1_needed: Math.max(0, nextLevelF1Needed),
     total_deposit_commission: totalDepositCommission,
     total_signal_commission: totalSignalCommission,
     referral_code: user.referral_code

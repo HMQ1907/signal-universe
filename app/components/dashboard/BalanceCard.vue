@@ -1,22 +1,34 @@
 <template>
-  <div class="bg-gradient-to-br from-amber-500 to-amber-700 rounded-2xl p-6 text-white">
-    <div class="flex items-start justify-between mb-4">
+  <div
+    class="rounded-2xl bg-gradient-to-br from-primary-600 via-primary-700 to-violet-800 p-6 text-white shadow-xl shadow-primary-500/20"
+  >
+    <div class="mb-4 flex items-start justify-between">
       <div>
-        <p class="text-amber-100 text-sm mb-1">Total Balance</p>
+        <p class="mb-1 text-sm text-white/80">Total Balance</p>
         <h2 class="text-3xl font-bold">${{ formatNumber(balance) }}</h2>
       </div>
-      <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-        <UIcon name="i-heroicons-wallet" class="w-6 h-6" />
+      <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-white/15 ring-1 ring-white/20">
+        <UIcon name="i-heroicons-wallet" class="h-6 w-6" />
       </div>
     </div>
 
-    <div class="flex gap-3 mt-6">
-      <UButton to="/wallet/deposit" color="white" variant="solid" class="flex-1">
-        <UIcon name="i-heroicons-plus" class="w-4 h-4 mr-1" />
+    <div class="mt-6 flex gap-3">
+      <UButton
+        to="/wallet/deposit"
+        color="neutral"
+        variant="solid"
+        class="flex-1 !bg-white/95 !text-slate-900 hover:!bg-white"
+      >
+        <UIcon name="i-heroicons-plus" class="mr-1 h-4 w-4" />
         Deposit
       </UButton>
-      <UButton to="/wallet/withdraw" color="white" variant="outline" class="flex-1 !text-white !border-white/50 hover:!bg-white/10">
-        <UIcon name="i-heroicons-minus" class="w-4 h-4 mr-1" />
+      <UButton
+        to="/wallet/withdraw"
+        color="neutral"
+        variant="outline"
+        class="flex-1 !border-white/45 !text-white hover:!bg-white/10"
+      >
+        <UIcon name="i-heroicons-minus" class="mr-1 h-4 w-4" />
         Withdraw
       </UButton>
     </div>

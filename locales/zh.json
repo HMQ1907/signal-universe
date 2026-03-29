@@ -53,7 +53,34 @@
     "notifications": "通知",
     "login": "登录",
     "register": "注册",
-    "admin": "管理后台"
+    "admin": "管理后台",
+    "tokens": "行情"
+  },
+  "tokens": {
+    "badge": "实时分析",
+    "title": "热门代币",
+    "subtitle": "按时间框架查看流动性、成交量与涨跌幅（演示数据，可接真实 API）。",
+    "trending": "趋势",
+    "watchlist": "自选",
+    "timeframe": "周期",
+    "table_title": "{chain} 上的热门代币",
+    "demo_notice": "演示",
+    "watchlist_empty": "点击星标加入自选，或返回趋势列表。",
+    "back_trending": "查看趋势",
+    "col": {
+      "token": "代币",
+      "time": "时间",
+      "liquidity": "流动性",
+      "mc": "市值",
+      "dilute_mc": "稀释市值",
+      "vol_5m": "5分成交量",
+      "tx_5m": "5分笔数",
+      "price": "价格",
+      "chg_5m": "5分%",
+      "chg_1h": "1时%",
+      "chg_6h": "6时%",
+      "chg_24h": "24时%"
+    }
   },
   "home": {
     "hero": {
@@ -73,16 +100,16 @@
     "features": {
       "title": "为什么选择 Signal Universe？",
       "subtitle": "交易成功所需的一切",
-      "signal": { "title": "AI交易信号", "description": "每天14:00和21:00获取2个专业交易信号，一键确认即可赚取收益。" },
-      "referral": { "title": "推荐计划", "description": "赚取最多3级佣金。F1充值获5%，交易利润获最高15%。" },
-      "leader": { "title": "领导者奖励", "description": "根据直属网络规模，每周获得最高$1,000的奖励。" },
+      "signal": { "title": "AI交易信号", "description": "每日一次AI确认（11:00–23:59）。DeFi等级按总余额自动划分（$200+）。每次确认使用利润余额的1%。" },
+      "referral": { "title": "推荐计划", "description": "充值奖励：直属上级获5%存款佣金，二级上级获3%。AI确认：最多三代上级分别获得该成员已入账利润的15%/10%/5%（非套餐本金）。" },
+      "ai_commission": { "title": "AI确认奖励", "description": "当团队确认每日AI信号时，最多三代上级可获得该成员入账利润的15%、10%和5%（管理员批准后）。" },
       "secure": { "title": "安全透明", "description": "所有交易均记录和追踪。管理员批准利润确保完全透明。" }
     },
     "how_it_works": {
       "title": "如何运作",
       "step1": { "title": "注册并充值", "description": "创建账户并充值最少$200以激活DeFi套餐。" },
-      "step2": { "title": "确认信号", "description": "在14:00和21:00确认AI交易信号，每个信号使用账户余额的1%。" },
-      "step3": { "title": "获取收益", "description": "管理员批准您的交易利润，最高每日2%。" },
+      "step2": { "title": "确认AI（每日一次）", "description": "在11:00–23:59之间确认一次AI信号，使用利润余额的1%。" },
+      "step3": { "title": "获取收益", "description": "管理员批准您的AI确认。您按套餐等级获得利润比例（默认2%，例如$200档约$4）。" },
       "step4": { "title": "提现并成长", "description": "随时提取利润。建立推荐网络以获得额外佣金。" }
     },
     "packages": {
@@ -117,6 +144,6 @@
   },
   "settings": { "title": "设置", "profile": { "title": "个人资料", "full_name": "姓名", "email": "邮箱", "update": "更新资料" }, "password": { "title": "修改密码", "current": "当前密码", "new": "新密码", "confirm": "确认新密码", "submit": "修改密码", "success": "密码修改成功", "error": { "wrong_current": "当前密码错误", "mismatch": "两次密码不一致" } }, "cccd": { "title": "身份验证", "subtitle": "上传身份证（一面）", "upload": "上传身份证", "uploaded": "已上传身份证", "change": "更换身份证", "note": "请上传清晰的身份证正面照片", "success": "身份证上传成功" } },
   "notifications": { "title": "通知", "mark_all_read": "全部标为已读", "no_notifications": "暂无通知", "types": { "deposit": "充值", "withdrawal": "提款", "signal": "交易信号", "referral": "推荐奖励", "leader": "领导者奖励", "admin": "管理员通知", "system": "系统" } },
-  "admin": { "nav": { "dashboard": "仪表盘", "users": "用户管理", "signals": "信号场次", "deposits": "充值审核", "withdrawals": "提款审核", "transactions": "交易记录", "compound": "复利记录", "leader": "领导者奖励", "cccd": "身份验证", "wallets": "钱包设置", "settings": "系统设置" }, "dashboard": { "title": "管理员仪表盘", "total_users": "总用户数", "active_users": "活跃用户", "total_deposited": "总充值", "total_withdrawn": "总提款", "pending_deposits": "待审充值", "pending_withdrawals": "待审提款", "total_balance": "用户总余额" }, "users": { "title": "用户管理", "search": "按邮箱或姓名搜索", "add_balance": "增加余额", "subtract_balance": "减少余额", "adjust_balance": "调整余额", "adjust_reason": "调整原因", "view_tree": "查看推荐树", "referral_tree": "推荐树", "disable": "禁用账户", "enable": "启用账户", "columns": { "id": "ID", "name": "姓名", "email": "邮箱", "package": "套餐", "balance": "利润余额", "capital": "锁定本金", "f1": "F1数量", "joined": "注册时间", "status": "状态" } }, "signals": { "title": "信号场次管理", "create_session": "创建场次", "approve_profit": "批准利润", "bulk_approve": "批量批准", "confirmations": "确认列表", "profit_percent": "利润%", "profit_amount": "利润金额", "columns": { "user": "用户", "balance": "确认时余额", "amount": "信号金额", "profit": "利润", "status": "状态", "time": "确认时间" } }, "deposits": { "title": "充值审核", "approve": "批准", "reject": "拒绝", "columns": { "user": "用户", "package": "套餐", "amount": "金额", "network": "网络", "date": "日期", "status": "状态" } }, "withdrawals": { "title": "提款审核", "profit_tab": "利润提款", "capital_tab": "本金提款(28天锁定)", "approve": "批准", "reject": "拒绝", "wallet": "钱包地址", "columns": { "user": "用户", "amount": "金额", "fee": "手续费", "net": "实际金额", "wallet": "钱包地址", "date": "日期", "status": "状态" } }, "transactions": { "title": "交易历史", "deposit_referral_tab": "充值&充值佣金&提款", "signal_compound_tab": "AI确认&复利记录" }, "compound": { "title": "复利记录", "subtitle": "来自团队成员信号利润的推荐佣金", "beneficiary": "受益人", "source_user": "来自成员", "level": "级别", "source_profit": "源利润", "commission_rate": "比率", "commission": "获得佣金" }, "leader": { "title": "领导者奖励管理", "week": "周", "generate": "生成周奖励", "pay": "标记已支付", "columns": { "user": "用户", "f1_count": "F1数量", "level": "领导级别", "bonus": "奖励", "week": "周", "status": "状态" } }, "cccd": { "title": "身份验证(CCCD)", "subtitle": "已上传身份证的用户", "view": "查看身份证", "columns": { "user": "用户", "email": "邮箱", "uploaded": "上传日期", "action": "操作" } }, "wallets": { "title": "钱包设置", "trc20_address": "USDT TRC20收款地址", "save": "保存钱包地址" }, "settings": { "title": "系统设置", "trading": "交易设置", "referral": "推荐设置", "leader": "领导者奖励设置", "withdrawal": "提款设置" } },
+  "admin": { "nav": { "dashboard": "仪表盘", "pending": "待审核", "users": "用户管理", "signals": "信号场次", "deposits": "充值审核", "withdrawals": "提款审核", "transactions": "交易记录", "compound": "复利记录", "leader": "领导者奖励", "cccd": "身份验证", "wallets": "钱包设置", "settings": "系统设置" }, "dashboard": { "title": "管理员仪表盘", "total_users": "总用户数", "active_users": "活跃用户", "total_deposited": "总充值", "total_withdrawn": "总提款", "pending_deposits": "待审充值", "pending_withdrawals": "待审提款", "total_balance": "用户总余额" }, "users": { "title": "用户管理", "search": "按邮箱或姓名搜索", "add_balance": "增加余额", "subtract_balance": "减少余额", "adjust_balance": "调整余额", "adjust_reason": "调整原因", "view_tree": "查看推荐树", "referral_tree": "推荐树", "disable": "禁用账户", "enable": "启用账户", "columns": { "id": "ID", "name": "姓名", "email": "邮箱", "package": "套餐", "balance": "利润余额", "capital": "锁定本金", "f1": "F1数量", "joined": "注册时间", "status": "状态" } }, "signals": { "title": "信号场次管理", "create_session": "创建场次", "approve_profit": "批准利润", "bulk_approve": "批量批准", "confirmations": "确认列表", "profit_percent": "利润%", "profit_amount": "利润金额", "columns": { "user": "用户", "balance": "确认时余额", "amount": "信号金额", "profit": "利润", "status": "状态", "time": "确认时间" } }, "deposits": { "title": "充值审核", "approve": "批准", "reject": "拒绝", "columns": { "user": "用户", "package": "套餐", "amount": "金额", "network": "网络", "date": "日期", "status": "状态" } }, "withdrawals": { "title": "提款审核", "profit_tab": "利润提款", "capital_tab": "本金提款(28天锁定)", "approve": "批准", "reject": "拒绝", "wallet": "钱包地址", "columns": { "user": "用户", "amount": "金额", "fee": "手续费", "net": "实际金额", "wallet": "钱包地址", "date": "日期", "status": "状态" } }, "transactions": { "title": "交易历史", "deposit_referral_tab": "充值&充值佣金&提款", "signal_compound_tab": "AI确认&复利记录" }, "compound": { "title": "复利记录", "subtitle": "来自团队成员信号利润的推荐佣金", "beneficiary": "受益人", "source_user": "来自成员", "level": "级别", "source_profit": "源利润", "commission_rate": "比率", "commission": "获得佣金" }, "leader": { "title": "领导者奖励管理", "week": "周", "generate": "生成周奖励", "pay": "标记已支付", "columns": { "user": "用户", "f1_count": "F1数量", "level": "领导级别", "bonus": "奖励", "week": "周", "status": "状态" } }, "cccd": { "title": "身份验证(CCCD)", "subtitle": "已上传身份证的用户", "view": "查看身份证", "columns": { "user": "用户", "email": "邮箱", "uploaded": "上传日期", "action": "操作" } }, "wallets": { "title": "钱包设置", "trc20_address": "USDT TRC20收款地址", "save": "保存钱包地址" }, "settings": { "title": "系统设置", "trading": "交易设置", "referral": "推荐设置", "leader": "领导者奖励设置", "withdrawal": "提款设置" } },
   "errors": { "not_found": "页面未找到", "unauthorized": "请登录后继续", "forbidden": "您没有权限访问此页面", "server_error": "服务器错误，请稍后再试。", "network_error": "网络错误，请检查连接。" }
 }

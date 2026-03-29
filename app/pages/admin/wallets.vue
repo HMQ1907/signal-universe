@@ -9,20 +9,19 @@
       </h2>
 
       <div class="space-y-4">
-        <UFormGroup label="USDT TRC20 Wallet Address">
+        <UFormField label="USDT TRC20 Wallet Address">
           <UInput v-model="walletAddress" placeholder="TRC20 address..." icon="i-heroicons-wallet"
             class="font-mono" />
-        </UFormGroup>
+        </UFormField>
 
         <div v-if="walletAddress" class="text-center p-4 rounded-xl bg-white inline-block">
           <img :src="`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${walletAddress}`"
             alt="QR Code" width="120" height="120" />
         </div>
 
-        <UAlert description="This wallet address is shown to users for deposits. Update carefully." color="amber" variant="soft" />
+        <UAlert description="This wallet address is shown to users for deposits. Update carefully." color="warning" variant="soft" />
 
-        <UButton :loading="saving" class="bg-indigo-600 hover:bg-indigo-500 text-white"
-          icon="i-heroicons-check" @click="saveWallet">
+        <UButton :loading="saving" color="primary" icon="i-heroicons-check" @click="saveWallet">
           {{ $t('admin.wallets.save') }}
         </UButton>
       </div>

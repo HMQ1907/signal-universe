@@ -7,7 +7,7 @@
 
     <!-- Pending notice -->
     <UAlert v-if="hasPending" :description="$t('wallet.deposit.pending_notice')"
-      color="amber" variant="soft" icon="i-heroicons-clock" class="mb-6" />
+      color="warning" variant="soft" icon="i-heroicons-clock" class="mb-6" />
 
     <div v-else class="space-y-6">
       <!-- Step 1: Select Package -->
@@ -49,7 +49,7 @@
             <code class="text-indigo-400 text-sm font-mono bg-slate-800 px-3 py-2 rounded-lg break-all max-w-xs">
               {{ settings.trc20_wallet_address || 'Wallet not configured' }}
             </code>
-            <UButton size="xs" icon="i-heroicons-clipboard-document" color="gray" variant="ghost"
+            <UButton size="xs" icon="i-heroicons-clipboard-document" color="neutral" variant="ghost"
               @click="copyAddress" />
           </div>
           <p class="text-xs text-slate-500 mt-3">
@@ -82,7 +82,7 @@
           After sending the payment, click the button below within 5 minutes.
         </p>
 
-        <UAlert v-if="error" :description="error" color="red" variant="soft" class="mb-4" />
+        <UAlert v-if="error" :description="error" color="error" variant="soft" class="mb-4" />
 
         <UButton block :loading="loading" class="bg-green-600 hover:bg-green-500 text-white font-semibold"
           icon="i-heroicons-check-circle" @click="handleDeposit">

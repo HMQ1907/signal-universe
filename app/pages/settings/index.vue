@@ -11,13 +11,13 @@
         {{ $t('settings.profile.title') }}
       </h2>
       <div class="space-y-4">
-        <UFormGroup :label="$t('settings.profile.full_name')">
+        <UFormField :label="$t('settings.profile.full_name')">
           <UInput v-model="profileForm.full_name" icon="i-heroicons-user" />
-        </UFormGroup>
-        <UFormGroup :label="$t('settings.profile.email')">
+        </UFormField>
+        <UFormField :label="$t('settings.profile.email')">
           <UInput :model-value="user?.email" disabled icon="i-heroicons-envelope" />
-        </UFormGroup>
-        <UButton :loading="profileLoading" class="bg-indigo-600 hover:bg-indigo-500 text-white"
+        </UFormField>
+        <UButton :loading="profileLoading" color="primary"
           @click="updateProfile">
           {{ $t('settings.profile.update') }}
         </UButton>
@@ -31,17 +31,17 @@
         {{ $t('settings.password.title') }}
       </h2>
       <div class="space-y-4">
-        <UFormGroup :label="$t('settings.password.current')">
+        <UFormField :label="$t('settings.password.current')">
           <UInput v-model="passForm.current" type="password" icon="i-heroicons-lock-closed" />
-        </UFormGroup>
-        <UFormGroup :label="$t('settings.password.new')">
+        </UFormField>
+        <UFormField :label="$t('settings.password.new')">
           <UInput v-model="passForm.new_password" type="password" icon="i-heroicons-lock-closed" />
-        </UFormGroup>
-        <UFormGroup :label="$t('settings.password.confirm')">
+        </UFormField>
+        <UFormField :label="$t('settings.password.confirm')">
           <UInput v-model="passForm.confirm" type="password" icon="i-heroicons-lock-closed" />
-        </UFormGroup>
-        <UAlert v-if="passError" :description="passError" color="red" variant="soft" />
-        <UButton :loading="passLoading" class="bg-indigo-600 hover:bg-indigo-500 text-white"
+        </UFormField>
+        <UAlert v-if="passError" :description="passError" color="error" variant="soft" />
+        <UButton :loading="passLoading" color="primary"
           @click="changePassword">
           {{ $t('settings.password.submit') }}
         </UButton>
@@ -59,7 +59,7 @@
       <div v-if="user?.cccd_url" class="mb-4">
         <div class="relative inline-block">
           <img :src="user.cccd_url" alt="CCCD" class="w-64 h-40 object-cover rounded-xl border border-slate-700" />
-          <UBadge label="Uploaded" color="green" variant="soft" class="absolute top-2 right-2" />
+          <UBadge label="Uploaded" color="success" variant="soft" class="absolute top-2 right-2" />
         </div>
       </div>
 
@@ -71,7 +71,7 @@
         <input ref="fileInput" type="file" accept="image/*" class="hidden" @change="handleFileUpload" />
       </div>
 
-      <UAlert v-if="cccdError" :description="cccdError" color="red" variant="soft" class="mt-4" />
+      <UAlert v-if="cccdError" :description="cccdError" color="error" variant="soft" class="mt-4" />
 
       <div v-if="cccdLoading" class="mt-4">
         <UProgress animation="carousel" />

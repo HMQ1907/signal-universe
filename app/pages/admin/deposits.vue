@@ -34,7 +34,7 @@
               <p class="text-slate-400 text-xs">{{ tx.user?.email }}</p>
             </td>
             <td>
-              <UBadge v-if="tx.package_selected" :label="`$${tx.package_selected}`" color="indigo" variant="soft" />
+              <UBadge v-if="tx.package_selected" :label="`$${tx.package_selected}`" color="primary" variant="soft" />
             </td>
             <td class="text-green-400 font-bold">${{ tx.amount?.toFixed(2) }}</td>
             <td class="text-slate-300">{{ tx.network }}</td>
@@ -47,7 +47,7 @@
                 <UButton size="xs" :loading="processingId === tx.id"
                   class="bg-green-600/80 hover:bg-green-600 text-white"
                   @click="approve(tx.id)">{{ $t('admin.deposits.approve') }}</UButton>
-                <UButton size="xs" color="red" variant="soft"
+                <UButton size="xs" color="error" variant="soft"
                   @click="openReject(tx.id)">{{ $t('admin.deposits.reject') }}</UButton>
               </div>
             </td>
@@ -67,13 +67,13 @@
         <template #header>
           <h3 class="text-white font-bold">Reject Deposit</h3>
         </template>
-        <UFormGroup label="Reason (optional)">
+        <UFormField label="Reason (optional)">
           <UInput v-model="rejectReason" placeholder="Reason for rejection..." />
-        </UFormGroup>
+        </UFormField>
         <template #footer>
           <div class="flex gap-3 justify-end">
-            <UButton color="gray" @click="showReject = false">Cancel</UButton>
-            <UButton :loading="rejectLoading" color="red" @click="submitReject">Reject</UButton>
+            <UButton color="neutral" @click="showReject = false">Cancel</UButton>
+            <UButton :loading="rejectLoading" color="error" @click="submitReject">Reject</UButton>
           </div>
         </template>
       </UCard>

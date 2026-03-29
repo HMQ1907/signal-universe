@@ -10,9 +10,9 @@
           {{ $t('admin.settings.trading') }}
         </h2>
         <div class="grid md:grid-cols-2 gap-4">
-          <UFormGroup v-for="key in tradingKeys" :key="key" :label="getLabel(key)">
+          <UFormField v-for="key in tradingKeys" :key="key" :label="getLabel(key)">
             <UInput v-model="settingsMap[key]" :type="key.includes('percent') || key.includes('days') || key.includes('window') || key.includes('min') || key.includes('max') ? 'number' : 'text'" />
-          </UFormGroup>
+          </UFormField>
         </div>
       </div>
 
@@ -23,9 +23,9 @@
           {{ $t('admin.settings.referral') }}
         </h2>
         <div class="grid md:grid-cols-2 gap-4">
-          <UFormGroup v-for="key in referralKeys" :key="key" :label="getLabel(key)">
+          <UFormField v-for="key in referralKeys" :key="key" :label="getLabel(key)">
             <UInput v-model="settingsMap[key]" type="number" step="0.1" />
-          </UFormGroup>
+          </UFormField>
         </div>
       </div>
 
@@ -36,13 +36,13 @@
           {{ $t('admin.settings.withdrawal') }}
         </h2>
         <div class="grid md:grid-cols-2 gap-4">
-          <UFormGroup v-for="key in withdrawalKeys" :key="key" :label="getLabel(key)">
+          <UFormField v-for="key in withdrawalKeys" :key="key" :label="getLabel(key)">
             <UInput v-model="settingsMap[key]" />
-          </UFormGroup>
+          </UFormField>
         </div>
       </div>
 
-      <UButton :loading="saving" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold"
+      <UButton :loading="saving" color="primary" class="font-semibold"
         icon="i-heroicons-check" @click="saveSettings">
         Save All Settings
       </UButton>
@@ -62,21 +62,20 @@ for (const s of rawSettings.value || []) {
   settingsMap[s.key] = s.value || ''
 }
 
-const tradingKeys = ['signal_profit_percent', 'max_daily_profit_percent', 'signal_confirm_window', 'capital_lock_days', 'min_deposit']
+const tradingKeys = ['signal_profit_percent', 'max_daily_profit_percent', 'capital_lock_days', 'min_deposit']
 const referralKeys = ['deposit_referral_f1', 'deposit_referral_f2', 'signal_referral_f1', 'signal_referral_f2', 'signal_referral_f3']
 const withdrawalKeys = ['min_withdraw', 'withdraw_fee_percent', 'withdraw_time_start', 'withdraw_time_end']
 
 const labelMap: Record<string, string> = {
   signal_profit_percent: 'Signal Uses (% of balance)',
-  max_daily_profit_percent: 'Max Daily Profit (%)',
-  signal_confirm_window: 'Signal Confirm Window (minutes)',
+  max_daily_profit_percent: 'AI approve: % of package tier credited to user',
   capital_lock_days: 'Capital Lock Days',
   min_deposit: 'Min Deposit ($)',
-  deposit_referral_f1: 'Deposit Commission F1 (%)',
-  deposit_referral_f2: 'Deposit Commission F2 (%)',
-  signal_referral_f1: 'Signal Profit Commission F1 (%)',
-  signal_referral_f2: 'Signal Profit Commission F2 (%)',
-  signal_referral_f3: 'Signal Profit Commission F3 (%)',
+  deposit_referral_f1: 'Deposit: direct referral → parent (%)',
+  deposit_referral_f2: 'Deposit: 2nd level → grandparent (%)',
+  signal_referral_f1: 'AI confirm: 1st upline (% of user credit / profit)',
+  signal_referral_f2: 'AI confirm: 2nd upline (% of user credit)',
+  signal_referral_f3: 'AI confirm: 3rd upline (% of user credit)',
   min_withdraw: 'Min Withdrawal ($)',
   withdraw_fee_percent: 'Withdrawal Fee (%)',
   withdraw_time_start: 'Withdrawal Window Start',

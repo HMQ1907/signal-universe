@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs'
 import { z } from 'zod'
-import { generateToken } from '~/server/utils/helpers'
+import { generateToken } from '~~/server/utils/helpers'
 
 const schema = z.object({
   email: z.string().email(),

@@ -17,7 +17,7 @@
 
         <div class="flex items-center justify-between text-xs text-slate-400">
           <span>Joined: {{ new Date(user.created_at).toLocaleDateString() }}</span>
-          <UButton size="xs" icon="i-heroicons-arrow-top-right-on-square" color="gray" variant="ghost"
+          <UButton size="xs" icon="i-heroicons-arrow-top-right-on-square" color="neutral" variant="ghost"
             :to="user.cccd_url" target="_blank">
             {{ $t('admin.cccd.view') }}
           </UButton>

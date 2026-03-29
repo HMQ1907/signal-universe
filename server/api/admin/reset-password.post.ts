@@ -27,7 +27,7 @@ export default defineEventHandler(async (event) => {
   // Check if user exists
   const { data: targetUser, error: userError } = await supabase
     .from('users')
-    .select('id, email, phone')
+    .select('id, email')
     .eq('id', userId)
     .single()
 
@@ -57,9 +57,8 @@ export default defineEventHandler(async (event) => {
   // Log admin action
   await logAdminAction(admin.id, 'reset_user_password', {
     targetUserId: userId,
-    note: `Password reset for user ${targetUser.email || targetUser.phone}`,
-    ipAddress: getHeader(event, 'x-forwarded-for') || undefined,
-    userAgent: getHeader(event, 'user-agent') || undefined
+    note: `Password reset for user ${targetUser.email}`,
+    ip: getHeader(event, 'x-forwarded-for') || undefined
   })
 
   return {

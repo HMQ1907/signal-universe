@@ -53,7 +53,34 @@
     "notifications": "Notifications",
     "login": "Login",
     "register": "Register",
-    "admin": "Admin Panel"
+    "admin": "Admin Panel",
+    "tokens": "Markets"
+  },
+  "tokens": {
+    "badge": "Live analytics",
+    "title": "Top tokens",
+    "subtitle": "Liquidity, volume, and price change by timeframe — demo data for layout & motion (connect your API later).",
+    "trending": "Trending",
+    "watchlist": "Watchlist",
+    "timeframe": "Window",
+    "table_title": "Top tokens on {chain}",
+    "demo_notice": "Demo data",
+    "watchlist_empty": "Star tokens to add them to your watchlist, or switch back to Trending.",
+    "back_trending": "View trending",
+    "col": {
+      "token": "Token",
+      "time": "Time",
+      "liquidity": "Liquidity",
+      "mc": "MC",
+      "dilute_mc": "Dilute MC",
+      "vol_5m": "5m Vol",
+      "tx_5m": "5m Tx",
+      "price": "Price",
+      "chg_5m": "5m %",
+      "chg_1h": "1h %",
+      "chg_6h": "6h %",
+      "chg_24h": "24h %"
+    }
   },
   "home": {
     "hero": {
@@ -65,7 +92,7 @@
       "cta_secondary": "Learn More",
       "stats": {
         "users": "Active Users",
-        "daily_signals": "Daily Signals",
+        "daily_signals": "Daily AI confirm",
         "max_profit": "Max Daily Profit",
         "languages": "Languages"
       }
@@ -75,15 +102,15 @@
       "subtitle": "Everything you need to succeed in trading",
       "signal": {
         "title": "AI Trading Signals",
-        "description": "Receive 2 professional trading signals daily at 14:00 and 21:00. Confirm with one click and earn profits."
+        "description": "One AI confirm per day (11:00–23:59). DeFi tier is automatic from your total balance ($200+). Each confirm uses 1% of profit balance."
       },
       "referral": {
         "title": "Referral Program",
-        "description": "Earn commissions up to 3 levels deep. Get 5% on F1 deposits and up to 15% on trading profits."
+        "description": "Deposit rewards: 5% to parent on direct deposits, 3% to grandparent on 2nd-level deposits. AI confirm: up to three uplines earn 15% / 10% / 5% of the member's credited profit (not the package principal)."
       },
-      "leader": {
-        "title": "Leader Bonus",
-        "description": "Earn weekly bonuses up to $1,000 based on the size of your direct network."
+      "ai_commission": {
+        "title": "AI confirm rewards",
+        "description": "When your team confirms the daily AI signal, up to three uplines earn 15%, 10%, and 5% of the profit credited to that member (after admin approval)."
       },
       "secure": {
         "title": "Secure & Transparent",
@@ -93,8 +120,8 @@
     "how_it_works": {
       "title": "How It Works",
       "step1": { "title": "Register & Deposit", "description": "Create your account and deposit a minimum of $200 to activate your DeFi package." },
-      "step2": { "title": "Confirm Signals", "description": "At 14:00 and 21:00, confirm the AI trading signal. Each signal uses 1% of your balance." },
-      "step3": { "title": "Earn Profits", "description": "Admin approves your trading profit. Maximum 2% daily profit on your account balance." },
+      "step2": { "title": "Confirm AI (once per day)", "description": "Between 11:00 and 23:59, confirm the AI signal once. It uses 1% of your profit balance." },
+      "step3": { "title": "Earn Profits", "description": "Admin approves your AI confirm. You receive a percentage of your package tier as profit (default 2%, e.g. $4 on a $200 tier)." },
       "step4": { "title": "Withdraw & Grow", "description": "Withdraw profits anytime. Build your referral network to earn extra commissions." }
     },
     "packages": {
@@ -177,14 +204,16 @@
       "total_referral": "Total Referral Bonus",
       "direct_members": "Direct Members (F1)"
     },
-    "signals_today": "Today's Signals",
+    "signals_today": "Today's AI confirm",
+    "signal_daily": "Daily AI confirm",
+    "package_auto": "Auto tier from total balance",
     "signal_14": "14:00 Signal",
     "signal_21": "21:00 Signal",
     "recent_transactions": "Recent Transactions"
   },
   "investment": {
     "title": "Investment Packages",
-    "subtitle": "Select and activate your DeFi investment package",
+    "subtitle": "DeFi tier is set automatically from your total balance ($200+)",
     "current_package": "Current Package",
     "no_package": "No active package",
     "select_package": "Select Package",
@@ -200,7 +229,7 @@
     },
     "rules": {
       "title": "Investment Rules",
-      "rule1": "Minimum $200 to activate DeFi package",
+      "rule1": "Minimum $200 total balance for DeFi / AI confirm; tier auto: $200, $300, $500, $1k, $2k, $5k",
       "rule2": "Capital is locked for 28 days from first deposit",
       "rule3": "Each signal uses 1% of your account balance",
       "rule4": "Maximum 2% daily profit",
@@ -210,7 +239,11 @@
   },
   "signals": {
     "title": "Trading Signals",
-    "subtitle": "AI-powered signals at 14:00 and 21:00 daily",
+    "subtitle": "One AI confirm per day, 11:00–23:59 (local time)",
+    "session_daily": "Daily AI confirm",
+    "window_hours": "11:00 – 23:59",
+    "window_closes_in": "Window closes in",
+    "window_opens_hint": "Opens at 11:00",
     "session_14": "Afternoon Session",
     "session_21": "Evening Session",
     "confirm_btn": "Confirm AI Signal",
@@ -222,9 +255,10 @@
     "confirm_amount": "Signal amount (1% of balance)",
     "confirm_dialog": {
       "title": "Confirm AI Signal",
-      "description": "You are about to confirm the trading signal. This will use 1% of your current balance.",
+      "description": "You confirm one AI signal today. This uses 1% of your profit balance. Referral rewards use your current DeFi tier.",
       "amount_label": "Signal Amount",
-      "balance_label": "Current Balance",
+      "balance_label": "Profit balance",
+      "tier_label": "DeFi tier (referral base)",
       "warning": "This action cannot be undone.",
       "confirm": "Confirm",
       "cancel": "Cancel"
@@ -236,7 +270,7 @@
       "profit": "Profit",
       "status": "Status"
     },
-    "no_package": "You need an active investment package to confirm signals.",
+    "no_package": "You need at least $200 total balance (profit + locked capital) for DeFi / AI confirm.",
     "insufficient_balance": "Insufficient balance to confirm signal.",
     "already_confirmed": "You have already confirmed this session."
   },
@@ -264,21 +298,6 @@
       "joined": "Joined",
       "total_deposited": "Total Deposited"
     },
-    "leader_bonus": {
-      "title": "Leader Bonus",
-      "subtitle": "Weekly bonus based on your direct F1 members",
-      "current_level": "Current Leader Level",
-      "next_level": "Next Level",
-      "f1_needed": "F1 members needed",
-      "weekly_bonus": "Weekly Bonus",
-      "levels": {
-        "1": "Leader 1 (≥10 F1) - $50/week",
-        "2": "Leader 2 (≥20 F1) - $100/week",
-        "3": "Leader 3 (≥50 F1) - $200/week",
-        "4": "Leader 4 (≥100 F1) - $500/week",
-        "5": "Leader 5 (≥200 F1) - $1,000/week"
-      }
-    }
   },
   "wallet": {
     "deposit": {
@@ -342,7 +361,7 @@
         "signal_profit": "Signal Profit",
         "signal_referral": "Referral Profit",
         "deposit_referral": "Deposit Commission",
-        "leader_bonus": "Leader Bonus",
+        "leader_bonus": "Leader Bonus (legacy)",
         "admin_adjust": "Admin Adjustment"
       }
     }
@@ -386,7 +405,6 @@
       "withdrawal": "Withdrawal",
       "signal": "Trading Signal",
       "referral": "Referral Bonus",
-      "leader": "Leader Bonus",
       "admin": "Admin Notice",
       "system": "System"
     }
@@ -394,13 +412,13 @@
   "admin": {
     "nav": {
       "dashboard": "Dashboard",
+      "pending": "Pending",
       "users": "Users",
       "signals": "Signal Sessions",
       "deposits": "Deposits",
       "withdrawals": "Withdrawals",
       "transactions": "Transactions",
       "compound": "Compound Interest",
-      "leader": "Leader Bonus",
       "cccd": "ID Verification",
       "wallets": "Wallets",
       "settings": "Settings"
@@ -492,27 +510,13 @@
     },
     "compound": {
       "title": "Compound Interest (Lãi chồng lãi)",
-      "subtitle": "Referral profit earned from team members' signal profits",
+      "subtitle": "AI confirm referral commissions (% of the member's credited profit)",
       "beneficiary": "Beneficiary",
       "source_user": "From Member",
       "level": "Level",
       "source_profit": "Source Profit",
       "commission_rate": "Rate",
       "commission": "Commission Earned"
-    },
-    "leader": {
-      "title": "Leader Bonus Management",
-      "week": "Week",
-      "generate": "Generate Weekly Bonuses",
-      "pay": "Mark as Paid",
-      "columns": {
-        "user": "User",
-        "f1_count": "F1 Count",
-        "level": "Leader Level",
-        "bonus": "Bonus",
-        "week": "Week",
-        "status": "Status"
-      }
     },
     "cccd": {
       "title": "ID Verification (CCCD)",
@@ -534,7 +538,6 @@
       "title": "System Settings",
       "trading": "Trading Settings",
       "referral": "Referral Settings",
-      "leader": "Leader Bonus Settings",
       "withdrawal": "Withdrawal Settings"
     }
   },

@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
   const supabase = getSupabaseAdmin()
 
   const typeMap: Record<string, string[]> = {
-    deposit_referral: ['deposit', 'deposit_referral', 'withdraw_profit', 'withdraw_capital', 'admin_adjust', 'leader_bonus'],
+    deposit_referral: ['deposit', 'deposit_referral', 'withdraw_profit', 'withdraw_capital', 'admin_adjust'],
     signal_compound: ['signal_profit', 'signal_referral']
   }
 

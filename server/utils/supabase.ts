@@ -98,6 +98,24 @@ export async function createNotification(
   await supabase.from('notifications').insert({ user_id: userId, title, message, type })
 }
 
+export async function getSiteSetting(key: string): Promise<string | null> {
+  const supabase = getSupabaseAdmin()
+  const { data } = await supabase.from('site_settings').select('value').eq('key', key).maybeSingle()
+  return data?.value != null ? String(data.value) : null
+}
+
+/** Public settings by key list (missing keys return empty string). */
+export async function getSiteSettings(keys: string[]): Promise<Record<string, string>> {
+  const supabase = getSupabaseAdmin()
+  const { data } = await supabase.from('site_settings').select('key, value').in('key', keys)
+  const out: Record<string, string> = {}
+  for (const k of keys) out[k] = ''
+  for (const row of data || []) {
+    if (row.key && row.value != null) out[row.key] = String(row.value)
+  }
+  return out
+}
+
 export interface User {
   id: number
   email: string

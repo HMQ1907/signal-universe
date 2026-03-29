@@ -5,8 +5,8 @@ export const useToastCustom = () => {
     toast.add({
       title: message,
       icon: 'i-heroicons-check-circle',
-      color: 'green',
-      timeout: 3000
+      color: 'success',
+      duration: 3000
     })
   }
 
@@ -14,8 +14,8 @@ export const useToastCustom = () => {
     toast.add({
       title: message,
       icon: 'i-heroicons-x-circle',
-      color: 'red',
-      timeout: 4000
+      color: 'error',
+      duration: 4000
     })
   }
 
@@ -23,8 +23,8 @@ export const useToastCustom = () => {
     toast.add({
       title: message,
       icon: 'i-heroicons-information-circle',
-      color: 'blue',
-      timeout: 3000
+      color: 'info',
+      duration: 3000
     })
   }
 

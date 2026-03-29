@@ -1,6 +1,6 @@
 import { z } from 'zod'
-import { generateOtpCode } from '~/server/utils/helpers'
-import { sendPasswordResetEmail } from '~/server/utils/email'
+import { generateOtpCode } from '~~/server/utils/helpers'
+import { sendPasswordResetEmail } from '~~/server/utils/email'
 
 const schema = z.object({ email: z.string().email() })
 

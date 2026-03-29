@@ -10,6 +10,7 @@ export default defineAppConfig({
     },
     input: {
       rounded: 'rounded-xl',
+      root: 'w-full min-w-0',
       default: {
         size: 'md'
       }

@@ -28,12 +28,16 @@
           <!-- CTAs -->
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
             <NuxtLink to="/auth/register">
-              <UButton size="xl" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-8 py-4"
-                trailing-icon="i-heroicons-arrow-right">
+              <UButton
+                size="xl"
+                color="primary"
+                class="px-8 py-4 font-semibold shadow-xl shadow-primary-500/25"
+                trailing-icon="i-heroicons-arrow-right"
+              >
                 {{ $t('home.hero.cta_primary') }}
               </UButton>
             </NuxtLink>
-            <UButton size="xl" color="gray" variant="ghost" class="px-8 py-4 text-slate-300"
+            <UButton size="xl" color="neutral" variant="ghost" class="px-8 py-4 text-slate-300"
               @click="scrollTo('#how-it-works')">
               {{ $t('home.hero.cta_secondary') }}
             </UButton>
@@ -156,7 +160,11 @@
           </div>
 
           <NuxtLink to="/auth/register">
-            <UButton block :class="pkg.amount === 500 ? 'bg-indigo-600 hover:bg-indigo-500' : ''">
+            <UButton
+              block
+              :color="pkg.amount === 500 ? 'primary' : 'neutral'"
+              :variant="pkg.amount === 500 ? 'solid' : 'outline'"
+            >
               {{ $t('home.packages.join') }}
             </UButton>
           </NuxtLink>
@@ -232,8 +240,12 @@
           <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">{{ $t('home.cta.title') }}</h2>
           <p class="text-slate-400 mb-8 text-lg">{{ $t('home.cta.description') }}</p>
           <NuxtLink to="/auth/register">
-            <UButton size="xl" class="bg-indigo-600 hover:bg-indigo-500 px-12 py-4 font-semibold text-white"
-              trailing-icon="i-heroicons-arrow-right">
+            <UButton
+              size="xl"
+              color="primary"
+              class="px-12 py-4 font-semibold shadow-xl shadow-primary-500/25"
+              trailing-icon="i-heroicons-arrow-right"
+            >
               {{ $t('home.cta.button') }}
             </UButton>
           </NuxtLink>
@@ -250,7 +262,7 @@ useHead({ title: 'Signal Universe - Smart Trading Signal Platform' })
 
 const stats = computed(() => [
   { value: '10,000+', label: t('home.hero.stats.users') },
-  { value: '2', label: t('home.hero.stats.daily_signals') },
+  { value: '1', label: t('home.hero.stats.daily_signals') },
   { value: '2%', label: t('home.hero.stats.max_profit') },
   { value: '5', label: t('home.hero.stats.languages') }
 ])
@@ -258,7 +270,7 @@ const stats = computed(() => [
 const features = [
   { key: 'signal', icon: 'i-heroicons-signal', bgColor: 'rgba(99,102,241,0.1)', iconColor: 'text-indigo-400' },
   { key: 'referral', icon: 'i-heroicons-users', bgColor: 'rgba(139,92,246,0.1)', iconColor: 'text-purple-400' },
-  { key: 'leader', icon: 'i-heroicons-trophy', bgColor: 'rgba(245,158,11,0.1)', iconColor: 'text-amber-400' },
+  { key: 'ai_commission', icon: 'i-heroicons-sparkles', bgColor: 'rgba(245,158,11,0.1)', iconColor: 'text-amber-400' },
   { key: 'secure', icon: 'i-heroicons-shield-check', bgColor: 'rgba(16,185,129,0.1)', iconColor: 'text-green-400' }
 ]
 
@@ -270,9 +282,9 @@ const packages = [
 ]
 
 const profitLevels = [
-  { label: 'F1', desc: 'Direct referral profit', rate: '15%', color: 'text-indigo-400', badgeCls: 'bg-indigo-500/20 text-indigo-400' },
-  { label: 'F2', desc: '2nd level profit', rate: '10%', color: 'text-purple-400', badgeCls: 'bg-purple-500/20 text-purple-400' },
-  { label: 'F3', desc: '3rd level profit', rate: '5%', color: 'text-pink-400', badgeCls: 'bg-pink-500/20 text-pink-400' }
+  { label: 'U1', desc: '1st upline (of confirmer)', rate: '15% of profit', color: 'text-indigo-400', badgeCls: 'bg-indigo-500/20 text-indigo-400' },
+  { label: 'U2', desc: '2nd upline', rate: '10% of profit', color: 'text-purple-400', badgeCls: 'bg-purple-500/20 text-purple-400' },
+  { label: 'U3', desc: '3rd upline', rate: '5% of profit', color: 'text-pink-400', badgeCls: 'bg-pink-500/20 text-pink-400' }
 ]
 
 const scrollTo = (selector: string) => {

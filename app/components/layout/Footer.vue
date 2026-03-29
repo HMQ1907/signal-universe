@@ -13,10 +13,11 @@
           </div>
         </div>
 
-        <div class="flex items-center gap-6 text-sm text-slate-500">
+        <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-500 md:justify-end">
           <span>© {{ new Date().getFullYear() }} Signal Universe</span>
-          <NuxtLink to="/support/faq" class="hover:text-slate-300 transition-colors">FAQ</NuxtLink>
-          <NuxtLink to="/support/legal" class="hover:text-slate-300 transition-colors">Legal</NuxtLink>
+          <NuxtLink to="/tokens" class="transition-colors duration-200 hover:text-primary-400">{{ $t('nav.tokens') }}</NuxtLink>
+          <NuxtLink to="/support/faq" class="transition-colors duration-200 hover:text-slate-300">FAQ</NuxtLink>
+          <NuxtLink to="/support/legal" class="transition-colors duration-200 hover:text-slate-300">Legal</NuxtLink>
         </div>
       </div>
     </div>

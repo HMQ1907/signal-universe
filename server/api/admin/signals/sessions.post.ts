@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 const schema = z.object({
   session_date: z.string(),
-  time_window: z.enum(['14:00', '21:00'])
+  time_window: z.literal('daily').optional().default('daily')
 })
 
 export default defineEventHandler(async (event) => {

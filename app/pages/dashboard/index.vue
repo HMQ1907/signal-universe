@@ -49,10 +49,10 @@
           </div>
         </div>
         <p class="text-3xl font-black text-white">
-          {{ user?.investment_package ? `$${user.investment_package}` : '-' }}
+          {{ displayDeFiTier ? `$${displayDeFiTier}` : '-' }}
         </p>
         <p class="text-xs text-slate-500 mt-1">
-          {{ user?.investment_package ? 'DeFi Active' : $t('dashboard.package_none') }}
+          {{ displayDeFiTier ? $t('dashboard.package_auto') : $t('dashboard.package_none') }}
         </p>
       </div>
     </div>
@@ -62,13 +62,13 @@
       <div class="flex items-center justify-between mb-6">
         <h2 class="text-white font-bold text-lg">{{ $t('dashboard.signals_today') }}</h2>
         <NuxtLink to="/signals">
-          <UButton size="xs" color="indigo" variant="soft" trailing-icon="i-heroicons-arrow-right">
+          <UButton size="xs" color="primary" variant="soft" trailing-icon="i-heroicons-arrow-right">
             View All
           </UButton>
         </NuxtLink>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-4">
+      <div class="grid md:grid-cols-1 gap-4 max-w-xl">
         <div v-for="session in todaySessions" :key="session.time"
           class="flex items-center justify-between p-4 rounded-xl bg-slate-800/50 border"
           :class="session.isOpen ? 'border-indigo-500/30' : 'border-slate-700'">
@@ -79,7 +79,7 @@
             </div>
             <div>
               <p class="text-white font-semibold">{{ session.label }}</p>
-              <p class="text-slate-400 text-xs">{{ session.time }}</p>
+              <p class="text-slate-400 text-xs">{{ $t('signals.window_hours') }}</p>
             </div>
           </div>
           <UBadge
@@ -104,7 +104,7 @@
       <div class="flex items-center justify-between mb-6">
         <h2 class="text-white font-bold text-lg">{{ $t('dashboard.recent_transactions') }}</h2>
         <NuxtLink to="/wallet/history">
-          <UButton size="xs" color="gray" variant="ghost" trailing-icon="i-heroicons-arrow-right">View All</UButton>
+          <UButton size="xs" color="neutral" variant="ghost" trailing-icon="i-heroicons-arrow-right">View All</UButton>
         </NuxtLink>
       </div>
 
@@ -143,9 +143,13 @@ definePageMeta({ middleware: 'auth' })
 useHead({ title: 'Dashboard - Signal Universe' })
 
 const { user, refreshUser } = useAuth()
+const { t } = useI18n()
 await refreshUser()
 
 const { data: recentTx } = await useFetch('/api/wallet/history', { query: { limit: 5 } })
+const { data: signalBrief } = await useFetch('/api/signals/sessions', { key: 'dashboard-signals' })
+
+const displayDeFiTier = computed(() => signalBrief.value?.defi_tier ?? null)
 
 const capitalStatus = computed(() => {
   if (!user.value?.first_deposit_at) return { text: 'No investment', class: 'text-slate-500' }
@@ -157,16 +161,30 @@ const capitalStatus = computed(() => {
   return { text: `Locked - ${daysLeft} days remaining`, class: 'text-amber-400' }
 })
 
-const todaySessions = [
-  { time: '14:00', label: 'Afternoon Signal', isOpen: false, confirmed: false },
-  { time: '21:00', label: 'Evening Signal', isOpen: false, confirmed: false }
-]
+const todaySessions = computed(() => {
+  const sessions = signalBrief.value?.sessions || []
+  const conf = signalBrief.value?.user_confirmations || {}
+  const s = sessions.find((x: any) => x.time_window === 'daily') || sessions[0]
+  if (!s) {
+    return [{ time: 'daily', label: t('dashboard.signal_daily'), isOpen: false, confirmed: false }]
+  }
+  const now = new Date()
+  const today = now.toISOString().split('T')[0]
+  const h = now.getHours()
+  const isOpen = s.session_date === today && s.status === 'open' && h >= 11 && h <= 23
+  const confirmed = !!conf[s.id]
+  return [{ time: 'daily', label: t('dashboard.signal_daily'), isOpen, confirmed }]
+})
 
 const quickStats = computed(() => [
   { label: 'F1 Members', value: user.value?.f1_count || 0, color: 'text-indigo-400' },
   { label: 'Referral Code', value: user.value?.referral_code || '-', color: 'text-purple-400' },
   { label: 'Total Balance', value: `$${((user.value?.balance || 0) + (user.value?.locked_capital || 0)).toFixed(2)}`, color: 'text-white' },
-  { label: 'Package Status', value: user.value?.investment_package ? 'Active' : 'None', color: user.value?.investment_package ? 'text-green-400' : 'text-slate-500' }
+  {
+    label: 'Package Status',
+    value: displayDeFiTier.value ? `Tier $${displayDeFiTier.value}` : 'None',
+    color: displayDeFiTier.value ? 'text-green-400' : 'text-slate-500'
+  }
 ])
 
 const txIcon = (type: string) => {
@@ -177,20 +195,19 @@ const txIcon = (type: string) => {
     signal_profit: 'i-heroicons-signal',
     signal_referral: 'i-heroicons-arrow-path',
     deposit_referral: 'i-heroicons-users',
-    leader_bonus: 'i-heroicons-trophy',
     admin_adjust: 'i-heroicons-adjustments-horizontal'
   }
   return icons[type] || 'i-heroicons-banknotes'
 }
 
 const txIconBg = (type: string) => {
-  if (['deposit', 'signal_profit', 'signal_referral', 'deposit_referral', 'leader_bonus'].includes(type)) return 'bg-green-500/10'
+  if (['deposit', 'signal_profit', 'signal_referral', 'deposit_referral'].includes(type)) return 'bg-green-500/10'
   if (['withdraw_profit', 'withdraw_capital'].includes(type)) return 'bg-red-500/10'
   return 'bg-slate-700'
 }
 
 const txIconColor = (type: string) => {
-  if (['deposit', 'signal_profit', 'signal_referral', 'deposit_referral', 'leader_bonus'].includes(type)) return 'text-green-400'
+  if (['deposit', 'signal_profit', 'signal_referral', 'deposit_referral'].includes(type)) return 'text-green-400'
   if (['withdraw_profit', 'withdraw_capital'].includes(type)) return 'text-red-400'
   return 'text-slate-400'
 }

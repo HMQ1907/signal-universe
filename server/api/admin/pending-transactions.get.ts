@@ -4,13 +4,6 @@ export default defineEventHandler(async (event) => {
   await requireAdmin(event)
   const supabase = getSupabaseAdmin()
 
-  const fiveMinAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString()
-  await supabase
-    .from('transactions')
-    .update({ status: 'cancelled' })
-    .eq('status', 'pending_confirmation')
-    .lt('created_at', fiveMinAgo)
-
   // Fetch pending deposits and withdrawals in parallel
   const [depositsResult, withdrawalsResult] = await Promise.all([
     supabase
@@ -29,10 +22,10 @@ export default defineEventHandler(async (event) => {
       .select(`
         *,
         user:users!transactions_user_id_fkey (
-          id, email, phone, full_name, balance, referral_code, referred_by
+          id, email, full_name, balance, locked_capital, referral_code, referred_by, first_deposit_at
         )
       `)
-      .eq('type', 'withdraw')
+      .in('type', ['withdraw_profit', 'withdraw_capital'])
       .eq('status', 'pending')
       .order('created_at', { ascending: false })
   ])

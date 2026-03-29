@@ -1,9 +1,10 @@
 <template>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
-  <UNotifications />
-  <ClientOnly>
-    <PageLoading />
-  </ClientOnly>
+  <UApp>
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+    <ClientOnly>
+      <PageLoading />
+    </ClientOnly>
+  </UApp>
 </template>

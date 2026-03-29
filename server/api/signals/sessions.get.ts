@@ -1,3 +1,5 @@
+import { investmentTierFromTotal } from '~~/server/utils/helpers'
+
 export default defineEventHandler(async (event) => {
   const user = await requireAuth(event)
   const supabase = getSupabaseAdmin()
@@ -27,13 +29,19 @@ export default defineEventHandler(async (event) => {
   const { data: fullUser } = await supabase
     .from('users')
     .select('balance, locked_capital, investment_package')
-    .eq('user.id', user.id)
+    .eq('id', user.id)
     .single()
+
+  const bal = fullUser?.balance ?? user.balance
+  const locked = fullUser?.locked_capital ?? 0
+  const defiTier = investmentTierFromTotal(bal + locked)
 
   return {
     sessions: sessions || [],
     user_confirmations: userConfirmations,
-    user_balance: user.balance,
-    user_package: user.investment_package
+    user_balance: bal,
+    user_locked_capital: locked,
+    defi_tier: defiTier,
+    user_package: fullUser?.investment_package ?? user.investment_package
   }
 })

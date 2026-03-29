@@ -16,18 +16,18 @@
       </div>
 
       <div class="space-y-4">
-        <UFormGroup :label="$t('wallet.withdraw.amount')" name="amount">
+        <UFormField :label="$t('wallet.withdraw.amount')" name="amount">
           <UInput v-model.number="profitForm.amount" type="number" :min="10" :max="user?.balance"
             placeholder="10.00" icon="i-heroicons-currency-dollar" />
           <template #hint>
             <span class="text-slate-500 text-xs">{{ $t('wallet.withdraw.min_amount') }}</span>
           </template>
-        </UFormGroup>
+        </UFormField>
 
-        <UFormGroup :label="$t('wallet.withdraw.wallet_address')" name="address">
+        <UFormField :label="$t('wallet.withdraw.wallet_address')" name="address">
           <UInput v-model="profitForm.address" :placeholder="$t('wallet.withdraw.wallet_placeholder')"
             icon="i-heroicons-wallet" />
-        </UFormGroup>
+        </UFormField>
 
         <div v-if="profitForm.amount > 0" class="p-4 rounded-xl bg-slate-800/50 space-y-2">
           <div class="flex justify-between text-sm">
@@ -45,12 +45,12 @@
           </div>
         </div>
 
-        <UAlert :description="$t('wallet.withdraw.time_notice')" color="blue" variant="soft"
+        <UAlert :description="$t('wallet.withdraw.time_notice')" color="info" variant="soft"
           icon="i-heroicons-clock" />
 
-        <UAlert v-if="profitError" :description="profitError" color="red" variant="soft" />
+        <UAlert v-if="profitError" :description="profitError" color="error" variant="soft" />
 
-        <UButton block :loading="loading" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold"
+        <UButton block :loading="loading" color="primary" class="font-semibold"
           @click="submitWithdraw('withdraw_profit')">
           {{ $t('wallet.withdraw.submit') }}
         </UButton>
@@ -73,23 +73,23 @@
         </div>
       </div>
 
-      <UAlert :description="$t('wallet.withdraw.capital_warning')" color="amber" variant="soft"
+      <UAlert :description="$t('wallet.withdraw.capital_warning')" color="warning" variant="soft"
         icon="i-heroicons-exclamation-triangle" class="mb-6" />
 
       <div v-if="isCapitalUnlocked" class="space-y-4">
-        <UFormGroup :label="$t('wallet.withdraw.amount')">
+        <UFormField :label="$t('wallet.withdraw.amount')">
           <UInput v-model.number="capitalForm.amount" type="number" :min="10" :max="user?.locked_capital"
             placeholder="10.00" icon="i-heroicons-currency-dollar" />
-        </UFormGroup>
+        </UFormField>
 
-        <UFormGroup :label="$t('wallet.withdraw.wallet_address')">
+        <UFormField :label="$t('wallet.withdraw.wallet_address')">
           <UInput v-model="capitalForm.address" :placeholder="$t('wallet.withdraw.wallet_placeholder')"
             icon="i-heroicons-wallet" />
-        </UFormGroup>
+        </UFormField>
 
-        <UAlert v-if="capitalError" :description="capitalError" color="red" variant="soft" />
+        <UAlert v-if="capitalError" :description="capitalError" color="error" variant="soft" />
 
-        <UButton block :loading="loading" class="bg-red-600/80 hover:bg-red-600 text-white font-semibold"
+        <UButton block :loading="loading" color="error" class="font-semibold"
           @click="submitWithdraw('withdraw_capital')">
           {{ $t('wallet.withdraw.submit') }} (Capital)
         </UButton>

@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { isValidPackage } from '~/server/utils/helpers'
+import { isValidPackage } from '~~/server/utils/helpers'
 
 const schema = z.object({
   amount: z.number().min(200),

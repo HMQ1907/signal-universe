@@ -14,8 +14,23 @@
 
         <!-- Center nav (desktop) -->
         <nav class="hidden lg:flex items-center gap-1" v-if="!user">
-          <NuxtLink to="/" class="px-4 py-2 text-sm text-slate-400 hover:text-white transition-colors rounded-lg hover:bg-slate-800/50">
+          <NuxtLink
+            to="/"
+            :class="[
+              'rounded-lg px-4 py-2 text-sm text-slate-400 transition-colors duration-200 hover:bg-slate-800/50 hover:text-white',
+              $route.path === '/' ? 'bg-primary-500/10 text-primary-400' : ''
+            ]"
+          >
             {{ $t('nav.home') }}
+          </NuxtLink>
+          <NuxtLink
+            to="/tokens"
+            :class="[
+              'rounded-lg px-4 py-2 text-sm text-slate-400 transition-colors duration-200 hover:bg-slate-800/50 hover:text-white',
+              $route.path.startsWith('/tokens') ? 'bg-primary-500/10 text-primary-400' : ''
+            ]"
+          >
+            {{ $t('nav.tokens') }}
           </NuxtLink>
         </nav>
 
@@ -23,7 +38,11 @@
         <nav class="hidden lg:flex items-center gap-1" v-if="user && !user.is_admin">
           <NuxtLink v-for="item in userNav" :key="item.to" :to="item.to"
             class="px-3 py-2 text-sm transition-colors rounded-lg flex items-center gap-1.5"
-            :class="$route.path.startsWith(item.to) ? 'text-indigo-400 bg-indigo-500/10' : 'text-slate-400 hover:text-white hover:bg-slate-800/50'">
+            :class="
+              $route.path.startsWith(item.to)
+                ? 'bg-primary-500/10 text-primary-400'
+                : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
+            ">
             <UIcon :name="item.icon" class="text-sm" />
             {{ $t(item.label) }}
           </NuxtLink>
@@ -37,7 +56,7 @@
             <NotificationBell v-if="!user.is_admin" />
 
             <UDropdown :items="profileMenuItems" :ui="{ item: { disabled: 'cursor-text select-text' } }">
-              <UButton color="gray" variant="ghost" class="flex items-center gap-2">
+              <UButton color="neutral" variant="ghost" class="flex items-center gap-2">
                 <div class="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0"
                   style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
                   <UIcon name="i-heroicons-user" class="text-white text-xs" />
@@ -50,10 +69,12 @@
 
           <template v-else>
             <NuxtLink to="/auth/login">
-              <UButton color="gray" variant="ghost" size="sm">{{ $t('nav.login') }}</UButton>
+              <UButton color="neutral" variant="ghost" size="sm">{{ $t('nav.login') }}</UButton>
             </NuxtLink>
-            <NuxtLink to="/auth/register">
-              <UButton size="sm" class="bg-indigo-600 hover:bg-indigo-500">{{ $t('nav.register') }}</UButton>
+            <NuxtLink to="/auth/register" class="inline-flex">
+              <UButton size="sm" color="primary" class="px-4 font-semibold shadow-lg shadow-primary-500/20">
+                {{ $t('nav.register') }}
+              </UButton>
             </NuxtLink>
           </template>
         </div>
@@ -69,6 +90,7 @@ const { t } = useI18n()
 const userNav = [
   { to: '/dashboard', icon: 'i-heroicons-squares-2x2', label: 'nav.dashboard' },
   { to: '/signals', icon: 'i-heroicons-signal', label: 'nav.signals' },
+  { to: '/tokens', icon: 'i-heroicons-chart-bar', label: 'nav.tokens' },
   { to: '/referral', icon: 'i-heroicons-users', label: 'nav.referral' },
   { to: '/wallet', icon: 'i-heroicons-wallet', label: 'nav.wallet' }
 ]

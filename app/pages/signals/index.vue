@@ -5,30 +5,24 @@
       <p class="text-slate-400 text-sm mt-1">{{ $t('signals.subtitle') }}</p>
     </div>
 
-    <!-- No Package Warning -->
-    <UAlert v-if="!user?.investment_package" :description="$t('signals.no_package')"
-      color="amber" variant="soft" icon="i-heroicons-exclamation-triangle" class="mb-8">
+    <UAlert v-if="signalData && !signalData.defi_tier" :description="$t('signals.no_package')"
+      color="warning" variant="soft" icon="i-heroicons-exclamation-triangle" class="mb-8">
       <template #description>
         {{ $t('signals.no_package') }}
         <NuxtLink to="/wallet/deposit" class="text-amber-400 hover:underline ml-1">Deposit now →</NuxtLink>
       </template>
     </UAlert>
 
-    <!-- Sessions -->
-    <div class="grid md:grid-cols-2 gap-6 mb-8">
-      <div v-for="timeWindow in ['14:00', '21:00']" :key="timeWindow">
-        <SignalSessionCard
-          :time-window="timeWindow"
-          :sessions="signalData?.sessions || []"
-          :confirmations="signalData?.user_confirmations || {}"
-          :user-balance="user?.balance || 0"
-          :user-package="user?.investment_package || null"
-          @confirmed="handleConfirm"
-        />
-      </div>
+    <div class="max-w-xl mx-auto mb-8">
+      <SignalSessionCard
+        :sessions="signalData?.sessions || []"
+        :confirmations="signalData?.user_confirmations || {}"
+        :user-balance="signalData?.user_balance ?? user?.balance ?? 0"
+        :defi-tier="signalData?.defi_tier ?? null"
+        @confirmed="handleConfirm"
+      />
     </div>
 
-    <!-- History -->
     <div class="su-card">
       <h2 class="text-white font-bold text-lg mb-6">{{ $t('signals.history.title') }}</h2>
 
@@ -37,7 +31,7 @@
           class="flex items-center justify-between py-4 border-b border-slate-800 last:border-0">
           <div>
             <p class="text-white text-sm font-medium">
-              {{ item.session?.session_date }} — {{ item.session?.time_window }}
+              {{ item.session?.session_date }} — {{ item.session?.time_window === 'daily' ? $t('signals.session_daily') : item.session?.time_window }}
             </p>
             <p class="text-slate-400 text-xs">Signal amount: ${{ item.amount.toFixed(2) }}</p>
           </div>

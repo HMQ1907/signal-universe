@@ -1,6 +1,6 @@
 <template>
   <UDropdown :items="languageItems">
-    <UButton color="gray" variant="ghost" size="sm" class="flex items-center gap-1.5">
+    <UButton color="neutral" variant="ghost" size="sm" class="flex items-center gap-1.5">
       <span class="text-base">{{ currentFlag }}</span>
       <span class="hidden sm:block text-xs text-slate-400">{{ currentLocale?.name }}</span>
       <UIcon name="i-heroicons-chevron-down" class="text-slate-500 text-xs" />
@@ -28,7 +28,7 @@ const languageItems = computed(() => [
     icon: undefined,
     slot: 'item',
     click: () => setLocale(l.code as any),
-    class: l.code === locale.value ? 'text-indigo-400' : ''
+    class: l.code === locale.value ? 'text-primary-400' : ''
   }))
 ])
 </script>

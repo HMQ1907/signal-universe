@@ -53,7 +53,34 @@
     "notifications": "Thông báo",
     "login": "Đăng nhập",
     "register": "Đăng ký",
-    "admin": "Quản trị"
+    "admin": "Quản trị",
+    "tokens": "Thị trường"
+  },
+  "tokens": {
+    "badge": "Phân tích trực tiếp",
+    "title": "Token nổi bật",
+    "subtitle": "Thanh khoản, khối lượng và biến động giá theo khung thời gian — dữ liệu demo (sau nối API thật).",
+    "trending": "Xu hướng",
+    "watchlist": "Theo dõi",
+    "timeframe": "Khung",
+    "table_title": "Token hàng đầu trên {chain}",
+    "demo_notice": "Dữ liệu demo",
+    "watchlist_empty": "Nhấn sao để thêm token vào danh sách theo dõi, hoặc quay lại Xu hướng.",
+    "back_trending": "Xem xu hướng",
+    "col": {
+      "token": "Token",
+      "time": "Thời gian",
+      "liquidity": "Thanh khoản",
+      "mc": "Vốn hóa",
+      "dilute_mc": "Vốn hóa pha loãng",
+      "vol_5m": "KL 5m",
+      "tx_5m": "GD 5m",
+      "price": "Giá",
+      "chg_5m": "5m %",
+      "chg_1h": "1h %",
+      "chg_6h": "6h %",
+      "chg_24h": "24h %"
+    }
   },
   "home": {
     "hero": {
@@ -75,15 +102,15 @@
       "subtitle": "Mọi thứ bạn cần để thành công trong giao dịch",
       "signal": {
         "title": "Tín hiệu AI Giao dịch",
-        "description": "Nhận 2 tín hiệu giao dịch mỗi ngày lúc 14:00 và 21:00. Xác nhận 1 chạm và kiếm lợi nhuận."
+        "description": "Một lần xác nhận AI mỗi ngày (11:00–23:59). Cấp DeFi tự động theo tổng số dư ($200+). Mỗi lần xác nhận dùng 1% số dư lợi nhuận."
       },
       "referral": {
         "title": "Chương trình Giới thiệu",
-        "description": "Kiếm hoa hồng lên đến 3 cấp. 5% hoa hồng nạp F1 và tới 15% lợi nhuận giao dịch."
+        "description": "Nạp tiền: 5% cho bậc trên trực tiếp, 3% cho ông bà khi nạp cấp 2. Xác nhận AI: tối đa 3 tuyến trên nhận 15% / 10% / 5% lợi nhuận được cộng cho thành viên (không phải trên gốc gói)."
       },
-      "leader": {
-        "title": "Thưởng Leader",
-        "description": "Nhận thưởng hàng tuần lên đến $1,000 dựa trên số lượng thành viên trực tiếp của bạn."
+      "ai_commission": {
+        "title": "Thưởng xác nhận AI",
+        "description": "Khi đội nhóm xác nhận tín hiệu AI hàng ngày, tối đa ba tuyến trên nhận 15%, 10% và 5% lợi nhuận được cộng cho thành viên đó (sau khi admin duyệt)."
       },
       "secure": {
         "title": "An toàn & Minh bạch",
@@ -93,8 +120,8 @@
     "how_it_works": {
       "title": "Cách Hoạt Động",
       "step1": { "title": "Đăng ký & Nạp tiền", "description": "Tạo tài khoản và nạp tối thiểu $200 để kích hoạt gói DeFi." },
-      "step2": { "title": "Xác nhận Tín hiệu", "description": "Lúc 14:00 và 21:00, xác nhận tín hiệu AI. Mỗi tín hiệu dùng 1% số dư tài khoản." },
-      "step3": { "title": "Nhận Lợi nhuận", "description": "Admin duyệt lợi nhuận giao dịch của bạn. Tối đa 2% lợi nhuận mỗi ngày." },
+      "step2": { "title": "Xác nhận AI (mỗi ngày một lần)", "description": "Trong khung 11:00–23:59, xác nhận tín hiệu AI một lần. Dùng 1% số dư lợi nhuận." },
+      "step3": { "title": "Nhận Lợi nhuận", "description": "Admin duyệt xác nhận AI. Bạn nhận phần trăm theo cấp gói (mặc định 2%, ví dụ $4 với cấp $200)." },
       "step4": { "title": "Rút & Phát triển", "description": "Rút lợi nhuận bất cứ lúc nào. Xây dựng mạng lưới để kiếm thêm hoa hồng." }
     },
     "packages": {
@@ -394,6 +421,7 @@
   "admin": {
     "nav": {
       "dashboard": "Tổng quan",
+      "pending": "Chờ duyệt",
       "users": "Người dùng",
       "signals": "Phiên tín hiệu",
       "deposits": "Nạp tiền",

@@ -31,7 +31,7 @@
             <td class="text-white font-medium">{{ u.full_name || '-' }}</td>
             <td class="text-slate-300">{{ u.email }}</td>
             <td>
-              <UBadge v-if="u.investment_package" :label="`$${u.investment_package}`" color="indigo" variant="soft" />
+              <UBadge v-if="u.investment_package" :label="`$${u.investment_package}`" color="primary" variant="soft" />
               <span v-else class="text-slate-600">-</span>
             </td>
             <td class="text-green-400 font-semibold">${{ (u.balance || 0).toFixed(2) }}</td>
@@ -44,11 +44,11 @@
             </td>
             <td>
               <div class="flex items-center gap-1">
-                <UButton size="xs" icon="i-heroicons-eye" color="gray" variant="ghost"
+                <UButton size="xs" icon="i-heroicons-eye" color="neutral" variant="ghost"
                   @click="viewTree(u)" />
-                <UButton size="xs" icon="i-heroicons-plus-circle" color="green" variant="ghost"
+                <UButton size="xs" icon="i-heroicons-plus-circle" color="success" variant="ghost"
                   @click="openAdjust(u, 'add')" />
-                <UButton size="xs" icon="i-heroicons-minus-circle" color="red" variant="ghost"
+                <UButton size="xs" icon="i-heroicons-minus-circle" color="error" variant="ghost"
                   @click="openAdjust(u, 'subtract')" />
                 <UButton size="xs" :icon="u.is_active ? 'i-heroicons-x-circle' : 'i-heroicons-check-circle'"
                   :color="u.is_active ? 'red' : 'green'" variant="ghost"
@@ -75,12 +75,12 @@
           <div class="p-3 rounded-xl bg-slate-800/50 text-sm">
             Current balance: <span class="text-green-400 font-bold">${{ selectedUser?.balance?.toFixed(2) }}</span>
           </div>
-          <UFormGroup label="Amount (USD)">
+          <UFormField label="Amount (USD)">
             <UInput v-model.number="adjustForm.amount" type="number" :min="0.01" step="0.01" />
-          </UFormGroup>
-          <UFormGroup :label="$t('admin.users.adjust_reason')">
+          </UFormField>
+          <UFormField :label="$t('admin.users.adjust_reason')">
             <UInput v-model="adjustForm.reason" :placeholder="$t('admin.users.adjust_reason')" />
-          </UFormGroup>
+          </UFormField>
           <div class="flex gap-2">
             <UButton block :loading="adjustLoading"
               :class="adjustForm.operation === 'add' ? 'bg-green-600 hover:bg-green-500 text-white' : 'bg-red-600/80 hover:bg-red-600 text-white'"

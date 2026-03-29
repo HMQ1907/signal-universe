@@ -2,7 +2,7 @@
   <div class="relative">
     <UButton
       icon="i-heroicons-bell"
-      color="gray"
+      color="neutral"
       variant="ghost"
       size="sm"
       @click="navigateTo('/notifications')"

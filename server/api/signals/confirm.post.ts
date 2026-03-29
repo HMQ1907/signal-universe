@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { isSignalWindowOpen } from '~/server/utils/helpers'
+import { investmentTierFromTotal, isDailyAiConfirmWindowOpen } from '~~/server/utils/helpers'
 
 const schema = z.object({
   session_id: z.number()
@@ -11,10 +11,6 @@ export default defineEventHandler(async (event) => {
   const parsed = schema.safeParse(body)
   if (!parsed.success) {
     throw createError({ statusCode: 400, message: 'Invalid input' })
-  }
-
-  if (!user.investment_package) {
-    throw createError({ statusCode: 400, message: 'No active investment package' })
   }
 
   const supabase = getSupabaseAdmin()
@@ -32,8 +28,24 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: 'Session is not for today' })
   }
 
-  if (!isSignalWindowOpen(session.time_window as '14:00' | '21:00')) {
-    throw createError({ statusCode: 400, message: 'Confirmation window has closed' })
+  if (!isDailyAiConfirmWindowOpen()) {
+    throw createError({ statusCode: 400, message: 'AI confirm window is closed (open 11:00–23:59)' })
+  }
+
+  const { data: fullUser } = await supabase
+    .from('users')
+    .select('balance, locked_capital')
+    .eq('id', user.id)
+    .single()
+
+  if (!fullUser || fullUser.balance < 1) {
+    throw createError({ statusCode: 400, message: 'Insufficient balance' })
+  }
+
+  const totalForTier = (fullUser.balance || 0) + (fullUser.locked_capital || 0)
+  const packageTier = investmentTierFromTotal(totalForTier)
+  if (!packageTier) {
+    throw createError({ statusCode: 400, message: 'Minimum $200 total balance required for DeFi / AI confirm' })
   }
 
   const { data: existing } = await supabase
@@ -45,27 +57,18 @@ export default defineEventHandler(async (event) => {
 
   if (existing) throw createError({ statusCode: 400, message: 'Already confirmed this session' })
 
-  const { data: fullUser } = await supabase
-    .from('users')
-    .select('balance')
-    .eq('id', user.id)
-    .single()
-
-  if (!fullUser || fullUser.balance < 1) {
-    throw createError({ statusCode: 400, message: 'Insufficient balance' })
-  }
-
   const signalAmount = parseFloat((fullUser.balance * 0.01).toFixed(2))
 
   const { error } = await supabase.from('signal_confirmations').insert({
     user_id: user.id,
     session_id: session.id,
     amount: signalAmount,
+    package_tier: packageTier,
     balance_snapshot: fullUser.balance,
     status: 'pending'
   })
 
   if (error) throw createError({ statusCode: 500, message: 'Failed to confirm signal' })
 
-  return { success: true, amount: signalAmount }
+  return { success: true, amount: signalAmount, package_tier: packageTier }
 })

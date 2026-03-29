@@ -263,3 +263,73 @@ body {
     border-radius: 12px;
   }
 }
+
+/* Keep dark-theme inputs readable when the browser autofills (avoids white/yellow boxes on auth forms) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--su-text);
+  caret-color: var(--su-text);
+  -webkit-box-shadow: 0 0 0 1000px var(--su-bg-card2) inset;
+  box-shadow: 0 0 0 1000px var(--su-bg-card2) inset;
+  transition: background-color 99999s ease-out 0s;
+}
+
+/* Motion: page sections & ambient orbs */
+@keyframes su-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes su-ambient-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(1.04);
+  }
+}
+
+.su-fade-up {
+  animation: su-fade-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.su-stagger-1 {
+  animation-delay: 80ms;
+}
+.su-stagger-2 {
+  animation-delay: 140ms;
+}
+
+.su-ambient-orb {
+  animation: su-ambient-pulse 10s ease-in-out infinite;
+}
+
+.su-ambient-orb--delay {
+  animation-delay: -5s;
+}
+
+.auth-form-card {
+  animation: su-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Auth: full-width control row (Input root is inline-flex in Nuxt UI) */
+.auth-form-card .auth-input {
+  display: flex;
+  width: 100%;
+}
