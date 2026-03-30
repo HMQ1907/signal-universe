@@ -1,10 +1,11 @@
 <template>
-  <header class="sticky top-0 z-50 border-b border-slate-800/80 backdrop-blur-xl"
-    style="background: rgba(10, 15, 30, 0.95);">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
+  <header
+    class="sticky top-0 z-50 overflow-x-visible border-b border-white/[0.06] bg-[#030308]/75 backdrop-blur-2xl supports-[backdrop-filter]:bg-[#030308]/55"
+  >
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+      <div class="flex min-h-16 items-center justify-between gap-2 py-2 sm:gap-3 sm:py-0 lg:h-16 lg:py-0">
         <!-- Logo -->
-        <NuxtLink to="/" class="flex items-center gap-2.5">
+        <NuxtLink to="/" class="flex min-w-0 shrink-0 items-center gap-2.5">
           <div class="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0"
             style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
             <UIcon name="i-heroicons-signal" class="text-white text-sm" />
@@ -17,7 +18,7 @@
           <NuxtLink
             to="/"
             :class="[
-              'rounded-lg px-4 py-2 text-sm text-slate-400 transition-colors duration-200 hover:bg-slate-800/50 hover:text-white',
+              'nav-link-web3 rounded-lg px-4 py-2 text-sm text-slate-400 hover:bg-slate-800/50 hover:text-white',
               $route.path === '/' ? 'bg-primary-500/10 text-primary-400' : ''
             ]"
           >
@@ -26,11 +27,20 @@
           <NuxtLink
             to="/tokens"
             :class="[
-              'rounded-lg px-4 py-2 text-sm text-slate-400 transition-colors duration-200 hover:bg-slate-800/50 hover:text-white',
+              'nav-link-web3 rounded-lg px-4 py-2 text-sm text-slate-400 hover:bg-slate-800/50 hover:text-white',
               $route.path.startsWith('/tokens') ? 'bg-primary-500/10 text-primary-400' : ''
             ]"
           >
             {{ $t('nav.tokens') }}
+          </NuxtLink>
+          <NuxtLink
+            to="/platform"
+            :class="[
+              'nav-link-web3 rounded-lg px-4 py-2 text-sm text-slate-400 hover:bg-slate-800/50 hover:text-white',
+              $route.path === '/platform' ? 'bg-primary-500/10 text-primary-400' : ''
+            ]"
+          >
+            {{ $t('nav.platform') }}
           </NuxtLink>
         </nav>
 
@@ -48,9 +58,11 @@
           </NuxtLink>
         </nav>
 
-        <!-- Right side -->
-        <div class="flex items-center gap-2">
-          <LanguageSwitcher />
+        <!-- Right: language stays visible; auth buttons compact on small screens -->
+        <div class="relative z-20 flex shrink-0 items-center gap-1 sm:gap-2">
+          <div class="shrink-0">
+            <LanguageSwitcher />
+          </div>
 
           <template v-if="user">
             <NotificationBell v-if="!user.is_admin" />
@@ -69,10 +81,12 @@
 
           <template v-else>
             <NuxtLink to="/auth/login">
-              <UButton color="neutral" variant="ghost" size="sm">{{ $t('nav.login') }}</UButton>
+              <UButton color="neutral" variant="ghost" size="sm" class="px-2 sm:px-3">
+                {{ $t('nav.login') }}
+              </UButton>
             </NuxtLink>
             <NuxtLink to="/auth/register" class="inline-flex">
-              <UButton size="sm" color="primary" class="px-4 font-semibold shadow-lg shadow-primary-500/20">
+              <UButton size="sm" color="primary" class="px-3 font-semibold shadow-lg shadow-primary-500/20 sm:px-4">
                 {{ $t('nav.register') }}
               </UButton>
             </NuxtLink>

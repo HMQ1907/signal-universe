@@ -21,8 +21,8 @@ const openFaq = ref<number | null>(null)
 const toggleFaq = (i: number) => { openFaq.value = openFaq.value === i ? null : i }
 
 const faqs = [
-  { q: 'What is Signal Universe?', a: 'Signal Universe is a smart trading signal platform that provides 2 AI-powered trading signals daily, helping investors earn daily profits through our transparent signal confirmation system.' },
-  { q: 'How do I get started?', a: 'Register an account, deposit a minimum of $200 to activate your DeFi package, then confirm trading signals at 14:00 and 21:00 each day.' },
+  { q: 'What is Signal Universe?', a: 'Signal Universe is a smart trading signal platform with one daily AI confirmation window (11:00–23:59), transparent DeFi tiers, and referral rewards—built for clear, disciplined participation.' },
+  { q: 'How do I get started?', a: 'Register an account, reach at least $200 total balance to activate your DeFi tier, then confirm the daily AI signal once during the open window.' },
   { q: 'When can I withdraw my capital?', a: 'Your initial deposit (capital) is locked for 28 days from the first deposit date. After 28 days, you can submit a capital withdrawal request for admin review.' },
   { q: 'How are trading profits calculated?', a: 'Each signal uses 1% of your account balance. Admin approves profits, with a maximum of 2% daily profit on your total balance.' },
   { q: 'How does the referral program work?', a: 'You earn 5% commission when your F1 referrals deposit, and 3% from F2 deposits. For trading profits, you earn 15% from F1, 10% from F2, and 5% from F3 members.' },

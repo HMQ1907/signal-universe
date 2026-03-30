@@ -50,8 +50,8 @@
             <span class="text-green-400 font-bold">Up to 2%</span>
           </div>
           <div class="flex justify-between">
-            <span class="text-slate-400">Signals/day</span>
-            <span class="text-white">2</span>
+            <span class="text-slate-400">{{ $t('investment.signals_per_day') }}</span>
+            <span class="text-white font-semibold">{{ $t('investment.signals_per_day_value') }}</span>
           </div>
           <div class="flex justify-between">
             <span class="text-slate-400">Lock Period</span>

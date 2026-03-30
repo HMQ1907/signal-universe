@@ -54,7 +54,9 @@
     "login": "Đăng nhập",
     "register": "Đăng ký",
     "admin": "Quản trị",
-    "tokens": "Thị trường"
+    "tokens": "Thị trường",
+    "language": "Ngôn ngữ",
+    "platform": "Nền tảng"
   },
   "tokens": {
     "badge": "Phân tích trực tiếp",
@@ -119,9 +121,9 @@
     },
     "how_it_works": {
       "title": "Cách Hoạt Động",
-      "step1": { "title": "Đăng ký & Nạp tiền", "description": "Tạo tài khoản và nạp tối thiểu $200 để kích hoạt gói DeFi." },
+      "step1": { "title": "Đăng ký & Nạp tiền", "description": "Tạo tài khoản và nạp tối thiểu 200 USD để kích hoạt gói DeFi." },
       "step2": { "title": "Xác nhận AI (mỗi ngày một lần)", "description": "Trong khung 11:00–23:59, xác nhận tín hiệu AI một lần. Dùng 1% số dư lợi nhuận." },
-      "step3": { "title": "Nhận Lợi nhuận", "description": "Admin duyệt xác nhận AI. Bạn nhận phần trăm theo cấp gói (mặc định 2%, ví dụ $4 với cấp $200)." },
+      "step3": { "title": "Nhận Lợi nhuận", "description": "Quản trị viên duyệt xác nhận AI. Bạn nhận tỷ lệ theo cấp gói (mặc định 2%/ngày; ví dụ gói 200 USD ~ 4 USD)." },
       "step4": { "title": "Rút & Phát triển", "description": "Rút lợi nhuận bất cứ lúc nào. Xây dựng mạng lưới để kiếm thêm hoa hồng." }
     },
     "packages": {
@@ -132,7 +134,30 @@
       "daily_profit": "Lợi nhuận/ngày",
       "max_profit": "Tối đa 2%/ngày",
       "join": "Bắt đầu",
-      "popular": "Phổ biến nhất"
+      "popular": "Phổ biến nhất",
+      "feature_signals": "Một khung xác nhận tín hiệu AI mỗi ngày",
+      "feature_referral": "Hoa hồng giới thiệu khi nạp tiền và khi có lợi nhuận"
+    },
+    "referral_section": {
+      "title": "Chương trình giới thiệu",
+      "subtitle": "Nhận hoa hồng nhiều cấp",
+      "deposit_title": "Hoa hồng nạp tiền",
+      "profit_title": "Chia sẻ lợi nhuận (tuyến trên)",
+      "f1_label": "F1",
+      "f2_label": "F2",
+      "direct_referral": "Giới thiệu trực tiếp",
+      "second_level": "Giới thiệu cấp 2",
+      "u1_label": "U1",
+      "u2_label": "U2",
+      "u3_label": "U3",
+      "u1_desc": "Tuyến trên 1 (của người xác nhận)",
+      "u2_desc": "Tuyến trên 2",
+      "u3_desc": "Tuyến trên 3",
+      "rate_deposit_f1": "5%",
+      "rate_deposit_f2": "3%",
+      "rate_profit_u1": "15% lợi nhuận được cộng",
+      "rate_profit_u2": "10% lợi nhuận được cộng",
+      "rate_profit_u3": "5% lợi nhuận được cộng"
     },
     "cta": {
       "title": "Sẵn sàng bắt đầu?",
@@ -141,6 +166,10 @@
     }
   },
   "auth": {
+    "a11y": {
+      "show_password": "Hiện mật khẩu",
+      "hide_password": "Ẩn mật khẩu"
+    },
     "login": {
       "title": "Chào mừng trở lại",
       "subtitle": "Đăng nhập vào tài khoản của bạn",
@@ -196,6 +225,8 @@
     "total_balance": "Tổng số dư",
     "investment_package": "Gói đầu tư",
     "package_none": "Chưa có gói",
+    "signal_daily": "Xác nhận AI hằng ngày",
+    "package_auto": "Cấp gói tự động theo tổng số dư",
     "capital_locked_until": "Vốn khóa đến",
     "capital_unlocked": "Vốn có thể rút",
     "quick_stats": {
@@ -215,6 +246,8 @@
     "current_package": "Gói hiện tại",
     "no_package": "Chưa có gói đầu tư",
     "select_package": "Chọn gói",
+    "signals_per_day": "Xác nhận AI / ngày",
+    "signals_per_day_value": "1",
     "upgrade": "Nâng cấp gói",
     "topup": "Nạp thêm",
     "packages": {
@@ -237,7 +270,9 @@
   },
   "signals": {
     "title": "Tín hiệu Giao dịch",
-    "subtitle": "Tín hiệu AI lúc 14:00 và 21:00 mỗi ngày",
+    "subtitle": "Một lần xác nhận AI mỗi ngày, 11:00–23:59 (giờ địa phương)",
+    "session_daily": "Xác nhận AI hằng ngày",
+    "window_hours": "11:00 – 23:59",
     "session_14": "Phiên Chiều",
     "session_21": "Phiên Tối",
     "confirm_btn": "Xác nhận AI",

@@ -1,20 +1,16 @@
 <template>
   <UCard
-    class="auth-form-card border-white/10 bg-slate-900/70 shadow-2xl ring-1 ring-white/10 backdrop-blur-xl"
-    :ui="{
-      root: 'overflow-hidden rounded-2xl',
-      header: 'border-b border-white/5 pb-0',
-      body: { padding: 'p-6 sm:p-8' }
-    }"
+    class="auth-form-card relative z-10"
+    :ui="authCardUi"
   >
     <template #header>
-      <div class="px-6 pb-2 pt-6 sm:px-8 sm:pt-8">
-        <h1 class="text-2xl font-bold text-white">{{ $t('auth.register.title') }}</h1>
-        <p class="mt-1 text-sm text-slate-400">{{ $t('auth.register.subtitle') }}</p>
+      <div class="space-y-2 text-center">
+        <h1 class="text-3xl font-extrabold text-white tracking-tight">{{ $t('auth.register.title') }}</h1>
+        <p class="text-base text-slate-400 max-w-sm mx-auto">{{ $t('auth.register.subtitle') }}</p>
       </div>
     </template>
 
-    <UForm :schema="schema" :state="state" @submit="handleRegister" class="space-y-6">
+    <UForm :schema="schema" :state="state" @submit="handleRegister" class="flex flex-col gap-6">
       <UFormField :label="$t('auth.register.full_name')" name="full_name" size="lg">
         <UInput
           v-model="state.full_name"
@@ -24,6 +20,7 @@
           variant="outline"
           color="neutral"
           class="auth-input"
+          :ui="authInputUiLeading"
         />
       </UFormField>
 
@@ -37,6 +34,7 @@
           variant="outline"
           color="neutral"
           class="auth-input"
+          :ui="authInputUiLeading"
         />
       </UFormField>
 
@@ -44,23 +42,17 @@
         <UInput
           v-model="state.password"
           :type="showPassword ? 'text' : 'password'"
-          leading-icon="i-heroicons-lock-closed"
           size="lg"
           variant="outline"
           color="neutral"
           class="auth-input"
+          :ui="authInputUiPassword"
         >
+          <template #leading>
+            <UIcon name="i-heroicons-lock-closed" class="size-5 shrink-0 text-slate-400" />
+          </template>
           <template #trailing>
-            <UButton
-              color="neutral"
-              variant="ghost"
-              size="xs"
-              square
-              class="shrink-0"
-              :aria-label="showPassword ? 'Hide password' : 'Show password'"
-              :icon="showPassword ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
-              @click.prevent="showPassword = !showPassword"
-            />
+            <AuthPasswordRevealButton :visible="showPassword" @click="showPassword = !showPassword" />
           </template>
         </UInput>
       </UFormField>
@@ -69,12 +61,16 @@
         <UInput
           v-model="state.confirm_password"
           :type="showPassword ? 'text' : 'password'"
-          leading-icon="i-heroicons-lock-closed"
           size="lg"
           variant="outline"
           color="neutral"
           class="auth-input"
-        />
+          :ui="authInputUiLeading"
+        >
+          <template #leading>
+            <UIcon name="i-heroicons-lock-closed" class="size-5 shrink-0 text-slate-400" />
+          </template>
+        </UInput>
       </UFormField>
 
       <UFormField :label="$t('auth.register.referral_code')" name="referral_code" size="lg">
@@ -85,6 +81,7 @@
           variant="outline"
           color="neutral"
           class="auth-input"
+          :ui="authInputUiLeading"
           :placeholder="referralFromUrl || ''"
         />
       </UFormField>
@@ -97,15 +94,23 @@
         icon="i-heroicons-exclamation-circle"
       />
 
-      <UButton type="submit" block size="lg" color="primary" :loading="loading" class="font-semibold">
-        {{ $t('auth.register.submit') }}
+      <UButton
+        type="submit"
+        block
+        size="lg"
+        variant="solid"
+        :loading="loading"
+        class="web3-cta-glow mt-2 min-h-12 text-base font-bold tracking-wide relative overflow-hidden group border-0 rounded-xl"
+      >
+        <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 bg-[length:200%_auto] animate-[su-gradient-flow_3s_linear_infinite] group-hover:bg-[length:150%_auto] transition-all duration-300" />
+        <span class="relative z-10 text-white shadow-sm">{{ $t('auth.register.submit') }}</span>
       </UButton>
 
-      <p class="text-center text-xs text-slate-500">{{ $t('auth.register.terms') }}</p>
+      <p class="text-center text-xs leading-relaxed text-slate-500">{{ $t('auth.register.terms') }}</p>
     </UForm>
 
     <template #footer>
-      <p class="px-6 pb-6 text-center text-sm text-slate-400 sm:px-8">
+      <p class="text-center text-sm text-slate-400">
         {{ $t('auth.register.have_account') }}
         <NuxtLink
           to="/auth/login"
@@ -120,6 +125,7 @@
 
 <script setup lang="ts">
 import { z } from 'zod'
+import { authCardUi, authInputUiLeading, authInputUiPassword } from '~/utils/auth-form-ui'
 
 definePageMeta({ layout: 'auth', middleware: 'guest' })
 useHead({ title: 'Register - Signal Universe' })

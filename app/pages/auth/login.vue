@@ -1,20 +1,16 @@
 <template>
   <UCard
-    class="auth-form-card border-white/10 bg-slate-900/70 shadow-2xl ring-1 ring-white/10 backdrop-blur-xl"
-    :ui="{
-      root: 'overflow-hidden rounded-2xl',
-      header: 'border-b border-white/5 pb-0',
-      body: { padding: 'p-6 sm:p-8' }
-    }"
+    class="auth-form-card relative z-10"
+    :ui="authCardUi"
   >
     <template #header>
-      <div class="px-6 pb-2 pt-6 sm:px-8 sm:pt-8">
-        <h1 class="text-2xl font-bold text-white">{{ $t('auth.login.title') }}</h1>
-        <p class="mt-1 text-sm text-slate-400">{{ $t('auth.login.subtitle') }}</p>
+      <div class="space-y-2 text-center">
+        <h1 class="text-3xl font-extrabold text-white tracking-tight">{{ $t('auth.login.title') }}</h1>
+        <p class="text-base text-slate-400 max-w-sm mx-auto">{{ $t('auth.login.subtitle') }}</p>
       </div>
     </template>
-
-    <UForm :schema="schema" :state="state" @submit="handleLogin" class="space-y-6">
+    
+    <UForm :schema="schema" :state="state" @submit="handleLogin" class="flex flex-col gap-6">
       <UFormField :label="$t('auth.login.email')" name="email" size="lg">
         <UInput
           v-model="state.email"
@@ -26,6 +22,7 @@
           variant="outline"
           color="neutral"
           class="auth-input"
+          :ui="authInputUiLeading"
         />
       </UFormField>
 
@@ -33,29 +30,23 @@
         <UInput
           v-model="state.password"
           :type="showPassword ? 'text' : 'password'"
-          leading-icon="i-heroicons-lock-closed"
           autocomplete="current-password"
           size="lg"
           variant="outline"
           color="neutral"
           class="auth-input"
+          :ui="authInputUiPassword"
         >
+          <template #leading>
+            <UIcon name="i-heroicons-lock-closed" class="size-5 shrink-0 text-slate-400" />
+          </template>
           <template #trailing>
-            <UButton
-              color="neutral"
-              variant="ghost"
-              size="xs"
-              square
-              class="shrink-0"
-              :aria-label="showPassword ? 'Hide password' : 'Show password'"
-              :icon="showPassword ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
-              @click.prevent="showPassword = !showPassword"
-            />
+            <AuthPasswordRevealButton :visible="showPassword" @click="showPassword = !showPassword" />
           </template>
         </UInput>
       </UFormField>
 
-      <div class="flex justify-end pt-0.5">
+      <div class="flex justify-end pr-0.5">
         <NuxtLink
           to="/auth/forgot-password"
           class="text-sm text-primary-400 transition-colors duration-200 hover:text-primary-300"
@@ -72,13 +63,21 @@
         icon="i-heroicons-exclamation-circle"
       />
 
-      <UButton type="submit" block size="lg" color="primary" :loading="loading" class="font-semibold">
-        {{ $t('auth.login.submit') }}
+      <UButton
+        type="submit"
+        block
+        size="lg"
+        variant="solid"
+        :loading="loading"
+        class="web3-cta-glow mt-2 min-h-12 text-base font-bold tracking-wide relative overflow-hidden group border-0 rounded-xl"
+      >
+        <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 bg-[length:200%_auto] animate-[su-gradient-flow_3s_linear_infinite] group-hover:bg-[length:150%_auto] transition-all duration-300" />
+        <span class="relative z-10 text-white shadow-sm">{{ $t('auth.login.submit') }}</span>
       </UButton>
     </UForm>
 
     <template #footer>
-      <p class="px-6 pb-6 text-center text-sm text-slate-400 sm:px-8">
+      <p class="text-center text-sm text-slate-400">
         {{ $t('auth.login.no_account') }}
         <NuxtLink
           to="/auth/register"
@@ -93,6 +92,7 @@
 
 <script setup lang="ts">
 import { z } from 'zod'
+import { authCardUi, authInputUiLeading, authInputUiPassword } from '~/utils/auth-form-ui'
 
 definePageMeta({ layout: 'auth', middleware: 'guest' })
 useHead({ title: 'Login - Signal Universe' })

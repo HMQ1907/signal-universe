@@ -1,15 +1,28 @@
 <template>
-  <UDropdown :items="languageItems">
-    <UButton color="neutral" variant="ghost" size="sm" class="flex items-center gap-1.5">
-      <span class="text-base">{{ currentFlag }}</span>
-      <span class="hidden sm:block text-xs text-slate-400">{{ currentLocale?.name }}</span>
-      <UIcon name="i-heroicons-chevron-down" class="text-slate-500 text-xs" />
-    </UButton>
-  </UDropdown>
+  <div class="lang-switcher-ring max-w-full">
+    <label class="lang-switcher-inner relative min-w-0 max-w-[min(100%,14rem)] cursor-pointer sm:max-w-[16rem]">
+      <span class="select-none text-base leading-none sm:text-lg" aria-hidden="true">{{ flag(locale) }}</span>
+      <select
+        class="scheme-dark min-w-0 flex-1 cursor-pointer appearance-none border-0 bg-transparent py-0.5 text-xs font-semibold tracking-tight text-white focus:outline-none focus:ring-0 sm:text-sm"
+        :value="locale"
+        :aria-label="t('nav.language')"
+        @change="onSelect"
+      >
+        <option v-for="l in localeList" :key="l.code" :value="l.code">
+          {{ flag(l.code) }} {{ l.name }}
+        </option>
+      </select>
+      <UIcon
+        name="i-heroicons-chevron-down"
+        class="pointer-events-none size-4 shrink-0 text-white/75"
+        aria-hidden="true"
+      />
+    </label>
+  </div>
 </template>
 
 <script setup lang="ts">
-const { locale, locales, setLocale } = useI18n()
+const { locale, locales, setLocale, t } = useI18n()
 
 const flags: Record<string, string> = {
   en: '🇺🇸',
@@ -19,16 +32,12 @@ const flags: Record<string, string> = {
   ru: '🇷🇺'
 }
 
-const currentLocale = computed(() => locales.value.find(l => l.code === locale.value))
-const currentFlag = computed(() => flags[locale.value] || '🌐')
+const localeList = computed(() => locales.value as { code: string; name: string }[])
 
-const languageItems = computed(() => [
-  locales.value.map(l => ({
-    label: l.name,
-    icon: undefined,
-    slot: 'item',
-    click: () => setLocale(l.code as any),
-    class: l.code === locale.value ? 'text-primary-400' : ''
-  }))
-])
+const flag = (code: string) => flags[code] || '🌐'
+
+const onSelect = (e: Event) => {
+  const code = (e.target as HTMLSelectElement).value
+  setLocale(code as 'en' | 'vi' | 'zh' | 'ms' | 'ru')
+}
 </script>

@@ -9,7 +9,9 @@
   --su-gold: #f59e0b;
   --su-green: #10b981;
   --su-red: #ef4444;
-  --su-bg-dark: #0a0f1e;
+  /* Deeper base (Universe Pro–style) */
+  --su-bg-dark: #050508;
+  --su-bg-universe: #030308;
   --su-bg-card: #0f172a;
   --su-bg-card2: #1e293b;
   --su-border: #1e293b;
@@ -105,6 +107,16 @@ body {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
+/* Compact stat tiles on landing (override .su-card padding) */
+.su-card.home-stat-tile {
+  padding: 1rem 0.75rem;
+}
+@media (min-width: 640px) {
+  .su-card.home-stat-tile {
+    padding: 1.25rem 1rem;
+  }
+}
+
 /* Hero background */
 .hero-bg {
   background: radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 60%),
@@ -144,7 +156,7 @@ body {
   border-radius: 20px;
   transition: all 0.3s ease;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .package-card::before {
@@ -328,8 +340,399 @@ select:-webkit-autofill:focus {
   animation: su-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Auth: full-width control row (Input root is inline-flex in Nuxt UI) */
+/* Auth: full-width control (keep Nuxt UI root as inline-flex; avoid display:flex override breaking layout) */
 .auth-form-card .auth-input {
-  display: flex;
   width: 100%;
+  min-width: 0;
+  isolation: isolate;
+}
+
+/* Edge/Legacy: built-in password reveal stacks with our toggle; WebKit autofill affordances */
+.auth-form-card .auth-input input[type='password']::-ms-reveal,
+.auth-form-card .auth-input input[type='password']::-ms-clear {
+  display: none;
+}
+
+.auth-form-card .auth-input input[type='password']::-webkit-credentials-auto-fill-button {
+  display: none !important;
+  visibility: hidden;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+  margin: 0;
+}
+
+.auth-form-card .auth-input input {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.auth-form-card .auth-input input:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.auth-form-card .auth-input input:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.5);
+}
+
+/* Solid CTA even when theme primary tokens do not paint on UButton */
+.auth-submit-primary {
+  background-color: var(--su-primary) !important;
+  color: #fff !important;
+}
+.auth-submit-primary:hover:not(:disabled) {
+  background-color: var(--su-primary-dark) !important;
+}
+
+.auth-form-card .auth-input-code :where(input) {
+  text-align: center;
+  padding-inline: 0.75rem;
+}
+
+/* —— Web3 / Universe-style motion & interaction —— */
+button:not(:disabled),
+[role='button']:not([aria-disabled='true']) {
+  cursor: pointer;
+}
+
+a.web3-interactive {
+  cursor: pointer;
+}
+
+@keyframes su-gradient-flow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes su-border-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 20px rgba(99, 102, 241, 0.15),
+      0 0 40px rgba(139, 92, 246, 0.08);
+  }
+  50% {
+    box-shadow:
+      0 0 28px rgba(99, 102, 241, 0.35),
+      0 0 56px rgba(6, 182, 212, 0.12);
+  }
+}
+
+@keyframes su-float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.web3-hero-mesh {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.28), transparent),
+    radial-gradient(ellipse 60% 45% at 100% 45%, rgba(139, 92, 246, 0.14), transparent),
+    radial-gradient(ellipse 50% 40% at 0% 75%, rgba(6, 182, 212, 0.12), transparent),
+    radial-gradient(ellipse 50% 35% at 50% 100%, rgba(99, 102, 241, 0.06), transparent),
+    transparent;
+}
+
+/* —— Universe Pro–style fixed page atmosphere (default layout) —— */
+.su-page-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% -25%, rgba(56, 189, 248, 0.08), transparent 52%),
+    radial-gradient(ellipse 55% 50% at 0% 45%, rgba(99, 102, 241, 0.1), transparent 55%),
+    radial-gradient(ellipse 50% 45% at 100% 55%, rgba(217, 70, 239, 0.07), transparent 50%),
+    radial-gradient(ellipse 70% 55% at 50% 110%, rgba(99, 102, 241, 0.05), transparent 45%),
+    var(--su-bg-universe);
+}
+
+.su-page-canvas__bloom {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  animation: su-universe-drift 24s ease-in-out infinite;
+}
+
+.su-page-canvas__bloom--tl {
+  width: min(70vw, 36rem);
+  height: min(70vw, 36rem);
+  left: -18%;
+  top: -8%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.45), transparent 68%);
+}
+
+.su-page-canvas__bloom--br {
+  width: min(65vw, 34rem);
+  height: min(65vw, 34rem);
+  right: -15%;
+  bottom: -5%;
+  background: radial-gradient(circle, rgba(217, 70, 239, 0.35), rgba(99, 102, 241, 0.2), transparent 70%);
+  animation-delay: -8s;
+}
+
+.su-page-canvas__bloom--accent {
+  width: min(45vw, 22rem);
+  height: min(45vw, 22rem);
+  left: 45%;
+  top: 35%;
+  opacity: 0.35;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.4), transparent 65%);
+  animation-delay: -14s;
+}
+
+.su-page-canvas__grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+  background-image:
+    linear-gradient(rgba(99, 102, 241, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.04) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+.su-page-canvas__streaks {
+  position: absolute;
+  inset: -30% -10%;
+  opacity: 0.35;
+  background: repeating-linear-gradient(
+    -8deg,
+    transparent,
+    transparent 100px,
+    rgba(255, 255, 255, 0.018) 100px,
+    rgba(255, 255, 255, 0.018) 101px
+  );
+  animation: su-streak-pan 45s linear infinite;
+}
+
+.su-page-canvas__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 72% 62% at 50% 42%, transparent 0%, rgba(0, 0, 0, 0.65) 100%);
+}
+
+@keyframes su-universe-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(3%, 4%) scale(1.06);
+  }
+  66% {
+    transform: translate(-2%, 2%) scale(0.96);
+  }
+}
+
+@keyframes su-streak-pan {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(101px);
+  }
+}
+
+/* i18n pill: animated gradient ring (reference: universepro-style switcher) */
+.lang-switcher-ring {
+  border-radius: 9999px;
+  padding: 1px;
+  background: linear-gradient(
+    115deg,
+    #22d3ee,
+    #6366f1,
+    #a855f7,
+    #e879f9,
+    #22d3ee
+  );
+  background-size: 280% 100%;
+  animation: su-lang-border-flow 10s linear infinite;
+  box-shadow:
+    0 0 20px rgba(99, 102, 241, 0.35),
+    0 0 40px rgba(34, 211, 238, 0.08);
+  transition:
+    box-shadow 0.35s ease,
+    transform 0.25s ease;
+}
+
+.lang-switcher-ring:hover {
+  box-shadow:
+    0 0 28px rgba(34, 211, 238, 0.35),
+    0 0 48px rgba(139, 92, 246, 0.2);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lang-switcher-ring:hover {
+    transform: scale(1.02);
+  }
+}
+
+.lang-switcher-ring:focus-within {
+  box-shadow:
+    0 0 0 2px rgba(15, 23, 42, 0.9),
+    0 0 28px rgba(99, 102, 241, 0.45);
+}
+
+@keyframes su-lang-border-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.lang-switcher-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  background: rgba(6, 7, 14, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 0.35rem 0.65rem 0.35rem 0.75rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+@media (min-width: 640px) {
+  .lang-switcher-inner {
+    gap: 0.625rem;
+    padding: 0.45rem 0.85rem 0.45rem 0.9rem;
+  }
+}
+
+.web3-hero-grid {
+  background-image:
+    linear-gradient(rgba(99, 102, 241, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.04) 1px, transparent 1px);
+  background-size: 72px 72px;
+  /* No mask: radial masks + backdrop layers caused compositing glitches (stacked text) on some GPUs. */
+  opacity: 0.85;
+}
+
+.web3-badge-pulse {
+  animation: su-border-glow 4s ease-in-out infinite;
+}
+
+.web3-title-shine {
+  display: inline-block;
+  max-width: 100%;
+  background: linear-gradient(
+    120deg,
+    #a5b4fc 0%,
+    #6366f1 25%,
+    #8b5cf6 50%,
+    #22d3ee 75%,
+    #a5b4fc 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: su-gradient-flow 8s ease infinite;
+}
+
+.web3-glass-panel {
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 20px;
+  overflow-wrap: break-word;
+  word-break: normal;
+  transition:
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .web3-glass-panel {
+    transition:
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.35s ease,
+      box-shadow 0.35s ease;
+  }
+
+  .web3-glass-panel:hover {
+    border-color: rgba(99, 102, 241, 0.35);
+    box-shadow:
+      0 20px 50px rgba(0, 0, 0, 0.35),
+      0 0 0 1px rgba(99, 102, 241, 0.12);
+    transform: translateY(-4px);
+  }
+}
+
+.web3-reveal {
+  animation: su-fade-up 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.web3-reveal-delay-1 {
+  animation-delay: 0.1s;
+}
+.web3-reveal-delay-2 {
+  animation-delay: 0.2s;
+}
+.web3-reveal-delay-3 {
+  animation-delay: 0.3s;
+}
+.web3-reveal-delay-4 {
+  animation-delay: 0.4s;
+}
+
+.web3-cta-glow {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.web3-cta-glow:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    0 12px 40px rgba(99, 102, 241, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.auth-shell-glow {
+  position: relative;
+  border-radius: 1.25rem;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.45),
+    rgba(139, 92, 246, 0.25),
+    rgba(6, 182, 212, 0.35)
+  );
+  background-size: 200% 200%;
+  animation: su-gradient-flow 10s ease infinite;
+}
+
+.auth-shell-glow .auth-form-card {
+  border-radius: 1.15rem;
+}
+
+.nav-link-web3 {
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.nav-link-web3:hover {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
 }

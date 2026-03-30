@@ -1,5 +1,5 @@
 <template>
-  <footer class="border-t border-slate-800 mt-20" style="background: #0a0f1e;">
+  <footer class="mt-20 border-t border-white/[0.06] bg-[#030308]/70 backdrop-blur-xl">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <div class="flex flex-col md:flex-row items-center justify-between gap-6">
         <div class="flex items-center gap-3">
@@ -15,6 +15,7 @@
 
         <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-500 md:justify-end">
           <span>© {{ new Date().getFullYear() }} Signal Universe</span>
+          <NuxtLink to="/platform" class="transition-colors duration-200 hover:text-primary-400">{{ $t('nav.platform') }}</NuxtLink>
           <NuxtLink to="/tokens" class="transition-colors duration-200 hover:text-primary-400">{{ $t('nav.tokens') }}</NuxtLink>
           <NuxtLink to="/support/faq" class="transition-colors duration-200 hover:text-slate-300">FAQ</NuxtLink>
           <NuxtLink to="/support/legal" class="transition-colors duration-200 hover:text-slate-300">Legal</NuxtLink>

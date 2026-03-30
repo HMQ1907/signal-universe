@@ -54,7 +54,9 @@
     "login": "Login",
     "register": "Register",
     "admin": "Admin Panel",
-    "tokens": "Markets"
+    "tokens": "Markets",
+    "language": "Language",
+    "platform": "Platform"
   },
   "tokens": {
     "badge": "Live analytics",
@@ -132,7 +134,30 @@
       "daily_profit": "Daily Profit",
       "max_profit": "Max 2%/day",
       "join": "Get Started",
-      "popular": "Most Popular"
+      "popular": "Most Popular",
+      "feature_signals": "One AI signal confirmation window per day",
+      "feature_referral": "Referral commissions on deposits & profits"
+    },
+    "referral_section": {
+      "title": "Referral Program",
+      "subtitle": "Earn commissions on multiple levels",
+      "deposit_title": "Deposit commission",
+      "profit_title": "Profit sharing (uplines)",
+      "f1_label": "F1",
+      "f2_label": "F2",
+      "direct_referral": "Direct referral",
+      "second_level": "2nd-level referral",
+      "u1_label": "U1",
+      "u2_label": "U2",
+      "u3_label": "U3",
+      "u1_desc": "1st upline (of confirmer)",
+      "u2_desc": "2nd upline",
+      "u3_desc": "3rd upline",
+      "rate_deposit_f1": "5%",
+      "rate_deposit_f2": "3%",
+      "rate_profit_u1": "15% of credited profit",
+      "rate_profit_u2": "10% of credited profit",
+      "rate_profit_u3": "5% of credited profit"
     },
     "cta": {
       "title": "Ready to Start?",
@@ -141,6 +166,10 @@
     }
   },
   "auth": {
+    "a11y": {
+      "show_password": "Show password",
+      "hide_password": "Hide password"
+    },
     "login": {
       "title": "Welcome Back",
       "subtitle": "Sign in to your account",
@@ -217,6 +246,8 @@
     "current_package": "Current Package",
     "no_package": "No active package",
     "select_package": "Select Package",
+    "signals_per_day": "AI confirms / day",
+    "signals_per_day_value": "1",
     "upgrade": "Upgrade Package",
     "topup": "Top Up",
     "packages": {
