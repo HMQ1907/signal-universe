@@ -26,7 +26,7 @@
             {{ $t('home.hero.badge') }}
           </div>
 
-          <h1 class="mb-6 w-full break-words text-5xl font-black leading-[1.05] md:text-7xl md:leading-tight">
+          <h1 class="mb-6 w-full wrap-break-word text-5xl font-black leading-[1.05] md:text-7xl md:leading-tight">
             <span class="gradient-text">Signal Universe</span>
           </h1>
           <p class="mb-4 text-xl font-medium text-slate-200 md:text-2xl">{{ $t('home.hero.subtitle') }}</p>
@@ -95,7 +95,7 @@
 
       <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
         <div v-for="feature in features" :key="feature.key" class="min-w-0">
-          <div class="su-card su-card-hover group flex h-full min-h-0 w-full min-w-0 flex-col !p-6">
+          <div class="su-card su-card-hover group flex h-full min-h-0 w-full min-w-0 flex-col p-6!">
             <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl transition-transform group-hover:scale-110"
               :style="`background: ${feature.bgColor};`">
               <UIcon :name="feature.icon" class="text-2xl" :class="feature.iconColor" />
@@ -108,7 +108,7 @@
     </section>
 
     <!-- How It Works -->
-    <section id="how-it-works" class="border-y border-white/[0.04] bg-black/25 py-24 backdrop-blur-sm">
+    <section id="how-it-works" class="border-y border-white/4 bg-black/25 py-24 backdrop-blur-sm">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
           <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">{{ $t('home.how_it_works.title') }}</h2>
@@ -139,9 +139,9 @@
       <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <div v-for="pkg in packages" :key="pkg.amount"
           class="package-card flex min-w-0 flex-col p-8"
-          :class="pkg.amount === 500 ? 'package-card-popular pt-11' : ''">
+          :class="pkg.amount === 500 ? 'package-card-popular pt-12' : ''">
           <!-- Popular badge -->
-          <div v-if="pkg.amount === 500" class="absolute -top-3 left-1/2 z-10 -translate-x-1/2">
+          <div v-if="pkg.amount === 500" class="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2">
             <span class="whitespace-nowrap rounded-full px-4 py-1.5 text-xs font-bold text-white shadow-lg shadow-indigo-500/20"
               style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
               {{ $t('home.packages.popular') }}
@@ -194,7 +194,7 @@
     </section>
 
     <!-- Referral Structure -->
-    <section class="border-y border-white/[0.04] bg-black/25 py-24 backdrop-blur-sm">
+    <section class="border-y border-white/4 bg-black/25 py-24 backdrop-blur-sm">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mb-12 text-center md:mb-16">
           <h2 class="mb-3 text-3xl font-bold text-white md:text-4xl">{{ $t('home.referral_section.title') }}</h2>
@@ -248,6 +248,46 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Platform Snapshot -->
+    <section class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">{{ $t('home.platform.title') }}</h2>
+        <p class="text-slate-400 text-lg max-w-3xl mx-auto">{{ $t('home.platform.subtitle') }}</p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <article v-for="card in platformCards" :key="card.key" class="su-card su-card-hover flex h-full flex-col p-6">
+          <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl" :style="`background: ${card.bgColor};`">
+            <UIcon :name="card.icon" class="text-2xl" :class="card.iconColor" />
+          </div>
+          <h3 class="mb-2 text-lg font-bold text-white">{{ card.title }}</h3>
+          <p class="flex-1 text-sm leading-relaxed text-slate-400">{{ card.description }}</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="border-y border-white/4 bg-black/25 py-24 backdrop-blur-sm">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 md:mb-16">
+          <h2 class="mb-3 text-3xl font-bold text-white md:text-4xl">{{ $t('home.faq.title') }}</h2>
+          <p class="text-slate-400">{{ $t('home.faq.subtitle') }}</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <article v-for="item in faqItems" :key="item.key" class="su-card su-card-hover flex h-full flex-col p-6">
+            <div class="mb-3 flex items-center gap-3">
+              <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-indigo-500/10">
+                <UIcon name="i-heroicons-question-mark-circle" class="text-lg text-indigo-400" />
+              </div>
+              <h3 class="text-base font-semibold text-white">{{ item.question }}</h3>
+            </div>
+            <p class="text-sm leading-relaxed text-slate-400">{{ item.answer }}</p>
+          </article>
         </div>
       </div>
     </section>
@@ -327,6 +367,64 @@ const profitLevels = computed(() => [
       color: 'text-pink-400',
       badgeCls: 'bg-pink-500/20 text-pink-400'
     }
+])
+
+const platformCards = computed(() => [
+  {
+    key: 'tier',
+    icon: 'i-heroicons-cube-transparent',
+    iconColor: 'text-indigo-400',
+    bgColor: 'rgba(99,102,241,0.1)',
+    title: t('home.platform.auto_tier.title'),
+    description: t('home.platform.auto_tier.description')
+  },
+  {
+    key: 'window',
+    icon: 'i-heroicons-clock',
+    iconColor: 'text-cyan-400',
+    bgColor: 'rgba(34,211,238,0.1)',
+    title: t('home.platform.daily_window.title'),
+    description: t('home.platform.daily_window.description')
+  },
+  {
+    key: 'review',
+    icon: 'i-heroicons-shield-check',
+    iconColor: 'text-green-400',
+    bgColor: 'rgba(16,185,129,0.1)',
+    title: t('home.platform.review.title'),
+    description: t('home.platform.review.description')
+  },
+  {
+    key: 'network',
+    icon: 'i-heroicons-users',
+    iconColor: 'text-purple-400',
+    bgColor: 'rgba(139,92,246,0.1)',
+    title: t('home.platform.network.title'),
+    description: t('home.platform.network.description')
+  }
+])
+
+const faqItems = computed(() => [
+  {
+    key: 'faq-1',
+    question: t('home.faq.items.one.question'),
+    answer: t('home.faq.items.one.answer')
+  },
+  {
+    key: 'faq-2',
+    question: t('home.faq.items.two.question'),
+    answer: t('home.faq.items.two.answer')
+  },
+  {
+    key: 'faq-3',
+    question: t('home.faq.items.three.question'),
+    answer: t('home.faq.items.three.answer')
+  },
+  {
+    key: 'faq-4',
+    question: t('home.faq.items.four.question'),
+    answer: t('home.faq.items.four.answer')
+  }
 ])
 
 const scrollTo = (selector: string) => {

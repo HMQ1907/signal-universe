@@ -159,6 +159,48 @@
       "rate_profit_u2": "10% lợi nhuận được cộng",
       "rate_profit_u3": "5% lợi nhuận được cộng"
     },
+    "platform": {
+      "title": "Điều gì làm nền tảng này hoạt động",
+      "subtitle": "Một nhịp vận hành hằng ngày xoay quanh xác nhận, duyệt lợi nhuận và tăng trưởng giới thiệu.",
+      "auto_tier": {
+        "title": "Phân cấp tự động",
+        "description": "Cấp DeFi được suy ra từ tổng số dư, nên logic gói luôn đồng nhất trong toàn bộ ứng dụng."
+      },
+      "daily_window": {
+        "title": "Khung xác nhận hằng ngày",
+        "description": "Mỗi ngày có một khung xác nhận AI mở từ 11:00 đến 23:59."
+      },
+      "review": {
+        "title": "Quy trình duyệt của admin",
+        "description": "Lợi nhuận được duyệt và ghi nhận trước khi có thể sử dụng, giúp minh bạch và dễ kiểm tra."
+      },
+      "network": {
+        "title": "Mạng lưới nhiều cấp",
+        "description": "Nạp tiền và lợi nhuận có thể tạo hoa hồng theo cây giới thiệu."
+      }
+    },
+    "faq": {
+      "title": "Câu hỏi thường gặp",
+      "subtitle": "Giải đáp nhanh cho người mới.",
+      "items": {
+        "one": {
+          "question": "Làm sao để kích hoạt cấp DeFi?",
+          "answer": "Nạp tối thiểu 200 USD. Nền tảng sẽ tự động gán cấp dựa trên tổng số dư của bạn."
+        },
+        "two": {
+          "question": "Khi nào tôi có thể xác nhận tín hiệu AI?",
+          "answer": "Một lần mỗi ngày trong khung 11:00–23:59."
+        },
+        "three": {
+          "question": "Lợi nhuận được xử lý như thế nào?",
+          "answer": "Xác nhận của bạn sẽ được admin duyệt, sau đó lợi nhuận được ghi vào tài khoản."
+        },
+        "four": {
+          "question": "Người giới thiệu nhận gì?",
+          "answer": "Người giới thiệu có thể nhận hoa hồng nạp tiền và thưởng chia sẻ lợi nhuận theo quy tắc trên trang."
+        }
+      }
+    },
     "cta": {
       "title": "Sẵn sàng bắt đầu?",
       "description": "Tham gia cùng hàng nghìn nhà đầu tư đang kiếm lợi nhuận hàng ngày với Signal Universe.",

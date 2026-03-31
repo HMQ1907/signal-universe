@@ -1,12 +1,12 @@
 <template>
   <header
-    class="sticky top-0 z-50 overflow-x-visible border-b border-white/[0.06] bg-[#030308]/75 backdrop-blur-2xl supports-[backdrop-filter]:bg-[#030308]/55"
+    class="sticky top-0 z-50 overflow-x-visible border-b border-white/6 bg-[#030308]/75 backdrop-blur-2xl supports-backdrop-filter:bg-[#030308]/55"
   >
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
       <div class="flex min-h-16 items-center justify-between gap-2 py-2 sm:gap-3 sm:py-0 lg:h-16 lg:py-0">
         <!-- Logo -->
         <NuxtLink to="/" class="flex min-w-0 shrink-0 items-center gap-2.5">
-          <div class="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0"
+          <div class="w-8 h-8 rounded-xl flex items-center justify-center shrink-0"
             style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
             <UIcon name="i-heroicons-signal" class="text-white text-sm" />
           </div>
@@ -61,35 +61,31 @@
         <!-- Right: language stays visible; auth buttons compact on small screens -->
         <div class="relative z-20 flex shrink-0 items-center gap-1 sm:gap-2">
           <div class="shrink-0">
-            <LanguageSwitcher />
+            <LayoutLanguageSwitcher />
           </div>
 
           <template v-if="user">
-            <NotificationBell v-if="!user.is_admin" />
+            <LayoutNotificationBell v-if="!user.is_admin" />
 
-            <UDropdown :items="profileMenuItems" :ui="{ item: { disabled: 'cursor-text select-text' } }">
+            <UDropdownMenu :items="profileMenuItems" :ui="{ item: { disabled: 'cursor-text select-text' } }">
               <UButton color="neutral" variant="ghost" class="flex items-center gap-2">
-                <div class="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0"
+                <div class="w-7 h-7 rounded-full flex items-center justify-center shrink-0"
                   style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
                   <UIcon name="i-heroicons-user" class="text-white text-xs" />
                 </div>
                 <span class="hidden md:block text-sm text-slate-300">{{ user.full_name || user.email }}</span>
                 <UIcon name="i-heroicons-chevron-down" class="text-slate-500 text-xs" />
               </UButton>
-            </UDropdown>
+            </UDropdownMenu>
           </template>
 
           <template v-else>
-            <NuxtLink to="/auth/login">
-              <UButton color="neutral" variant="ghost" size="sm" class="px-2 sm:px-3">
-                {{ $t('nav.login') }}
-              </UButton>
-            </NuxtLink>
-            <NuxtLink to="/auth/register" class="inline-flex">
-              <UButton size="sm" color="primary" class="px-3 font-semibold shadow-lg shadow-primary-500/20 sm:px-4">
-                {{ $t('nav.register') }}
-              </UButton>
-            </NuxtLink>
+            <UButton to="/auth/login" color="neutral" variant="ghost" size="sm" class="px-2 sm:px-3">
+              {{ $t('nav.login') }}
+            </UButton>
+            <UButton to="/auth/register" size="sm" color="primary" class="px-3 font-semibold shadow-lg shadow-primary-500/20 sm:px-4">
+              {{ $t('nav.register') }}
+            </UButton>
           </template>
         </div>
       </div>

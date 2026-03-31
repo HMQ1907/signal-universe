@@ -147,6 +147,48 @@
       "rate_profit_u2": "10% keuntungan dikredit",
       "rate_profit_u3": "5% keuntungan dikredit"
     },
+    "platform": {
+      "title": "Apa yang Membuat Platform Ini Berfungsi",
+      "subtitle": "Irama harian yang dibina atas keterlihatan, kelulusan, dan pertumbuhan rujukan jangka panjang.",
+      "auto_tier": {
+        "title": "Peringkat Automatik",
+        "description": "Tahap DeFi anda diambil daripada jumlah baki, jadi logik pakej kekal konsisten di seluruh aplikasi."
+      },
+      "daily_window": {
+        "title": "Tetingkap Pengesahan Harian",
+        "description": "Satu tetingkap pengesahan AI dibuka setiap hari antara 11:00 dan 23:59."
+      },
+      "review": {
+        "title": "Aliran Semakan Admin",
+        "description": "Keuntungan diluluskan dan direkod sebelum boleh digunakan, menjadikan proses boleh diaudit."
+      },
+      "network": {
+        "title": "Rangkaian Berbilang Peringkat",
+        "description": "Deposit dan keuntungan boleh menjana komisen merentasi pokok rujukan."
+      }
+    },
+    "faq": {
+      "title": "Soalan Lazim",
+      "subtitle": "Jawapan ringkas untuk pengguna baharu.",
+      "items": {
+        "one": {
+          "question": "Bagaimana saya aktifkan peringkat DeFi?",
+          "answer": "Deposit sekurang-kurangnya $200. Platform akan menetapkan peringkat secara automatik berdasarkan jumlah baki anda."
+        },
+        "two": {
+          "question": "Bila saya boleh sahkan isyarat AI?",
+          "answer": "Sekali sehari dalam tetingkap 11:00–23:59."
+        },
+        "three": {
+          "question": "Bagaimana keuntungan diproses?",
+          "answer": "Pengesahan anda disemak oleh admin, kemudian keuntungan yang dikredit ditambah ke akaun anda."
+        },
+        "four": {
+          "question": "Apa yang diraih oleh rujukan?",
+          "answer": "Rujukan boleh memperoleh komisen deposit dan bonus perkongsian keuntungan mengikut peraturan pada halaman ini."
+        }
+      }
+    },
     "cta": {
       "title": "Bersedia Untuk Mulakan?",
       "description": "Sertai ribuan pelabur yang menjana keuntungan harian dengan Signal Universe.",

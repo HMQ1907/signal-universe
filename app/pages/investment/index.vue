@@ -24,7 +24,7 @@
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
       <div v-for="pkg in packages" :key="pkg.amount" class="package-card p-8 relative"
         :class="pkg.amount === 500 ? 'package-card-popular' : ''">
-        <div v-if="pkg.amount === 500" class="absolute -top-3 left-1/2 -translate-x-1/2">
+        <div v-if="pkg.amount === 500" class="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2">
           <span class="px-4 py-1 rounded-full text-xs font-bold text-white"
             style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">Popular</span>
         </div>
@@ -89,7 +89,7 @@
       </h2>
       <div class="space-y-3">
         <div v-for="i in 6" :key="i" class="flex items-start gap-3">
-          <UIcon name="i-heroicons-check-circle" class="text-indigo-400 flex-shrink-0 mt-0.5" />
+          <UIcon name="i-heroicons-check-circle" class="text-indigo-400 shrink-0 mt-0.5" />
           <p class="text-slate-300 text-sm">{{ $t(`investment.rules.rule${i}`) }}</p>
         </div>
       </div>

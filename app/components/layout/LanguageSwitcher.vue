@@ -1,28 +1,45 @@
 <template>
-  <div class="lang-switcher-ring max-w-full">
-    <label class="lang-switcher-inner relative min-w-0 max-w-[min(100%,14rem)] cursor-pointer sm:max-w-[16rem]">
+  <div ref="rootRef" class="lang-switcher-ring relative max-w-full">
+    <button
+      type="button"
+      class="lang-switcher-inner flex min-w-0 max-w-[min(100%,14rem)] items-center justify-between gap-2 rounded-full border border-indigo-400/70 bg-[#060816]/90 px-3 py-2 text-white shadow-[0_0_24px_rgba(99,102,241,0.15)] backdrop-blur-xl transition-all hover:border-indigo-300 hover:bg-[#0b1022] sm:max-w-[16rem]"
+      :aria-label="t('nav.language')"
+      :aria-expanded="isOpen"
+      aria-haspopup="menu"
+      @click="isOpen = !isOpen"
+    >
       <span class="select-none text-base leading-none sm:text-lg" aria-hidden="true">{{ flag(locale) }}</span>
-      <select
-        class="scheme-dark min-w-0 flex-1 cursor-pointer appearance-none border-0 bg-transparent py-0.5 text-xs font-semibold tracking-tight text-white focus:outline-none focus:ring-0 sm:text-sm"
-        :value="locale"
-        :aria-label="t('nav.language')"
-        @change="onSelect"
+      <span class="min-w-0 truncate text-left text-xs font-semibold tracking-tight sm:text-sm">
+        {{ currentLocaleName }}
+      </span>
+      <UIcon name="i-heroicons-chevron-down" class="size-4 shrink-0 text-white/75" aria-hidden="true" />
+    </button>
+
+    <div
+      v-if="isOpen"
+      class="absolute right-0 top-full z-100 mt-2 min-w-52 overflow-hidden rounded-2xl border border-slate-700/80 bg-[#060816]/98 p-2 shadow-2xl shadow-black/50 backdrop-blur-xl"
+      role="menu"
+    >
+      <button
+        v-for="l in localeList"
+        :key="l.code"
+        type="button"
+        class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm text-slate-200 transition-colors hover:bg-white/5 hover:text-white"
+        :class="locale === l.code ? 'bg-indigo-500/15 text-white' : ''"
+        role="menuitem"
+        @click="selectLocale(l.code)"
       >
-        <option v-for="l in localeList" :key="l.code" :value="l.code">
-          {{ flag(l.code) }} {{ l.name }}
-        </option>
-      </select>
-      <UIcon
-        name="i-heroicons-chevron-down"
-        class="pointer-events-none size-4 shrink-0 text-white/75"
-        aria-hidden="true"
-      />
-    </label>
+        <span class="text-base leading-none">{{ flag(l.code) }}</span>
+        <span class="min-w-0 truncate">{{ l.name }}</span>
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 const { locale, locales, setLocale, t } = useI18n()
+const rootRef = ref<HTMLElement | null>(null)
+const isOpen = ref(false)
 
 const flags: Record<string, string> = {
   en: '🇺🇸',
@@ -34,10 +51,16 @@ const flags: Record<string, string> = {
 
 const localeList = computed(() => locales.value as { code: string; name: string }[])
 
+const currentLocaleName = computed(() => localeList.value.find(l => l.code === locale.value)?.name || locale.value)
+
 const flag = (code: string) => flags[code] || '🌐'
 
-const onSelect = (e: Event) => {
-  const code = (e.target as HTMLSelectElement).value
-  setLocale(code as 'en' | 'vi' | 'zh' | 'ms' | 'ru')
+const selectLocale = async (code: string) => {
+  isOpen.value = false
+  await setLocale(code as 'en' | 'vi' | 'zh' | 'ms' | 'ru')
 }
+
+onClickOutside(rootRef, () => {
+  isOpen.value = false
+})
 </script>

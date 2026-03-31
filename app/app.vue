@@ -4,7 +4,7 @@
       <NuxtPage />
     </NuxtLayout>
     <ClientOnly>
-      <PageLoading />
+      <LayoutPageLoading />
     </ClientOnly>
   </UApp>
 </template>

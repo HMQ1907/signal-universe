@@ -10,7 +10,7 @@
       </div>
     </template>
     
-    <UForm :schema="schema" :state="state" @submit="handleLogin" class="flex flex-col gap-6">
+    <UForm :schema="schema" :state="state" :validate-on="[]" @submit="handleLogin" class="flex flex-col gap-6">
       <UFormField :label="$t('auth.login.email')" name="email" size="lg">
         <UInput
           v-model="state.email"
@@ -71,7 +71,7 @@
         :loading="loading"
         class="web3-cta-glow mt-2 min-h-12 text-base font-bold tracking-wide relative overflow-hidden group border-0 rounded-xl"
       >
-        <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 bg-[length:200%_auto] animate-[su-gradient-flow_3s_linear_infinite] group-hover:bg-[length:150%_auto] transition-all duration-300" />
+        <div class="absolute inset-0 bg-linear-to-r from-indigo-500 via-purple-500 to-indigo-500 bg-size-[200%_auto] animate-[su-gradient-flow_3s_linear_infinite] group-hover:bg-size-[150%_auto] transition-all duration-300" />
         <span class="relative z-10 text-white shadow-sm">{{ $t('auth.login.submit') }}</span>
       </UButton>
     </UForm>
@@ -81,6 +81,7 @@
         {{ $t('auth.login.no_account') }}
         <NuxtLink
           to="/auth/register"
+          prefetch
           class="ml-1 font-medium text-primary-400 transition-colors duration-200 hover:text-primary-300"
         >
           {{ $t('auth.login.register_link') }}
@@ -94,7 +95,7 @@
 import { z } from 'zod'
 import { authCardUi, authInputUiLeading, authInputUiPassword } from '~/utils/auth-form-ui'
 
-definePageMeta({ layout: 'auth', middleware: 'guest' })
+definePageMeta({ layout: 'auth', middleware: 'guest', pageTransition: false })
 useHead({ title: 'Login - Signal Universe' })
 
 const { login } = useAuth()

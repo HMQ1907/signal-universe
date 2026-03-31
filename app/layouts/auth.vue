@@ -11,7 +11,7 @@
 
     <!-- Language: fixed top-right (ring is on LanguageSwitcher) -->
     <div class="fixed right-4 top-4 z-30 sm:right-8 sm:top-6">
-      <LanguageSwitcher />
+      <LayoutLanguageSwitcher />
     </div>
 
     <!-- Back to home -->

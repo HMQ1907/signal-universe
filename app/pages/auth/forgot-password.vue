@@ -128,7 +128,7 @@
 <script setup lang="ts">
 import { authCardUi, authInputUiLeading, authInputUiPassword } from '~/utils/auth-form-ui'
 
-definePageMeta({ layout: 'auth', middleware: 'guest' })
+definePageMeta({ layout: 'auth', middleware: 'guest', pageTransition: false })
 useHead({ title: 'Reset Password - Signal Universe' })
 
 const toast = useToastCustom()

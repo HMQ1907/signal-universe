@@ -147,6 +147,48 @@
       "rate_profit_u2": "入账利润的 10%",
       "rate_profit_u3": "入账利润的 5%"
     },
+    "platform": {
+      "title": "平台如何运作",
+      "subtitle": "围绕可见性、审核和长期推荐增长建立的每日节奏。",
+      "auto_tier": {
+        "title": "自动分级",
+        "description": "DeFi 等级根据您的总余额自动计算，因此整个应用中的套餐逻辑保持一致。"
+      },
+      "daily_window": {
+        "title": "每日确认窗口",
+        "description": "每天都会在 11:00 到 23:59 之间开放一次 AI 确认窗口。"
+      },
+      "review": {
+        "title": "管理员审核流程",
+        "description": "利润在可用之前会先经过审核和记录，保证流程可追溯。"
+      },
+      "network": {
+        "title": "多层级网络",
+        "description": "充值与利润都可以在推荐树中产生佣金。"
+      }
+    },
+    "faq": {
+      "title": "常见问题",
+      "subtitle": "为新用户提供快速解答。",
+      "items": {
+        "one": {
+          "question": "如何激活 DeFi 等级？",
+          "answer": "至少充值 200 美元，平台会根据您的总余额自动分配等级。"
+        },
+        "two": {
+          "question": "什么时候可以确认 AI 信号？",
+          "answer": "每天仅可在 11:00–23:59 的窗口内确认一次。"
+        },
+        "three": {
+          "question": "利润如何处理？",
+          "answer": "您的确认会先由管理员审核，入账利润随后会添加到您的账户。"
+        },
+        "four": {
+          "question": "推荐人可以获得什么？",
+          "answer": "推荐人可根据页面规则获得充值佣金和利润分成奖励。"
+        }
+      }
+    },
     "cta": {
       "title": "准备好了吗？",
       "description": "加入数千名每日通过Signal Universe赚取收益的投资者。",

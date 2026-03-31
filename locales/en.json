@@ -159,6 +159,48 @@
       "rate_profit_u2": "10% of credited profit",
       "rate_profit_u3": "5% of credited profit"
     },
+    "platform": {
+      "title": "What Makes the Platform Work",
+      "subtitle": "A daily rhythm built around visibility, approval, and long-term referral growth.",
+      "auto_tier": {
+        "title": "Automatic Tiering",
+        "description": "Your DeFi level is derived from your total balance, so the package logic stays consistent across the app."
+      },
+      "daily_window": {
+        "title": "Daily Confirm Window",
+        "description": "One AI confirmation window opens every day between 11:00 and 23:59."
+      },
+      "review": {
+        "title": "Admin Review Flow",
+        "description": "Profits are approved and recorded before they become available, keeping the process auditable."
+      },
+      "network": {
+        "title": "Multi-Level Network",
+        "description": "Deposits and profits can generate commissions across the referral tree."
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Quick answers for new users.",
+      "items": {
+        "one": {
+          "question": "How do I activate the DeFi tier?",
+          "answer": "Deposit at least $200. The platform assigns the tier automatically from your total balance."
+        },
+        "two": {
+          "question": "When can I confirm the AI signal?",
+          "answer": "Once per day during the 11:00–23:59 window."
+        },
+        "three": {
+          "question": "How are profits handled?",
+          "answer": "Your confirmation is reviewed by admin, then the credited profit is added to your account."
+        },
+        "four": {
+          "question": "What do referrals earn?",
+          "answer": "Referrals can earn deposit commissions and profit-sharing bonuses according to the rules shown on the page."
+        }
+      }
+    },
     "cta": {
       "title": "Ready to Start?",
       "description": "Join thousands of investors earning daily profits with Signal Universe.",

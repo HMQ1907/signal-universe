@@ -73,12 +73,12 @@
         >Universe Pro documentation</a>
         —Signal Universe aligns product design with these principles for members and operators.
       </p>
-      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 [&>*]:min-w-0">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 *:min-w-0">
         <div
           v-for="(item, i) in pillars"
           :key="item.title"
           class="web3-glass-panel web3-reveal p-6 md:p-8"
-          :class="pillarDelays[i] ?? 'web3-reveal-delay-4'"
+          :class="pillarDelays[i] ? pillarDelays[i] : 'web3-reveal-delay-4'"
         >
           <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-500/15 ring-1 ring-indigo-500/25">
             <UIcon :name="item.icon" class="text-2xl text-indigo-400" />
@@ -92,7 +92,7 @@
     <!-- Signal Universe bridge -->
     <section class="mx-auto mt-20 max-w-3xl px-4 sm:px-6">
       <div
-        class="relative overflow-hidden rounded-2xl border border-indigo-500/20 bg-gradient-to-br from-slate-900/90 via-slate-900/80 to-indigo-950/50 p-8 md:p-12"
+        class="relative overflow-hidden rounded-2xl border border-indigo-500/20 bg-linear-to-br from-slate-900/90 via-slate-900/80 to-indigo-950/50 p-8 md:p-12"
       >
         <div
           class="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-indigo-500/20 blur-3xl"
