@@ -84,6 +84,95 @@
       "chg_24h": "24j %"
     }
   },
+  "up": {
+    "nav": {
+      "home": "Laman Utama",
+      "intro": "Pengenalan",
+      "features": "Ciri",
+      "roadmap": "Hala tuju",
+      "whitepaper": "Whitepaper",
+      "contact": "Mula"
+    },
+    "hero": {
+      "badge": "Signal Universe — Hadapan Baharu Onchain",
+      "title": "Platform DeFi Serba Mampu",
+      "subtitle": "Luaskan DeFi global untuk semua — platform untuk masa depan kewangan terdesentralisasi.",
+      "cta_ai": "Sahkan AI"
+    },
+    "intro": {
+      "f1_title": "Analitik onchain",
+      "f1_desc": "Trend, penjejakan dan keterlihatan isyarat serta ganjaran.",
+      "f2_title": "Dagangan pintar",
+      "f2_desc": "Sahkan isyarat AI mengikut jadual dengan peraturan telus.",
+      "f3_title": "Bukan kustodian",
+      "f3_desc": "Anda kawal dompet deposit/pengeluaran; kami tidak menyimpan kunci peribadi anda."
+    },
+    "statement": {
+      "title": "Laksana kewangan terdesentralisasi yang pantas untuk komuniti",
+      "body": "Signal Universe membawa isyarat berstruktur, keuntungan disemak admin dan rujukan berbilang peringkat — telus, boleh diaudit dan diakses global."
+    },
+    "bento": {
+      "b1": "Tokenomik",
+      "b1_sub": "Pakej dan peraturan baki",
+      "b2": "Tadbir urus",
+      "b2_sub": "Hala tuju dan arah komuniti",
+      "b3": "Disiplin",
+      "b3_sub": "Peringkat dan had jelas",
+      "b4": "Kecairan kepercayaan",
+      "b4_sub": "Transaksi direkod lengkap",
+      "b5": "Isyarat",
+      "b5_sub": "Pengesahan AI harian",
+      "b6": "Rangkaian",
+      "b6_sub": "Pertumbuhan rujukan"
+    },
+    "eco": {
+      "title": "Ekosistem kami ialah Signal Universe",
+      "body": "Logik asas menghubungkan pakej, pengesahan dan ganjaran — membuka kelebihan untuk ahli yang mengikut isyarat dan membina pasukan."
+    },
+    "mission": {
+      "title": "Bawa kripto dan isyarat pintar ke setiap sudut kehidupan",
+      "body": "Kami membina standard seterusnya untuk penyertaan DeFi berasaskan isyarat — telus, boleh disemak dan sedia untuk komuniti di seluruh dunia."
+    },
+    "adv": {
+      "title": "Dibina untuk pedagang — bersedia untuk esok",
+      "a1t": "Kecairan",
+      "a1d": "Aliran masuk berstruktur melalui pakej pelaburan",
+      "a2t": "Kelajuan",
+      "a2d": "Kitaran semakan pantas untuk pengesahan dan pembayaran",
+      "a3t": "Kecekapan kos",
+      "a3d": "Yuran dan komisen yang jelas"
+    },
+    "roadmap": {
+      "title": "Hala tuju",
+      "subtitle": "Sistem isyarat selaras prestasi on-chain",
+      "goal": "Matlamat",
+      "p1t": "Fasa 01: Pelancaran",
+      "p1b": "Isyarat, deposit, tetingkap sahkan AI dan ganjaran rujukan dilancarkan.",
+      "p1g": "Sampaikan gelung harian lengkap untuk ahli.",
+      "p2t": "Fasa 02: Skala",
+      "p2b": "Lebih bahasa, kemaskan papan pemuka dan alat pelabur.",
+      "p2g": "Tingkatkan kejelasan dan pengekalan global.",
+      "p3t": "Fasa 03: Pematuhan",
+      "p3b": "Aliran pengesahan pilihan, log audit dan kawalan admin.",
+      "p3g": "Perkukuh kebolehpercayaan.",
+      "p4t": "Fasa 04: Rakan kongsi",
+      "p4b": "Komuniti dan pemimpin serantau dengan alat bersama.",
+      "p4g": "Kembangkan tanpa memecahkan model teras.",
+      "p5t": "Fasa 05: Infrastruktur",
+      "p5b": "API, webhook dan laporan lanjutan.",
+      "p5g": "Operasi bertaraf profesional pada skala besar."
+    },
+    "wp": {
+      "title": "Whitepaper dan dokumen",
+      "body": "Baca ringkasan undang-undang dan FAQ tentang cara Signal Universe beroperasi, risiko dan peraturan platform.",
+      "link": "Buka undang-undang dan FAQ"
+    },
+    "footer": {
+      "tagline": "Jambatan anda ke isyarat DeFi berstruktur",
+      "terms": "Terma",
+      "faq": "FAQ"
+    }
+  },
   "home": {
     "hero": {
       "badge": "Isyarat Dagangan Berkuasa AI",

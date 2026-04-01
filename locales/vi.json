@@ -84,6 +84,95 @@
       "chg_24h": "24h %"
     }
   },
+  "up": {
+    "nav": {
+      "home": "Trang chủ",
+      "intro": "Giới thiệu",
+      "features": "Tính năng",
+      "roadmap": "Lộ trình",
+      "whitepaper": "Whitepaper",
+      "contact": "Liên hệ"
+    },
+    "hero": {
+      "badge": "Signal Universe — Biên giới Onchain mới",
+      "title": "Mở rộng DeFi toàn cầu cho mọi người",
+      "subtitle": "Nền tảng của tương lai tài chính phi tập trung.",
+      "cta_ai": "Xác nhận AI"
+    },
+    "intro": {
+      "f1_title": "Phân tích thị trường",
+      "f1_desc": "Theo dõi xu hướng, tín hiệu và phần thưởng với giao diện rõ ràng.",
+      "f2_title": "Giao dịch thông minh",
+      "f2_desc": "Xác nhận tín hiệu AI theo khung giờ với quy tắc thực thi minh bạch.",
+      "f3_title": "Bảo mật tối đa",
+      "f3_desc": "Bạn kiểm soát ví nạp/rút; chúng tôi không giữ private key của bạn."
+    },
+    "statement": {
+      "title": "Thực hiện giao dịch nhanh chóng Decentralized Finance cho cộng đồng",
+      "body": "Signal Universe mang tín hiệu có cấu trúc, lợi nhuận được admin duyệt và hệ giới thiệu nhiều cấp — minh bạch, dễ kiểm chứng và tiếp cận toàn cầu."
+    },
+    "bento": {
+      "b1": "Tokenomics",
+      "b1_sub": "Gói và quy tắc số dư",
+      "b2": "Quản trị",
+      "b2_sub": "Lộ trình và định hướng cộng đồng",
+      "b3": "Cơ chế kỷ luật",
+      "b3_sub": "Bậc thang và giới hạn rõ ràng",
+      "b4": "Thanh khoản niềm tin",
+      "b4_sub": "Giao dịch được ghi nhận đầy đủ",
+      "b5": "Tín hiệu",
+      "b5_sub": "Xác nhận AI mỗi ngày",
+      "b6": "Mạng lưới",
+      "b6_sub": "Tăng trưởng giới thiệu"
+    },
+    "eco": {
+      "title": "Hệ sinh thái của chúng tôi là Signal Universe",
+      "body": "Logic nền tảng kết nối gói đầu tư, xác nhận và phần thưởng — mở lợi thế cho thành viên theo tín hiệu và phát triển đội nhóm."
+    },
+    "mission": {
+      "title": "Sứ mệnh mang crypto và tín hiệu thông minh đến mọi ngóc ngách của cuộc sống",
+      "body": "Chúng tôi kiến tạo chuẩn mực tiếp theo cho tham gia DeFi dựa trên tín hiệu — minh bạch, có thể duyệt, và sẵn sàng cho cộng đồng khắp nơi."
+    },
+    "adv": {
+      "title": "Dành cho nhà giao dịch — sẵn sàng cho tương lai",
+      "a1t": "Thanh khoản",
+      "a1d": "Dòng vốn qua các gói đầu tư",
+      "a2t": "Tốc độ",
+      "a2d": "Vòng duyệt nhanh cho xác nhận và chi trả",
+      "a3t": "Tiết kiệm chi phí",
+      "a3d": "Phí và hoa hồng được công bố rõ"
+    },
+    "roadmap": {
+      "title": "Lộ trình",
+      "subtitle": "Hệ thống tín hiệu gắn với hiệu năng on-chain",
+      "goal": "Mục tiêu",
+      "p1t": "Giai đoạn 01: Khởi đầu",
+      "p1b": "Ra mắt tín hiệu, nạp tiền, khung xác nhận AI và hoa hồng giới thiệu.",
+      "p1g": "Hoàn thiện vòng lặp hằng ngày cho thành viên.",
+      "p2t": "Giai đoạn 02: Mở rộng",
+      "p2b": "Thêm ngôn ngữ, hoàn thiện dashboard và công cụ nhà đầu tư.",
+      "p2g": "Tăng rõ ràng và giữ chân người dùng toàn cầu.",
+      "p3t": "Giai đoạn 03: Lớp tuân thủ",
+      "p3b": "Luồng xác minh tùy chọn, nhật ký kiểm tra và quyền admin.",
+      "p3g": "Tăng khả năng kiểm chứng và niềm tin.",
+      "p4t": "Giai đoạn 04: Đối tác",
+      "p4b": "Cộng đồng và leader khu vực cùng bộ công cụ chung.",
+      "p4g": "Mở rộng phạm vi mà không phá vỡ mô hình cốt lõi.",
+      "p5t": "Giai đoạn 05: Hạ tầng",
+      "p5b": "API, webhook và báo cáo nâng cao cho người dùng chuyên sâu.",
+      "p5g": "Vận hành chuyên nghiệp quy mô lớn."
+    },
+    "wp": {
+      "title": "Whitepaper và tài liệu",
+      "body": "Đọc tóm tắt pháp lý và FAQ về cách Signal Universe hoạt động, rủi ro và quy tắc nền tảng.",
+      "link": "Mở pháp lý và FAQ"
+    },
+    "footer": {
+      "tagline": "Cầu nối tới tín hiệu DeFi có cấu trúc",
+      "terms": "Điều khoản",
+      "faq": "FAQ"
+    }
+  },
   "home": {
     "hero": {
       "badge": "Tín hiệu giao dịch AI",
@@ -93,7 +182,7 @@
       "cta_primary": "Bắt đầu Đầu tư",
       "cta_secondary": "Tìm hiểu thêm",
       "stats": {
-        "users": "Người dùng",
+    "users": "Người dùng",
         "daily_signals": "Tín hiệu/ngày",
         "max_profit": "Lợi nhuận tối đa",
         "languages": "Ngôn ngữ"
@@ -337,7 +426,7 @@
       "title": "Lịch sử Tín hiệu",
       "session": "Phiên",
       "amount": "Số tiền",
-      "profit": "Lợi nhuận",
+    "profit": "Lợi nhuận",
       "status": "Trạng thái"
     },
     "no_package": "Bạn cần có gói đầu tư để xác nhận tín hiệu.",
@@ -499,11 +588,11 @@
     "nav": {
       "dashboard": "Tổng quan",
       "pending": "Chờ duyệt",
-      "users": "Người dùng",
+    "users": "Người dùng",
       "signals": "Phiên tín hiệu",
       "deposits": "Nạp tiền",
       "withdrawals": "Rút tiền",
-      "transactions": "Giao dịch",
+    "transactions": "Giao dịch",
       "compound": "Lãi chồng lãi",
       "leader": "Thưởng Leader",
       "cccd": "Xác minh CCCD",
@@ -577,8 +666,8 @@
       "title": "Duyệt Rút tiền",
       "profit_tab": "Rút lợi nhuận",
       "capital_tab": "Rút vốn gốc (28 ngày)",
-      "approve": "Duyệt",
-      "reject": "Từ chối",
+    "approve": "Duyệt",
+    "reject": "Từ chối",
       "wallet": "Địa chỉ ví",
       "columns": {
         "user": "Người dùng",

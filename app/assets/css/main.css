@@ -737,3 +737,14 @@ a.web3-interactive {
 .nav-link-web3:hover {
   box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
 }
+
+/* Landing (Universe Pro–style motion) */
+@keyframes up-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}

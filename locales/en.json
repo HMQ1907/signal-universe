@@ -84,6 +84,95 @@
       "chg_24h": "24h %"
     }
   },
+  "up": {
+    "nav": {
+      "home": "Home",
+      "intro": "About",
+      "features": "Features",
+      "roadmap": "Roadmap",
+      "whitepaper": "Whitepaper",
+      "contact": "Get started"
+    },
+    "hero": {
+      "badge": "Signal Universe — The New Onchain Frontier",
+      "title": "The All-In-One DeFi Trading Platform",
+      "subtitle": "Expand global DeFi for everyone — the platform for the future of decentralized finance.",
+      "cta_ai": "Confirm AI"
+    },
+    "intro": {
+      "f1_title": "Onchain analytics",
+      "f1_desc": "Trending, tracking, and clear visibility into signals and rewards.",
+      "f2_title": "AI trading",
+      "f2_desc": "Confirm AI signals on schedule with transparent execution rules.",
+      "f3_title": "Non-custodial by design",
+      "f3_desc": "You control your wallet for deposits and withdrawals; we never hold your private keys."
+    },
+    "statement": {
+      "title": "Execute fast decentralized finance for the community",
+      "body": "Signal Universe brings structured signals, admin-reviewed profits, and a multi-level referral layer — transparent where it matters, and accessible worldwide."
+    },
+    "bento": {
+      "b1": "Tokenomics",
+      "b1_sub": "Packages and balance rules",
+      "b2": "Governance",
+      "b2_sub": "Roadmap and community direction",
+      "b3": "Discipline",
+      "b3_sub": "Clear tiers and daily caps",
+      "b4": "Trust liquidity",
+      "b4_sub": "Fully recorded transactions",
+      "b5": "Signals",
+      "b5_sub": "Daily AI confirmation",
+      "b6": "Network",
+      "b6_sub": "Referral growth"
+    },
+    "eco": {
+      "title": "Our ecosystem is Signal Universe",
+      "body": "Native logic ties packages, confirmations, and rewards together — unlocking advantages for members who follow signals and grow their teams."
+    },
+    "mission": {
+      "title": "Bring crypto and smart signals to every corner of life",
+      "body": "We are building the next standard for signal-based participation in DeFi — transparent, reviewable, and ready for communities everywhere."
+    },
+    "adv": {
+      "title": "Built for traders — ready for tomorrow",
+      "a1t": "Liquidity",
+      "a1d": "Structured inflows through investment packages",
+      "a2t": "Speed",
+      "a2d": "Fast review cycles for confirmations and payouts",
+      "a3t": "Cost efficiency",
+      "a3d": "Transparent fees and commission rules"
+    },
+    "roadmap": {
+      "title": "Roadmap",
+      "subtitle": "High-performance on-chain aligned signal system",
+      "goal": "Goal",
+      "p1t": "Phase 01: Launch",
+      "p1b": "Signals, deposits, AI confirm window, and referral rewards go live.",
+      "p1g": "Deliver a complete daily loop members can follow end-to-end.",
+      "p2t": "Phase 02: Scale",
+      "p2b": "More locales, dashboard polish, and investor tooling.",
+      "p2g": "Improve clarity and retention for global users.",
+      "p3t": "Phase 03: Compliance layer",
+      "p3b": "Optional verification flows, audit logs, and admin controls.",
+      "p3g": "Strengthen reviewability and trust.",
+      "p4t": "Phase 04: Partners",
+      "p4b": "Communities and regional leaders onboard with shared tooling.",
+      "p4g": "Extend reach without breaking the core model.",
+      "p5t": "Phase 05: Infrastructure",
+      "p5b": "APIs, webhooks, and advanced reporting for power users.",
+      "p5g": "Professional-grade operations at scale."
+    },
+    "wp": {
+      "title": "Whitepaper and documentation",
+      "body": "Read the legal summary and FAQ for how Signal Universe operates, risk disclosures, and platform rules.",
+      "link": "Open legal and FAQ"
+    },
+    "footer": {
+      "tagline": "Your bridge to structured DeFi signals",
+      "terms": "Terms",
+      "faq": "FAQ"
+    }
+  },
   "home": {
     "hero": {
       "badge": "AI-Powered Trading Signals",
