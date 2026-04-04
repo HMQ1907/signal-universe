@@ -13,7 +13,7 @@
       <!-- Profit Balance -->
       <div class="su-card relative overflow-hidden">
         <div class="absolute top-0 right-0 w-32 h-32 rounded-full blur-2xl opacity-10"
-          style="background: #6366f1; transform: translate(40%, -40%);" />
+          style="background: #6366f1; transform: translate(40%, -40%);"></div>
         <div class="flex items-center justify-between mb-4">
           <p class="text-slate-400 text-sm">{{ $t('dashboard.profit_balance') }}</p>
           <div class="w-9 h-9 rounded-xl bg-indigo-500/10 flex items-center justify-center">
@@ -27,7 +27,7 @@
       <!-- Locked Capital -->
       <div class="su-card relative overflow-hidden">
         <div class="absolute top-0 right-0 w-32 h-32 rounded-full blur-2xl opacity-10"
-          style="background: #f59e0b; transform: translate(40%, -40%);" />
+          style="background: #f59e0b; transform: translate(40%, -40%);"></div>
         <div class="flex items-center justify-between mb-4">
           <p class="text-slate-400 text-sm">{{ $t('dashboard.locked_capital') }}</p>
           <div class="w-9 h-9 rounded-xl bg-amber-500/10 flex items-center justify-center">
@@ -41,7 +41,7 @@
       <!-- Investment Package -->
       <div class="su-card relative overflow-hidden">
         <div class="absolute top-0 right-0 w-32 h-32 rounded-full blur-2xl opacity-10"
-          style="background: #10b981; transform: translate(40%, -40%);" />
+          style="background: #10b981; transform: translate(40%, -40%);"></div>
         <div class="flex items-center justify-between mb-4">
           <p class="text-slate-400 text-sm">{{ $t('dashboard.investment_package') }}</p>
           <div class="w-9 h-9 rounded-xl bg-green-500/10 flex items-center justify-center">

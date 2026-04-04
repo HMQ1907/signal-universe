@@ -34,24 +34,55 @@
           </div>
         </div>
 
-        <!-- Full-width hero banner (Universe Pro source video — no CSS 3D spin) -->
+        <!-- Hero: full-bleed row — ảnh trái | video | ảnh phải, sát mép viewport, không max-width / không gap -->
         <div
-          class="relative left-1/2 z-[1] mb-10 mt-2 w-screen max-w-[100vw] -translate-x-1/2 overflow-hidden bg-[#05050a]"
+          class="relative z-[1] mb-10 mt-2 w-[100vw] max-w-[100vw] shrink-0"
+          style="margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw)"
           aria-hidden="true"
         >
           <div
-            class="relative h-[min(56vh,800px)] w-full sm:h-[min(60vh,880px)]"
+            class="grid w-full grid-cols-1 items-stretch gap-0 lg:min-h-[min(56vh,800px)] lg:grid-cols-[minmax(0,1fr)_minmax(0,2.4fr)_minmax(0,1fr)] xl:min-h-[min(60vh,880px)]"
           >
-            <video
-              ref="heroVideoRef"
-              class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center select-none"
-              :src="heroBannerVideoSrc"
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="metadata"
-            />
+            <div
+              class="pointer-events-none relative hidden min-h-[min(48vh,520px)] min-w-0 select-none lg:block"
+            >
+              <img
+                :src="heroBannerLeftSrc"
+                alt=""
+                class="absolute inset-0 h-full w-full object-cover object-right"
+                loading="lazy"
+                decoding="async"
+                draggable="false"
+              />
+            </div>
+
+            <div
+              class="relative min-h-[min(56vh,800px)] w-full min-w-0 overflow-hidden bg-[#05050a] sm:min-h-[min(60vh,880px)] lg:min-h-0"
+            >
+              <video
+                ref="heroVideoRef"
+                class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center select-none"
+                :src="heroBannerVideoSrc"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+              />
+            </div>
+
+            <div
+              class="pointer-events-none relative hidden min-h-[min(48vh,520px)] min-w-0 select-none lg:block"
+            >
+              <img
+                :src="heroBannerRightSrc"
+                alt=""
+                class="absolute inset-0 h-full w-full object-cover object-left"
+                loading="lazy"
+                decoding="async"
+                draggable="false"
+              />
+            </div>
           </div>
         </div>
 
@@ -262,55 +293,129 @@
     <!-- Roadmap -->
     <section
       id="roadmap"
-      class="border-y border-white/[0.06] bg-black/25 py-24"
+      class="border-y border-white/[0.06] bg-black/25 py-24 md:py-28"
     >
-      <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <UpReveal class="mb-4 text-center">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <UpReveal class="mb-10 text-center md:mb-14">
           <h2 class="text-3xl font-black text-white md:text-4xl">
             {{ $t("up.roadmap.title") }}
           </h2>
           <p class="mt-3 text-slate-400">{{ $t("up.roadmap.subtitle") }}</p>
         </UpReveal>
-        <div class="relative mt-16">
+
+        <div class="relative">
           <div
-            class="absolute bottom-0 left-[11px] top-0 w-px bg-gradient-to-b from-cyan-500/50 via-violet-500/40 to-transparent md:left-1/2 md:-translate-x-px"
+            class="absolute left-4 top-0 h-full w-px bg-gradient-to-b from-cyan-500/0 via-cyan-400/60 to-violet-500/0 lg:left-1/2 lg:-translate-x-px"
           />
-          <div class="space-y-10">
+
+          <div class="space-y-10 md:space-y-12">
             <UpReveal
               v-for="(phase, i) in roadmapPhases"
-              :key="i"
-              class="relative flex gap-6 md:gap-0"
-              :class="i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'"
+              :key="phase.label"
+              class="relative grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_5rem_minmax(0,1fr)] lg:gap-0"
             >
               <div
-                class="flex w-6 shrink-0 justify-center md:absolute md:left-1/2 md:w-auto md:-translate-x-1/2"
+                class="absolute left-4 top-8 flex h-3.5 w-3.5 -translate-x-1/2 items-center justify-center rounded-full bg-[#030308] ring-4 ring-[#030308] lg:left-1/2"
               >
-                <span
-                  class="z-[1] mt-1.5 flex h-3 w-3 rounded-full bg-gradient-to-br from-cyan-400 to-violet-500 shadow-[0_0_12px_rgba(34,211,238,0.8)] ring-4 ring-[#030308]"
-                />
+                <span class="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_14px_rgba(34,211,238,0.9)]" />
               </div>
+
               <div
-                class="min-w-0 flex-1 rounded-2xl border border-white/[0.08] bg-[#0c0c14] p-6 md:w-[calc(50%-2rem)]"
-                :class="
-                  i % 2 === 0 ? 'md:mr-auto md:pr-8' : 'md:ml-auto md:pl-8'
-                "
+                v-if="i % 2 === 0"
+                class="ml-8 lg:ml-0 lg:col-start-1 lg:row-start-1 lg:pr-10"
               >
-                <span
-                  class="text-xs font-bold uppercase tracking-widest text-cyan-400/80"
-                  >{{ phase.label }}</span
+                <article
+                  class="group relative overflow-hidden rounded-[1.75rem] border border-white/[0.08] bg-[#0c0c14] p-4 shadow-[0_18px_60px_rgba(0,0,0,0.28)] transition-all duration-500 hover:border-cyan-500/20 hover:shadow-[0_20px_80px_rgba(34,211,238,0.08)] sm:p-5"
                 >
-                <h3 class="mt-2 text-lg font-bold text-white">
-                  {{ $t(phase.title) }}
-                </h3>
-                <p class="mt-3 text-sm leading-relaxed text-slate-400">
-                  {{ $t(phase.body) }}
-                </p>
-                <p
-                  class="mt-4 border-t border-white/5 pt-4 text-xs font-semibold text-violet-300/90"
-                >
-                  {{ $t("up.roadmap.goal") }}: {{ $t(phase.goal) }}
-                </p>
+                  <div class="relative overflow-hidden rounded-[1.35rem] bg-[#05050a]">
+                    <img
+                      :src="phase.image"
+                      :alt="phase.alt"
+                      class="h-56 w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.04] sm:h-64"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#05050a]/90 via-transparent to-transparent" />
+                  </div>
+
+                  <div class="mt-5 flex items-start justify-between gap-4">
+                    <div class="min-w-0">
+                      <span class="text-xs font-bold uppercase tracking-[0.32em] text-cyan-400/80">{{ phase.label }}</span>
+                      <h3 class="mt-2 text-xl font-black text-white sm:text-2xl">
+                        {{ phase.titleText }}
+                      </h3>
+                    </div>
+                    <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-lg font-black text-violet-200">
+                      {{ phase.label }}
+                    </div>
+                  </div>
+
+                  <p class="mt-4 text-sm leading-relaxed text-slate-400 sm:text-[0.98rem]">
+                    {{ phase.bodyText }}
+                  </p>
+
+                  <div class="mt-5 rounded-2xl border border-white/[0.06] bg-white/[0.03] px-4 py-3">
+                    <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-violet-300/80">
+                      {{ $t("up.roadmap.goal") }}
+                    </p>
+                    <p class="mt-2 text-sm leading-relaxed text-slate-300">
+                      {{ phase.goalText }}
+                    </p>
+                  </div>
+                </article>
               </div>
+
+              <div class="hidden lg:block" />
+
+              <div
+                v-if="i % 2 === 1"
+                class="ml-8 lg:ml-0 lg:col-start-3 lg:row-start-1 lg:pl-10"
+              >
+                <article
+                  class="group relative overflow-hidden rounded-[1.75rem] border border-white/[0.08] bg-[#0c0c14] p-4 shadow-[0_18px_60px_rgba(0,0,0,0.28)] transition-all duration-500 hover:border-violet-500/20 hover:shadow-[0_20px_80px_rgba(139,92,246,0.08)] sm:p-5"
+                >
+                  <div class="relative overflow-hidden rounded-[1.35rem] bg-[#05050a]">
+                    <img
+                      :src="phase.image"
+                      :alt="phase.alt"
+                      class="h-56 w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.04] sm:h-64"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#05050a]/90 via-transparent to-transparent" />
+                  </div>
+
+                  <div class="mt-5 flex items-start justify-between gap-4">
+                    <div class="min-w-0">
+                      <span class="text-xs font-bold uppercase tracking-[0.32em] text-cyan-400/80">{{ phase.label }}</span>
+                      <h3 class="mt-2 text-xl font-black text-white sm:text-2xl">
+                        {{ phase.titleText }}
+                      </h3>
+                    </div>
+                    <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-lg font-black text-cyan-200">
+                      {{ phase.label }}
+                    </div>
+                  </div>
+
+                  <p class="mt-4 text-sm leading-relaxed text-slate-400 sm:text-[0.98rem]">
+                    {{ phase.bodyText }}
+                  </p>
+
+                  <div class="mt-5 rounded-2xl border border-white/[0.06] bg-white/[0.03] px-4 py-3">
+                    <p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-violet-300/80">
+                      {{ $t("up.roadmap.goal") }}
+                    </p>
+                    <p class="mt-2 text-sm leading-relaxed text-slate-300">
+                      {{ phase.goalText }}
+                    </p>
+                  </div>
+                </article>
+              </div>
+
+              <div
+                v-if="i % 2 === 0"
+                class="hidden lg:block"
+              />
             </UpReveal>
           </div>
         </div>
@@ -575,7 +680,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: "landing" });
 
-const { t } = useI18n();
+const { t, te } = useI18n();
 const { user } = useAuth();
 
 useHead({ title: "Signal Universe — Smart Trading Signal Platform" });
@@ -584,12 +689,28 @@ useHead({ title: "Signal Universe — Smart Trading Signal Platform" });
 const heroBannerVideoSrc =
   "https://www.universepro.co/wp-content/uploads/2025/10/Banner-1.mp4";
 
+/** Public/ paths as runtime strings so Vite does not try to bundle missing .webp files. */
+const heroBannerLeftSrc = "/images/banner-left.png";
+const heroBannerRightSrc = "/images/banner-right.png";
+
 const heroVideoRef = ref<HTMLVideoElement | null>(null);
 
 const imgToken = "/images/Gemini_Generated_Image_newcq4newcq4newc.png";
 const imgOrb = encodeURI(
   "/images/Gemini_Generated_Image_an2pfuan2pfuan2p (1).png",
 );
+
+const roadmapImages = [
+  "/images/home1.png",
+  "/images/home2.png",
+  "/images/home3.png",
+  "/images/home4.png",
+  "/images/home5.png",
+  "/images/home6.png",
+  "/images/home7.png",
+  "/images/home8.png",
+  "/images/home9.png",
+];
 
 const introCards = [
   { title: "up.intro.f1_title", desc: "up.intro.f1_desc" },
@@ -638,38 +759,66 @@ const bentoCells = [
 
 const advKeys = ["a1", "a2", "a3"];
 
-const roadmapPhases = [
+const roadmapPhaseFallbacks = [
   {
-    label: "01",
-    title: "up.roadmap.p1t",
-    body: "up.roadmap.p1b",
-    goal: "up.roadmap.p1g",
+    title: "Giai đoạn 06: Mở rộng cộng đồng",
+    body:
+      "Đẩy mạnh onboarding, phân tầng tài khoản và trải nghiệm người dùng để giữ nhịp tăng trưởng ổn định.",
+    goal: "Biến cộng đồng thành kênh tăng trưởng bền vững.",
   },
   {
-    label: "02",
-    title: "up.roadmap.p2t",
-    body: "up.roadmap.p2b",
-    goal: "up.roadmap.p2g",
+    title: "Giai đoạn 07: Tự động hóa",
+    body:
+      "Bổ sung tự động hóa cho báo cáo, thông báo và kiểm tra vận hành để giảm tải cho admin.",
+    goal: "Tối ưu tốc độ vận hành và độ chính xác.",
   },
   {
-    label: "03",
-    title: "up.roadmap.p3t",
-    body: "up.roadmap.p3b",
-    goal: "up.roadmap.p3g",
+    title: "Giai đoạn 08: Phân phối toàn cầu",
+    body:
+      "Mở rộng nhận diện đa ngôn ngữ, nội dung chia sẻ và tài liệu để phục vụ nhiều khu vực hơn.",
+    goal: "Mở rộng quy mô nhưng vẫn giữ trải nghiệm đồng nhất.",
   },
   {
-    label: "04",
-    title: "up.roadmap.p4t",
-    body: "up.roadmap.p4b",
-    goal: "up.roadmap.p4g",
-  },
-  {
-    label: "05",
-    title: "up.roadmap.p5t",
-    body: "up.roadmap.p5b",
-    goal: "up.roadmap.p5g",
+    title: "Giai đoạn 09: Hệ sinh thái dài hạn",
+    body:
+      "Liên kết công cụ, dữ liệu và trải nghiệm để tạo hệ sinh thái có thể vận hành lâu dài.",
+    goal: "Xây nền tảng tăng trưởng cho chặng tiếp theo.",
   },
 ];
+
+const roadmapPhases = computed(() => {
+  const phaseKeys = [
+    { title: "up.roadmap.p1t", body: "up.roadmap.p1b", goal: "up.roadmap.p1g" },
+    { title: "up.roadmap.p2t", body: "up.roadmap.p2b", goal: "up.roadmap.p2g" },
+    { title: "up.roadmap.p3t", body: "up.roadmap.p3b", goal: "up.roadmap.p3g" },
+    { title: "up.roadmap.p4t", body: "up.roadmap.p4b", goal: "up.roadmap.p4g" },
+    { title: "up.roadmap.p5t", body: "up.roadmap.p5b", goal: "up.roadmap.p5g" },
+  ];
+
+  return roadmapImages.map((image, index) => {
+    const label = String(index + 1).padStart(2, "0");
+    const translated = phaseKeys[index];
+    const fallback = roadmapPhaseFallbacks[index - 5];
+
+    return {
+      label,
+      image,
+      alt: `Roadmap ${label}`,
+      titleText:
+        translated && te(translated.title)
+          ? t(translated.title)
+          : fallback?.title ?? label,
+      bodyText:
+        translated && te(translated.body)
+          ? t(translated.body)
+          : fallback?.body ?? "",
+      goalText:
+        translated && te(translated.goal)
+          ? t(translated.goal)
+          : fallback?.goal ?? "",
+    };
+  });
+});
 
 const packages = [
   { amount: 200 },

@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24 lg:pb-8">
+  <div class="settings-page max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24 lg:pb-8">
     <div class="mb-8">
       <h1 class="text-2xl font-bold text-white">{{ $t('settings.title') }}</h1>
     </div>
@@ -11,11 +11,28 @@
         {{ $t('settings.profile.title') }}
       </h2>
       <div class="space-y-4">
-        <UFormField :label="$t('settings.profile.full_name')">
-          <UInput v-model="profileForm.full_name" icon="i-heroicons-user" />
+        <UFormField :label="$t('settings.profile.full_name')" size="lg">
+          <UInput
+            v-model="profileForm.full_name"
+            leading-icon="i-heroicons-user"
+            size="lg"
+            variant="outline"
+            color="neutral"
+            class="auth-input"
+            :ui="authInputUiLeading"
+          />
         </UFormField>
-        <UFormField :label="$t('settings.profile.email')">
-          <UInput :model-value="user?.email" disabled icon="i-heroicons-envelope" />
+        <UFormField :label="$t('settings.profile.email')" size="lg">
+          <UInput
+            :model-value="user?.email"
+            disabled
+            leading-icon="i-heroicons-envelope"
+            size="lg"
+            variant="outline"
+            color="neutral"
+            class="auth-input"
+            :ui="authInputUiLeading"
+          />
         </UFormField>
         <UButton :loading="profileLoading" color="primary"
           @click="updateProfile">
@@ -31,14 +48,44 @@
         {{ $t('settings.password.title') }}
       </h2>
       <div class="space-y-4">
-        <UFormField :label="$t('settings.password.current')">
-          <UInput v-model="passForm.current" type="password" icon="i-heroicons-lock-closed" />
+        <UFormField :label="$t('settings.password.current')" size="lg">
+          <UInput
+            v-model="passForm.current"
+            type="password"
+            leading-icon="i-heroicons-lock-closed"
+            autocomplete="current-password"
+            size="lg"
+            variant="outline"
+            color="neutral"
+            class="auth-input"
+            :ui="authInputUiLeading"
+          />
         </UFormField>
-        <UFormField :label="$t('settings.password.new')">
-          <UInput v-model="passForm.new_password" type="password" icon="i-heroicons-lock-closed" />
+        <UFormField :label="$t('settings.password.new')" size="lg">
+          <UInput
+            v-model="passForm.new_password"
+            type="password"
+            leading-icon="i-heroicons-lock-closed"
+            autocomplete="new-password"
+            size="lg"
+            variant="outline"
+            color="neutral"
+            class="auth-input"
+            :ui="authInputUiLeading"
+          />
         </UFormField>
-        <UFormField :label="$t('settings.password.confirm')">
-          <UInput v-model="passForm.confirm" type="password" icon="i-heroicons-lock-closed" />
+        <UFormField :label="$t('settings.password.confirm')" size="lg">
+          <UInput
+            v-model="passForm.confirm"
+            type="password"
+            leading-icon="i-heroicons-lock-closed"
+            autocomplete="new-password"
+            size="lg"
+            variant="outline"
+            color="neutral"
+            class="auth-input"
+            :ui="authInputUiLeading"
+          />
         </UFormField>
         <UAlert v-if="passError" :description="passError" color="error" variant="soft" />
         <UButton :loading="passLoading" color="primary"
@@ -82,6 +129,8 @@
 </template>
 
 <script setup lang="ts">
+import { authInputUiLeading } from '~/utils/auth-form-ui'
+
 definePageMeta({ middleware: 'auth' })
 useHead({ title: 'Settings - Signal Universe' })
 

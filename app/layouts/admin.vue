@@ -48,45 +48,6 @@
 
     <!-- Main content -->
     <div class="flex-1 lg:ml-64 flex flex-col min-h-screen">
-      <!-- Top bar (mobile) -->
-      <header class="lg:hidden flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-30">
-        <div class="flex items-center gap-2">
-          <div class="w-7 h-7 rounded-lg flex items-center justify-center"
-            style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
-            <UIcon name="i-heroicons-signal" class="text-white text-xs" />
-          </div>
-          <span class="font-bold text-white text-sm">Admin</span>
-        </div>
-        <UButton icon="i-heroicons-bars-3" color="neutral" variant="ghost" size="sm" @click="mobileMenuOpen = true" />
-      </header>
-
-      <!-- Mobile menu -->
-      <USlideover v-model="mobileMenuOpen" side="left" class="w-64">
-        <div class="flex flex-col h-full bg-slate-900">
-          <div class="flex items-center justify-between px-4 py-4 border-b border-slate-800">
-            <span class="font-bold text-white">Admin Menu</span>
-            <UButton icon="i-heroicons-x-mark" color="neutral" variant="ghost" size="sm" @click="mobileMenuOpen = false" />
-          </div>
-          <nav class="flex-1 px-3 py-4 overflow-y-auto">
-            <div class="space-y-1">
-              <NuxtLink
-                v-for="item in navItems"
-                :key="item.to"
-                :to="item.to"
-                @click="mobileMenuOpen = false"
-                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all"
-                :class="isActive(item.to)
-                  ? 'bg-indigo-500/10 text-indigo-400'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/50'"
-              >
-                <UIcon :name="item.icon" class="text-base" />
-                {{ $t(item.label) }}
-              </NuxtLink>
-            </div>
-          </nav>
-        </div>
-      </USlideover>
-
       <main class="flex-1 p-4 lg:p-8">
         <slot />
       </main>
@@ -97,7 +58,6 @@
 <script setup lang="ts">
 const route = useRoute()
 const { user, logout } = useAuth()
-const mobileMenuOpen = ref(false)
 
 const navItems = [
   { to: '/admin', icon: 'i-heroicons-chart-bar', label: 'admin.nav.dashboard' },

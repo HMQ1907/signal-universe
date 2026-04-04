@@ -341,20 +341,24 @@ select:-webkit-autofill:focus {
   animation: su-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Auth: full-width control (keep Nuxt UI root as inline-flex; avoid display:flex override breaking layout) */
-.auth-form-card .auth-input {
+/* Auth + settings: full-width control (keep Nuxt UI root as inline-flex) */
+.auth-form-card .auth-input,
+.settings-page .auth-input {
   width: 100%;
   min-width: 0;
   isolation: isolate;
 }
 
-/* Edge/Legacy: built-in password reveal stacks with our toggle; WebKit autofill affordances */
+/* Edge/Legacy: built-in password reveal; WebKit autofill affordances */
 .auth-form-card .auth-input input[type='password']::-ms-reveal,
-.auth-form-card .auth-input input[type='password']::-ms-clear {
+.auth-form-card .auth-input input[type='password']::-ms-clear,
+.settings-page .auth-input input[type='password']::-ms-reveal,
+.settings-page .auth-input input[type='password']::-ms-clear {
   display: none;
 }
 
-.auth-form-card .auth-input input[type='password']::-webkit-credentials-auto-fill-button {
+.auth-form-card .auth-input input[type='password']::-webkit-credentials-auto-fill-button,
+.settings-page .auth-input input[type='password']::-webkit-credentials-auto-fill-button {
   display: none !important;
   visibility: hidden;
   pointer-events: none;
@@ -363,17 +367,20 @@ select:-webkit-autofill:focus {
   margin: 0;
 }
 
-.auth-form-card .auth-input input {
+.auth-form-card .auth-input input,
+.settings-page .auth-input input {
   background-color: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
 }
 
-.auth-form-card .auth-input input:hover {
+.auth-form-card .auth-input input:hover,
+.settings-page .auth-input input:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.auth-form-card .auth-input input:focus {
+.auth-form-card .auth-input input:focus,
+.settings-page .auth-input input:focus {
   background-color: rgba(255, 255, 255, 0.1);
   border-color: rgba(99, 102, 241, 0.5);
   box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.5);
