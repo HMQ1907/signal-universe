@@ -12,17 +12,19 @@ interface AuthUser {
   cccd_url: string | null
 }
 
-const user = ref<AuthUser | null>(null)
-const initialized = ref(false)
-
 export const useAuth = () => {
+  const user = useState<AuthUser | null>('auth:user', () => null)
+  const initialized = useState<boolean>('auth:initialized', () => false)
   const toast = useToastCustom()
 
-  const init = async () => {
+  const init = async (headers?: Record<string, string>) => {
     if (initialized.value) return
     try {
-      const data = await $fetch<AuthUser>('/api/user/profile')
-      user.value = data
+      const res = await $fetch.raw<AuthUser>('/api/user/profile', {
+        ignoreResponseError: true,
+        headers,
+      })
+      user.value = res.ok ? (res._data ?? null) : null
     } catch {
       user.value = null
     } finally {

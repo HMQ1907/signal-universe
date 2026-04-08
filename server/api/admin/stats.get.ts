@@ -20,6 +20,8 @@ export default defineEventHandler(async (event) => {
     supabase.from('users').select('balance, locked_capital').eq('is_admin', false)
   ])
 
+
+  console.log(deposits, withdrawals, balances)
   const totalDeposited = deposits?.reduce((s, t) => s + t.amount, 0) || 0
   const totalWithdrawn = withdrawals?.reduce((s, t) => s + t.amount, 0) || 0
   const totalBalance = balances?.reduce((s, u) => s + u.balance + u.locked_capital, 0) || 0

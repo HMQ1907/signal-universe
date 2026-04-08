@@ -7,23 +7,16 @@
     >
       <div
         class="pointer-events-none absolute inset-0 opacity-[0.35]"
-        style="
-          background:
-            radial-gradient(
-              ellipse 80% 50% at 50% -20%,
-              rgba(34, 211, 238, 0.2),
-              transparent
-            ),
-            radial-gradient(
-              ellipse 60% 40% at 100% 50%,
-              rgba(139, 92, 246, 0.15),
-              transparent
-            );
-        "
+        style="background:radial-gradient(ellipse 80% 50% at 50% -20%,rgba(34,211,238,0.2),transparent),radial-gradient(ellipse 60% 40% at 100% 50%,rgba(139,92,246,0.15),transparent)"
       />
 
       <UpReveal class="relative z-10 w-full max-w-none">
-        <div class="mx-auto max-w-5xl text-center">
+        <!-- Star-field particle canvas — SSR-safe: animation runs only inside onMounted -->
+        <StarField
+          class="pointer-events-none absolute inset-0 z-0 h-full w-full opacity-60"
+        />
+
+        <div class="relative z-10 mx-auto max-w-5xl text-center">
           <div
             class="mb-8 inline-flex items-center gap-2 rounded-full border border-cyan-500/25 bg-cyan-500/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyan-200/90 sm:text-sm"
           >
@@ -136,9 +129,9 @@
         >
           <div class="mb-6 overflow-hidden rounded-xl">
             <img
-              :src="i % 2 === 0 ? imgToken : imgOrb"
+              :src="card.image"
               alt=""
-              class="h-40 w-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
+              class="h-44 w-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
             />
           </div>
           <h3 class="mb-3 text-xl font-bold text-white">
@@ -176,29 +169,46 @@
     >
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div
-          class="grid auto-rows-[minmax(140px,auto)] grid-cols-2 gap-3 md:grid-cols-4 md:gap-4 lg:grid-cols-6"
+          class="grid grid-cols-2 gap-3 md:grid-cols-6 md:gap-4"
         >
           <UpReveal
             v-for="(cell, idx) in bentoCells"
             :key="idx"
-            class="up-bento-cell group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-br from-[#12121c] to-[#0a0a10] p-5 transition-all duration-500 hover:border-violet-500/30 hover:shadow-[0_0_50px_rgba(139,92,246,0.12)]"
+            class="up-bento-cell group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0c0c14] transition-all duration-500 hover:border-violet-500/40 hover:shadow-[0_0_60px_rgba(139,92,246,0.15)]"
             :class="cell.span"
           >
-            <div
-              class="pointer-events-none absolute -right-4 -top-4 h-32 w-32 rounded-full opacity-40 blur-2xl transition-opacity duration-500 group-hover:opacity-70"
-              :style="{ background: cell.glow }"
-            />
-            <img
-              :src="idx % 2 === 0 ? imgOrb : imgToken"
-              alt=""
-              class="relative z-[1] mb-4 h-24 w-full rounded-lg object-cover opacity-80 transition-transform duration-700 group-hover:scale-[1.03]"
-            />
-            <p class="relative z-[1] font-bold text-white">
-              {{ $t(cell.title) }}
-            </p>
-            <p class="relative z-[1] mt-1 text-xs text-slate-500">
-              {{ $t(cell.sub) }}
-            </p>
+            <!-- Image fills full card -->
+            <div class="relative w-full" :class="cell.imgH">
+              <img
+                v-if="cell.image"
+                :src="cell.image"
+                alt=""
+                class="absolute inset-0 h-full w-full object-cover opacity-75 transition-transform duration-700 group-hover:scale-[1.06]"
+              />
+              <!-- Fallback gradient background when no image -->
+              <div
+                v-else
+                class="absolute inset-0 opacity-30"
+                :style="{ background: cell.glow }"
+              />
+              <!-- Color glow overlay -->
+              <div
+                class="pointer-events-none absolute inset-0 opacity-20 transition-opacity duration-500 group-hover:opacity-35"
+                :style="{ background: cell.glow }"
+              />
+              <!-- Bottom gradient for text legibility -->
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0c0c14] via-[#0c0c14]/40 to-transparent" />
+            </div>
+
+            <!-- Text below image -->
+            <div class="px-5 pb-5 pt-4">
+              <p class="font-bold text-white">
+                {{ $t(cell.title) }}
+              </p>
+              <p class="mt-1 text-xs leading-relaxed text-slate-500">
+                {{ $t(cell.sub) }}
+              </p>
+            </div>
           </UpReveal>
         </div>
       </div>
@@ -209,18 +219,11 @@
       <div
         class="mx-auto flex max-w-7xl flex-col items-center gap-12 px-4 sm:px-6 lg:flex-row lg:px-8"
       >
-        <UpReveal
-          class="flex flex-1 flex-wrap items-center justify-center gap-4 lg:justify-start"
-        >
+        <UpReveal class="flex flex-1 justify-center lg:justify-start">
           <img
-            :src="imgToken"
+            src="/images/home13.png"
             alt=""
-            class="h-28 w-28 animate-[up-float_6s_ease-in-out_infinite] object-contain drop-shadow-[0_0_30px_rgba(99,102,241,0.4)] sm:h-36 sm:w-36"
-          />
-          <img
-            :src="imgOrb"
-            alt=""
-            class="h-24 w-24 animate-[up-float_7s_ease-in-out_infinite_0.5s] object-cover opacity-90 sm:h-32 sm:w-32"
+            class="w-full max-w-sm animate-[up-float_6s_ease-in-out_infinite] rounded-2xl object-cover opacity-95 drop-shadow-[0_0_40px_rgba(99,102,241,0.35)] sm:max-w-md"
           />
         </UpReveal>
         <UpReveal class="max-w-xl flex-1 text-center lg:text-left">
@@ -256,9 +259,9 @@
               class="absolute inset-0 animate-pulse rounded-full bg-gradient-to-tr from-cyan-500/20 to-violet-500/20 blur-3xl"
             />
             <img
-              :src="imgOrb"
+              src="/images/home7.png"
               alt=""
-              class="relative z-[1] max-h-[320px] w-full max-w-md rounded-2xl object-cover ring-1 ring-white/10"
+              class="relative z-1 w-full max-w-md rounded-2xl object-cover ring-1 ring-white/10"
             />
           </div>
         </UpReveal>
@@ -495,13 +498,7 @@
               </div>
               <div
                 class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl"
-                style="
-                  background: linear-gradient(
-                    135deg,
-                    rgba(99, 102, 241, 0.2),
-                    rgba(139, 92, 246, 0.2)
-                  );
-                "
+                style="background:linear-gradient(135deg,rgba(99,102,241,0.2),rgba(139,92,246,0.2))"
               >
                 <UIcon
                   name="i-heroicons-arrow-trending-up"
@@ -680,7 +677,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: "landing" });
 
-const { t, te } = useI18n();
+const { t } = useI18n();
 const { user } = useAuth();
 
 useHead({ title: "Signal Universe — Smart Trading Signal Platform" });
@@ -695,130 +692,104 @@ const heroBannerRightSrc = "/images/banner-right.png";
 
 const heroVideoRef = ref<HTMLVideoElement | null>(null);
 
-const imgToken = "/images/Gemini_Generated_Image_newcq4newcq4newc.png";
-const imgOrb = encodeURI(
-  "/images/Gemini_Generated_Image_an2pfuan2pfuan2p (1).png",
-);
-
-const roadmapImages = [
-  "/images/home1.png",
-  "/images/home2.png",
-  "/images/home3.png",
-  "/images/home4.png",
-  "/images/home5.png",
-  "/images/home6.png",
-  "/images/home7.png",
-  "/images/home8.png",
-  "/images/home9.png",
-];
 
 const introCards = [
-  { title: "up.intro.f1_title", desc: "up.intro.f1_desc" },
-  { title: "up.intro.f2_title", desc: "up.intro.f2_desc" },
-  { title: "up.intro.f3_title", desc: "up.intro.f3_desc" },
+  { title: "up.intro.f1_title", desc: "up.intro.f1_desc", image: "/images/home10_phantichthitruong.png" },
+  { title: "up.intro.f2_title", desc: "up.intro.f2_desc", image: "/images/home11_giaodichthongminh.png" },
+  { title: "up.intro.f3_title", desc: "up.intro.f3_desc", image: "/images/home12_baomattoida.png" },
 ];
 
 const bentoCells = [
   {
     title: "up.bento.b1",
     sub: "up.bento.b1_sub",
-    span: "col-span-2 md:col-span-2 lg:col-span-2 row-span-1",
+    span: "col-span-2 md:col-span-4",
     glow: "radial-gradient(circle, rgba(34,211,238,0.5), transparent)",
+    image: "/images/home9.png",
+    imgH: "h-52 sm:h-56 md:h-64",
   },
   {
     title: "up.bento.b2",
     sub: "up.bento.b2_sub",
-    span: "col-span-2 md:col-span-2 lg:col-span-2",
+    span: "col-span-2 md:col-span-2",
     glow: "radial-gradient(circle, rgba(139,92,246,0.45), transparent)",
+    image: "/images/home14.png",
+    imgH: "h-52 sm:h-56 md:h-64",
   },
   {
     title: "up.bento.b3",
     sub: "up.bento.b3_sub",
-    span: "col-span-2 md:col-span-2 lg:col-span-2",
+    span: "col-span-2 md:col-span-2",
     glow: "radial-gradient(circle, rgba(244,114,182,0.35), transparent)",
+    image: "/images/home15.png",
+    imgH: "h-48 sm:h-52 md:h-60",
   },
   {
     title: "up.bento.b4",
     sub: "up.bento.b4_sub",
-    span: "col-span-2 md:col-span-2 lg:col-span-2",
+    span: "col-span-2 md:col-span-4",
     glow: "radial-gradient(circle, rgba(34,211,238,0.35), transparent)",
+    image: "/images/home16.png",
+    imgH: "h-48 sm:h-52 md:h-60",
   },
   {
     title: "up.bento.b5",
     sub: "up.bento.b5_sub",
-    span: "col-span-2 md:col-span-2 lg:col-span-2",
+    span: "col-span-2 md:col-span-3",
     glow: "radial-gradient(circle, rgba(99,102,241,0.4), transparent)",
+    image: "/images/home17.png",
+    imgH: "h-48 sm:h-52 md:h-56",
   },
   {
     title: "up.bento.b6",
     sub: "up.bento.b6_sub",
-    span: "col-span-2 md:col-span-2 lg:col-span-2",
+    span: "col-span-2 md:col-span-3",
     glow: "radial-gradient(circle, rgba(167,139,250,0.4), transparent)",
+    image: "/images/home18.png",
+    imgH: "h-48 sm:h-52 md:h-56",
   },
 ];
 
 const advKeys = ["a1", "a2", "a3"];
 
-const roadmapPhaseFallbacks = [
+/** Exactly 5 roadmap phases matching Universe Pro cadence */
+const roadmapPhases = computed(() => [
   {
-    title: "Giai đoạn 06: Mở rộng cộng đồng",
-    body:
-      "Đẩy mạnh onboarding, phân tầng tài khoản và trải nghiệm người dùng để giữ nhịp tăng trưởng ổn định.",
-    goal: "Biến cộng đồng thành kênh tăng trưởng bền vững.",
+    label: "01",
+    image: "/images/home1.png",
+    titleText: t("up.roadmap.p1t"),
+    bodyText: t("up.roadmap.p1b"),
+    goalText: t("up.roadmap.p1g"),
   },
   {
-    title: "Giai đoạn 07: Tự động hóa",
-    body:
-      "Bổ sung tự động hóa cho báo cáo, thông báo và kiểm tra vận hành để giảm tải cho admin.",
-    goal: "Tối ưu tốc độ vận hành và độ chính xác.",
+    label: "02",
+    image: "/images/home2.png",
+    titleText: t("up.roadmap.p2t"),
+    bodyText: t("up.roadmap.p2b"),
+    goalText: t("up.roadmap.p2g"),
   },
   {
-    title: "Giai đoạn 08: Phân phối toàn cầu",
-    body:
-      "Mở rộng nhận diện đa ngôn ngữ, nội dung chia sẻ và tài liệu để phục vụ nhiều khu vực hơn.",
-    goal: "Mở rộng quy mô nhưng vẫn giữ trải nghiệm đồng nhất.",
+    label: "03",
+    image: "/images/home3.png",
+    titleText: t("up.roadmap.p3t"),
+    bodyText: t("up.roadmap.p3b"),
+    goalText: t("up.roadmap.p3g"),
   },
   {
-    title: "Giai đoạn 09: Hệ sinh thái dài hạn",
-    body:
-      "Liên kết công cụ, dữ liệu và trải nghiệm để tạo hệ sinh thái có thể vận hành lâu dài.",
-    goal: "Xây nền tảng tăng trưởng cho chặng tiếp theo.",
+    label: "04",
+    image: "/images/home4.png",
+    titleText: t("up.roadmap.p4t"),
+    bodyText: t("up.roadmap.p4b"),
+    goalText: t("up.roadmap.p4g"),
   },
-];
-
-const roadmapPhases = computed(() => {
-  const phaseKeys = [
-    { title: "up.roadmap.p1t", body: "up.roadmap.p1b", goal: "up.roadmap.p1g" },
-    { title: "up.roadmap.p2t", body: "up.roadmap.p2b", goal: "up.roadmap.p2g" },
-    { title: "up.roadmap.p3t", body: "up.roadmap.p3b", goal: "up.roadmap.p3g" },
-    { title: "up.roadmap.p4t", body: "up.roadmap.p4b", goal: "up.roadmap.p4g" },
-    { title: "up.roadmap.p5t", body: "up.roadmap.p5b", goal: "up.roadmap.p5g" },
-  ];
-
-  return roadmapImages.map((image, index) => {
-    const label = String(index + 1).padStart(2, "0");
-    const translated = phaseKeys[index];
-    const fallback = roadmapPhaseFallbacks[index - 5];
-
-    return {
-      label,
-      image,
-      alt: `Roadmap ${label}`,
-      titleText:
-        translated && te(translated.title)
-          ? t(translated.title)
-          : fallback?.title ?? label,
-      bodyText:
-        translated && te(translated.body)
-          ? t(translated.body)
-          : fallback?.body ?? "",
-      goalText:
-        translated && te(translated.goal)
-          ? t(translated.goal)
-          : fallback?.goal ?? "",
-    };
-  });
-});
+  {
+    label: "05",
+    image: "/images/home5.png",
+    titleText: t("up.roadmap.p5t"),
+    bodyText: t("up.roadmap.p5b"),
+    goalText: t("up.roadmap.p5g"),
+  },
+]);
 
 const packages = [
   { amount: 200 },

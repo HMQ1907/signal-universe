@@ -11,12 +11,7 @@
       />
       <div
         class="absolute inset-0 opacity-[0.04]"
-        style="
-          background-image:
-            linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
-          background-size: 72px 72px;
-        "
+        style="background-image:linear-gradient(rgba(148,163,184,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,184,0.08) 1px,transparent 1px);background-size:72px 72px"
       />
     </div>
     <LayoutHeader class="relative z-10" />
@@ -29,5 +24,9 @@
 
 <script setup lang="ts">
 const { init } = useAuth()
-onMounted(() => init())
+// Plugin auth.server.ts handles SSR init with cookies.
+// This ensures auth state is populated on client-side navigation too.
+if (import.meta.client) {
+  onMounted(() => init())
+}
 </script>
