@@ -71,14 +71,26 @@
               :items="profileMenuItems"
               :ui="profileDropdownUi"
             >
-              <UButton color="neutral" variant="ghost" class="flex items-center gap-2">
-                <div class="w-7 h-7 rounded-full flex items-center justify-center shrink-0"
-                  style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
-                  <UIcon name="i-heroicons-user" class="text-white text-xs" />
-                </div>
-                <span class="hidden md:block text-sm text-slate-300">{{ user.full_name || user.email }}</span>
-                <UIcon name="i-heroicons-chevron-down" class="text-slate-500 text-xs" />
-              </UButton>
+              <template #default>
+                <button
+                  class="flex items-center gap-2 rounded-xl px-2.5 py-1.5 text-sm transition-all duration-200 hover:bg-white/[0.07] focus:outline-none"
+                >
+                  <div
+                    class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full ring-2 ring-indigo-500/40"
+                    style="background:linear-gradient(135deg,#6366f1,#8b5cf6)"
+                  >
+                    <UIcon name="i-heroicons-user" class="text-xs text-white" />
+                  </div>
+                  <span class="hidden max-w-[120px] truncate text-sm font-medium text-slate-200 md:block">
+                    {{ user.full_name || user.email }}
+                  </span>
+                  <UIcon name="i-heroicons-chevron-down" class="text-xs text-slate-500" />
+                </button>
+              </template>
+
+              <template #item-leading="{ item }">
+                <UIcon :name="item.icon" class="size-4 shrink-0" :class="(item as any).class?.includes('red') ? 'text-red-400' : 'text-slate-400'" />
+              </template>
             </UDropdownMenu>
           </template>
 
@@ -126,19 +138,19 @@ const profileMenuItems = computed(() => {
       {
         label: t('common.logout'),
         icon: 'i-heroicons-arrow-right-on-rectangle',
-        /* Nuxt UI passes link props via pickLinkProps — only `onClick`, not `click` */
-        onClick: () => {
-          void logout()
-        }
+        class: 'text-red-400 hover:text-red-300 hover:bg-red-500/10',
+        onClick: () => { void logout() }
       }
     ]
   ]
 })
 
 const profileDropdownUi = {
-  content:
-    'min-w-52 rounded-xl bg-slate-950/98 shadow-2xl ring-1 ring-white/10 backdrop-blur-xl',
-  viewport: 'divide-y divide-white/8 p-1 max-h-80',
-  group: 'p-0'
+  content: 'min-w-[220px] rounded-2xl border border-white/10 bg-[#0d0d16]/95 shadow-[0_24px_64px_-12px_rgba(0,0,0,0.7)] backdrop-blur-2xl overflow-hidden',
+  viewport: 'p-1.5',
+  group: 'space-y-0.5',
+  item: 'rounded-xl px-3 py-2.5 text-sm text-slate-300 cursor-pointer transition-all duration-150 hover:bg-white/[0.07] hover:text-white flex items-center gap-2.5',
+  itemLeadingIcon: 'size-4 text-slate-400',
+  separator: 'my-1.5 border-white/[0.08]',
 } as const
 </script>
