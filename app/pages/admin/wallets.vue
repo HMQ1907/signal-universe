@@ -11,7 +11,7 @@
       <div class="space-y-4">
         <UFormField label="USDT TRC20 Wallet Address">
           <UInput v-model="walletAddress" placeholder="TRC20 address..." icon="i-heroicons-wallet"
-            class="font-mono" />
+            class="font-mono" :disabled="!isMainAdmin" />
         </UFormField>
 
         <div v-if="walletAddress" class="text-center p-4 rounded-xl bg-white inline-block">
@@ -21,9 +21,10 @@
 
         <UAlert description="This wallet address is shown to users for deposits. Update carefully." color="warning" variant="soft" />
 
-        <UButton :loading="saving" color="primary" icon="i-heroicons-check" @click="saveWallet">
+        <UButton v-if="isMainAdmin" :loading="saving" color="primary" icon="i-heroicons-check" @click="saveWallet">
           {{ $t('admin.wallets.save') }}
         </UButton>
+        <UAlert v-else description="Sub Admin: view only. Cannot edit wallet address." color="info" variant="soft" />
       </div>
     </div>
   </div>
@@ -34,6 +35,8 @@ definePageMeta({ layout: 'admin', middleware: 'admin' })
 useHead({ title: 'Wallets - Admin' })
 
 const toast = useToastCustom()
+const { user: authUser } = useAuth()
+const isMainAdmin = computed(() => authUser.value?.is_admin === true)
 const { data: settings, refresh } = await useFetch('/api/wallet/settings')
 const walletAddress = ref(settings.value?.trc20_wallet_address || '')
 const saving = ref(false)

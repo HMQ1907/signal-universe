@@ -40,7 +40,10 @@
     "days": "ngày",
     "hours": "giờ",
     "minutes": "phút",
-    "seconds": "giây"
+    "seconds": "giây",
+    "active": "Hoạt động",
+    "disabled": "Vô hiệu",
+    "no_data": "Không có dữ liệu"
   },
   "nav": {
     "home": "Trang chủ",
@@ -588,15 +591,16 @@
     "nav": {
       "dashboard": "Tổng quan",
       "pending": "Chờ duyệt",
-    "users": "Người dùng",
+      "users": "Người dùng",
       "signals": "Phiên tín hiệu",
       "deposits": "Nạp tiền",
       "withdrawals": "Rút tiền",
-    "transactions": "Giao dịch",
+      "transactions": "Giao dịch",
       "compound": "Lãi chồng lãi",
       "leader": "Thưởng Leader",
       "cccd": "Xác minh CCCD",
       "wallets": "Ví tiền",
+      "sub_admins": "Quản lý Sub Admin",
       "settings": "Cài đặt"
     },
     "dashboard": {
@@ -611,15 +615,33 @@
     },
     "users": {
       "title": "Quản lý Người dùng",
+      "subtitle": "Tổng {total} người dùng",
       "search": "Tìm theo email hoặc tên",
       "add_balance": "Cộng tiền",
       "subtract_balance": "Trừ tiền",
       "adjust_balance": "Điều chỉnh số dư",
+      "adjust_operation": "Loại điều chỉnh",
+      "adjust_target": "Đối tượng điều chỉnh",
       "adjust_reason": "Lý do điều chỉnh",
+      "adjust_reason_placeholder": "Nhập lý do (tối thiểu 3 ký tự)...",
+      "new_balance": "Số dư sau điều chỉnh",
+      "target_balance": "Số dư lợi nhuận",
+      "target_capital": "Vốn khóa",
+      "confirm_add": "Xác nhận cộng",
+      "confirm_subtract": "Xác nhận trừ",
+      "adjust_success": "Điều chỉnh số dư thành công",
+      "adjust_failed": "Điều chỉnh thất bại",
+      "error_amount": "Số tiền không hợp lệ",
+      "error_reason": "Vui lòng nhập lý do",
       "view_tree": "Xem cây giới thiệu",
       "referral_tree": "Cây giới thiệu",
+      "parent": "Người giới thiệu",
+      "members": "thành viên",
+      "no_members": "Chưa có thành viên",
       "disable": "Vô hiệu hóa",
       "enable": "Kích hoạt",
+      "status_updated": "Cập nhật trạng thái thành công",
+      "status_failed": "Cập nhật thất bại",
       "columns": {
         "id": "ID",
         "name": "Tên",
@@ -681,8 +703,24 @@
     },
     "transactions": {
       "title": "Lịch sử Giao dịch",
-      "deposit_referral_tab": "Nạp tiền & Hoa hồng nạp & Rút tiền",
-      "signal_compound_tab": "Xác nhận AI & Lãi chồng lãi"
+      "deposit_referral_tab": "Nạp tiền & Hoa hồng & Rút tiền",
+      "signal_compound_tab": "Xác nhận AI & Lãi chồng lãi",
+      "delete": "Xóa giao dịch",
+      "delete_title": "Xóa lịch sử giao dịch",
+      "delete_warning": "Hành động này không thể hoàn tác.",
+      "delete_confirm": "Xóa vĩnh viễn",
+      "delete_success": "Đã xóa giao dịch",
+      "delete_failed": "Xóa thất bại",
+      "columns": {
+        "user": "Người dùng",
+        "type": "Loại",
+        "amount": "Số tiền",
+        "from": "Từ thành viên",
+        "level": "Cấp",
+        "status": "Trạng thái",
+        "date": "Ngày",
+        "note": "Ghi chú"
+      }
     },
     "compound": {
       "title": "Lãi chồng lãi",
@@ -730,6 +768,44 @@
       "referral": "Cài đặt Giới thiệu",
       "leader": "Cài đặt Thưởng Leader",
       "withdrawal": "Cài đặt Rút tiền"
+    },
+    "sub_admins": {
+      "title": "Quản lý Sub Admin",
+      "subtitle": "Cấp quyền quản trị giới hạn cho người dùng khác",
+      "add": "Thêm Sub Admin",
+      "add_hint": "Nhập email tài khoản đã đăng ký để cấp quyền Sub Admin",
+      "grant": "Cấp quyền",
+      "add_success": "Đã cấp quyền Sub Admin thành công",
+      "add_failed": "Không thể cấp quyền",
+      "revoke": "Thu hồi quyền",
+      "revoke_title": "Thu hồi quyền Sub Admin",
+      "revoke_confirm": "Tài khoản này sẽ mất quyền Sub Admin ngay lập tức.",
+      "revoke_success": "Đã thu hồi quyền Sub Admin",
+      "revoke_failed": "Thu hồi thất bại",
+      "empty": "Chưa có Sub Admin nào",
+      "permissions_title": "Quyền hạn Sub Admin",
+      "columns": {
+        "id": "ID",
+        "name": "Tên",
+        "email": "Email",
+        "status": "Trạng thái",
+        "last_login": "Đăng nhập lần cuối",
+        "added": "Ngày thêm"
+      },
+      "perm": {
+        "view_deposits": "Xem lịch sử nạp tiền",
+        "view_withdrawals": "Xem lịch sử rút tiền",
+        "view_transactions": "Xem lịch sử giao dịch",
+        "view_users": "Xem danh sách user & số dư",
+        "view_tree": "Xem cây giới thiệu F0–F3",
+        "approve_withdraw": "Duyệt lệnh rút tiền",
+        "view_wallets": "Xem địa chỉ ví",
+        "no_edit_wallets": "Không chỉnh sửa địa chỉ ví",
+        "no_adjust_balance": "Không điều chỉnh số dư",
+        "no_delete_tx": "Không xóa lịch sử giao dịch",
+        "no_signals": "Không quản lý phiên tín hiệu",
+        "no_settings": "Không truy cập cài đặt hệ thống"
+      }
     }
   },
   "errors": {

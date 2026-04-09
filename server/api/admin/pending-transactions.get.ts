@@ -1,7 +1,7 @@
 import { requireAdmin, getSupabaseAdmin } from '~~/server/utils/supabase'
 
 export default defineEventHandler(async (event) => {
-  await requireAdmin(event)
+  await requireAdminOrSubAdmin(event)
   const supabase = getSupabaseAdmin()
 
   // Fetch pending deposits and withdrawals in parallel

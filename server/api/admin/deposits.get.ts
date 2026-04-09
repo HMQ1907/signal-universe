@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-  await requireAdmin(event)
+  await requireAdminOrSubAdmin(event)
   const query = getQuery(event)
   const status = query.status as string || 'pending'
   const page = Number(query.page || 1)

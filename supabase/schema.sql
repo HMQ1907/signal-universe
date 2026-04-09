@@ -48,6 +48,7 @@ CREATE TABLE users (
 
   -- Account status
   is_admin BOOLEAN DEFAULT FALSE,
+  is_sub_admin BOOLEAN DEFAULT FALSE,
   is_active BOOLEAN DEFAULT TRUE,
   email_verified BOOLEAN DEFAULT FALSE,
 
@@ -64,6 +65,7 @@ CREATE INDEX idx_users_email ON users(email);
 CREATE INDEX idx_users_referral_code ON users(referral_code);
 CREATE INDEX idx_users_referred_by ON users(referred_by);
 CREATE INDEX idx_users_is_admin ON users(is_admin);
+CREATE INDEX idx_users_is_sub_admin ON users(is_sub_admin);
 
 -- =============================================
 -- Transactions Table

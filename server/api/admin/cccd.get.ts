@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-  await requireAdmin(event)
+  await requireAdminOrSubAdmin(event)
   const query = getQuery(event)
   const page = Number(query.page || 1)
   const limit = Number(query.limit || 20)

@@ -8,7 +8,7 @@ const schema = z.object({
 })
 
 export default defineEventHandler(async (event) => {
-  const admin = await requireAdmin(event)
+  const admin = await requireAdminOrSubAdmin(event)
   const body = await readBody(event) || {}
   const parsed = schema.safeParse(body)
   if (!parsed.success) {
@@ -33,6 +33,11 @@ export default defineEventHandler(async (event) => {
 
   if (tx.status !== 'pending') {
     throw createError({ statusCode: 400, message: 'Transaction has already been processed' })
+  }
+
+  // Sub-admins can only process withdrawals, not deposits
+  if (!admin.is_admin && tx.type === 'deposit') {
+    throw createError({ statusCode: 403, message: 'Sub-admin cannot process deposits' })
   }
 
   const newStatus = action === 'approve' ? 'completed' : 'rejected'

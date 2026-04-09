@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-  await requireAdmin(event)
+  await requireAdminOrSubAdmin(event)
   const query = getQuery(event)
   const tab = query.tab as string || 'deposit_referral'
   const page = Number(query.page || 1)

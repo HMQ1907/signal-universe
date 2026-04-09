@@ -3,6 +3,7 @@ interface AuthUser {
   email: string
   full_name: string | null
   is_admin: boolean
+  is_sub_admin: boolean
   balance: number
   locked_capital: number
   investment_package: number | null
@@ -40,7 +41,7 @@ export const useAuth = () => {
     user.value = { ...data.user, f1_count: 0, first_deposit_at: null, cccd_url: null }
     initialized.value = true
 
-    if (data.user.is_admin) {
+    if (data.user.is_admin || data.user.is_sub_admin) {
       await navigateTo('/admin')
     } else {
       await navigateTo('/dashboard')

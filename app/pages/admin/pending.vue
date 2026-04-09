@@ -56,7 +56,7 @@
           </div>
           <!-- Referral chain -->
           <ReferralChain v-if="tx.user?.referral_hierarchy" :hierarchy="tx.user.referral_hierarchy" :email="tx.user?.email" />
-          <div class="flex gap-2 mt-3">
+          <div v-if="isMainAdmin" class="flex gap-2 mt-3">
             <UButton color="success" class="flex-1" :loading="processingId === tx.id && processingAction === 'approve'"
               :disabled="processingId === tx.id" @click="processTransaction(tx.id, 'approve')" icon="i-heroicons-check">
               Approve
@@ -133,6 +133,8 @@ definePageMeta({ layout: 'admin', middleware: 'admin' })
 useHead({ title: 'Pending Transactions - Admin' })
 
 const toast = useToastCustom()
+const { user: authUser } = useAuth()
+const isMainAdmin = computed(() => authUser.value?.is_admin === true)
 const loading = ref(true)
 const pendingDeposits = ref<any[]>([])
 const allWithdrawals = ref<any[]>([])

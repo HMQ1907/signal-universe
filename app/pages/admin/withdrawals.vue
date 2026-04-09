@@ -63,7 +63,7 @@
                 <UButton size="xs" :loading="processingId === tx.id"
                   class="bg-green-600/80 hover:bg-green-600 text-white"
                   @click="approve(tx.id)">{{ $t('admin.withdrawals.approve') }}</UButton>
-                <UButton size="xs" color="error" variant="soft"
+                <UButton v-if="isMainAdmin" size="xs" color="error" variant="soft"
                   @click="openReject(tx.id)">{{ $t('admin.withdrawals.reject') }}</UButton>
               </div>
             </td>
@@ -101,6 +101,8 @@ definePageMeta({ layout: 'admin', middleware: 'admin' })
 useHead({ title: 'Withdrawals - Admin' })
 
 const toast = useToastCustom()
+const { user: authUser } = useAuth()
+const isMainAdmin = computed(() => authUser.value?.is_admin === true)
 const typeFilter = ref('profit')
 const statusFilter = ref('pending')
 const processingId = ref<number | null>(null)

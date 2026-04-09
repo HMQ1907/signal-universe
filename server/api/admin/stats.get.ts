@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-  await requireAdmin(event)
+  await requireAdminOrSubAdmin(event)
   const supabase = getSupabaseAdmin()
 
   const [

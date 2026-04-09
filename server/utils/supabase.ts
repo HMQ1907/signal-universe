@@ -53,12 +53,33 @@ export async function requireAuth(event: H3Event) {
   return user
 }
 
+/** Requires full admin (is_admin = true). Used for write/destructive operations. */
 export async function requireAdmin(event: H3Event) {
   const user = await requireAuth(event)
   if (!user.is_admin) {
     throw createError({ statusCode: 403, message: 'Forbidden' })
   }
   return user
+}
+
+/** Alias for requireAdmin — more explicit name for main-admin-only routes. */
+export const requireMainAdmin = requireAdmin
+
+/** Allows both main admin and sub-admin. Used for read-only / limited-write operations. */
+export async function requireAdminOrSubAdmin(event: H3Event) {
+  const user = await requireAuth(event)
+  if (!user.is_admin && !user.is_sub_admin) {
+    throw createError({ statusCode: 403, message: 'Forbidden' })
+  }
+  return user
+}
+
+export function isMainAdmin(user: User) {
+  return user.is_admin === true
+}
+
+export function isSubAdmin(user: User) {
+  return user.is_sub_admin === true && !user.is_admin
 }
 
 export async function logAdminAction(
@@ -128,6 +149,7 @@ export interface User {
   referral_code: string
   referred_by: number | null
   is_admin: boolean
+  is_sub_admin: boolean
   is_active: boolean
   email_verified: boolean
   created_at: string

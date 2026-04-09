@@ -124,7 +124,7 @@ const userNav = [
 const profileMenuItems = computed(() => {
   if (!user.value) return []
 
-  const links = user.value.is_admin
+  const links = (user.value.is_admin || user.value.is_sub_admin)
     ? [{ label: t('nav.admin'), icon: 'i-heroicons-shield-check', to: '/admin' }]
     : [
         { label: t('nav.dashboard'), icon: 'i-heroicons-squares-2x2', to: '/dashboard' },

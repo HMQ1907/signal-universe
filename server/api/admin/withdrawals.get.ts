@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-  await requireAdmin(event)
+  await requireAdminOrSubAdmin(event)
   const query = getQuery(event)
   const type = query.type as string || 'profit'
   const status = query.status as string || 'pending'

@@ -42,7 +42,7 @@
             <td>
               <UBadge :label="tx.status" :color="tx.status === 'completed' ? 'green' : tx.status === 'pending' ? 'yellow' : 'red'" variant="soft" />
             </td>
-            <td v-if="statusFilter === 'pending'">
+            <td v-if="statusFilter === 'pending' && isMainAdmin">
               <div class="flex gap-2">
                 <UButton size="xs" :loading="processingId === tx.id"
                   class="bg-green-600/80 hover:bg-green-600 text-white"
@@ -86,6 +86,8 @@ definePageMeta({ layout: 'admin', middleware: 'admin' })
 useHead({ title: 'Deposits - Admin' })
 
 const toast = useToastCustom()
+const { user: authUser } = useAuth()
+const isMainAdmin = computed(() => authUser.value?.is_admin === true)
 const statusFilter = ref('pending')
 const processingId = ref<number | null>(null)
 const showReject = ref(false)

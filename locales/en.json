@@ -40,7 +40,10 @@
     "days": "days",
     "hours": "hours",
     "minutes": "minutes",
-    "seconds": "seconds"
+    "seconds": "seconds",
+    "active": "Active",
+    "disabled": "Disabled",
+    "no_data": "No data"
   },
   "nav": {
     "home": "Home",
@@ -583,6 +586,7 @@
       "compound": "Compound Interest",
       "cccd": "ID Verification",
       "wallets": "Wallets",
+      "sub_admins": "Sub Admin Management",
       "settings": "Settings"
     },
     "dashboard": {
@@ -597,15 +601,33 @@
     },
     "users": {
       "title": "User Management",
+      "subtitle": "Total {total} users",
       "search": "Search by email or name",
       "add_balance": "Add Balance",
       "subtract_balance": "Subtract Balance",
       "adjust_balance": "Adjust Balance",
+      "adjust_operation": "Operation Type",
+      "adjust_target": "Target Field",
       "adjust_reason": "Reason for adjustment",
+      "adjust_reason_placeholder": "Enter reason (min 3 characters)...",
+      "new_balance": "Balance after adjustment",
+      "target_balance": "Profit Balance",
+      "target_capital": "Locked Capital",
+      "confirm_add": "Confirm Add",
+      "confirm_subtract": "Confirm Subtract",
+      "adjust_success": "Balance adjusted successfully",
+      "adjust_failed": "Failed to adjust balance",
+      "error_amount": "Invalid amount",
+      "error_reason": "Please enter a reason",
       "view_tree": "View Referral Tree",
       "referral_tree": "Referral Tree",
+      "parent": "Referred by",
+      "members": "members",
+      "no_members": "No members yet",
       "disable": "Disable Account",
       "enable": "Enable Account",
+      "status_updated": "Status updated successfully",
+      "status_failed": "Failed to update status",
       "columns": {
         "id": "ID",
         "name": "Name",
@@ -667,8 +689,24 @@
     },
     "transactions": {
       "title": "Transaction History",
-      "deposit_referral_tab": "Deposits & Deposit Referrals & Withdrawals",
-      "signal_compound_tab": "Signal Confirmations & Compound Interest"
+      "deposit_referral_tab": "Deposits & Referrals & Withdrawals",
+      "signal_compound_tab": "AI Confirms & Compound Interest",
+      "delete": "Delete transaction",
+      "delete_title": "Delete Transaction Record",
+      "delete_warning": "This action cannot be undone.",
+      "delete_confirm": "Delete Permanently",
+      "delete_success": "Transaction deleted",
+      "delete_failed": "Failed to delete",
+      "columns": {
+        "user": "User",
+        "type": "Type",
+        "amount": "Amount",
+        "from": "From Member",
+        "level": "Level",
+        "status": "Status",
+        "date": "Date",
+        "note": "Note"
+      }
     },
     "compound": {
       "title": "Compound Interest (Lãi chồng lãi)",
@@ -701,6 +739,44 @@
       "trading": "Trading Settings",
       "referral": "Referral Settings",
       "withdrawal": "Withdrawal Settings"
+    },
+    "sub_admins": {
+      "title": "Sub Admin Management",
+      "subtitle": "Grant limited admin access to other users",
+      "add": "Add Sub Admin",
+      "add_hint": "Enter the email of a registered account to grant Sub Admin access",
+      "grant": "Grant Access",
+      "add_success": "Sub Admin access granted successfully",
+      "add_failed": "Failed to grant access",
+      "revoke": "Revoke Access",
+      "revoke_title": "Revoke Sub Admin Access",
+      "revoke_confirm": "This account will immediately lose Sub Admin privileges.",
+      "revoke_success": "Sub Admin access revoked",
+      "revoke_failed": "Failed to revoke access",
+      "empty": "No Sub Admins yet",
+      "permissions_title": "Sub Admin Permissions",
+      "columns": {
+        "id": "ID",
+        "name": "Name",
+        "email": "Email",
+        "status": "Status",
+        "last_login": "Last Login",
+        "added": "Added"
+      },
+      "perm": {
+        "view_deposits": "View deposit history",
+        "view_withdrawals": "View withdrawal history",
+        "view_transactions": "View transaction history",
+        "view_users": "View users & balances",
+        "view_tree": "View referral tree F0–F3",
+        "approve_withdraw": "Approve withdrawal requests",
+        "view_wallets": "View wallet addresses",
+        "no_edit_wallets": "Cannot edit wallet addresses",
+        "no_adjust_balance": "Cannot adjust user balances",
+        "no_delete_tx": "Cannot delete transaction records",
+        "no_signals": "Cannot manage signal sessions",
+        "no_settings": "Cannot access system settings"
+      }
     }
   },
   "errors": {

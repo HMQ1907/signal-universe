@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-  await requireAdmin(event)
+  await requireAdminOrSubAdmin(event)
   const userId = Number(getRouterParam(event, 'id'))
   const supabase = getSupabaseAdmin()
 
