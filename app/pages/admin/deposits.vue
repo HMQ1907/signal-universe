@@ -42,12 +42,28 @@
             <td>
               <UBadge :label="tx.status" :color="tx.status === 'completed' ? 'green' : tx.status === 'pending' ? 'yellow' : 'red'" variant="soft" />
             </td>
-            <td v-if="statusFilter === 'pending' && isMainAdmin">
-              <div class="flex gap-2">
-                <UButton size="xs" :loading="processingId === tx.id" color="success"
-                  @click="approve(tx.id)">{{ $t('admin.deposits.approve') }}</UButton>
-                <UButton size="xs" color="error" variant="soft"
-                  @click="openReject(tx.id)">{{ $t('admin.deposits.reject') }}</UButton>
+            <td v-if="statusFilter === 'pending' && isMainAdmin" class="min-w-44 align-top">
+              <div class="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+                <UButton
+                  size="sm"
+                  class="min-h-9 font-semibold"
+                  leading-icon="i-heroicons-check-circle"
+                  :loading="processingId === tx.id"
+                  color="success"
+                  @click="approve(tx.id)"
+                >
+                  {{ $t('admin.deposits.approve') }}
+                </UButton>
+                <UButton
+                  size="sm"
+                  class="min-h-9 font-semibold"
+                  leading-icon="i-heroicons-x-circle"
+                  color="error"
+                  variant="soft"
+                  @click="openReject(tx.id)"
+                >
+                  {{ $t('admin.deposits.reject') }}
+                </UButton>
               </div>
             </td>
           </tr>

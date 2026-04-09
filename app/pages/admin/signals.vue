@@ -75,11 +75,18 @@
               <UBadge :label="c.status" :color="c.status === 'approved' ? 'green' : c.status === 'pending' ? 'yellow' : 'red'" variant="soft" />
             </td>
             <td class="text-slate-400 text-xs">{{ new Date(c.confirmed_at).toLocaleString() }}</td>
-            <td>
-              <UButton v-if="c.status === 'pending'" size="xs" color="success"
-                @click="approveOne(c)">
-                Duyệt
+            <td class="min-w-32">
+              <UButton
+                v-if="c.status === 'pending'"
+                size="sm"
+                class="min-h-9 font-semibold"
+                leading-icon="i-heroicons-check-circle"
+                color="success"
+                @click="approveOne(c)"
+              >
+                {{ $t('admin.signals.approve_row') }}
               </UButton>
+              <span v-else class="text-slate-500 text-xs">—</span>
             </td>
           </tr>
         </tbody>

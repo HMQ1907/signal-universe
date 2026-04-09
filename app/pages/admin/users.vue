@@ -60,26 +60,39 @@
                 size="sm"
               />
             </td>
-            <td>
-              <div class="flex items-center gap-1">
-                <!-- View tree — available to all -->
-                <UTooltip :text="$t('admin.users.view_tree')">
-                  <UButton size="xs" icon="i-heroicons-eye" color="neutral" variant="ghost" @click="viewTree(u)" />
-                </UTooltip>
-                <!-- Balance adjust — main admin only -->
+            <td class="min-w-56 align-top">
+              <div class="flex flex-col gap-2 py-0.5 sm:flex-row sm:flex-wrap sm:items-end">
+                <UButton
+                  size="sm"
+                  class="inline-flex min-h-9 justify-center font-semibold"
+                  leading-icon="i-heroicons-squares-2x2"
+                  color="neutral"
+                  variant="outline"
+                  @click="viewTree(u)"
+                >
+                  {{ $t('admin.users.action_view_tree') }}
+                </UButton>
                 <template v-if="isMainAdmin">
-                  <UTooltip :text="$t('admin.users.add_balance')">
-                    <UButton size="xs" icon="i-heroicons-plus-circle" color="success" variant="ghost" @click="openAdjust(u)" />
-                  </UTooltip>
-                  <UTooltip :text="u.is_active ? $t('admin.users.disable') : $t('admin.users.enable')">
-                    <UButton
-                      size="xs"
-                      :icon="u.is_active ? 'i-heroicons-x-circle' : 'i-heroicons-check-circle'"
-                      :color="u.is_active ? 'error' : 'success'"
-                      variant="ghost"
-                      @click="toggleStatus(u)"
-                    />
-                  </UTooltip>
+                  <UButton
+                    size="sm"
+                    class="inline-flex min-h-9 justify-center font-semibold"
+                    leading-icon="i-heroicons-banknotes"
+                    color="success"
+                    variant="solid"
+                    @click="openAdjust(u)"
+                  >
+                    {{ $t('admin.users.action_adjust_balance') }}
+                  </UButton>
+                  <UButton
+                    size="sm"
+                    class="inline-flex min-h-9 justify-center font-semibold"
+                    :leading-icon="u.is_active ? 'i-heroicons-lock-closed' : 'i-heroicons-lock-open'"
+                    :color="u.is_active ? 'error' : 'success'"
+                    variant="soft"
+                    @click="toggleStatus(u)"
+                  >
+                    {{ u.is_active ? $t('admin.users.action_disable_account') : $t('admin.users.action_enable_account') }}
+                  </UButton>
                 </template>
               </div>
             </td>

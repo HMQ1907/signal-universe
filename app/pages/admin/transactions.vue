@@ -68,16 +68,17 @@
             </td>
             <td class="text-slate-400 text-xs whitespace-nowrap">{{ new Date(tx.created_at).toLocaleString() }}</td>
             <td class="text-slate-400 text-xs max-w-32 truncate">{{ tx.admin_note || tx.adjust_reason || '—' }}</td>
-            <td v-if="isMainAdmin">
-              <UTooltip :text="$t('admin.transactions.delete')">
-                <UButton
-                  size="xs"
-                  icon="i-heroicons-trash"
-                  color="error"
-                  variant="ghost"
-                  @click="confirmDelete(tx)"
-                />
-              </UTooltip>
+            <td v-if="isMainAdmin" class="min-w-28">
+              <UButton
+                size="sm"
+                class="min-h-9 font-semibold"
+                leading-icon="i-heroicons-trash"
+                color="error"
+                variant="soft"
+                @click="confirmDelete(tx)"
+              >
+                {{ $t('admin.transactions.btn_delete_row') }}
+              </UButton>
             </td>
           </tr>
         </tbody>

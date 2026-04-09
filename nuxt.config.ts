@@ -26,11 +26,8 @@ export default defineNuxtConfig({
     defaultLocale: 'en',
     langDir: '../locales',
     strategy: 'no_prefix',
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: 'i18n_redirected',
-      redirectOn: 'root'
-    },
+    /** English by default; do not follow browser Accept-Language (often vi-VN). User choice still saved via LanguageSwitcher. */
+    detectBrowserLanguage: false,
     vueI18n: '../i18n/i18n.config.ts',
     bundle: {
       optimizeTranslationDirective: false
