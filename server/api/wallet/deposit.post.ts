@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { applyApprovedDepositCredits } from '~~/server/utils/depositApproval'
 
 const schema = z.object({
   amount: z.number().min(200),
@@ -16,9 +17,8 @@ export default defineEventHandler(async (event) => {
   }
 
   const { amount, network, tx_hash } = parsed.data
-  const supabase = getSupabaseAdmin()
+  const supabase = getSupabaseAdmin() as any
 
-  // Prevent duplicate tx_hash
   const { data: dupTx } = await supabase
     .from('transactions')
     .select('id')
@@ -35,10 +35,12 @@ export default defineEventHandler(async (event) => {
     .select('key, value')
     .eq('key', settingKey)
 
-  const walletAddress = settings?.[0]?.value || ''
+  const walletAddress = String((settings?.[0] as { value?: string } | undefined)?.value ?? '')
+  if (!walletAddress.trim()) {
+    throw createError({ statusCode: 400, message: 'Deposit wallet is not configured for this network' })
+  }
 
-  // Auto-credit immediately — admin can deduct later if invalid
-  const { error: txError } = await supabase
+  const { data: inserted, error: txError } = await supabase
     .from('transactions')
     .insert({
       user_id: user.id,
@@ -50,38 +52,31 @@ export default defineEventHandler(async (event) => {
       tx_hash,
       admin_note: `Auto-credited. TX: ${tx_hash}`
     })
+    .select('id')
+    .single()
 
-  if (txError) {
+  if (txError || !inserted?.id) {
     throw createError({ statusCode: 500, message: 'Failed to record deposit' })
   }
 
-  // Credit balance + lock capital immediately
-  const isFirstDeposit = !user.first_deposit_at
-  const updatePayload: Record<string, unknown> = {
-    locked_capital: supabase.rpc('increment_column', { row_id: user.id, col: 'locked_capital', val: amount }),
-    investment_package: amount
-  }
-
-  // Simpler approach: direct update
-  const { data: currentUser } = await supabase
+  const { data: dbUser, error: userErr } = await supabase
     .from('users')
-    .select('locked_capital, investment_package, first_deposit_at')
+    .select('id, email, balance, locked_capital, referred_by, investment_package, first_deposit_at')
     .eq('id', user.id)
     .single()
 
-  const newCapital = (currentUser?.locked_capital || 0) + amount
-  const newPackage = Math.max(currentUser?.investment_package || 0, amount)
+  if (userErr || !dbUser) {
+    await supabase.from('transactions').delete().eq('id', inserted.id)
+    throw createError({ statusCode: 500, message: 'Failed to load user' })
+  }
 
-  await supabase
-    .from('users')
-    .update({
-      locked_capital: newCapital,
-      investment_package: newPackage,
-      ...(isFirstDeposit || !currentUser?.first_deposit_at
-        ? { first_deposit_at: new Date().toISOString() }
-        : {})
-    })
-    .eq('id', user.id)
+  try {
+    await applyApprovedDepositCredits(supabase, dbUser, amount)
+  } catch (e) {
+    console.error(e)
+    await supabase.from('transactions').delete().eq('id', inserted.id)
+    throw createError({ statusCode: 500, message: 'Failed to apply deposit credit' })
+  }
 
   return { success: true, message: 'Deposit credited successfully', amount }
 })

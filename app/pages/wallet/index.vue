@@ -1,4 +1,8 @@
+<template>
+  <div />
+</template>
+
 <script setup lang="ts">
-definePageMeta({ middleware: 'auth' })
-navigateTo('/wallet/deposit')
+definePageMeta({ middleware: 'auth', pageTransition: false })
+await navigateTo('/wallet/deposit', { replace: true })
 </script>

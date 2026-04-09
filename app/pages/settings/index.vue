@@ -96,7 +96,7 @@
     </div>
 
     <!-- Wallet Address -->
-    <div class="su-card mb-6">
+    <div class="su-card mb-6 overflow-visible">
       <h2 class="text-white font-bold mb-2 flex items-center gap-2">
         <UIcon name="i-heroicons-wallet" class="text-indigo-400" />
         Ví rút tiền của tôi
@@ -145,13 +145,17 @@
         </div>
 
         <UAlert v-if="walletError" :description="walletError" color="error" variant="soft" />
-        <button
-          :disabled="walletLoading || !walletForm.address"
+        <UButton
+          color="primary"
+          block
+          size="lg"
+          :loading="walletLoading"
+          :disabled="walletLoading || !walletForm.address?.trim()"
+          class="mt-1 shrink-0"
           @click="saveWallet"
-          class="px-5 py-2.5 rounded-xl font-semibold text-sm bg-indigo-600 hover:bg-indigo-500 text-white transition-all disabled:opacity-40 disabled:cursor-not-allowed"
         >
-          {{ walletLoading ? 'Đang lưu...' : 'Lưu địa chỉ ví' }}
-        </button>
+          Lưu địa chỉ ví
+        </UButton>
       </div>
     </div>
 
@@ -207,29 +211,46 @@ const passForm = reactive({ current: '', new_password: '', confirm: '' })
 const passLoading = ref(false)
 const passError = ref('')
 
-// Wallet
-const { data: profileData } = await useFetch('/api/user/profile')
+// Wallet — profile API must include wallet_*; sync form when fetch completes
+const { data: profileData, refresh: refreshProfile } = await useFetch('/api/user/profile')
 const savedWalletAddr = computed(() => (profileData.value as any)?.wallet_address || '')
 const savedWalletNetwork = computed(() => (profileData.value as any)?.wallet_network || 'TRC20')
 
 const walletForm = reactive({
-  address: (profileData.value as any)?.wallet_address || '',
-  network: ((profileData.value as any)?.wallet_network || 'TRC20') as 'TRC20' | 'BEP20'
+  address: '',
+  network: 'TRC20' as 'TRC20' | 'BEP20'
 })
+
+watch(
+  profileData,
+  (p) => {
+    if (!p) return
+    const row = p as Record<string, unknown>
+    walletForm.address = typeof row.wallet_address === 'string' ? row.wallet_address : ''
+    const net = row.wallet_network
+    walletForm.network = net === 'BEP20' ? 'BEP20' : 'TRC20'
+  },
+  { immediate: true, deep: true }
+)
+
 const walletLoading = ref(false)
 const walletError = ref('')
 
 const saveWallet = async () => {
   walletError.value = ''
-  if (!walletForm.address || walletForm.address.length < 20) {
-    walletError.value = 'Địa chỉ ví không hợp lệ'
+  if (!walletForm.address?.trim()) {
+    walletError.value = 'Vui lòng nhập địa chỉ ví'
     return
   }
   walletLoading.value = true
   try {
-    await $fetch('/api/user/wallet', { method: 'PATCH', body: { wallet_address: walletForm.address, wallet_network: walletForm.network } })
+    await $fetch('/api/user/wallet', {
+      method: 'PATCH',
+      body: { wallet_address: walletForm.address.trim(), wallet_network: walletForm.network }
+    })
     toast.success('Đã lưu địa chỉ ví thành công')
     await refreshUser()
+    await refreshProfile()
   } catch (e: any) {
     walletError.value = e?.data?.message || 'Lưu ví thất bại'
   } finally {

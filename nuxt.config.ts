@@ -24,6 +24,7 @@ export default defineNuxtConfig({
       { code: 'ru', name: 'Русский', file: 'ru.json' }
     ],
     defaultLocale: 'en',
+    /** Paths relative to srcDir (app/): ../locales → project locales/, ../i18n → project i18n/ */
     langDir: '../locales',
     strategy: 'no_prefix',
     /** English by default; do not follow browser Accept-Language (often vi-VN). User choice still saved via LanguageSwitcher. */
@@ -37,7 +38,8 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   imports: {
-    dirs: ['composables', 'composables/**']
+    /** app/composables + project-root composables (Nuxt 4 srcDir is app/) */
+    dirs: ['composables', 'composables/**', '../composables', '../composables/**']
   },
 
   routeRules: {

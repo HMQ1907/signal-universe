@@ -493,7 +493,7 @@
                   {{ $t("home.packages.defi_badge") }}
                 </p>
                 <h3 class="text-2xl font-black text-white">
-                  ${{ pkg.amount.toLocaleString() }}
+                  ${{ pkg.amount.toLocaleString('en-US') }}
                 </h3>
               </div>
               <div

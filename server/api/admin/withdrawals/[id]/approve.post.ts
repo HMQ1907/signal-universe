@@ -22,7 +22,8 @@ export default defineEventHandler(async (event) => {
     await supabase.from('users').update({
       locked_capital: user.locked_capital - tx.amount,
       investment_package: null,
-      first_deposit_at: null
+      first_deposit_at: null,
+      first_deposit_amount: null
     }).eq('id', user.id)
   }
 

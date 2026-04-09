@@ -32,7 +32,7 @@
         <div class="flex items-center justify-between mb-6">
           <div>
             <p class="text-slate-400 text-xs">{{ $t('investment.packages.' + pkg.amount + '.name') }}</p>
-            <p class="text-3xl font-black text-white">${{ pkg.amount.toLocaleString() }}</p>
+            <p class="text-3xl font-black text-white">${{ pkg.amount.toLocaleString('en-US') }}</p>
           </div>
           <div v-if="user?.investment_package === pkg.amount"
             class="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center">

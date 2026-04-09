@@ -2,9 +2,20 @@ import { investmentTierFromTotal } from '~~/server/utils/helpers'
 import { sendDepositConfirmationEmail } from '~~/server/utils/email'
 import { createNotification } from '~~/server/utils/supabase'
 
+/**
+ * First completed deposit: principal → locked_capital + balance (tier / pool).
+ * Later deposits: only increase balance (treated as profit); locked_capital stays the first principal only.
+ */
 export async function applyApprovedDepositCredits(supabase: any, user: any, depositAmount: number) {
-  const newLockedCapital = (user.locked_capital || 0) + depositAmount
-  const newBalance = user.balance + depositAmount
+  const isFirstDeposit = !user.first_deposit_at
+
+  let newLockedCapital = user.locked_capital || 0
+  const newBalance = (user.balance || 0) + depositAmount
+
+  if (isFirstDeposit) {
+    newLockedCapital += depositAmount
+  }
+
   const tier = investmentTierFromTotal(newBalance + newLockedCapital)
 
   const updateData: any = {
@@ -13,8 +24,9 @@ export async function applyApprovedDepositCredits(supabase: any, user: any, depo
     balance: newBalance
   }
 
-  if (!user.first_deposit_at) {
+  if (isFirstDeposit) {
     updateData.first_deposit_at = new Date().toISOString()
+    updateData.first_deposit_amount = depositAmount
   }
 
   await supabase.from('users').update(updateData).eq('id', user.id)

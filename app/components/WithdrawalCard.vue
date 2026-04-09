@@ -3,7 +3,7 @@
     <div class="flex items-start justify-between gap-4 mb-3">
       <div class="flex-1 min-w-0">
         <div class="flex items-center gap-2 mb-1">
-          <span class="text-white font-bold text-lg">${{ tx.amount?.toLocaleString() }}</span>
+          <span class="text-white font-bold text-lg">${{ tx.amount != null ? Number(tx.amount).toLocaleString('en-US') : '—' }}</span>
           <UBadge :label="$t('admin.pending.status_pending')" color="warning" variant="soft" size="xs" />
           <UBadge v-if="type === 'capital'" :label="$t('admin.pending.badge_capital')" color="warning" variant="soft" size="xs" />
         </div>

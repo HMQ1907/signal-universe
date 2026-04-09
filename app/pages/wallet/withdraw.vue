@@ -1,5 +1,6 @@
 <template>
   <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24 lg:pb-8">
+    <WalletSubnav />
     <div class="mb-8">
       <h1 class="text-2xl font-bold text-white">{{ $t('wallet.withdraw.title') }}</h1>
       <p class="text-slate-400 text-sm mt-1">Vui lòng đọc kỹ hướng dẫn trước khi rút tiền</p>
@@ -64,11 +65,14 @@
         <div class="space-y-4">
           <div>
             <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Số tiền rút (USD)</p>
-            <div class="relative">
-              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 font-semibold">$</span>
-              <input v-model.number="profitForm.amount" type="number" :min="10" :max="user?.balance"
-                placeholder="10.00" class="su-input pl-7" />
-            </div>
+            <input
+              v-model.number="profitForm.amount"
+              type="number"
+              :min="10"
+              :max="user?.balance"
+              placeholder="10.00"
+              class="su-input tabular-nums"
+            />
           </div>
 
           <!-- Fee breakdown -->
@@ -126,11 +130,14 @@
         <div v-if="isCapitalUnlocked" class="space-y-4">
           <div>
             <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Số tiền rút (USD)</p>
-            <div class="relative">
-              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 font-semibold">$</span>
-              <input v-model.number="capitalForm.amount" type="number" :min="10" :max="user?.locked_capital"
-                placeholder="10.00" class="su-input pl-7" />
-            </div>
+            <input
+              v-model.number="capitalForm.amount"
+              type="number"
+              :min="10"
+              :max="user?.locked_capital"
+              placeholder="10.00"
+              class="su-input tabular-nums"
+            />
           </div>
 
           <div v-if="capitalForm.amount > 0" class="p-4 rounded-xl bg-slate-800/50 border border-white/6 space-y-2">
@@ -171,7 +178,7 @@
 </template>
 
 <script setup lang="ts">
-definePageMeta({ middleware: 'auth' })
+definePageMeta({ middleware: 'auth', pageTransition: false })
 useHead({ title: 'Rút tiền - Signal Universe' })
 
 const { t } = useI18n()

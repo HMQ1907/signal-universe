@@ -38,6 +38,7 @@ CREATE TABLE users (
   -- Investment info
   investment_package INT DEFAULT NULL,          -- 200,300,500,1000,2000,5000
   first_deposit_at TIMESTAMP WITH TIME ZONE DEFAULT NULL,  -- for 28-day lock
+  first_deposit_amount DECIMAL(18,2) DEFAULT NULL,         -- snapshot of first completed deposit principal
 
   -- CCCD
   cccd_url VARCHAR(500) DEFAULT NULL,
@@ -58,7 +59,8 @@ CREATE TABLE users (
   last_login_at TIMESTAMP WITH TIME ZONE,
 
   CONSTRAINT check_balance_positive CHECK (balance >= 0),
-  CONSTRAINT check_locked_capital_positive CHECK (locked_capital >= 0)
+  CONSTRAINT check_locked_capital_positive CHECK (locked_capital >= 0),
+  CONSTRAINT check_first_deposit_amount_non_negative CHECK (first_deposit_amount IS NULL OR first_deposit_amount >= 0)
 );
 
 CREATE INDEX idx_users_email ON users(email);
@@ -237,6 +239,7 @@ CREATE TABLE site_settings (
 
 INSERT INTO site_settings (key, value, description) VALUES
   ('trc20_wallet_address', '', 'USDT TRC20 deposit wallet address'),
+  ('bep20_wallet_address', '', 'USDT BEP20 deposit wallet address'),
   ('min_deposit', '200', 'Minimum deposit (USD)'),
   ('min_withdraw', '10', 'Minimum withdrawal (USD)'),
   ('withdraw_fee_percent', '3', 'Withdrawal fee (%)'),

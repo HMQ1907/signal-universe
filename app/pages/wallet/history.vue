@@ -64,7 +64,7 @@
 </template>
 
 <script setup lang="ts">
-definePageMeta({ middleware: 'auth' })
+definePageMeta({ middleware: 'auth', pageTransition: false })
 useHead({ title: 'Lịch sử giao dịch - Signal Universe' })
 
 const mainTab = ref(0)

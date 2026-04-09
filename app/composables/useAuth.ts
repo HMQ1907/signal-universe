@@ -8,9 +8,12 @@ interface AuthUser {
   locked_capital: number
   investment_package: number | null
   first_deposit_at: string | null
+  first_deposit_amount?: number | null
   referral_code: string
   f1_count: number
   cccd_url: string | null
+  wallet_address?: string | null
+  wallet_network?: string | null
 }
 
 export const useAuth = () => {

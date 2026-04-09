@@ -49,39 +49,58 @@
     <!-- Commission Structure -->
     <div class="grid md:grid-cols-2 gap-6 mb-6">
       <div class="su-card">
-        <h3 class="text-white font-bold mb-4">Deposit commission</h3>
+        <h3 class="text-white font-bold mb-4">{{ $t('referral.commissions.deposit_title') }}</h3>
         <div class="space-y-3">
           <div class="flex justify-between items-center p-3 rounded-xl bg-slate-800/50">
             <div class="flex items-center gap-2">
               <span class="w-6 h-6 rounded-md bg-indigo-500/20 text-indigo-400 text-xs flex items-center justify-center font-bold">1</span>
-              <span class="text-slate-300 text-sm">Direct referral deposits</span>
+              <span class="text-slate-300 text-sm">{{ $t('referral.commissions.deposit_row1') }}</span>
             </div>
-            <span class="text-green-400 font-bold">5% → parent</span>
+            <span class="text-green-400 font-bold">{{ $t('referral.commissions.deposit_row1_rate') }}</span>
           </div>
           <div class="flex justify-between items-center p-3 rounded-xl bg-slate-800/50">
             <div class="flex items-center gap-2">
               <span class="w-6 h-6 rounded-md bg-purple-500/20 text-purple-400 text-xs flex items-center justify-center font-bold">2</span>
-              <span class="text-slate-300 text-sm">2nd-level deposits</span>
+              <span class="text-slate-300 text-sm">{{ $t('referral.commissions.deposit_row2') }}</span>
             </div>
-            <span class="text-green-400 font-bold">3% → grandparent</span>
+            <span class="text-green-400 font-bold">{{ $t('referral.commissions.deposit_row2_rate') }}</span>
           </div>
         </div>
-        <p class="text-slate-500 text-xs mt-3">Total deposit commission earned: <span class="text-white">${{ stats?.total_deposit_commission?.toFixed(2) || '0.00' }}</span></p>
+        <p class="text-slate-500 text-xs mt-3">
+          {{ $t('referral.commissions.deposit_total') }}
+          <span class="text-white">${{ stats?.total_deposit_commission?.toFixed(2) || '0.00' }}</span>
+        </p>
       </div>
 
       <div class="su-card">
-        <h3 class="text-white font-bold mb-4">AI confirm (package tier)</h3>
+        <h3 class="text-white font-bold mb-4">{{ $t('referral.commissions.ai_title') }}</h3>
         <div class="space-y-3">
-          <div v-for="cl in compoundLevels" :key="cl.label"
-            class="flex justify-between items-center p-3 rounded-xl bg-slate-800/50">
+          <div class="flex justify-between items-center p-3 rounded-xl bg-slate-800/50">
             <div class="flex items-center gap-2">
-              <span class="w-6 h-6 rounded-md text-xs flex items-center justify-center font-bold" :class="cl.badgeCls">{{ cl.label }}</span>
-              <span class="text-slate-300 text-sm">{{ cl.desc }}</span>
+              <span class="w-6 h-6 rounded-md text-xs flex items-center justify-center font-bold bg-indigo-500/20 text-indigo-400">U1</span>
+              <span class="text-slate-300 text-sm">{{ $t('referral.commissions.ai_u1_desc') }}</span>
             </div>
-            <span class="font-bold" :class="cl.color">{{ cl.rate }}</span>
+            <span class="text-indigo-400 font-bold">{{ $t('referral.commissions.ai_rate_u1') }}</span>
+          </div>
+          <div class="flex justify-between items-center p-3 rounded-xl bg-slate-800/50">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-md text-xs flex items-center justify-center font-bold bg-purple-500/20 text-purple-400">U2</span>
+              <span class="text-slate-300 text-sm">{{ $t('referral.commissions.ai_u2_desc') }}</span>
+            </div>
+            <span class="text-purple-400 font-bold">{{ $t('referral.commissions.ai_rate_u2') }}</span>
+          </div>
+          <div class="flex justify-between items-center p-3 rounded-xl bg-slate-800/50">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-md text-xs flex items-center justify-center font-bold bg-pink-500/20 text-pink-400">U3</span>
+              <span class="text-slate-300 text-sm">{{ $t('referral.commissions.ai_u3_desc') }}</span>
+            </div>
+            <span class="text-pink-400 font-bold">{{ $t('referral.commissions.ai_rate_u3') }}</span>
           </div>
         </div>
-        <p class="text-slate-500 text-xs mt-3">Total profit commission: <span class="text-white">${{ stats?.total_signal_commission?.toFixed(2) || '0.00' }}</span></p>
+        <p class="text-slate-500 text-xs mt-3">
+          {{ $t('referral.commissions.ai_total') }}
+          <span class="text-white">${{ stats?.total_signal_commission?.toFixed(2) || '0.00' }}</span>
+        </p>
       </div>
     </div>
 
@@ -112,7 +131,7 @@
 
       <div v-else class="text-center py-12 text-slate-500">
         <UIcon name="i-heroicons-users" class="text-4xl mb-3 text-slate-600" />
-        <p>No team members yet. Share your referral code!</p>
+        <p>{{ $t('referral.empty_team') }}</p>
       </div>
     </div>
   </div>
@@ -120,12 +139,13 @@
 
 <script setup lang="ts">
 definePageMeta({ middleware: 'auth' })
-useHead({ title: 'Referral - Signal Universe' })
 
 const { user } = useAuth()
 const toast = useToastCustom()
 const { t } = useI18n()
 const config = useRuntimeConfig()
+
+useHead({ title: () => `${t('referral.title')} - Signal Universe` })
 
 const { data: stats } = await useFetch('/api/referral/stats', { key: 'referral-stats' })
 const { data: teamData } = await useFetch('/api/referral/team', { key: 'referral-team' })
@@ -142,26 +162,20 @@ const allMembers = computed(() => [
 
 const columns = computed(() => [
   { accessorKey: 'full_name', header: t('referral.team.member_name') },
-  { accessorKey: 'email', header: 'Email' },
+  { accessorKey: 'email', header: t('referral.team.email') },
   { accessorKey: 'level', header: t('referral.team.level') },
-  { accessorKey: 'investment_package', header: 'Package' },
+  { accessorKey: 'investment_package', header: t('referral.team.package') },
   { accessorKey: 'total_deposited', header: t('referral.team.total_deposited') },
   { accessorKey: 'created_at', header: t('referral.team.joined') }
 ])
 
-const compoundLevels = [
-  { label: 'U1', desc: '1st upline above confirmer', rate: '15% of profit', color: 'text-indigo-400', badgeCls: 'bg-indigo-500/20 text-indigo-400' },
-  { label: 'U2', desc: '2nd upline', rate: '10% of profit', color: 'text-purple-400', badgeCls: 'bg-purple-500/20 text-purple-400' },
-  { label: 'U3', desc: '3rd upline', rate: '5% of profit', color: 'text-pink-400', badgeCls: 'bg-pink-500/20 text-pink-400' }
-]
-
 const copyCode = async () => {
   await navigator.clipboard.writeText(user.value?.referral_code || '')
-  toast.success('Code copied!')
+  toast.success(t('referral.toast_code_copied'))
 }
 
 const copyLink = async () => {
   await navigator.clipboard.writeText(inviteLink.value)
-  toast.success('Link copied!')
+  toast.success(t('referral.toast_link_copied'))
 }
 </script>

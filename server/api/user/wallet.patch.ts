@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 const schema = z.object({
-  wallet_address: z.string().min(20, 'Địa chỉ ví không hợp lệ').max(100),
+  wallet_address: z.string().max(255),
   wallet_network: z.enum(['TRC20', 'BEP20'])
 })
 

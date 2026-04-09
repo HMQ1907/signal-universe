@@ -145,6 +145,7 @@ export interface User {
   locked_capital: number
   investment_package: number | null
   first_deposit_at: string | null
+  first_deposit_amount: number | null
   cccd_url: string | null
   referral_code: string
   referred_by: number | null

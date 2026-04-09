@@ -24,12 +24,27 @@
 </template>
 
 <script setup lang="ts">
+/** Only show overlay if navigation takes longer than this (avoids flash on fast client-side hops). */
+const SHOW_AFTER_MS = 80
+
 const loading = ref(false)
 const nuxtApp = useNuxtApp()
+let showTimer: ReturnType<typeof setTimeout> | null = null
+
 nuxtApp.hook('page:start', () => {
-  loading.value = true
+  if (showTimer) clearTimeout(showTimer)
+  loading.value = false
+  showTimer = setTimeout(() => {
+    loading.value = true
+    showTimer = null
+  }, SHOW_AFTER_MS)
 })
+
 nuxtApp.hook('page:finish', () => {
+  if (showTimer) {
+    clearTimeout(showTimer)
+    showTimer = null
+  }
   loading.value = false
 })
 </script>

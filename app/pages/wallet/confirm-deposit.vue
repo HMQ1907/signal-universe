@@ -71,7 +71,7 @@
             <div class="bg-gray-800/50 border border-gray-700 rounded-xl p-4 space-y-3">
               <div class="flex justify-between">
                 <span class="text-gray-400 text-sm">{{ $t('wallet.depositAmountLabel') }}</span>
-                <span class="text-white font-semibold">${{ transaction?.amount?.toLocaleString() }}</span>
+                <span class="text-white font-semibold">${{ transaction?.amount != null ? Number(transaction.amount).toLocaleString('en-US') : '—' }}</span>
               </div>
               <div class="flex justify-between">
                 <span class="text-gray-400 text-sm">Email</span>
@@ -124,7 +124,7 @@
 </template>
 
 <script setup lang="ts">
-definePageMeta({ middleware: 'auth' })
+definePageMeta({ middleware: 'auth', pageTransition: false })
 const { t } = useI18n()
 const route = useRoute()
 const { confirmDeposit } = useWallet()

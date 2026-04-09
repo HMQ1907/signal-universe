@@ -11,6 +11,13 @@ const shown = ref(false)
 onMounted(() => {
   const el = root.value
   if (!el) return
+
+  const rect = el.getBoundingClientRect()
+  if (rect.top < window.innerHeight * 1.1) {
+    shown.value = true
+    return
+  }
+
   const io = new IntersectionObserver(
     entries => {
       for (const e of entries) {
