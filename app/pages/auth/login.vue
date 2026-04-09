@@ -6,7 +6,7 @@
     <template #header>
       <div class="space-y-2 text-center">
         <h1 class="text-3xl font-extrabold text-white tracking-tight">{{ $t('auth.login.title') }}</h1>
-        <p class="text-base text-slate-400 max-w-sm mx-auto">{{ $t('auth.login.subtitle') }}</p>
+        <p class="text-base text-slate-300 max-w-sm mx-auto">{{ $t('auth.login.subtitle') }}</p>
       </div>
     </template>
     
@@ -38,7 +38,7 @@
           :ui="authInputUiPassword"
         >
           <template #leading>
-            <UIcon name="i-heroicons-lock-closed" class="size-5 shrink-0 text-slate-400" />
+            <UIcon name="i-heroicons-lock-closed" class="size-5 shrink-0 text-slate-300" />
           </template>
           <template #trailing>
             <AuthPasswordRevealButton :visible="showPassword" @click="showPassword = !showPassword" />
@@ -77,7 +77,7 @@
     </UForm>
 
     <template #footer>
-      <p class="text-center text-sm text-slate-400">
+      <p class="text-center text-sm text-slate-300">
         {{ $t('auth.login.no_account') }}
         <NuxtLink
           to="/auth/register"

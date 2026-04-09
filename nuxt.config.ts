@@ -11,7 +11,8 @@ export default defineNuxtConfig({
   modules: ['@nuxt/ui', '@vueuse/nuxt', '@nuxtjs/i18n'],
 
   colorMode: {
-    preference: 'dark'
+    preference: 'dark',
+    fallback: 'dark'
   },
 
   i18n: {
@@ -84,6 +85,23 @@ export default defineNuxtConfig({
   },
 
   typescript: {
-    strict: true
+    strict: true,
+    /** Merged into `.nuxt/tsconfig.app.json` (Vue / @vue/typescript-plugin reads `vueCompilerOptions` here). */
+    tsConfig: {
+      compilerOptions: {
+        plugins: [{ name: '@vue/typescript-plugin' }]
+      },
+      vueCompilerOptions: {
+        strictTemplates: false,
+        strictVModel: false,
+        strictCssModules: false,
+        checkUnknownProps: false,
+        checkUnknownEvents: false,
+        checkUnknownDirectives: false,
+        checkUnknownComponents: false,
+        skipTemplateCodegen: false,
+        target: 3.5
+      }
+    }
   }
 })

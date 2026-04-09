@@ -1,100 +1,110 @@
 <template>
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24 lg:pb-8">
-    <div class="mb-8 flex items-center justify-between">
+    <div class="mb-6 flex items-center justify-between gap-4 flex-wrap">
       <h1 class="text-2xl font-bold text-white">{{ $t('wallet.history.title') }}</h1>
       <div class="flex gap-2">
         <NuxtLink to="/wallet/deposit">
-          <UButton size="sm" color="primary" icon="i-heroicons-arrow-down-tray">Deposit</UButton>
+          <UButton size="sm" color="primary" icon="i-heroicons-arrow-down-tray">Nạp tiền</UButton>
         </NuxtLink>
         <NuxtLink to="/wallet/withdraw">
-          <UButton size="sm" color="neutral" icon="i-heroicons-arrow-up-tray">Withdraw</UButton>
+          <UButton size="sm" color="neutral" variant="outline" icon="i-heroicons-arrow-up-tray">Rút tiền</UButton>
         </NuxtLink>
       </div>
     </div>
 
-    <!-- Filter tabs -->
-    <div class="flex flex-wrap gap-2 mb-6">
-      <UButton
-        v-for="tab in filterTabs"
-        :key="tab.value"
-        size="sm"
-        :color="activeFilter === tab.value ? 'indigo' : 'gray'"
-        :variant="activeFilter === tab.value ? 'solid' : 'ghost'"
-        @click="activeFilter = tab.value"
+    <!-- Main tabs: two categories -->
+    <div class="flex gap-2 mb-5">
+      <button
+        v-for="(mt, i) in mainTabs" :key="i"
+        @click="mainTab = i"
+        class="flex-1 py-3 rounded-xl text-sm font-semibold border transition-all"
+        :class="mainTab === i
+          ? 'border-indigo-500 bg-indigo-500/10 text-indigo-300'
+          : 'border-white/10 text-slate-400 hover:border-white/20 hover:text-white'"
       >
-        {{ tab.label }}
-      </UButton>
+        <UIcon :name="mt.icon" class="mr-1.5" />
+        {{ mt.label }}
+      </button>
     </div>
 
-    <!-- Transactions -->
-    <div class="su-card">
-      <div v-if="txData?.data?.length" class="space-y-0">
-        <div v-for="tx in txData.data" :key="tx.id"
-          class="flex items-center justify-between py-4 border-b border-slate-800 last:border-0">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-              :class="txIconBg(tx.type)">
-              <UIcon :name="txIcon(tx.type)" :class="txIconColor(tx.type)" />
-            </div>
-            <div>
-              <p class="text-white text-sm font-medium">{{ $t(`wallet.history.type.${tx.type}`) }}</p>
-              <p class="text-slate-500 text-xs">{{ new Date(tx.created_at).toLocaleString() }}</p>
-              <p v-if="tx.admin_note" class="text-slate-400 text-xs mt-0.5">{{ tx.admin_note }}</p>
-            </div>
-          </div>
-          <div class="text-right">
-            <p class="font-bold" :class="isIncome(tx.type) ? 'text-green-400' : 'text-red-400'">
-              {{ isIncome(tx.type) ? '+' : '-' }}${{ tx.amount.toFixed(2) }}
-            </p>
-            <UBadge
-              :label="$t(`common.${tx.status}`)"
-              size="xs"
-              :color="tx.status === 'completed' ? 'green' : tx.status === 'pending' ? 'yellow' : 'red'"
-              variant="soft"
-            />
-          </div>
-        </div>
+    <!-- Tab A: Nạp / Rút / Hoa hồng -->
+    <div v-if="mainTab === 0">
+      <div class="flex flex-wrap gap-2 mb-4">
+        <button
+          v-for="tab in tabsA" :key="tab.value"
+          @click="filterA = tab.value"
+          class="px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all"
+          :class="filterA === tab.value
+            ? 'border-indigo-500 bg-indigo-500/10 text-indigo-300'
+            : 'border-white/10 text-slate-500 hover:text-slate-300'"
+        >
+          {{ tab.label }}
+        </button>
       </div>
+      <TxList :items="txGroupA" />
+    </div>
 
-      <div v-else class="text-center py-16 text-slate-500">
-        <UIcon name="i-heroicons-banknotes" class="text-5xl mb-4 text-slate-700" />
-        <p>No transactions found</p>
+    <!-- Tab B: AI Signals + Lãi kép -->
+    <div v-if="mainTab === 1">
+      <div class="flex flex-wrap gap-2 mb-4">
+        <button
+          v-for="tab in tabsB" :key="tab.value"
+          @click="filterB = tab.value"
+          class="px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all"
+          :class="filterB === tab.value
+            ? 'border-violet-500 bg-violet-500/10 text-violet-300'
+            : 'border-white/10 text-slate-500 hover:text-slate-300'"
+        >
+          {{ tab.label }}
+        </button>
       </div>
+      <TxList :items="txGroupB" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 definePageMeta({ middleware: 'auth' })
-useHead({ title: 'Transaction History - Signal Universe' })
+useHead({ title: 'Lịch sử giao dịch - Signal Universe' })
 
-const { t } = useI18n()
-const activeFilter = ref('all')
+const mainTab = ref(0)
+const filterA = ref('all')
+const filterB = ref('all')
 
-const filterTabs = [
-  { label: t('wallet.history.all'), value: 'all' },
-  { label: t('wallet.history.deposits'), value: 'deposit' },
-  { label: t('wallet.history.withdrawals'), value: 'withdraw_profit' },
-  { label: t('wallet.history.profits'), value: 'signal_profit' },
-  { label: t('wallet.history.referrals'), value: 'deposit_referral' }
+const mainTabs = [
+  { label: 'Nạp · Rút · Hoa hồng', icon: 'i-heroicons-banknotes' },
+  { label: 'AI Signal · Lãi kép', icon: 'i-heroicons-signal' }
 ]
 
-const { data: txData } = await useFetch('/api/wallet/history', {
-  query: computed(() => ({ type: activeFilter.value === 'all' ? undefined : activeFilter.value, limit: 50 })),
-  watch: [activeFilter]
+const tabsA = [
+  { label: 'Tất cả', value: 'all' },
+  { label: 'Nạp tiền', value: 'deposit' },
+  { label: 'Rút lợi nhuận', value: 'withdraw_profit' },
+  { label: 'Rút vốn', value: 'withdraw_capital' },
+  { label: 'Hoa hồng nạp', value: 'deposit_referral' },
+]
+
+const tabsB = [
+  { label: 'Tất cả', value: 'all' },
+  { label: 'AI Signal', value: 'signal_profit' },
+  { label: 'Hoa hồng tín hiệu', value: 'signal_referral' },
+  { label: 'Admin điều chỉnh', value: 'admin_adjust' },
+]
+
+const { data: allTx } = await useFetch('/api/wallet/history', { query: { limit: 200 } })
+
+const groupATypes = ['deposit', 'withdraw_profit', 'withdraw_capital', 'deposit_referral']
+const groupBTypes = ['signal_profit', 'signal_referral', 'admin_adjust']
+
+const txGroupA = computed(() => {
+  const items = (allTx.value?.data || []).filter((t: any) => groupATypes.includes(t.type))
+  if (filterA.value === 'all') return items
+  return items.filter((t: any) => t.type === filterA.value)
 })
 
-const txIcon = (type: string) => {
-  const icons: Record<string, string> = {
-    deposit: 'i-heroicons-arrow-down-tray', withdraw_profit: 'i-heroicons-arrow-up-tray',
-    withdraw_capital: 'i-heroicons-arrow-up-tray', signal_profit: 'i-heroicons-signal',
-    signal_referral: 'i-heroicons-arrow-path', deposit_referral: 'i-heroicons-users',
-    leader_bonus: 'i-heroicons-trophy', admin_adjust: 'i-heroicons-adjustments-horizontal'
-  }
-  return icons[type] || 'i-heroicons-banknotes'
-}
-
-const txIconBg = (type: string) => isIncome(type) ? 'bg-green-500/10' : 'bg-red-500/10'
-const txIconColor = (type: string) => isIncome(type) ? 'text-green-400' : 'text-red-400'
-const isIncome = (type: string) => !['withdraw_profit', 'withdraw_capital'].includes(type)
+const txGroupB = computed(() => {
+  const items = (allTx.value?.data || []).filter((t: any) => groupBTypes.includes(t.type))
+  if (filterB.value === 'all') return items
+  return items.filter((t: any) => t.type === filterB.value)
+})
 </script>

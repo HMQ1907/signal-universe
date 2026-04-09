@@ -1,6 +1,6 @@
 <template>
   <header
-    class="sticky top-0 z-50 overflow-x-visible border-b border-white/6 bg-[#030308]/75 backdrop-blur-2xl supports-backdrop-filter:bg-[#030308]/55"
+    class="sticky top-0 z-50 overflow-x-visible border-b border-white/10 bg-[color:var(--su-bg-header)] backdrop-blur-2xl supports-backdrop-filter:bg-[color:var(--su-bg-header)]"
   >
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
       <div class="flex min-h-16 items-center justify-between gap-2 py-2 sm:gap-3 sm:py-0 lg:h-16 lg:py-0">
@@ -95,7 +95,13 @@
           </template>
 
           <template v-else>
-            <UButton to="/auth/login" color="neutral" variant="ghost" size="sm" class="px-2 sm:px-3">
+            <UButton
+              to="/auth/login"
+              color="neutral"
+              variant="ghost"
+              size="sm"
+              class="px-2 sm:px-3"
+            >
               {{ $t('nav.login') }}
             </UButton>
             <UButton to="/auth/register" size="sm" color="primary" class="px-3 font-semibold shadow-lg shadow-primary-500/20 sm:px-4">
@@ -146,7 +152,8 @@ const profileMenuItems = computed(() => {
 })
 
 const profileDropdownUi = {
-  content: 'min-w-[220px] rounded-2xl border border-white/10 bg-[#0d0d16]/95 shadow-[0_24px_64px_-12px_rgba(0,0,0,0.7)] backdrop-blur-2xl overflow-hidden',
+  content:
+    'min-w-[220px] rounded-2xl border border-white/10 bg-[#0f172a]/95 shadow-[0_24px_64px_-12px_rgba(0,0,0,0.45)] backdrop-blur-2xl overflow-hidden',
   viewport: 'p-1.5',
   group: 'space-y-0.5',
   item: 'rounded-xl px-3 py-2.5 text-sm text-slate-300 cursor-pointer transition-all duration-150 hover:bg-white/[0.07] hover:text-white flex items-center gap-2.5',

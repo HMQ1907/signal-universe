@@ -11,16 +11,16 @@
       </div>
       <div class="flex gap-2">
         <UButton :color="statusFilter === 'pending' ? 'yellow' : 'gray'" size="sm" :variant="statusFilter === 'pending' ? 'solid' : 'ghost'"
-          @click="statusFilter = 'pending'">Pending</UButton>
+          @click="statusFilter = 'pending'">Chờ duyệt</UButton>
         <UButton :color="statusFilter === 'completed' ? 'green' : 'gray'" size="sm" :variant="statusFilter === 'completed' ? 'solid' : 'ghost'"
-          @click="statusFilter = 'completed'">Completed</UButton>
+          @click="statusFilter = 'completed'">Đã duyệt</UButton>
       </div>
     </div>
 
     <div v-if="typeFilter === 'capital'" class="su-card mb-4 border border-amber-500/20">
       <div class="flex items-center gap-2 text-amber-400 text-sm">
         <UIcon name="i-heroicons-exclamation-triangle" />
-        <p>These are <strong>capital withdrawal</strong> requests (28-day lock period). Review carefully before approving.</p>
+        <p>Đây là yêu cầu <strong>rút vốn gốc</strong> (khoá 28 ngày). Kiểm tra kỹ trước khi duyệt.</p>
       </div>
     </div>
 
@@ -60,8 +60,7 @@
             </td>
             <td v-if="statusFilter === 'pending'">
               <div class="flex gap-2">
-                <UButton size="xs" :loading="processingId === tx.id"
-                  class="bg-green-600/80 hover:bg-green-600 text-white"
+                <UButton size="xs" :loading="processingId === tx.id" color="success"
                   @click="approve(tx.id)">{{ $t('admin.withdrawals.approve') }}</UButton>
                 <UButton v-if="isMainAdmin" size="xs" color="error" variant="soft"
                   @click="openReject(tx.id)">{{ $t('admin.withdrawals.reject') }}</UButton>
@@ -73,25 +72,22 @@
 
       <div v-if="!withdrawals?.length" class="text-center py-12 text-slate-500">
         <UIcon name="i-heroicons-arrow-up-tray" class="text-4xl mb-3 text-slate-600" />
-        <p>No {{ statusFilter }} withdrawals</p>
+        <p>Không có yêu cầu rút {{ statusFilter === 'pending' ? 'chờ duyệt' : 'đã duyệt' }}</p>
       </div>
     </div>
 
-    <UModal v-model="showReject">
-      <UCard>
-        <template #header>
-          <h3 class="text-white font-bold">Reject Withdrawal</h3>
-        </template>
-        <UFormField label="Reason (optional)">
-          <UInput v-model="rejectReason" placeholder="Reason for rejection..." />
+    <UModal v-model:open="showReject" title="Từ chối rút tiền">
+      <template #body>
+        <UFormField label="Lý do (không bắt buộc)">
+          <UInput v-model="rejectReason" placeholder="Nhập lý do từ chối..." />
         </UFormField>
-        <template #footer>
-          <div class="flex gap-3 justify-end">
-            <UButton color="neutral" @click="showReject = false">Cancel</UButton>
-            <UButton :loading="rejectLoading" color="error" @click="submitReject">Reject</UButton>
-          </div>
-        </template>
-      </UCard>
+      </template>
+      <template #footer>
+        <div class="flex gap-3 justify-end w-full">
+          <UButton color="neutral" variant="ghost" @click="showReject = false">{{ $t('common.cancel') }}</UButton>
+          <UButton :loading="rejectLoading" color="error" @click="submitReject">Từ chối</UButton>
+        </div>
+      </template>
     </UModal>
   </div>
 </template>
@@ -122,10 +118,10 @@ const approve = async (id: number) => {
   processingId.value = id
   try {
     await $fetch(`/api/admin/withdrawals/${id}/approve`, { method: 'POST' })
-    toast.success('Withdrawal approved')
+    toast.success('Đã duyệt rút tiền')
     await refresh()
   } catch (e: any) {
-    toast.error(e?.data?.message || 'Failed to approve')
+    toast.error(e?.data?.message || 'Duyệt thất bại')
   } finally {
     processingId.value = null
   }
@@ -138,11 +134,11 @@ const submitReject = async () => {
   rejectLoading.value = true
   try {
     await $fetch(`/api/admin/withdrawals/${rejectId.value}/reject`, { method: 'POST', body: { reason: rejectReason.value } })
-    toast.success('Withdrawal rejected')
+    toast.success('Đã từ chối rút tiền')
     showReject.value = false
     await refresh()
   } catch (e: any) {
-    toast.error(e?.data?.message || 'Failed')
+    toast.error(e?.data?.message || 'Từ chối thất bại')
   } finally {
     rejectLoading.value = false
   }

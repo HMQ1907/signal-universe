@@ -325,11 +325,24 @@
       "email": "Địa chỉ Email",
       "password": "Mật khẩu",
       "confirm_password": "Xác nhận mật khẩu",
+      "phone": "Số điện thoại",
+      "phone_placeholder": "Ví dụ: 965649531",
       "referral_code": "Mã giới thiệu (không bắt buộc)",
       "submit": "Tạo tài khoản",
       "have_account": "Đã có tài khoản?",
       "login_link": "Đăng nhập",
       "terms": "Khi đăng ký, bạn đồng ý với Điều khoản dịch vụ của chúng tôi",
+      "register_success": "Đăng ký thành công! Vui lòng đăng nhập.",
+      "phone_country": {
+        "vn": "Việt Nam",
+        "cn": "Trung Quốc",
+        "my": "Malaysia",
+        "jp": "Nhật Bản",
+        "ru": "Nga",
+        "kr": "Hàn Quốc",
+        "th": "Thái Lan",
+        "us": "Hoa Kỳ"
+      },
       "error": {
         "email_exists": "Email đã được đăng ký",
         "password_mismatch": "Mật khẩu không khớp",
@@ -588,6 +601,11 @@
     }
   },
   "admin": {
+    "ui": {
+      "badge_admin": "Quản trị viên",
+      "badge_sub_admin": "Phụ quản trị",
+      "mobile_menu": "Menu"
+    },
     "nav": {
       "dashboard": "Tổng quan",
       "pending": "Chờ duyệt",
@@ -603,6 +621,36 @@
       "sub_admins": "Quản lý Sub Admin",
       "settings": "Cài đặt"
     },
+    "pending": {
+      "page_title": "Chờ duyệt - Admin",
+      "subtitle": "Duyệt hoặc từ chối các yêu cầu nạp/rút đang chờ",
+      "tab_deposits": "Nạp tiền",
+      "tab_profit": "Rút lợi nhuận",
+      "tab_capital": "Rút vốn gốc (28 ngày)",
+      "section_deposits": "Nạp tiền chờ duyệt",
+      "section_profit": "Rút lợi nhuận chờ duyệt",
+      "section_capital": "Rút vốn gốc (khoá 28 ngày)",
+      "requests_count": "{count} yêu cầu đang chờ",
+      "empty_deposits": "Chưa có yêu cầu nạp chờ duyệt",
+      "empty_profit": "Chưa có yêu cầu rút lợi nhuận chờ duyệt",
+      "empty_capital": "Chưa có yêu cầu rút vốn chờ duyệt",
+      "capital_alert": "Đây là yêu cầu rút vốn gốc sau thời gian khoá 28 ngày.",
+      "status_pending": "Chờ duyệt",
+      "package_badge": "Gói {amount} USD",
+      "badge_capital": "Vốn gốc",
+      "balance_label": "Số dư",
+      "locked_capital_label": "Vốn khóa",
+      "to_address": "Địa chỉ nhận",
+      "fee_label": "Phí",
+      "net_label": "Thực nhận",
+      "approve": "Duyệt",
+      "reject": "Từ chối",
+      "toast_approved": "Đã duyệt giao dịch",
+      "toast_rejected": "Đã từ chối giao dịch",
+      "toast_process_failed": "Xử lý giao dịch thất bại",
+      "toast_adr_copied": "Đã sao chép địa chỉ",
+      "toast_adr_copy_failed": "Sao chép thất bại"
+    },
     "dashboard": {
       "title": "Tổng quan Admin",
       "total_users": "Tổng người dùng",
@@ -611,7 +659,8 @@
       "total_withdrawn": "Tổng đã rút",
       "pending_deposits": "Chờ duyệt nạp",
       "pending_withdrawals": "Chờ duyệt rút",
-      "total_balance": "Tổng số dư user"
+      "total_balance": "Tổng số dư user",
+      "manage_sessions_hint": "Quản lý phiên hôm nay →"
     },
     "users": {
       "title": "Quản lý Người dùng",

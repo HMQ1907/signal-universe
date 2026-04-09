@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 defineProps<{
-  hierarchy: { parent?: string; grandparent?: string } | null
-  email: string
-}>()
+  hierarchy: { parent?: string; grandparent?: string } | null;
+  email: string;
+}>();
 </script>

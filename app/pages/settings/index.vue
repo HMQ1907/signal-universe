@@ -95,6 +95,66 @@
       </div>
     </div>
 
+    <!-- Wallet Address -->
+    <div class="su-card mb-6">
+      <h2 class="text-white font-bold mb-2 flex items-center gap-2">
+        <UIcon name="i-heroicons-wallet" class="text-indigo-400" />
+        Ví rút tiền của tôi
+      </h2>
+      <p class="text-slate-400 text-sm mb-5">Địa chỉ ví sẽ được dùng khi bạn yêu cầu rút tiền. Chỉ nhận USDT.</p>
+
+      <div class="space-y-4">
+        <!-- Network selector -->
+        <div>
+          <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Mạng ví</p>
+          <div class="grid grid-cols-2 gap-2">
+            <button
+              v-for="net in ['TRC20', 'BEP20']" :key="net"
+              @click="walletForm.network = net as 'TRC20' | 'BEP20'"
+              class="py-2.5 rounded-xl border text-sm font-semibold transition-all"
+              :class="walletForm.network === net
+                ? 'border-indigo-500 bg-indigo-500/10 text-indigo-300'
+                : 'border-white/10 text-slate-400 hover:border-white/20'"
+            >
+              {{ net }} · USDT
+            </button>
+          </div>
+        </div>
+
+        <!-- Address input -->
+        <div>
+          <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Địa chỉ ví {{ walletForm.network }}</p>
+          <input
+            v-model="walletForm.address"
+            type="text"
+            :placeholder="walletForm.network === 'TRC20' ? 'T...' : '0x...'"
+            class="w-full bg-slate-800/60 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm font-mono placeholder-slate-600 focus:outline-none focus:border-indigo-500/60 transition-colors"
+          />
+        </div>
+
+        <!-- Current wallet display -->
+        <div v-if="savedWalletAddr" class="p-3 rounded-xl bg-slate-800/40 border border-white/6">
+          <p class="text-xs text-slate-500 mb-1">Ví hiện tại đang lưu</p>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-semibold px-2 py-0.5 rounded-full"
+              :class="savedWalletNetwork === 'BEP20' ? 'bg-yellow-500/20 text-yellow-400' : 'bg-red-500/20 text-red-400'">
+              {{ savedWalletNetwork }}
+            </span>
+            <code class="text-indigo-300 text-xs font-mono truncate">{{ savedWalletAddr }}</code>
+          </div>
+        </div>
+
+        <UAlert v-if="walletError" :description="walletError" color="error" variant="soft" />
+        <button
+          :disabled="walletLoading || !walletForm.address"
+          @click="saveWallet"
+          class="px-5 py-2.5 rounded-xl font-semibold text-sm bg-indigo-600 hover:bg-indigo-500 text-white transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          {{ walletLoading ? 'Đang lưu...' : 'Lưu địa chỉ ví' }}
+        </button>
+      </div>
+    </div>
+
     <!-- CCCD Upload -->
     <div class="su-card">
       <h2 class="text-white font-bold mb-2 flex items-center gap-2">
@@ -146,6 +206,36 @@ const profileLoading = ref(false)
 const passForm = reactive({ current: '', new_password: '', confirm: '' })
 const passLoading = ref(false)
 const passError = ref('')
+
+// Wallet
+const { data: profileData } = await useFetch('/api/user/profile')
+const savedWalletAddr = computed(() => (profileData.value as any)?.wallet_address || '')
+const savedWalletNetwork = computed(() => (profileData.value as any)?.wallet_network || 'TRC20')
+
+const walletForm = reactive({
+  address: (profileData.value as any)?.wallet_address || '',
+  network: ((profileData.value as any)?.wallet_network || 'TRC20') as 'TRC20' | 'BEP20'
+})
+const walletLoading = ref(false)
+const walletError = ref('')
+
+const saveWallet = async () => {
+  walletError.value = ''
+  if (!walletForm.address || walletForm.address.length < 20) {
+    walletError.value = 'Địa chỉ ví không hợp lệ'
+    return
+  }
+  walletLoading.value = true
+  try {
+    await $fetch('/api/user/wallet', { method: 'PATCH', body: { wallet_address: walletForm.address, wallet_network: walletForm.network } })
+    toast.success('Đã lưu địa chỉ ví thành công')
+    await refreshUser()
+  } catch (e: any) {
+    walletError.value = e?.data?.message || 'Lưu ví thất bại'
+  } finally {
+    walletLoading.value = false
+  }
+}
 
 const fileInput = ref<HTMLInputElement>()
 const cccdLoading = ref(false)

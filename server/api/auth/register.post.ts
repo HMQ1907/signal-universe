@@ -5,6 +5,8 @@ const schema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
   full_name: z.string().min(1),
+  phone: z.string().optional(),
+  phone_country: z.string().optional(),
   referral_code: z.string().optional()
 })
 
@@ -15,7 +17,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: parsed.error.errors[0].message })
   }
 
-  const { email, password, full_name, referral_code } = parsed.data
+  const { email, password, full_name, phone, phone_country, referral_code } = parsed.data
   const supabase = getSupabaseAdmin()
 
   const { data: existing } = await supabase
@@ -50,6 +52,8 @@ export default defineEventHandler(async (event) => {
       email: email.toLowerCase(),
       password_hash: passwordHash,
       full_name,
+      phone: phone || null,
+      phone_country: phone_country || '+84',
       referred_by: referrerId,
       email_verified: true
     })

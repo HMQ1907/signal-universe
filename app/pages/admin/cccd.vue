@@ -27,14 +27,14 @@
 
     <div v-if="!users?.length" class="su-card text-center py-16 text-slate-500">
       <UIcon name="i-heroicons-identification" class="text-5xl mb-4 text-slate-700" />
-      <p>No users have uploaded their ID yet</p>
+      <p>Chưa có user nào tải CCCD lên</p>
     </div>
 
     <!-- Image Viewer -->
-    <UModal v-model="showImage" :ui="{ width: 'sm:max-w-3xl' }">
-      <UCard>
+    <UModal v-model:open="showImage" title="Xem CCCD">
+      <template #body>
         <img :src="viewingImage" alt="CCCD" class="w-full rounded-xl" />
-      </UCard>
+      </template>
     </UModal>
   </div>
 </template>

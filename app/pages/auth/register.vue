@@ -6,7 +6,7 @@
     <template #header>
       <div class="space-y-2 text-center">
         <h1 class="text-3xl font-extrabold text-white tracking-tight">{{ $t('auth.register.title') }}</h1>
-        <p class="text-base text-slate-400 max-w-sm mx-auto">{{ $t('auth.register.subtitle') }}</p>
+        <p class="text-base text-slate-300 max-w-sm mx-auto">{{ $t('auth.register.subtitle') }}</p>
       </div>
     </template>
 
@@ -49,7 +49,7 @@
           :ui="authInputUiPassword"
         >
           <template #leading>
-            <UIcon name="i-heroicons-lock-closed" class="size-5 shrink-0 text-slate-400" />
+            <UIcon name="i-heroicons-lock-closed" class="size-5 shrink-0 text-slate-300" />
           </template>
           <template #trailing>
             <AuthPasswordRevealButton :visible="showPassword" @click="showPassword = !showPassword" />
@@ -68,9 +68,25 @@
           :ui="authInputUiLeading"
         >
           <template #leading>
-            <UIcon name="i-heroicons-lock-closed" class="size-5 shrink-0 text-slate-400" />
+            <UIcon name="i-heroicons-lock-closed" class="size-5 shrink-0 text-slate-300" />
           </template>
         </UInput>
+      </UFormField>
+
+      <!-- Phone: country picker shows flag + i18n country name -->
+      <UFormField :label="$t('auth.register.phone')" name="phone" size="lg">
+        <div class="flex gap-2">
+          <AuthPhoneCountryPicker v-model="state.phone_country" />
+          <UInput
+            v-model="state.phone"
+            type="tel"
+            size="lg"
+            variant="outline"
+            color="neutral"
+            class="auth-input min-w-0 flex-1"
+            :ui="authInputUiPlain"
+          />
+        </div>
       </UFormField>
 
       <UFormField :label="$t('auth.register.referral_code')" name="referral_code" size="lg">
@@ -110,7 +126,7 @@
     </UForm>
 
     <template #footer>
-      <p class="text-center text-sm text-slate-400">
+      <p class="text-center text-sm text-slate-300">
         {{ $t('auth.register.have_account') }}
         <NuxtLink
           to="/auth/login"
@@ -126,7 +142,7 @@
 
 <script setup lang="ts">
 import { z } from 'zod'
-import { authCardUi, authInputUiLeading, authInputUiPassword } from '~/utils/auth-form-ui'
+import { authCardUi, authInputUiLeading, authInputUiPassword, authInputUiPlain } from '~/utils/auth-form-ui'
 
 definePageMeta({ layout: 'auth', middleware: 'guest', pageTransition: false })
 useHead({ title: 'Register - Signal Universe' })
@@ -142,6 +158,8 @@ const state = reactive({
   email: '',
   password: '',
   confirm_password: '',
+  phone: '',
+  phone_country: '+84',
   referral_code: referralFromUrl
 })
 
@@ -172,10 +190,12 @@ const handleRegister = async () => {
         email: state.email,
         password: state.password,
         full_name: state.full_name,
+        phone: state.phone || undefined,
+        phone_country: state.phone_country || undefined,
         referral_code: state.referral_code || undefined
       }
     })
-    toast.success('Registration successful! Please login.')
+    toast.success(t('auth.register.register_success'))
     await navigateTo('/auth/login')
   } catch (e: any) {
     error.value = e?.data?.message || 'Registration failed'

@@ -27,10 +27,9 @@
         </div>
 
         <p class="text-slate-400 text-sm mb-3">
-          Each pending user receives <span class="text-white font-semibold">{{ packageProfitPercent }}%</span> of their package tier; uplines earn % of that profit (see Referral settings).
+          Mỗi user chờ nhận <span class="text-white font-semibold">{{ packageProfitPercent }}%</span> gói; upline nhận % từ lợi nhuận đó (xem Cài đặt hoa hồng).
         </p>
-        <UButton :loading="processingSession === session.id"
-          class="bg-green-600 hover:bg-green-500 text-white"
+        <UButton :loading="processingSession === session.id" color="success"
           @click="bulkApprove(session)">
           {{ $t('admin.signals.bulk_approve') }}
         </UButton>
@@ -49,11 +48,11 @@
         <thead>
           <tr>
             <th>{{ $t('admin.signals.columns.user') }}</th>
-            <th>Session</th>
+            <th>Phiên</th>
             <th>{{ $t('admin.signals.columns.balance') }}</th>
-            <th>Package tier</th>
+            <th>Gói đầu tư</th>
             <th>{{ $t('admin.signals.columns.amount') }}</th>
-            <th>Est. credit</th>
+            <th>Ước tính cộng</th>
             <th>{{ $t('admin.signals.columns.profit') }}</th>
             <th>{{ $t('admin.signals.columns.status') }}</th>
             <th>{{ $t('admin.signals.columns.time') }}</th>
@@ -77,10 +76,9 @@
             </td>
             <td class="text-slate-400 text-xs">{{ new Date(c.confirmed_at).toLocaleString() }}</td>
             <td>
-              <UButton v-if="c.status === 'pending'" size="xs"
-                class="bg-green-600/80 hover:bg-green-600 text-white"
+              <UButton v-if="c.status === 'pending'" size="xs" color="success"
                 @click="approveOne(c)">
-                Approve
+                Duyệt
               </UButton>
             </td>
           </tr>
@@ -89,58 +87,50 @@
 
       <div v-if="!confirmations?.length" class="text-center py-12 text-slate-500">
         <UIcon name="i-heroicons-signal" class="text-4xl mb-3 text-slate-600" />
-        <p>No confirmations for this date</p>
+        <p>Chưa có xác nhận nào cho ngày này</p>
       </div>
     </div>
 
     <!-- Create Session Modal -->
-    <UModal v-model="showCreateSession">
-      <UCard>
-        <template #header>
-          <h3 class="text-white font-bold">{{ $t('admin.signals.create_session') }}</h3>
-        </template>
+    <UModal v-model:open="showCreateSession" :title="$t('admin.signals.create_session')">
+      <template #body>
         <div class="space-y-4">
-          <UFormField label="Date">
+          <UFormField label="Ngày">
             <UInput v-model="createForm.date" type="date" />
           </UFormField>
-          <UFormField label="Time Window">
+          <UFormField label="Khung giờ">
             <USelectMenu v-model="createForm.timeWindow" :options="timeOptions" />
           </UFormField>
         </div>
-        <template #footer>
-          <div class="flex gap-3 justify-end">
-            <UButton color="neutral" @click="showCreateSession = false">Cancel</UButton>
-            <UButton :loading="createLoading" color="primary"
-              @click="createSession">Create</UButton>
-          </div>
-        </template>
-      </UCard>
+      </template>
+      <template #footer>
+        <div class="flex gap-3 justify-end w-full">
+          <UButton color="neutral" variant="ghost" @click="showCreateSession = false">Huỷ</UButton>
+          <UButton :loading="createLoading" color="primary" @click="createSession">Tạo phiên</UButton>
+        </div>
+      </template>
     </UModal>
 
     <!-- Approve One Modal -->
-    <UModal v-model="showApproveOne">
-      <UCard>
-        <template #header>
-          <h3 class="text-white font-bold">Approve Profit</h3>
-        </template>
-        <div class="space-y-4">
+    <UModal v-model:open="showApproveOne" title="Duyệt lợi nhuận">
+      <template #body>
+        <div class="space-y-3">
           <p class="text-slate-400 text-sm">User: {{ selectedConfirmation?.user?.email }}</p>
-          <p class="text-slate-400 text-sm">Package tier: ${{ selectedConfirmation?.package_tier ?? '—' }}</p>
-          <p class="text-slate-400 text-sm">Profit balance at confirm: ${{ selectedConfirmation?.balance_snapshot?.toFixed(2) }}</p>
+          <p class="text-slate-400 text-sm">Gói: ${{ selectedConfirmation?.package_tier ?? '—' }}</p>
+          <p class="text-slate-400 text-sm">Số dư lúc xác nhận: ${{ selectedConfirmation?.balance_snapshot?.toFixed(2) }}</p>
           <p class="text-green-400 text-sm font-semibold">
-            Credit to user: ${{ selectedConfirmation ? estCredit(selectedConfirmation).toFixed(2) : '0.00' }}
-            <span class="text-slate-500 font-normal"> ({{ packageProfitPercent }}% × package)</span>
+            Cộng cho user: ${{ selectedConfirmation ? estCredit(selectedConfirmation).toFixed(2) : '0.00' }}
+            <span class="text-slate-500 font-normal"> ({{ packageProfitPercent }}% × gói)</span>
           </p>
-          <p class="text-slate-500 text-xs">Referral: 15% / 10% / 5% of this credit for the first three uplines (rates in Settings).</p>
+          <p class="text-slate-500 text-xs">Hoa hồng: 15% / 10% / 5% cho 3 upline (xem Cài đặt).</p>
         </div>
-        <template #footer>
-          <div class="flex gap-3 justify-end">
-            <UButton color="neutral" @click="showApproveOne = false">Cancel</UButton>
-            <UButton :loading="approveLoading" class="bg-green-600 hover:bg-green-500 text-white"
-              @click="submitApproveOne">Approve</UButton>
-          </div>
-        </template>
-      </UCard>
+      </template>
+      <template #footer>
+        <div class="flex gap-3 justify-end w-full">
+          <UButton color="neutral" variant="ghost" @click="showApproveOne = false">Huỷ</UButton>
+          <UButton :loading="approveLoading" color="success" @click="submitApproveOne">Duyệt</UButton>
+        </div>
+      </template>
     </UModal>
   </div>
 </template>
@@ -195,10 +185,10 @@ const bulkApprove = async (session: any) => {
       method: 'POST',
       body: { session_id: session.id }
     })
-    toast.success(`Approved ${result.processed} confirmations`)
+    toast.success(`Đã duyệt ${result.processed} xác nhận`)
     await refresh()
   } catch (e: any) {
-    toast.error(e?.data?.message || 'Bulk approve failed')
+    toast.error(e?.data?.message || 'Duyệt hàng loạt thất bại')
   } finally {
     processingSession.value = null
   }
@@ -216,11 +206,11 @@ const submitApproveOne = async () => {
       method: 'POST',
       body: {}
     })
-    toast.success('Profit approved')
+    toast.success('Đã duyệt lợi nhuận')
     showApproveOne.value = false
     await refresh()
   } catch (e: any) {
-    toast.error(e?.data?.message || 'Approval failed')
+    toast.error(e?.data?.message || 'Duyệt thất bại')
   } finally {
     approveLoading.value = false
   }
@@ -233,11 +223,11 @@ const createSession = async () => {
       method: 'POST',
       body: { session_date: createForm.date, time_window: createForm.timeWindow }
     })
-    toast.success('Session created')
+    toast.success('Đã tạo phiên')
     showCreateSession.value = false
     await refresh()
   } catch (e: any) {
-    toast.error(e?.data?.message || 'Failed to create session')
+    toast.error(e?.data?.message || 'Tạo phiên thất bại')
   } finally {
     createLoading.value = false
   }

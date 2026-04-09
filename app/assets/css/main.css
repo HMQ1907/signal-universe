@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "@nuxt/ui";
 
 /* Signal Universe - Custom Design System */
 
@@ -9,9 +10,10 @@
   --su-gold: #f59e0b;
   --su-green: #10b981;
   --su-red: #ef4444;
-  /* Deeper base (Universe Pro–style) */
-  --su-bg-dark: #050508;
-  --su-bg-universe: #030308;
+  /* Dark base: slate-900 family — readable “dark mode”, not pure black */
+  --su-bg-dark: #0f172a;
+  --su-bg-universe: #0c1322;
+  --su-bg-header: rgba(15, 23, 42, 0.82);
   --su-bg-card: #0f172a;
   --su-bg-card2: #1e293b;
   --su-border: #1e293b;
@@ -24,6 +26,7 @@
 }
 
 html {
+  color-scheme: dark;
   scroll-behavior: smooth;
 }
 
@@ -213,6 +216,16 @@ body {
   border-right: 1px solid var(--su-border);
 }
 
+.admin-surface {
+  background: color-mix(in srgb, var(--su-bg-dark) 96%, transparent);
+  backdrop-filter: blur(20px);
+}
+
+.admin-surface-solid {
+  background: color-mix(in srgb, var(--su-bg-dark) 98%, transparent);
+  backdrop-filter: blur(20px);
+}
+
 /* Tables */
 .su-table {
   width: 100%;
@@ -294,6 +307,32 @@ select:-webkit-autofill:focus {
   transition: background-color 99999s ease-out 0s;
 }
 
+/*
+ * Chrome / Edge: gợi ý email & autofill hay tô nền xanh–trắng; rule chung đôi khi thua specificity.
+ * Bắt buộc inset + !important để thắng UA stylesheet.
+ */
+.auth-form-card .auth-input input:-webkit-autofill,
+.auth-form-card .auth-input input:-webkit-autofill:hover,
+.auth-form-card .auth-input input:-webkit-autofill:focus,
+.auth-form-card .auth-input input:-webkit-autofill:active,
+.settings-page .auth-input input:-webkit-autofill,
+.settings-page .auth-input input:-webkit-autofill:hover,
+.settings-page .auth-input input:-webkit-autofill:focus,
+.settings-page .auth-input input:-webkit-autofill:active {
+  -webkit-text-fill-color: rgb(241 245 249) !important;
+  caret-color: rgb(241 245 249);
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  -webkit-box-shadow: 0 0 0 1000px rgb(15 23 42) inset !important;
+  box-shadow: 0 0 0 1000px rgb(15 23 42) inset !important;
+  transition: background-color 99999s ease-out 0s;
+}
+
+.auth-form-card .auth-input input:autofill,
+.settings-page .auth-input input:autofill {
+  -webkit-text-fill-color: rgb(241 245 249);
+  box-shadow: 0 0 0 1000px rgb(15 23 42) inset;
+}
+
 /* Motion: page sections & ambient orbs */
 @keyframes su-fade-up {
   from {
@@ -369,9 +408,16 @@ select:-webkit-autofill:focus {
 
 .auth-form-card .auth-input input,
 .settings-page .auth-input input {
-  background-color: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.1);
+  color: rgb(241 245 249);
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
   transition: all 0.3s ease;
+}
+
+.auth-form-card .auth-input input::placeholder,
+.settings-page .auth-input input::placeholder {
+  color: rgb(148 163 184);
+  opacity: 1;
 }
 
 .auth-form-card .auth-input input:hover,
@@ -384,6 +430,12 @@ select:-webkit-autofill:focus {
   background-color: rgba(255, 255, 255, 0.1);
   border-color: rgba(99, 102, 241, 0.5);
   box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.5);
+}
+
+/* Some UAs center `type=tel` text; keep LTR start alignment for phone digits */
+.auth-form-card .auth-input input[type='tel'],
+.settings-page .auth-input input[type='tel'] {
+  text-align: start;
 }
 
 /* Solid CTA even when theme primary tokens do not paint on UButton */
@@ -531,7 +583,7 @@ a.web3-interactive {
 .su-page-canvas__vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 72% 62% at 50% 42%, transparent 0%, rgba(0, 0, 0, 0.65) 100%);
+  background: radial-gradient(ellipse 72% 62% at 50% 42%, transparent 0%, rgba(0, 0, 0, 0.38) 100%);
 }
 
 @keyframes su-universe-drift {

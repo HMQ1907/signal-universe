@@ -13,7 +13,9 @@
     "seed": "tsx supabase/seed.ts"
   },
   "dependencies": {
-    "@nuxt/ui": "^3.0.2",
+    "@aws-sdk/client-s3": "^3.1027.0",
+    "@aws-sdk/s3-request-presigner": "^3.1027.0",
+    "@nuxt/ui": "^4.6.1",
     "@nuxtjs/i18n": "^9.5.3",
     "@supabase/supabase-js": "^2.49.4",
     "@vueuse/core": "^12.8.2",
@@ -22,14 +24,17 @@
     "nanoid": "^5.1.5",
     "nuxt": "^4.3.0",
     "resend": "^4.5.1",
+    "tailwindcss": "^4.1.0",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "typescript": "~5.9.0",
     "@iconify-json/heroicons": "^1.2.2",
     "@iconify-json/lucide": "^1.2.38",
     "@types/bcryptjs": "^2.4.6",
+    "@vue/typescript-plugin": "^3.2.6",
     "cross-env": "^7.0.3",
     "dotenv": "^16.5.0",
     "tsx": "^4.19.3"

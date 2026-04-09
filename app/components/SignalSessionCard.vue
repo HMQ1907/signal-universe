@@ -89,11 +89,8 @@
       </div>
     </div>
 
-    <UModal v-model="showConfirmDialog">
-      <UCard>
-        <template #header>
-          <h3 class="text-white font-bold text-lg">{{ $t('signals.confirm_dialog.title') }}</h3>
-        </template>
+    <UModal v-model:open="showConfirmDialog" :title="$t('signals.confirm_dialog.title')">
+      <template #body>
         <div class="space-y-4">
           <p class="text-slate-400">{{ $t('signals.confirm_dialog.description') }}</p>
           <div class="p-4 rounded-xl bg-slate-800/50 space-y-2">
@@ -112,16 +109,13 @@
           </div>
           <UAlert :description="$t('signals.confirm_dialog.warning')" color="warning" variant="soft" />
         </div>
-        <template #footer>
-          <div class="flex gap-3 justify-end">
-            <UButton color="neutral" variant="soft" @click="showConfirmDialog = false">{{ $t('signals.confirm_dialog.cancel') }}</UButton>
-            <UButton :loading="loading" color="primary"
-              @click="handleConfirm">
-              {{ $t('signals.confirm_dialog.confirm') }}
-            </UButton>
-          </div>
-        </template>
-      </UCard>
+      </template>
+      <template #footer>
+        <div class="flex gap-3 justify-end w-full">
+          <UButton color="neutral" variant="ghost" @click="showConfirmDialog = false">{{ $t('signals.confirm_dialog.cancel') }}</UButton>
+          <UButton :loading="loading" color="primary" @click="handleConfirm">{{ $t('signals.confirm_dialog.confirm') }}</UButton>
+        </div>
+      </template>
     </UModal>
   </div>
 </template>

@@ -9,6 +9,7 @@ export default defineEventHandler(async (event) => {
 
   return {
     trc20_wallet_address: settings.trc20_wallet_address || '',
+    bep20_wallet_address: settings.bep20_wallet_address || '',
     min_deposit: Number(settings.min_deposit || 200),
     min_withdraw: Number(settings.min_withdraw || 10),
     withdraw_fee_percent: Number(settings.withdraw_fee_percent || 3),

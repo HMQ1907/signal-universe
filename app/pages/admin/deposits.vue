@@ -4,11 +4,11 @@
       <h1 class="text-2xl font-bold text-white">{{ $t('admin.deposits.title') }}</h1>
       <div class="flex gap-2">
         <UButton :color="statusFilter === 'pending' ? 'indigo' : 'gray'" :variant="statusFilter === 'pending' ? 'solid' : 'ghost'"
-          @click="statusFilter = 'pending'">Pending</UButton>
+          @click="statusFilter = 'pending'">Chờ duyệt</UButton>
         <UButton :color="statusFilter === 'completed' ? 'green' : 'gray'" :variant="statusFilter === 'completed' ? 'solid' : 'ghost'"
-          @click="statusFilter = 'completed'">Completed</UButton>
+          @click="statusFilter = 'completed'">Đã duyệt</UButton>
         <UButton :color="statusFilter === 'rejected' ? 'red' : 'gray'" :variant="statusFilter === 'rejected' ? 'solid' : 'ghost'"
-          @click="statusFilter = 'rejected'">Rejected</UButton>
+          @click="statusFilter = 'rejected'">Đã từ chối</UButton>
       </div>
     </div>
 
@@ -44,8 +44,7 @@
             </td>
             <td v-if="statusFilter === 'pending' && isMainAdmin">
               <div class="flex gap-2">
-                <UButton size="xs" :loading="processingId === tx.id"
-                  class="bg-green-600/80 hover:bg-green-600 text-white"
+                <UButton size="xs" :loading="processingId === tx.id" color="success"
                   @click="approve(tx.id)">{{ $t('admin.deposits.approve') }}</UButton>
                 <UButton size="xs" color="error" variant="soft"
                   @click="openReject(tx.id)">{{ $t('admin.deposits.reject') }}</UButton>
@@ -57,26 +56,23 @@
 
       <div v-if="!deposits?.length" class="text-center py-12 text-slate-500">
         <UIcon name="i-heroicons-arrow-down-tray" class="text-4xl mb-3 text-slate-600" />
-        <p>No {{ statusFilter }} deposits</p>
+        <p>Không có giao dịch nạp {{ statusFilter === 'pending' ? 'chờ duyệt' : statusFilter === 'completed' ? 'đã duyệt' : 'bị từ chối' }}</p>
       </div>
     </div>
 
     <!-- Reject Modal -->
-    <UModal v-model="showReject">
-      <UCard>
-        <template #header>
-          <h3 class="text-white font-bold">Reject Deposit</h3>
-        </template>
-        <UFormField label="Reason (optional)">
-          <UInput v-model="rejectReason" placeholder="Reason for rejection..." />
+    <UModal v-model:open="showReject" title="Từ chối nạp tiền">
+      <template #body>
+        <UFormField label="Lý do (không bắt buộc)">
+          <UInput v-model="rejectReason" placeholder="Nhập lý do từ chối..." />
         </UFormField>
-        <template #footer>
-          <div class="flex gap-3 justify-end">
-            <UButton color="neutral" @click="showReject = false">Cancel</UButton>
-            <UButton :loading="rejectLoading" color="error" @click="submitReject">Reject</UButton>
-          </div>
-        </template>
-      </UCard>
+      </template>
+      <template #footer>
+        <div class="flex gap-3 justify-end w-full">
+          <UButton color="neutral" variant="ghost" @click="showReject = false">{{ $t('common.cancel') }}</UButton>
+          <UButton :loading="rejectLoading" color="error" @click="submitReject">Từ chối</UButton>
+        </div>
+      </template>
     </UModal>
   </div>
 </template>
@@ -106,10 +102,10 @@ const approve = async (id: number) => {
   processingId.value = id
   try {
     await $fetch(`/api/admin/deposits/${id}/approve`, { method: 'POST' })
-    toast.success('Deposit approved')
+    toast.success('Đã duyệt nạp tiền')
     await refresh()
   } catch (e: any) {
-    toast.error(e?.data?.message || 'Failed to approve')
+    toast.error(e?.data?.message || 'Duyệt thất bại')
   } finally {
     processingId.value = null
   }
@@ -129,11 +125,11 @@ const submitReject = async () => {
       method: 'POST',
       body: { reason: rejectReason.value }
     })
-    toast.success('Deposit rejected')
+    toast.success('Đã từ chối nạp tiền')
     showReject.value = false
     await refresh()
   } catch (e: any) {
-    toast.error(e?.data?.message || 'Failed to reject')
+    toast.error(e?.data?.message || 'Từ chối thất bại')
   } finally {
     rejectLoading.value = false
   }

@@ -21,7 +21,7 @@
         <div class="su-card su-card-hover cursor-pointer">
           <div class="flex items-center gap-3 mb-2">
             <UIcon name="i-heroicons-arrow-down-tray" class="text-green-400 text-xl" />
-            <span class="text-white font-semibold">Pending Deposits</span>
+            <span class="text-white font-semibold">{{ $t('admin.dashboard.pending_deposits') }}</span>
           </div>
           <p class="text-3xl font-black text-green-400">{{ stats?.pending_deposits || 0 }}</p>
         </div>
@@ -30,7 +30,7 @@
         <div class="su-card su-card-hover cursor-pointer">
           <div class="flex items-center gap-3 mb-2">
             <UIcon name="i-heroicons-arrow-up-tray" class="text-red-400 text-xl" />
-            <span class="text-white font-semibold">Pending Withdrawals</span>
+            <span class="text-white font-semibold">{{ $t('admin.dashboard.pending_withdrawals') }}</span>
           </div>
           <p class="text-3xl font-black text-red-400">{{ stats?.pending_withdrawals || 0 }}</p>
         </div>
@@ -39,9 +39,9 @@
         <div class="su-card su-card-hover cursor-pointer">
           <div class="flex items-center gap-3 mb-2">
             <UIcon name="i-heroicons-signal" class="text-indigo-400 text-xl" />
-            <span class="text-white font-semibold">Signal Sessions</span>
+            <span class="text-white font-semibold">{{ $t('admin.signals.title') }}</span>
           </div>
-          <p class="text-slate-400 text-sm">Manage today's sessions →</p>
+          <p class="text-slate-400 text-sm">{{ $t('admin.dashboard.manage_sessions_hint') }}</p>
         </div>
       </NuxtLink>
     </div>
@@ -50,9 +50,9 @@
 
 <script setup lang="ts">
 definePageMeta({ layout: 'admin', middleware: 'admin' })
-useHead({ title: 'Admin Dashboard - Signal Universe' })
 
 const { t } = useI18n()
+useHead({ title: () => `${t('admin.dashboard.title')} - Signal Universe` })
 const { data: stats } = await useFetch('/api/admin/stats', { key: 'admin-stats' })
 
 const statsCards = computed(() => [

@@ -94,164 +94,101 @@
     </div>
 
     <!-- ─── Balance Adjust Modal ─── -->
-    <UModal v-model="showAdjust" :ui="{ width: 'sm:max-w-md' }">
-      <div v-if="selectedUser" class="p-6 space-y-5">
-        <!-- Modal header -->
-        <div class="flex items-start justify-between gap-3">
+    <UModal v-model:open="showAdjust" :title="$t('admin.users.adjust_balance')" :description="selectedUser?.email">
+      <template #body>
+        <div v-if="selectedUser" class="space-y-6">
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rounded-xl bg-slate-800 border border-white/10 p-3 text-center">
+              <p class="text-slate-400 text-xs mb-1">{{ $t('admin.users.columns.balance') }}</p>
+              <p class="text-green-400 font-bold text-lg">${{ (selectedUser.balance || 0).toFixed(2) }}</p>
+            </div>
+            <div class="rounded-xl bg-slate-800 border border-white/10 p-3 text-center">
+              <p class="text-slate-400 text-xs mb-1">{{ $t('admin.users.columns.capital') }}</p>
+              <p class="text-amber-400 font-bold text-lg">${{ (selectedUser.locked_capital || 0).toFixed(2) }}</p>
+            </div>
+          </div>
           <div>
-            <h3 class="text-white font-bold text-lg">{{ $t('admin.users.adjust_balance') }}</h3>
-            <p class="text-slate-400 text-sm mt-0.5">{{ selectedUser.email }}</p>
+            <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-2">{{ $t('admin.users.adjust_operation') }}</p>
+            <div class="grid grid-cols-2 gap-2">
+              <button v-for="op in operations" :key="op.value"
+                class="flex items-center gap-2 px-3 py-2.5 rounded-xl border text-sm font-semibold transition-all"
+                :class="adjustForm.operation === op.value ? op.activeClass : 'border-white/10 text-slate-400 hover:border-white/20 hover:text-white bg-slate-800'"
+                @click="adjustForm.operation = op.value">
+                <UIcon :name="op.icon" class="text-base shrink-0" /> {{ op.label }}
+              </button>
+            </div>
           </div>
-          <UButton icon="i-heroicons-x-mark" color="neutral" variant="ghost" size="sm" @click="showAdjust = false" />
-        </div>
-
-        <!-- Current balances display -->
-        <div class="grid grid-cols-2 gap-3">
-          <div class="rounded-xl bg-slate-800/60 border border-white/6 p-3 text-center">
-            <p class="text-slate-400 text-xs mb-1">{{ $t('admin.users.columns.balance') }}</p>
-            <p class="text-green-400 font-bold text-lg">${{ (selectedUser.balance || 0).toFixed(2) }}</p>
+          <div>
+            <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-2">{{ $t('admin.users.adjust_target') }}</p>
+            <div class="grid grid-cols-2 gap-2">
+              <button v-for="tgt in adjustTargets" :key="tgt.value"
+                class="flex items-center gap-2 px-3 py-2 rounded-xl border text-sm font-medium transition-all"
+                :class="adjustForm.target === tgt.value ? 'border-indigo-500/50 text-indigo-300 bg-indigo-500/10' : 'border-white/10 text-slate-400 hover:border-white/20 hover:text-white bg-slate-800'"
+                @click="adjustForm.target = tgt.value">
+                <UIcon :name="tgt.icon" class="shrink-0" /> {{ tgt.label }}
+              </button>
+            </div>
           </div>
-          <div class="rounded-xl bg-slate-800/60 border border-white/6 p-3 text-center">
-            <p class="text-slate-400 text-xs mb-1">{{ $t('admin.users.columns.capital') }}</p>
-            <p class="text-amber-400 font-bold text-lg">${{ (selectedUser.locked_capital || 0).toFixed(2) }}</p>
+          <div>
+            <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-2">{{ $t('common.amount') }} (USD)</p>
+            <div class="relative">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 font-semibold">$</span>
+              <input v-model.number="adjustForm.amount" type="number" min="0.01" step="0.01" placeholder="0.00"
+                class="w-full bg-slate-800 border border-white/10 rounded-xl pl-7 pr-4 py-2.5 text-white text-sm placeholder-slate-600 focus:outline-none focus:border-indigo-500/60 transition-colors" />
+            </div>
+            <div v-if="adjustForm.amount > 0" class="mt-2 flex items-center gap-2 text-xs text-slate-400">
+              <UIcon name="i-heroicons-arrow-right" class="text-slate-600" />
+              <span>{{ $t('admin.users.new_balance') }}:</span>
+              <span :class="previewBalance >= 0 ? 'text-green-400 font-semibold' : 'text-red-400 font-semibold'">${{ previewBalance.toFixed(2) }}</span>
+            </div>
           </div>
-        </div>
-
-        <!-- Operation selector -->
-        <div>
-          <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-2">{{ $t('admin.users.adjust_operation') }}</p>
-          <div class="grid grid-cols-2 gap-2">
-            <button
-              v-for="op in operations"
-              :key="op.value"
-              class="flex items-center gap-2 px-3 py-2.5 rounded-xl border text-sm font-semibold transition-all"
-              :class="adjustForm.operation === op.value
-                ? op.activeClass
-                : 'border-white/10 text-slate-400 hover:border-white/20 hover:text-white bg-slate-800/40'"
-              @click="adjustForm.operation = op.value"
-            >
-              <UIcon :name="op.icon" class="text-base shrink-0" />
-              {{ op.label }}
-            </button>
-          </div>
-        </div>
-
-        <!-- Target balance field -->
-        <div>
-          <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-2">{{ $t('admin.users.adjust_target') }}</p>
-          <div class="grid grid-cols-2 gap-2">
-            <button
-              v-for="tgt in adjustTargets"
-              :key="tgt.value"
-              class="flex items-center gap-2 px-3 py-2 rounded-xl border text-sm font-medium transition-all"
-              :class="adjustForm.target === tgt.value
-                ? 'border-indigo-500/50 text-indigo-300 bg-indigo-500/10'
-                : 'border-white/10 text-slate-400 hover:border-white/20 hover:text-white bg-slate-800/40'"
-              @click="adjustForm.target = tgt.value"
-            >
-              <UIcon :name="tgt.icon" class="shrink-0" />
-              {{ tgt.label }}
-            </button>
+          <div>
+            <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-2">{{ $t('admin.users.adjust_reason') }}</p>
+            <input v-model="adjustForm.reason" type="text" :placeholder="$t('admin.users.adjust_reason_placeholder')"
+              class="w-full bg-slate-800 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm placeholder-slate-600 focus:outline-none focus:border-indigo-500/60 transition-colors" />
           </div>
         </div>
-
-        <!-- Amount input -->
-        <div>
-          <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-2">{{ $t('common.amount') }} (USD)</p>
-          <div class="relative">
-            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 font-semibold">$</span>
-            <input
-              v-model.number="adjustForm.amount"
-              type="number"
-              min="0.01"
-              step="0.01"
-              placeholder="0.00"
-              class="w-full bg-slate-800/60 border border-white/10 rounded-xl pl-7 pr-4 py-2.5 text-white text-sm placeholder-slate-600 focus:outline-none focus:border-indigo-500/60 transition-colors"
-            />
-          </div>
-          <!-- Preview new balance -->
-          <div v-if="adjustForm.amount > 0" class="mt-2 flex items-center gap-2 text-xs text-slate-400">
-            <UIcon name="i-heroicons-arrow-right" class="text-slate-600" />
-            <span>{{ $t('admin.users.new_balance') }}:</span>
-            <span :class="previewBalance >= 0 ? 'text-green-400 font-semibold' : 'text-red-400 font-semibold'">
-              ${{ previewBalance.toFixed(2) }}
-            </span>
-          </div>
-        </div>
-
-        <!-- Reason -->
-        <div>
-          <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-2">{{ $t('admin.users.adjust_reason') }}</p>
-          <input
-            v-model="adjustForm.reason"
-            type="text"
-            :placeholder="$t('admin.users.adjust_reason_placeholder')"
-            class="w-full bg-slate-800/60 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm placeholder-slate-600 focus:outline-none focus:border-indigo-500/60 transition-colors"
-          />
-        </div>
-
-        <!-- Actions -->
-        <div class="flex gap-3 pt-1">
-          <UButton
-            block
-            color="neutral"
-            variant="ghost"
-            class="flex-1"
-            @click="showAdjust = false"
-          >
-            {{ $t('common.cancel') }}
-          </UButton>
-          <button
-            class="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-            :class="adjustForm.operation === 'add'
-              ? 'bg-green-600 hover:bg-green-500 text-white'
-              : 'bg-red-600/90 hover:bg-red-600 text-white'"
-            :disabled="adjustLoading || !adjustForm.amount || !adjustForm.reason"
-            @click="submitAdjust"
-          >
-            <UIcon v-if="adjustLoading" name="i-heroicons-arrow-path" class="animate-spin" />
-            <UIcon v-else :name="adjustForm.operation === 'add' ? 'i-heroicons-plus' : 'i-heroicons-minus'" />
+      </template>
+      <template #footer>
+        <div class="flex flex-col-reverse gap-2 sm:flex-row sm:gap-3 w-full">
+          <UButton block color="neutral" variant="outline" class="flex-1 ring-1 ring-white/15" @click="showAdjust = false">{{ $t('common.cancel') }}</UButton>
+          <UButton block class="flex-1" :loading="adjustLoading"
+            :color="adjustForm.operation === 'add' ? 'success' : 'error'"
+            :disabled="!adjustForm.amount || !adjustForm.reason" @click="submitAdjust">
             {{ adjustForm.operation === 'add' ? $t('admin.users.confirm_add') : $t('admin.users.confirm_subtract') }}
             ${{ (adjustForm.amount || 0).toFixed(2) }}
-          </button>
+          </UButton>
         </div>
-      </div>
+      </template>
     </UModal>
 
     <!-- ─── Tree Modal ─── -->
-    <UModal v-model="showTree" :ui="{ width: 'sm:max-w-2xl' }">
-      <div v-if="treeData" class="p-6 space-y-4">
-        <div class="flex items-start justify-between">
-          <div>
-            <h3 class="text-white font-bold text-lg">{{ $t('admin.users.referral_tree') }}</h3>
-            <p class="text-slate-400 text-sm">{{ selectedUser?.email }}</p>
+    <UModal v-model:open="showTree" :title="$t('admin.users.referral_tree')" :description="selectedUser?.email">
+      <template #body>
+        <div v-if="treeData" class="space-y-4">
+          <div v-if="treeData.parent" class="p-3 rounded-xl bg-slate-800/50 border border-white/6 text-sm flex items-center gap-2">
+            <UIcon name="i-heroicons-arrow-up" class="text-slate-500" />
+            <span class="text-slate-400">{{ $t('admin.users.parent') }}:</span>
+            <span class="text-white font-medium">{{ treeData.parent.full_name || treeData.parent.email }}</span>
           </div>
-          <UButton icon="i-heroicons-x-mark" color="neutral" variant="ghost" size="sm" @click="showTree = false" />
-        </div>
-
-        <div v-if="treeData.parent" class="p-3 rounded-xl bg-slate-800/50 border border-white/6 text-sm flex items-center gap-2">
-          <UIcon name="i-heroicons-arrow-up" class="text-slate-500" />
-          <span class="text-slate-400">{{ $t('admin.users.parent') }}:</span>
-          <span class="text-white font-medium">{{ treeData.parent.full_name || treeData.parent.email }}</span>
-        </div>
-
-        <div v-for="([level, members]) in levelEntries" :key="level">
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-xs font-bold text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded-full">{{ level }}</span>
-            <span class="text-slate-500 text-xs">{{ members.length }} {{ $t('admin.users.members') }}</span>
-          </div>
-          <div v-if="members.length" class="grid grid-cols-2 gap-2">
-            <div v-for="m in members" :key="m.id" class="p-2.5 rounded-lg bg-slate-800/40 border border-white/5 text-xs">
-              <p class="text-white font-medium truncate">{{ m.full_name || m.email }}</p>
-              <div class="flex items-center justify-between mt-0.5">
-                <p class="text-slate-500">{{ new Date(m.created_at).toLocaleDateString() }}</p>
-                <p class="text-green-400">${{ (m.balance || 0).toFixed(0) }}</p>
+          <div v-for="([level, members]) in levelEntries" :key="level">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs font-bold text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded-full">{{ level }}</span>
+              <span class="text-slate-500 text-xs">{{ members.length }} {{ $t('admin.users.members') }}</span>
+            </div>
+            <div v-if="members.length" class="grid grid-cols-2 gap-2">
+              <div v-for="m in members" :key="m.id" class="p-2.5 rounded-lg bg-slate-800/40 border border-white/5 text-xs">
+                <p class="text-white font-medium truncate">{{ m.full_name || m.email }}</p>
+                <div class="flex items-center justify-between mt-0.5">
+                  <p class="text-slate-500">{{ new Date(m.created_at).toLocaleDateString() }}</p>
+                  <p class="text-green-400">${{ (m.balance || 0).toFixed(0) }}</p>
+                </div>
               </div>
             </div>
+            <p v-else class="text-slate-600 text-xs italic">{{ $t('admin.users.no_members') }}</p>
           </div>
-          <p v-else class="text-slate-600 text-xs italic">{{ $t('admin.users.no_members') }}</p>
         </div>
-      </div>
+      </template>
     </UModal>
   </div>
 </template>

@@ -325,11 +325,24 @@
       "email": "Email Address",
       "password": "Password",
       "confirm_password": "Confirm Password",
+      "phone": "Phone number",
+      "phone_placeholder": "e.g. 965649531",
       "referral_code": "Referral Code (optional)",
       "submit": "Create Account",
       "have_account": "Already have an account?",
       "login_link": "Sign in",
       "terms": "By registering, you agree to our Terms of Service",
+      "register_success": "Registration successful! Please log in.",
+      "phone_country": {
+        "vn": "Vietnam",
+        "cn": "China",
+        "my": "Malaysia",
+        "jp": "Japan",
+        "ru": "Russia",
+        "kr": "South Korea",
+        "th": "Thailand",
+        "us": "United States"
+      },
       "error": {
         "email_exists": "Email already registered",
         "password_mismatch": "Passwords do not match",
@@ -575,6 +588,11 @@
     }
   },
   "admin": {
+    "ui": {
+      "badge_admin": "Admin",
+      "badge_sub_admin": "Sub Admin",
+      "mobile_menu": "Menu"
+    },
     "nav": {
       "dashboard": "Dashboard",
       "pending": "Pending",
@@ -589,6 +607,36 @@
       "sub_admins": "Sub Admin Management",
       "settings": "Settings"
     },
+    "pending": {
+      "page_title": "Pending - Admin",
+      "subtitle": "Approve or reject pending deposit and withdrawal requests",
+      "tab_deposits": "Deposits",
+      "tab_profit": "Profit withdrawals",
+      "tab_capital": "Capital withdrawals (28d)",
+      "section_deposits": "Pending deposits",
+      "section_profit": "Pending profit withdrawals",
+      "section_capital": "Capital withdrawals (28-day lock)",
+      "requests_count": "{count} requests waiting",
+      "empty_deposits": "No pending deposits",
+      "empty_profit": "No pending profit withdrawals",
+      "empty_capital": "No pending capital withdrawals",
+      "capital_alert": "These are requests to withdraw initial capital after the 28-day lock period.",
+      "status_pending": "Pending",
+      "package_badge": "{amount} package",
+      "badge_capital": "Capital",
+      "balance_label": "Balance",
+      "locked_capital_label": "Capital",
+      "to_address": "Recipient address",
+      "fee_label": "Fee",
+      "net_label": "Net",
+      "approve": "Approve",
+      "reject": "Reject",
+      "toast_approved": "Transaction approved",
+      "toast_rejected": "Transaction rejected",
+      "toast_process_failed": "Failed to process transaction",
+      "toast_adr_copied": "Address copied",
+      "toast_adr_copy_failed": "Failed to copy address"
+    },
     "dashboard": {
       "title": "Admin Dashboard",
       "total_users": "Total Users",
@@ -597,7 +645,8 @@
       "total_withdrawn": "Total Withdrawn",
       "pending_deposits": "Pending Deposits",
       "pending_withdrawals": "Pending Withdrawals",
-      "total_balance": "Total User Balance"
+      "total_balance": "Total User Balance",
+      "manage_sessions_hint": "Manage today's sessions →"
     },
     "users": {
       "title": "User Management",

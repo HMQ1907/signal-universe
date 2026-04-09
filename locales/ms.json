@@ -287,7 +287,38 @@
   "auth": {
     "a11y": { "show_password": "Tunjukkan kata laluan", "hide_password": "Sembunyikan kata laluan" },
     "login": { "title": "Selamat Kembali", "subtitle": "Log masuk ke akaun anda", "email": "Alamat E-mel", "password": "Kata Laluan", "forgot_password": "Lupa Kata Laluan?", "submit": "Log Masuk", "no_account": "Tiada akaun?", "register_link": "Daftar di sini", "error": { "invalid_credentials": "E-mel atau kata laluan tidak sah", "account_disabled": "Akaun anda telah dilumpuhkan" } },
-    "register": { "title": "Buat Akaun", "subtitle": "Sertai Signal Universe hari ini", "full_name": "Nama Penuh", "email": "Alamat E-mel", "password": "Kata Laluan", "confirm_password": "Sahkan Kata Laluan", "referral_code": "Kod Rujukan (pilihan)", "submit": "Buat Akaun", "have_account": "Sudah ada akaun?", "login_link": "Log masuk", "terms": "Dengan mendaftar, anda bersetuju dengan Terma Perkhidmatan kami", "error": { "email_exists": "E-mel sudah didaftarkan", "password_mismatch": "Kata laluan tidak sepadan", "invalid_referral": "Kod rujukan tidak sah", "password_weak": "Kata laluan mestilah sekurang-kurangnya 8 aksara" } },
+    "register": {
+      "title": "Buat Akaun",
+      "subtitle": "Sertai Signal Universe hari ini",
+      "full_name": "Nama Penuh",
+      "email": "Alamat E-mel",
+      "password": "Kata Laluan",
+      "confirm_password": "Sahkan Kata Laluan",
+      "phone": "Nombor telefon",
+      "phone_placeholder": "cth. 123456789",
+      "referral_code": "Kod Rujukan (pilihan)",
+      "submit": "Buat Akaun",
+      "have_account": "Sudah ada akaun?",
+      "login_link": "Log masuk",
+      "terms": "Dengan mendaftar, anda bersetuju dengan Terma Perkhidmatan kami",
+      "register_success": "Pendaftaran berjaya! Sila log masuk.",
+      "phone_country": {
+        "vn": "Vietnam",
+        "cn": "China",
+        "my": "Malaysia",
+        "jp": "Jepun",
+        "ru": "Rusia",
+        "kr": "Korea Selatan",
+        "th": "Thailand",
+        "us": "Amerika Syarikat"
+      },
+      "error": {
+        "email_exists": "E-mel sudah didaftarkan",
+        "password_mismatch": "Kata laluan tidak sepadan",
+        "invalid_referral": "Kod rujukan tidak sah",
+        "password_weak": "Kata laluan mestilah sekurang-kurangnya 8 aksara"
+      }
+    },
     "forgot_password": { "title": "Set Semula Kata Laluan", "subtitle": "Masukkan e-mel anda untuk menerima kod set semula", "email": "Alamat E-mel", "submit": "Hantar Kod Set Semula", "back_to_login": "Kembali ke Log Masuk", "code_sent": "Kod set semula dihantar ke e-mel anda", "enter_code": "Masukkan kod 6 digit yang dihantar ke", "new_password": "Kata Laluan Baru", "confirm_new_password": "Sahkan Kata Laluan Baru", "reset_submit": "Set Semula Kata Laluan", "success": "Kata laluan berjaya ditetapkan semula. Sila log masuk." }
   },
   "dashboard": { "title": "Papan Pemuka", "welcome": "Selamat kembali", "profit_balance": "Baki Keuntungan", "locked_capital": "Modal Terkunci", "total_balance": "Jumlah Baki", "investment_package": "Pakej Pelaburan", "package_none": "Tiada pakej aktif", "capital_locked_until": "Modal terkunci sehingga", "capital_unlocked": "Modal boleh dikeluarkan", "quick_stats": { "total_deposited": "Jumlah Deposit", "total_profit": "Jumlah Keuntungan", "total_referral": "Bonus Rujukan", "direct_members": "Ahli Terus (F1)" }, "signals_today": "Isyarat Hari Ini", "signal_14": "Isyarat 14:00", "signal_21": "Isyarat 21:00", "recent_transactions": "Transaksi Terkini" },

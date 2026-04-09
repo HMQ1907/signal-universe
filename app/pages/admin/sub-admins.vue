@@ -85,60 +85,34 @@
     </div>
 
     <!-- Add Sub Admin Modal -->
-    <UModal v-model="showAdd" :ui="{ width: 'sm:max-w-sm' }">
-      <div class="p-6 space-y-4">
-        <div class="flex items-start justify-between">
-          <div>
-            <h3 class="text-white font-bold text-lg">{{ $t('admin.sub_admins.add') }}</h3>
-            <p class="text-slate-400 text-sm mt-0.5">{{ $t('admin.sub_admins.add_hint') }}</p>
-          </div>
-          <UButton icon="i-heroicons-x-mark" color="neutral" variant="ghost" size="sm" @click="showAdd = false" />
-        </div>
-
+    <UModal v-model:open="showAdd" :title="$t('admin.sub_admins.add')" :description="$t('admin.sub_admins.add_hint')">
+      <template #body>
         <div>
           <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-2">Email</p>
-          <input
-            v-model="addEmail"
-            type="email"
-            placeholder="user@example.com"
+          <input v-model="addEmail" type="email" placeholder="user@example.com"
             class="w-full bg-slate-800/60 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm placeholder-slate-600 focus:outline-none focus:border-indigo-500/60 transition-colors"
-            @keydown.enter="submitAdd"
-          />
+            @keydown.enter="submitAdd" />
         </div>
-
-        <div class="flex gap-3 pt-1">
-          <UButton block color="neutral" variant="ghost" @click="showAdd = false">
-            {{ $t('common.cancel') }}
-          </UButton>
-          <UButton block color="primary" :loading="addLoading" @click="submitAdd">
-            {{ $t('admin.sub_admins.grant') }}
-          </UButton>
+      </template>
+      <template #footer>
+        <div class="flex gap-3 w-full">
+          <UButton block color="neutral" variant="ghost" @click="showAdd = false">{{ $t('common.cancel') }}</UButton>
+          <UButton block color="primary" :loading="addLoading" @click="submitAdd">{{ $t('admin.sub_admins.grant') }}</UButton>
         </div>
-      </div>
+      </template>
     </UModal>
 
     <!-- Revoke confirm modal -->
-    <UModal v-model="showRevoke" :ui="{ width: 'sm:max-w-sm' }">
-      <div class="p-6 space-y-4">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-red-500/15 flex items-center justify-center shrink-0">
-            <UIcon name="i-heroicons-shield-exclamation" class="text-red-400 text-lg" />
-          </div>
-          <div>
-            <h3 class="text-white font-bold">{{ $t('admin.sub_admins.revoke_title') }}</h3>
-            <p class="text-slate-400 text-sm">{{ revokingUser?.email }}</p>
-          </div>
-        </div>
+    <UModal v-model:open="showRevoke" :title="$t('admin.sub_admins.revoke_title')" :description="revokingUser?.email">
+      <template #body>
         <p class="text-slate-400 text-sm">{{ $t('admin.sub_admins.revoke_confirm') }}</p>
-        <div class="flex gap-3">
-          <UButton block color="neutral" variant="ghost" @click="showRevoke = false">
-            {{ $t('common.cancel') }}
-          </UButton>
-          <UButton block color="error" :loading="revokeLoading" @click="doRevoke">
-            {{ $t('admin.sub_admins.revoke') }}
-          </UButton>
+      </template>
+      <template #footer>
+        <div class="flex gap-3 w-full">
+          <UButton block color="neutral" variant="ghost" @click="showRevoke = false">{{ $t('common.cancel') }}</UButton>
+          <UButton block color="error" :loading="revokeLoading" @click="doRevoke">{{ $t('admin.sub_admins.revoke') }}</UButton>
         </div>
-      </div>
+      </template>
     </UModal>
   </div>
 </template>

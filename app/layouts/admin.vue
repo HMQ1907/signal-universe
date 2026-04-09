@@ -1,9 +1,8 @@
 <template>
-  <div class="min-h-screen flex" style="background: #060810;">
+  <div class="min-h-screen flex bg-[var(--su-bg-dark)]">
     <!-- Sidebar -->
     <aside
-      class="hidden lg:flex flex-col w-64 fixed top-0 left-0 h-full z-40 border-r border-white/6"
-      style="background: rgba(6,8,16,0.96); backdrop-filter: blur(20px);"
+      class="admin-surface hidden lg:flex flex-col w-64 fixed top-0 left-0 h-full z-40 border-r border-white/6"
     >
       <!-- Logo -->
       <div class="flex items-center gap-3 px-5 py-4 border-b border-white/6">
@@ -15,7 +14,7 @@
         </div>
         <span class="font-bold text-white text-sm">Signal Universe</span>
         <UBadge
-          :label="user?.is_admin ? 'Admin' : 'SubAdmin'"
+          :label="user?.is_admin ? $t('admin.ui.badge_admin') : $t('admin.ui.badge_sub_admin')"
           size="xs"
           :color="user?.is_admin ? 'primary' : 'amber'"
           variant="soft"
@@ -39,7 +38,7 @@
             <span>{{ $t(item.label) }}</span>
             <UBadge
               v-if="item.adminOnly"
-              label="Admin"
+              :label="$t('admin.ui.badge_admin')"
               size="xs"
               color="error"
               variant="soft"
@@ -56,7 +55,7 @@
             <UIcon name="i-heroicons-user" class="text-indigo-400 text-sm" />
           </div>
           <div class="flex-1 min-w-0">
-            <p class="text-sm font-medium text-white truncate">{{ user?.full_name || (user?.is_admin ? 'Admin' : 'Sub Admin') }}</p>
+            <p class="text-sm font-medium text-white truncate">{{ user?.full_name || (user?.is_admin ? $t('admin.ui.badge_admin') : $t('admin.ui.badge_sub_admin')) }}</p>
             <p class="text-xs text-slate-500 truncate">{{ user?.email }}</p>
           </div>
           <UButton
@@ -72,8 +71,7 @@
     </aside>
 
     <!-- Mobile top bar -->
-    <div class="lg:hidden fixed top-0 inset-x-0 z-40 flex items-center justify-between px-4 h-14 border-b border-white/6"
-      style="background: rgba(6,8,16,0.96); backdrop-filter: blur(20px);">
+    <div class="admin-surface lg:hidden fixed top-0 inset-x-0 z-40 flex items-center justify-between px-4 h-14 border-b border-white/6">
       <div class="flex items-center gap-2">
         <div class="w-7 h-7 rounded-lg flex items-center justify-center"
           style="background: linear-gradient(135deg,#6366f1,#8b5cf6);">
@@ -88,10 +86,9 @@
     <Transition name="fade">
       <div v-if="mobileOpen" class="lg:hidden fixed inset-0 z-50 flex">
         <div class="absolute inset-0 bg-black/60" @click="mobileOpen = false" />
-        <div class="relative w-64 h-full flex flex-col border-r border-white/6"
-          style="background: rgba(6,8,16,0.98); backdrop-filter: blur(20px);">
+        <div class="admin-surface-solid relative w-64 h-full flex flex-col border-r border-white/6">
           <div class="flex items-center justify-between px-5 py-4 border-b border-white/6">
-            <span class="font-bold text-white text-sm">Menu</span>
+            <span class="font-bold text-white text-sm">{{ $t('admin.ui.mobile_menu') }}</span>
             <UButton icon="i-heroicons-x-mark" color="neutral" variant="ghost" size="xs" @click="mobileOpen = false" />
           </div>
           <nav class="flex-1 px-3 py-3 overflow-y-auto">
@@ -128,6 +125,23 @@
 const route = useRoute()
 const { user, logout } = useAuth()
 const mobileOpen = ref(false)
+
+/** Admin area is Vietnamese-only for operators; restore user locale when leaving. */
+const { locale, setLocale } = useI18n()
+const previousLocale = ref<string>('')
+
+onMounted(() => {
+  previousLocale.value = String(locale.value)
+  setLocale('vi')
+})
+
+onBeforeUnmount(() => {
+  const p = previousLocale.value
+  const allowed = ['en', 'vi', 'zh', 'ms', 'ru'] as const
+  if (allowed.includes(p as (typeof allowed)[number])) {
+    setLocale(p as (typeof allowed)[number])
+  }
+})
 
 const allNavItems = [
   { to: '/admin', icon: 'i-heroicons-chart-bar', label: 'admin.nav.dashboard', subAdminAllowed: true },

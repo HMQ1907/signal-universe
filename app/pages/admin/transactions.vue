@@ -90,18 +90,8 @@
     </div>
 
     <!-- Delete confirm modal -->
-    <UModal v-model="showDeleteModal" :ui="{ width: 'sm:max-w-sm' }">
-      <div class="p-6 space-y-4">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-red-500/15 flex items-center justify-center shrink-0">
-            <UIcon name="i-heroicons-exclamation-triangle" class="text-red-400 text-lg" />
-          </div>
-          <div>
-            <h3 class="text-white font-bold">{{ $t('admin.transactions.delete_title') }}</h3>
-            <p class="text-slate-400 text-xs mt-0.5">{{ $t('admin.transactions.delete_warning') }}</p>
-          </div>
-        </div>
-
+    <UModal v-model:open="showDeleteModal" :title="$t('admin.transactions.delete_title')" :description="$t('admin.transactions.delete_warning')">
+      <template #body>
         <div v-if="deletingTx" class="p-3 rounded-xl bg-slate-800/60 border border-white/6 text-sm space-y-1">
           <div class="flex justify-between">
             <span class="text-slate-400">#ID</span>
@@ -118,16 +108,13 @@
             </span>
           </div>
         </div>
-
-        <div class="flex gap-3">
-          <UButton block color="neutral" variant="ghost" @click="showDeleteModal = false">
-            {{ $t('common.cancel') }}
-          </UButton>
-          <UButton block color="error" :loading="deleteLoading" @click="doDelete">
-            {{ $t('admin.transactions.delete_confirm') }}
-          </UButton>
+      </template>
+      <template #footer>
+        <div class="flex gap-3 w-full">
+          <UButton block color="neutral" variant="ghost" @click="showDeleteModal = false">{{ $t('common.cancel') }}</UButton>
+          <UButton block color="error" :loading="deleteLoading" @click="doDelete">{{ $t('admin.transactions.delete_confirm') }}</UButton>
         </div>
-      </div>
+      </template>
     </UModal>
   </div>
 </template>
