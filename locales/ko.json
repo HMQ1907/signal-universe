@@ -312,6 +312,7 @@
     }
   },
   "auth": {
+    "loading": "잠시만 기다려 주세요…",
     "a11y": {
       "show_password": "비밀번호 표시",
       "hide_password": "비밀번호 숨기기"

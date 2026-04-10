@@ -145,17 +145,14 @@ onBeforeUnmount(() => {
 
 const allNavItems = [
   { to: '/admin', icon: 'i-heroicons-chart-bar', label: 'admin.nav.dashboard', subAdminAllowed: true },
-  { to: '/admin/pending', icon: 'i-heroicons-clock', label: 'admin.nav.pending', subAdminAllowed: true },
   { to: '/admin/users', icon: 'i-heroicons-users', label: 'admin.nav.users', subAdminAllowed: true },
   { to: '/admin/signals', icon: 'i-heroicons-signal', label: 'admin.nav.signals', subAdminAllowed: false, adminOnly: true },
   { to: '/admin/deposits', icon: 'i-heroicons-arrow-down-tray', label: 'admin.nav.deposits', subAdminAllowed: true },
   { to: '/admin/withdrawals', icon: 'i-heroicons-arrow-up-tray', label: 'admin.nav.withdrawals', subAdminAllowed: true },
   { to: '/admin/transactions', icon: 'i-heroicons-banknotes', label: 'admin.nav.transactions', subAdminAllowed: true },
-  { to: '/admin/compound', icon: 'i-heroicons-arrow-path', label: 'admin.nav.compound', subAdminAllowed: true },
   { to: '/admin/cccd', icon: 'i-heroicons-identification', label: 'admin.nav.cccd', subAdminAllowed: true },
   { to: '/admin/wallets', icon: 'i-heroicons-wallet', label: 'admin.nav.wallets', subAdminAllowed: true },
-  { to: '/admin/sub-admins', icon: 'i-heroicons-shield-check', label: 'admin.nav.sub_admins', subAdminAllowed: false, adminOnly: true },
-  { to: '/admin/settings', icon: 'i-heroicons-cog-6-tooth', label: 'admin.nav.settings', subAdminAllowed: false, adminOnly: true }
+  { to: '/admin/sub-admins', icon: 'i-heroicons-shield-check', label: 'admin.nav.sub_admins', subAdminAllowed: false, adminOnly: true }
 ]
 
 const visibleNavItems = computed(() => {

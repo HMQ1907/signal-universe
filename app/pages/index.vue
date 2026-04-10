@@ -90,7 +90,7 @@
           </p>
 
           <NuxtLink
-            v-if="user && !user.is_admin"
+            v-if="user && !user.is_admin && isSignalSessionWindowOpen"
             to="/signals"
             class="up-cta-pill mx-auto inline-flex items-center gap-3 rounded-full px-8 py-3.5 text-base font-bold text-slate-900 shadow-xl shadow-cyan-500/25"
           >
@@ -679,6 +679,7 @@ definePageMeta({ layout: "landing" });
 
 const { t } = useI18n();
 const { user } = useAuth();
+const { isWindowOpen: isSignalSessionWindowOpen } = useSignalSessionWindow();
 
 useHead({ title: "Signal Universe — Smart Trading Signal Platform" });
 

@@ -285,6 +285,7 @@
     }
   },
   "auth": {
+    "loading": "Sila tunggu…",
     "a11y": { "show_password": "Tunjukkan kata laluan", "hide_password": "Sembunyikan kata laluan" },
     "login": { "title": "Selamat Kembali", "subtitle": "Log masuk ke akaun anda", "email": "Alamat E-mel", "password": "Kata Laluan", "forgot_password": "Lupa Kata Laluan?", "submit": "Log Masuk", "no_account": "Tiada akaun?", "register_link": "Daftar di sini", "error": { "invalid_credentials": "E-mel atau kata laluan tidak sah", "account_disabled": "Akaun anda telah dilumpuhkan" } },
     "register": {

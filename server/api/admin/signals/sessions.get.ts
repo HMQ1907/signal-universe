@@ -1,9 +1,13 @@
+import { ensureDailySignalSessionForDate } from '~~/server/utils/signalSessions'
+
 export default defineEventHandler(async (event) => {
   await requireAdmin(event)
   const query = getQuery(event)
   const date = query.date as string || new Date().toISOString().split('T')[0]
 
   const supabase = getSupabaseAdmin()
+  await ensureDailySignalSessionForDate(supabase, date)
+
   const { data: sessions } = await supabase
     .from('signal_sessions')
     .select('*')

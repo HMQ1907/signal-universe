@@ -1,9 +1,12 @@
 import { investmentTierFromTotal } from '~~/server/utils/helpers'
+import { ensureDailySignalSessionForDate } from '~~/server/utils/signalSessions'
 
 export default defineEventHandler(async (event) => {
   const user = await requireAuth(event)
   const supabase = getSupabaseAdmin()
   const today = new Date().toISOString().split('T')[0]
+
+  await ensureDailySignalSessionForDate(supabase, today)
 
   const { data: sessions } = await supabase
     .from('signal_sessions')

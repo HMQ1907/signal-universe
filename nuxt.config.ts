@@ -45,6 +45,7 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
+    '/admin/pending': { redirect: '/admin/deposits' },
     '/auth/**': { headers: { 'cache-control': 'no-store' } },
     '/api/auth/**': { headers: { 'cache-control': 'no-store' } },
     '/dashboard/**': { headers: { 'cache-control': 'no-store' } },

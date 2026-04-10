@@ -4,9 +4,6 @@
       <h1 class="text-2xl font-bold text-white">{{ $t('admin.signals.title') }}</h1>
       <div class="flex gap-2">
         <UInput v-model="selectedDate" type="date" />
-        <UButton icon="i-heroicons-plus" color="primary" @click="showCreateSession = true">
-          {{ $t('admin.signals.create_session') }}
-        </UButton>
       </div>
     </div>
 
@@ -14,36 +11,6 @@
       <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
     </div>
     <template v-else>
-    <!-- Sessions -->
-    <div class="grid md:grid-cols-1 gap-6 mb-8 max-w-xl">
-      <div v-for="session in sessions" :key="session.id" class="su-card">
-        <div class="flex items-center justify-between mb-4">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center">
-              <UIcon name="i-heroicons-signal" class="text-indigo-400" />
-            </div>
-            <div>
-              <p class="text-white font-bold">{{ session.time_window }}</p>
-              <p class="text-slate-400 text-sm">{{ session.session_date }}</p>
-            </div>
-          </div>
-          <UBadge :label="session.status" :color="session.status === 'open' ? 'green' : session.status === 'processed' ? 'blue' : 'gray'" variant="soft" />
-        </div>
-
-        <p class="text-slate-400 text-sm mb-3">
-          Mỗi user chờ nhận <span class="text-white font-semibold">{{ packageProfitPercent }}%</span> gói; upline nhận % từ lợi nhuận đó (xem Cài đặt hoa hồng).
-        </p>
-        <UButton :loading="processingSession === session.id" color="success"
-          @click="bulkApprove(session)">
-          {{ $t('admin.signals.bulk_approve') }}
-        </UButton>
-
-        <p class="text-slate-400 text-sm">
-          Confirmations: <span class="text-white font-semibold">{{ sessionConfirmCount(session.id) }}</span>
-        </p>
-      </div>
-    </div>
-
     <!-- Confirmations List -->
     <div class="su-card overflow-x-auto">
       <h2 class="text-white font-bold text-lg mb-6">{{ $t('admin.signals.confirmations') }}</h2>
@@ -103,26 +70,6 @@
     </div>
     </template>
 
-    <!-- Create Session Modal -->
-    <UModal v-model:open="showCreateSession" :title="$t('admin.signals.create_session')">
-      <template #body>
-        <div class="space-y-4">
-          <UFormField label="Ngày">
-            <UInput v-model="createForm.date" type="date" />
-          </UFormField>
-          <UFormField label="Khung giờ">
-            <USelectMenu v-model="createForm.timeWindow" :options="timeOptions" />
-          </UFormField>
-        </div>
-      </template>
-      <template #footer>
-        <div class="flex gap-3 justify-end w-full">
-          <UButton color="neutral" variant="ghost" @click="showCreateSession = false">Huỷ</UButton>
-          <UButton :loading="createLoading" color="primary" @click="createSession">Tạo phiên</UButton>
-        </div>
-      </template>
-    </UModal>
-
     <!-- Approve One Modal -->
     <UModal v-model:open="showApproveOne" title="Duyệt lợi nhuận">
       <template #body>
@@ -177,37 +124,11 @@ const estCredit = (c: { package_tier?: number | null }) => {
   return parseFloat((tier * (packageProfitPercent.value / 100)).toFixed(2))
 }
 
-const processingSession = ref<number | null>(null)
-const showCreateSession = ref(false)
-const createLoading = ref(false)
 const approveLoading = ref(false)
 const showApproveOne = ref(false)
 const selectedConfirmation = ref<any>(null)
 
-const createForm = reactive({
-  date: new Date().toISOString().split('T')[0],
-  timeWindow: 'daily'
-})
-const timeOptions = ['daily']
-
 const getSession = (id: number) => sessions.value.find((s: any) => s.id === id)
-const sessionConfirmCount = (sessionId: number) => confirmations.value.filter((c: any) => c.session_id === sessionId).length
-
-const bulkApprove = async (session: any) => {
-  processingSession.value = session.id
-  try {
-    const result = await $fetch<{ processed: number }>('/api/admin/signals/bulk-approve', {
-      method: 'POST',
-      body: { session_id: session.id }
-    })
-    toast.success(`Đã duyệt ${result.processed} xác nhận`)
-    await refresh()
-  } catch (e: any) {
-    toast.error(e?.data?.message || 'Duyệt hàng loạt thất bại')
-  } finally {
-    processingSession.value = null
-  }
-}
 
 const approveOne = (confirmation: any) => {
   selectedConfirmation.value = confirmation
@@ -231,20 +152,4 @@ const submitApproveOne = async () => {
   }
 }
 
-const createSession = async () => {
-  createLoading.value = true
-  try {
-    await $fetch('/api/admin/signals/sessions', {
-      method: 'POST',
-      body: { session_date: createForm.date, time_window: createForm.timeWindow }
-    })
-    toast.success('Đã tạo phiên')
-    showCreateSession.value = false
-    await refresh()
-  } catch (e: any) {
-    toast.error(e?.data?.message || 'Tạo phiên thất bại')
-  } finally {
-    createLoading.value = false
-  }
-}
 </script>

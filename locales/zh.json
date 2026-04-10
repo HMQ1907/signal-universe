@@ -285,6 +285,7 @@
     }
   },
   "auth": {
+    "loading": "请稍候…",
     "a11y": { "show_password": "显示密码", "hide_password": "隐藏密码" },
     "login": { "title": "欢迎回来", "subtitle": "登录您的账户", "email": "电子邮件", "password": "密码", "forgot_password": "忘记密码？", "submit": "登录", "no_account": "没有账户？", "register_link": "立即注册", "error": { "invalid_credentials": "邮箱或密码错误", "account_disabled": "您的账户已被禁用" } },
     "register": {

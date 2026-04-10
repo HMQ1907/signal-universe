@@ -312,6 +312,7 @@
     }
   },
   "auth": {
+    "loading": "お待ちください…",
     "a11y": {
       "show_password": "パスワードを表示",
       "hide_password": "パスワードを隠す"

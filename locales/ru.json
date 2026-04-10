@@ -285,6 +285,7 @@
     }
   },
   "auth": {
+    "loading": "Подождите…",
     "a11y": { "show_password": "Показать пароль", "hide_password": "Скрыть пароль" },
     "login": { "title": "Добро пожаловать", "subtitle": "Войдите в свой аккаунт", "email": "Электронная почта", "password": "Пароль", "forgot_password": "Забыли пароль?", "submit": "Войти", "no_account": "Нет аккаунта?", "register_link": "Зарегистрируйтесь", "error": { "invalid_credentials": "Неверный email или пароль", "account_disabled": "Ваш аккаунт заблокирован" } },
     "register": {

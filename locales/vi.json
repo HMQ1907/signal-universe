@@ -300,6 +300,7 @@
     }
   },
   "auth": {
+    "loading": "Đang xử lý…",
     "a11y": {
       "show_password": "Hiện mật khẩu",
       "hide_password": "Ẩn mật khẩu"

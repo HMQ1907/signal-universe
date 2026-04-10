@@ -1,6 +1,6 @@
 <template>
   <UCard
-    class="auth-form-card relative z-10"
+    class="auth-form-card relative z-10 overflow-hidden"
     :ui="authCardUi"
   >
     <template #header>
@@ -88,6 +88,17 @@
         </NuxtLink>
       </p>
     </template>
+
+    <!-- Custom CTA slot hides UButton’s loading spinner — show full-card feedback (API + redirect) -->
+    <div
+      v-if="loading"
+      class="absolute inset-0 z-[35] flex cursor-wait flex-col items-center justify-center gap-2 rounded-2xl bg-slate-950/65 backdrop-blur-[2px]"
+      aria-busy="true"
+      aria-live="polite"
+    >
+      <UIcon name="i-heroicons-arrow-path" class="size-9 animate-spin text-indigo-400" />
+      <span class="text-sm font-medium text-slate-200">{{ $t('auth.loading') }}</span>
+    </div>
   </UCard>
 </template>
 

@@ -300,6 +300,7 @@
     }
   },
   "auth": {
+    "loading": "Please wait…",
     "a11y": {
       "show_password": "Show password",
       "hide_password": "Hide password"
