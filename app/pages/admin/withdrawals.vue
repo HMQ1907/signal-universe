@@ -25,6 +25,10 @@
     </div>
 
     <div class="su-card overflow-x-auto">
+      <div v-if="pending" class="flex justify-center py-16 text-slate-500">
+        <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
+      </div>
+      <template v-else>
       <table class="su-table">
         <thead>
           <tr>
@@ -91,6 +95,7 @@
         <UIcon name="i-heroicons-arrow-up-tray" class="text-4xl mb-3 text-slate-600" />
         <p>Không có yêu cầu rút {{ statusFilter === 'pending' ? 'chờ duyệt' : 'đã duyệt' }}</p>
       </div>
+      </template>
     </div>
 
     <UModal v-model:open="showReject" title="Từ chối rút tiền">
@@ -124,9 +129,10 @@ const rejectId = ref<number | null>(null)
 const rejectReason = ref('')
 const rejectLoading = ref(false)
 
-const { data: wData, refresh } = await useFetch('/api/admin/withdrawals', {
+const { data: wData, refresh, pending } = useFetch('/api/admin/withdrawals', {
   query: computed(() => ({ type: typeFilter.value, status: statusFilter.value, limit: 50 })),
-  watch: [typeFilter, statusFilter]
+  watch: [typeFilter, statusFilter],
+  lazy: true
 })
 
 const withdrawals = computed(() => wData.value?.data || [])

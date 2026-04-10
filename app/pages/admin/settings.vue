@@ -2,7 +2,10 @@
   <div class="admin-settings-page max-w-3xl">
     <h1 class="text-2xl font-bold text-white mb-8">{{ $t('admin.settings.title') }}</h1>
 
-    <div class="space-y-8">
+    <div v-if="settingsPending" class="flex justify-center py-20 text-slate-500">
+      <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
+    </div>
+    <div v-else class="space-y-8">
       <!-- Trading Settings -->
       <div class="su-card border-white/[0.07] shadow-lg shadow-black/20">
         <h2 class="text-white font-bold mb-6 flex items-center gap-2">
@@ -82,12 +85,20 @@ definePageMeta({ layout: 'admin', middleware: ['admin', 'main-admin'] })
 useHead({ title: 'Settings - Admin' })
 
 const toast = useToastCustom()
-const { data: rawSettings } = await useFetch<any[]>('/api/admin/settings')
+const { data: rawSettings, pending: settingsPending } = useFetch<any[]>('/api/admin/settings', { lazy: true })
 
 const settingsMap = reactive<Record<string, string>>({})
-for (const s of rawSettings.value || []) {
-  settingsMap[s.key] = s.value || ''
-}
+
+watch(
+  rawSettings,
+  (rows) => {
+    if (!rows?.length) return
+    for (const s of rows) {
+      settingsMap[s.key] = s.value || ''
+    }
+  },
+  { immediate: true }
+)
 
 const tradingKeys = ['signal_profit_percent', 'max_daily_profit_percent', 'capital_lock_days', 'min_deposit']
 const referralKeys = ['deposit_referral_f1', 'deposit_referral_f2', 'signal_referral_f1', 'signal_referral_f2', 'signal_referral_f3']

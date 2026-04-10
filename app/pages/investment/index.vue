@@ -102,7 +102,9 @@ definePageMeta({ middleware: 'auth' })
 useHead({ title: 'Investment Packages - Signal Universe' })
 
 const { user, refreshUser } = useAuth()
-await refreshUser()
+onMounted(() => {
+  void refreshUser()
+})
 
 const packages = [
   { amount: 200 }, { amount: 300 }, { amount: 500 },

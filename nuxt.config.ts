@@ -21,7 +21,9 @@ export default defineNuxtConfig({
       { code: 'vi', name: 'Tiếng Việt', file: 'vi.json' },
       { code: 'zh', name: '中文', file: 'zh.json' },
       { code: 'ms', name: 'Bahasa Melayu', file: 'ms.json' },
-      { code: 'ru', name: 'Русский', file: 'ru.json' }
+      { code: 'ru', name: 'Русский', file: 'ru.json' },
+      { code: 'ja', name: '日本語', file: 'ja.json' },
+      { code: 'ko', name: '한국어', file: 'ko.json' }
     ],
     defaultLocale: 'en',
     /** Paths relative to srcDir (app/): ../locales → project locales/, ../i18n → project i18n/ */
@@ -80,7 +82,13 @@ export default defineNuxtConfig({
         { rel: 'apple-touch-icon', href: '/logo.png' }
       ]
     },
-    pageTransition: { name: 'page', mode: 'out-in' }
+    /**
+     * Do NOT use `mode: 'out-in'` globally — with Nuxt layout changes (e.g. landing → default)
+     * it can leave the DOM stuck on the previous page while the URL updates (Vue transition + LayoutLoader).
+     * Keep a light opacity transition without out-in; disable layout transition to avoid double-wrapping issues.
+     */
+    pageTransition: { name: 'page' },
+    layoutTransition: false
   },
 
   typescript: {

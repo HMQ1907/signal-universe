@@ -14,7 +14,11 @@
     </UAlert>
 
     <div class="max-w-xl mx-auto mb-8">
+      <div v-if="sessionsPending" class="flex justify-center py-8 text-slate-500">
+        <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
+      </div>
       <SignalSessionCard
+        v-else
         :sessions="signalData?.sessions || []"
         :confirmations="signalData?.user_confirmations || {}"
         :user-balance="signalData?.user_balance ?? user?.balance ?? 0"
@@ -26,7 +30,10 @@
     <div class="su-card">
       <h2 class="text-white font-bold text-lg mb-6">{{ $t('signals.history.title') }}</h2>
 
-      <div v-if="historyData?.data?.length" class="space-y-0">
+      <div v-if="historyPending" class="flex justify-center py-8 text-slate-500">
+        <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
+      </div>
+      <div v-else-if="historyData?.data?.length" class="space-y-0">
         <div v-for="item in historyData.data" :key="item.id"
           class="flex items-center justify-between py-4 border-b border-slate-800 last:border-0">
           <div>
@@ -46,7 +53,7 @@
         </div>
       </div>
 
-      <div v-else class="text-center py-12 text-slate-500">
+      <div v-else-if="!historyPending" class="text-center py-12 text-slate-500">
         <UIcon name="i-heroicons-signal" class="text-4xl mb-3 text-slate-600" />
         <p>No signal history yet</p>
       </div>
@@ -61,8 +68,8 @@ useHead({ title: 'Trading Signals - Signal Universe' })
 const { user, refreshUser } = useAuth()
 const toast = useToastCustom()
 
-const { data: signalData, refresh: refreshSessions } = await useFetch('/api/signals/sessions', { key: 'signal-sessions' })
-const { data: historyData, refresh: refreshHistory } = await useFetch('/api/signals/history', { key: 'signal-history' })
+const { data: signalData, refresh: refreshSessions, pending: sessionsPending } = useFetch('/api/signals/sessions', { key: 'signal-sessions', lazy: true })
+const { data: historyData, refresh: refreshHistory, pending: historyPending } = useFetch('/api/signals/history', { key: 'signal-history', lazy: true })
 
 const handleConfirm = async (sessionId: number) => {
   try {

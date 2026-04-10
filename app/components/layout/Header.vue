@@ -49,7 +49,7 @@
           <NuxtLink v-for="item in userNav" :key="item.to" :to="item.to"
             class="px-3 py-2 text-sm transition-colors rounded-lg flex items-center gap-1.5"
             :class="
-              $route.path.startsWith(item.to)
+              navActive(item.to)
                 ? 'bg-primary-500/10 text-primary-400'
                 : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
             ">
@@ -123,8 +123,15 @@ const userNav = [
   { to: '/signals', icon: 'i-heroicons-signal', label: 'nav.signals' },
   { to: '/tokens', icon: 'i-heroicons-chart-bar', label: 'nav.tokens' },
   { to: '/referral', icon: 'i-heroicons-users', label: 'nav.referral' },
-  { to: '/wallet', icon: 'i-heroicons-wallet', label: 'nav.wallet' }
+  /** One hop to nạp tiền; middleware still maps `/wallet` → deposit for old links */
+  { to: '/wallet/deposit', icon: 'i-heroicons-wallet', label: 'nav.wallet' }
 ]
+
+const route = useRoute()
+function navActive(to: string) {
+  if (to === '/wallet/deposit') return route.path.startsWith('/wallet')
+  return route.path.startsWith(to)
+}
 
 /** One menu group only — multiple groups each get a bordered block in Nuxt UI DropdownMenu. */
 const profileMenuItems = computed(() => {

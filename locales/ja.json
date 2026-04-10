@@ -1,0 +1,929 @@
+{
+  "common": {
+    "loading": "読み込み中...",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "confirm": "確認する",
+    "submit": "提出する",
+    "back": "戻る",
+    "close": "近い",
+    "search": "検索",
+    "filter": "フィルター",
+    "all": "全て",
+    "yes": "はい",
+    "no": "いいえ",
+    "or": "または",
+    "copy": "コピー",
+    "copied": "コピーしました！",
+    "error": "エラー",
+    "success": "成功",
+    "warning": "警告",
+    "info": "情報",
+    "status": "状態",
+    "amount": "額",
+    "date": "日付",
+    "action": "アクション",
+    "details": "詳細",
+    "note": "注記",
+    "total": "合計",
+    "balance": "バランス",
+    "profit": "利益",
+    "pending": "保留中",
+    "completed": "完了しました",
+    "rejected": "拒否されました",
+    "cancelled": "キャンセル",
+    "approved": "承認された",
+    "usd": "米ドル",
+    "upload": "アップロード",
+    "download": "ダウンロード",
+    "logout": "ログアウト",
+    "days": "日",
+    "hours": "時間",
+    "minutes": "分",
+    "seconds": "秒",
+    "active": "アクティブ",
+    "disabled": "無効",
+    "no_data": "データなし"
+  },
+  "nav": {
+    "home": "家",
+    "dashboard": "ダッシュボード",
+    "investment": "投資",
+    "signals": "信号",
+    "referral": "紹介",
+    "wallet": "財布",
+    "settings": "設定",
+    "notifications": "通知",
+    "login": "ログイン",
+    "register": "登録する",
+    "admin": "管理者パネル",
+    "tokens": "市場",
+    "language": "言語",
+    "platform": "プラットフォーム"
+  },
+  "tokens": {
+    "badge": "ライブ分析",
+    "title": "トップトークン",
+    "subtitle": "流動性、出来高、価格は時間枠ごとに変化します — レイアウトとモーションのデモ データ (後で API に接続します)。",
+    "trending": "トレンド",
+    "watchlist": "ウォッチリスト",
+    "timeframe": "ウィンドウ",
+    "table_title": "{chain} の上位トークン",
+    "demo_notice": "デモデータ",
+    "watchlist_empty": "トークンにスターを付けてウォッチリストに追加するか、「トレンド」に戻します。",
+    "back_trending": "トレンドを見る",
+    "col": {
+      "token": "トークン",
+      "time": "時間",
+      "liquidity": "流動性",
+      "mc": "MC",
+      "dilute_mc": "希釈MC",
+      "vol_5m": "5m巻",
+      "tx_5m": "5m送信",
+      "price": "価格",
+      "chg_5m": "500万%",
+      "chg_1h": "1時間%",
+      "chg_6h": "6時間%",
+      "chg_24h": "24時間%"
+    }
+  },
+  "up": {
+    "nav": {
+      "home": "家",
+      "intro": "について",
+      "features": "特徴",
+      "roadmap": "ロードマップ",
+      "whitepaper": "ホワイトペーパー",
+      "contact": "始めましょう"
+    },
+    "hero": {
+      "badge": "Signal Universe — オンチェーンの新たなフロンティア",
+      "title": "オールインワンの DeFi 取引プラットフォーム",
+      "subtitle": "分散型金融の未来のためのプラットフォームである、すべての人のためのグローバル DeFi を拡大します。",
+      "cta_ai": "AIを確認する"
+    },
+    "intro": {
+      "f1_title": "オンチェーン分析",
+      "f1_desc": "トレンド、追跡、シグナルと報酬の明確な可視性。",
+      "f2_title": "AI取引",
+      "f2_desc": "透明な実行ルールにより、AI シグナルをスケジュールどおりに確認します。",
+      "f3_title": "設計により非保管型",
+      "f3_desc": "入金と出金は自分のウォレットで管理します。 私たちがあなたの秘密鍵を保持することはありません。"
+    },
+    "statement": {
+      "title": "コミュニティのために迅速な分散型金融を実行する",
+      "body": "Signal Universe は、構造化されたシグナル、管理者がレビューした利益、マルチレベルの紹介レイヤーをもたらします。これは重要な部分は透明であり、世界中からアクセスできます。"
+    },
+    "bento": {
+      "b1": "トケノミクス",
+      "b1_sub": "パッケージとバランスルール",
+      "b2": "ガバナンス",
+      "b2_sub": "ロードマップとコミュニティの方向性",
+      "b3": "規律",
+      "b3_sub": "レベルと毎日の上限をクリアする",
+      "b4": "信託の流動性",
+      "b4_sub": "完全に記録されたトランザクション",
+      "b5": "信号",
+      "b5_sub": "毎日のAI確認",
+      "b6": "ネットワーク",
+      "b6_sub": "紹介の増加"
+    },
+    "eco": {
+      "title": "私たちのエコシステムは Signal Universe です",
+      "body": "ネイティブ ロジックはパッケージ、確認、報酬を結び付け、シグナルに従ってチームを成長させるメンバーに利点をもたらします。"
+    },
+    "mission": {
+      "title": "暗号通貨とスマート信号を生活の隅々まで届ける",
+      "body": "私たちは、信号ベースで DeFi に参加するための次の標準を構築しています。透明性があり、レビュー可能で、あらゆる場所のコミュニティに対応できるようになっています。"
+    },
+    "adv": {
+      "title": "トレーダー向けに構築 - 明日に備えて",
+      "a1t": "流動性",
+      "a1d": "投資パッケージを通じた構造的な流入",
+      "a2t": "スピード",
+      "a2d": "確認と支払いの迅速なレビューサイクル",
+      "a3t": "コスト効率",
+      "a3d": "透明性の高い料金と手数料ルール"
+    },
+    "roadmap": {
+      "title": "ロードマップ",
+      "subtitle": "高性能オンチェーン整列信号システム",
+      "goal": "ゴール",
+      "p1t": "フェーズ 01: 立ち上げ",
+      "p1b": "シグナル、入金、AI 確認ウィンドウ、紹介報酬が稼働します。",
+      "p1g": "メンバーがエンドツーエンドでフォローできる完全な毎日のループを提供します。",
+      "p2t": "フェーズ 02: スケール",
+      "p2b": "ロケールの追加、ダッシュボードの洗練、投資家向けツール。",
+      "p2g": "世界中のユーザーにとっての明確さと定着率が向上します。",
+      "p3t": "フェーズ 03: コンプライアンス層",
+      "p3b": "オプションの検証フロー、監査ログ、管理制御。",
+      "p3g": "レビュー可能性と信頼性を強化します。",
+      "p4t": "フェーズ 04: パートナー",
+      "p4b": "コミュニティと地域のリーダーが共有ツールを利用します。",
+      "p4g": "コアモデルを壊さずにリーチを拡大します。",
+      "p5t": "フェーズ 05: インフラストラクチャ",
+      "p5b": "パワー ユーザー向けの API、Webhook、および高度なレポート。",
+      "p5g": "プロフェッショナルレベルの大規模な運用。"
+    },
+    "wp": {
+      "title": "ホワイトペーパーとドキュメント",
+      "body": "Signal Universe の運営方法、リスク開示、プラットフォーム ルールについては、法的概要と FAQ をお読みください。",
+      "link": "法務と FAQ をオープンする"
+    },
+    "footer": {
+      "tagline": "構造化された DeFi シグナルへの架け橋",
+      "terms": "条項",
+      "faq": "よくある質問"
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "AI を活用した取引シグナル",
+      "title": "シグナル・ユニバース",
+      "subtitle": "スマートトレーディングシグナルプラットフォーム",
+      "description": "当社の強力な紹介ネットワークを通じて、プロの取引シグナルを受信し、日々の利益を獲得し、受動的収入を築きましょう。",
+      "cta_primary": "投資を始める",
+      "cta_secondary": "もっと詳しく知る",
+      "stats": {
+        "users": "アクティブユーザー",
+        "daily_signals": "毎日のAI確認",
+        "max_profit": "1 日の最大利益",
+        "languages": "言語"
+      }
+    },
+    "features": {
+      "title": "なぜシグナル・ユニバースなのか?",
+      "subtitle": "取引で成功するために必要なものすべて",
+      "signal": {
+        "title": "AI取引シグナル",
+        "description": "1 日あたり 1 回の AI 確認 (11:00 ～ 23:59)。 DeFi レベルは、合計残高 (200 ドル以上) から自動的に適用されます。 各確認には利益残高の 1% が使用されます。"
+      },
+      "referral": {
+        "title": "紹介プログラム",
+        "description": "入金特典: 直接入金の場合は親に 5%、第 2 レベルの入金では祖父母に 3%。 AI 確認: 最大 3 つのアップラインがメンバーのクレジット利益 (パッケージ元本ではない) の 15% / 10% / 5% を獲得します。"
+      },
+      "ai_commission": {
+        "title": "AIが報酬を確認",
+        "description": "チームが毎日の AI シグナルを確認すると、最大 3 つのアップラインが、そのメンバーに付与された利益の 15%、10%、5% を獲得します (管理者の承認後)。"
+      },
+      "secure": {
+        "title": "安全かつ透明性",
+        "description": "すべての取引が記録され、追跡されます。 管理者が承認した利益により、完全な透明性が保証されます。"
+      }
+    },
+    "how_it_works": {
+      "title": "仕組み",
+      "step1": {
+        "title": "登録と入金",
+        "description": "アカウントを作成し、DeFi パッケージをアクティブ化するには、最低 200 ドルを入金してください。"
+      },
+      "step2": {
+        "title": "AI確認（1日1回）",
+        "description": "11:00～23:59の間にAI信号を1回確認します。 利益残高の 1% が使用されます。"
+      },
+      "step3": {
+        "title": "利益を得る",
+        "description": "管理者が AI 確認を承認します。 パッケージ階層の一定の割合を利益として受け取ります (デフォルトは 2%、例: $200 階層では $4)。"
+      },
+      "step4": {
+        "title": "撤退と成長",
+        "description": "いつでも利益を出金できます。 紹介ネットワークを構築して追加のコミッションを獲得しましょう。"
+      }
+    },
+    "packages": {
+      "title": "投資パッケージ",
+      "subtitle": "目的に合ったパッケージをお選びください",
+      "defi_badge": "DeFiアクセス",
+      "min_deposit": "分。 デポジット",
+      "daily_profit": "一日の利益",
+      "max_profit": "最大 2%/日",
+      "join": "始めましょう",
+      "popular": "最も人気のある",
+      "feature_signals": "1 日あたり 1 つの AI 信号確認ウィンドウ",
+      "feature_referral": "入金と利益に対する紹介手数料"
+    },
+    "referral_section": {
+      "title": "紹介プログラム",
+      "subtitle": "複数のレベルでコミッションを獲得",
+      "deposit_title": "入金手数料",
+      "profit_title": "利益分配（アップライン）",
+      "f1_label": "F1",
+      "f2_label": "F2",
+      "direct_referral": "直接紹介",
+      "second_level": "2レベルの紹介",
+      "u1_label": "U1",
+      "u2_label": "U2",
+      "u3_label": "U3",
+      "u1_desc": "1 番目のアップライン (確認者)",
+      "u2_desc": "2番目のアップライン",
+      "u3_desc": "3番目のアップライン",
+      "rate_deposit_f1": "5%",
+      "rate_deposit_f2": "3%",
+      "rate_profit_u1": "貸方利益の 15%",
+      "rate_profit_u2": "貸方利益の 10%",
+      "rate_profit_u3": "貸方利益の5%"
+    },
+    "platform": {
+      "title": "プラットフォームを機能させるもの",
+      "subtitle": "可視性、承認、長期的な紹介の増加を中心に構築された毎日のリズム。",
+      "auto_tier": {
+        "title": "自動階層化",
+        "description": "DeFi レベルは合計残高から導出されるため、パッケージのロジックはアプリ全体で一貫したままになります。"
+      },
+      "daily_window": {
+        "title": "毎日の確認ウィンドウ",
+        "description": "AI 確認ウィンドウは毎日 11:00 から 23:59 の間に 1 つ開きます。"
+      },
+      "review": {
+        "title": "管理者のレビューフロー",
+        "description": "利益は利用可能になる前に承認および記録され、プロセスを監査可能に保ちます。"
+      },
+      "network": {
+        "title": "マルチレベルネットワーク",
+        "description": "デポジットと利益により、紹介ツリー全体で手数料が発生する可能性があります。"
+      }
+    },
+    "faq": {
+      "title": "よくある質問",
+      "subtitle": "新規ユーザー向けの簡単な回答。",
+      "items": {
+        "one": {
+          "question": "DeFi 層を有効にするにはどうすればよいですか?",
+          "answer": "少なくとも 200 ドルを入金してください。 プラットフォームは、合計残高からティアを自動的に割り当てます。"
+        },
+        "two": {
+          "question": "AI信号はいつ確認できますか？",
+          "answer": "11:00 ～ 23:59 の時間帯に 1 日 1 回。"
+        },
+        "three": {
+          "question": "利益はどのように扱われますか?",
+          "answer": "あなたの確認は管理者によって確認され、その後、クレジットされた利益があなたのアカウントに追加されます。"
+        },
+        "four": {
+          "question": "紹介によって得られるものは何ですか?",
+          "answer": "紹介者は、ページに示されているルールに従って、入金手数料と利益分配ボーナスを獲得できます。"
+        }
+      }
+    },
+    "cta": {
+      "title": "始める準備はできていますか?",
+      "description": "Signal Universe で毎日利益を上げている何千人もの投資家に加わりましょう。",
+      "button": "今すぐアカウントを作成"
+    }
+  },
+  "auth": {
+    "a11y": {
+      "show_password": "パスワードを表示",
+      "hide_password": "パスワードを隠す"
+    },
+    "login": {
+      "title": "おかえり",
+      "subtitle": "アカウントにサインインする",
+      "email": "電子メールアドレス",
+      "password": "パスワード",
+      "forgot_password": "パスワードをお忘れですか？",
+      "submit": "サインイン",
+      "no_account": "アカウントをお持ちでない場合は、",
+      "register_link": "ここに登録してください",
+      "error": {
+        "invalid_credentials": "無効な電子メールまたはパスワード",
+        "account_disabled": "あなたのアカウントは無効になっています"
+      }
+    },
+    "register": {
+      "title": "アカウントを作成する",
+      "subtitle": "今すぐシグナル ユニバースに参加しましょう",
+      "full_name": "フルネーム",
+      "email": "電子メールアドレス",
+      "password": "パスワード",
+      "confirm_password": "パスワードを認証する",
+      "phone": "電話番号",
+      "phone_placeholder": "例えば 965649531",
+      "referral_code": "紹介コード (オプション)",
+      "submit": "アカウントを作成する",
+      "have_account": "すでにアカウントをお持ちですか?",
+      "login_link": "サインイン",
+      "terms": "登録すると、サービス利用規約に同意したものとみなされます",
+      "register_success": "登録が成功しました！ ログインしてください。",
+      "phone_country": {
+        "vn": "ベトナム",
+        "cn": "中国",
+        "my": "マレーシア",
+        "jp": "日本",
+        "ru": "ロシア",
+        "kr": "韓国",
+        "th": "タイ",
+        "us": "米国"
+      },
+      "error": {
+        "email_exists": "メールアドレスはすでに登録されています",
+        "password_mismatch": "パスワードが一致しません",
+        "invalid_referral": "無効な紹介コードです",
+        "password_weak": "パスワードは8文字以上である必要があります"
+      }
+    },
+    "forgot_password": {
+      "title": "パスワードのリセット",
+      "subtitle": "メールアドレスを入力してリセット コードを受信して​​ください",
+      "email": "電子メールアドレス",
+      "submit": "リセットコードを送信する",
+      "back_to_login": "ログインに戻る",
+      "code_sent": "リセットコードがメールに送信されました",
+      "enter_code": "に送信された 6 桁のコードを入力してください",
+      "new_password": "新しいパスワード",
+      "confirm_new_password": "新しいパスワードを確認する",
+      "reset_submit": "パスワードのリセット",
+      "success": "パスワードが正常にリセットされました。 ログインしてください。"
+    }
+  },
+  "dashboard": {
+    "title": "ダッシュボード",
+    "welcome": "おかえり",
+    "profit_balance": "利益バランス",
+    "locked_capital": "ロックされた首都",
+    "total_balance": "合計残高",
+    "investment_package": "投資パッケージ",
+    "package_none": "アクティブなパッケージがありません",
+    "capital_locked_until": "資本は次までロックされます",
+    "capital_unlocked": "引き出し可能な資本",
+    "quick_stats": {
+      "total_deposited": "合計入金額",
+      "total_profit": "総利益",
+      "total_referral": "合計紹介ボーナス",
+      "direct_members": "直接会員（F1）"
+    },
+    "signals_today": "今日のAI確認",
+    "signal_daily": "毎日のAI確認",
+    "package_auto": "合計残高から自動階層化",
+    "signal_14": "14:00 信号",
+    "signal_21": "21:00 信号",
+    "recent_transactions": "最近の取引"
+  },
+  "investment": {
+    "title": "投資パッケージ",
+    "subtitle": "DeFi レベルは合計残高 ($200+) から自動的に設定されます",
+    "current_package": "現在のパッケージ",
+    "no_package": "アクティブなパッケージがありません",
+    "select_package": "パッケージの選択",
+    "signals_per_day": "AIが確認/日",
+    "signals_per_day_value": "1",
+    "upgrade": "アップグレードパッケージ",
+    "topup": "補充する",
+    "packages": {
+      "200": {
+        "name": "スターター",
+        "description": "初心者に最適"
+      },
+      "300": {
+        "name": "基本",
+        "description": "着実な成長に最適"
+      },
+      "500": {
+        "name": "標準",
+        "description": "バランスのとれた投資"
+      },
+      "1000": {
+        "name": "高度な",
+        "description": "利益の拡大"
+      },
+      "2000": {
+        "name": "プレミアム",
+        "description": "高利回り取引"
+      },
+      "5000": {
+        "name": "エリート",
+        "description": "最大の可能性"
+      }
+    },
+    "rules": {
+      "title": "投資ルール",
+      "rule1": "DeFi / AI 確認のための合計残高は最低 200 ドル。 自動ティア: $200、$300、$500、$1,000、$2,000、$5,000",
+      "rule2": "資本は最初の入金から 28 日間ロックされます",
+      "rule3": "各シグナルはアカウント残高の 1% を使用します",
+      "rule4": "1 日あたり最大 2% の利益",
+      "rule5": "利益はいつでも出金可能",
+      "rule6": "資本の引き出しには管理者の審査が必要です"
+    }
+  },
+  "signals": {
+    "title": "取引シグナル",
+    "subtitle": "1 日あたり 1 回の AI 確認、11:00 ～ 23:59 (現地時間)",
+    "session_daily": "毎日のAI確認",
+    "window_hours": "11:00～23:59",
+    "window_closes_in": "窓が閉まる",
+    "window_opens_hint": "11:00開店",
+    "session_14": "午後のセッション",
+    "session_21": "イブニングセッション",
+    "confirm_btn": "AI信号を確認する",
+    "confirmed": "信号を確認しました",
+    "waiting": "セッションを待っています",
+    "session_open": "セッションが開いています",
+    "session_closed": "セッションは終了しました",
+    "time_remaining": "使用可能なボタン",
+    "confirm_amount": "信号量（残高の1％）",
+    "confirm_dialog": {
+      "title": "AI信号を確認する",
+      "description": "今日は AI シグナルを 1 つ確認しました。 これには利益残高の 1% が使用されます。 紹介報酬には現在の DeFi レベルが使用されます。",
+      "amount_label": "信号量",
+      "balance_label": "利益残高",
+      "tier_label": "DeFi層（紹介ベース）",
+      "warning": "この操作は元に戻すことができません。",
+      "confirm": "確認する",
+      "cancel": "キャンセル"
+    },
+    "history": {
+      "title": "信号履歴",
+      "session": "セッション",
+      "amount": "信号量",
+      "profit": "利益",
+      "status": "状態"
+    },
+    "no_package": "DeFi / AI 確認には少なくとも 200 ドルの合計残高 (利益 + ロックされた資本) が必要です。",
+    "insufficient_balance": "信号を確認するにはバランスが不十分です。",
+    "already_confirmed": "あなたはすでにこのセッションを確認しています。"
+  },
+  "referral": {
+    "title": "私の紹介ネットワーク",
+    "my_code": "私の紹介コード",
+    "invite_link": "招待リンク",
+    "share": "紹介リンクを共有してコミッションを獲得しましょう",
+    "commission_structure": {
+      "title": "委員会の構造",
+      "deposit_bonus": "入金手数料",
+      "profit_bonus": "利益手数料（複利）",
+      "f1": "レベル1(F1)",
+      "f2": "レベル2(F2)",
+      "f3": "レベル3（F3）"
+    },
+    "team": {
+      "title": "私のチーム",
+      "total_members": "総会員数",
+      "fn_members": "F{n} 人のメンバー",
+      "network_total_deposit": "ネットワークの合計入金（資本）",
+      "f1_members": "F1メンバー",
+      "f2_members": "F2メンバー",
+      "f3_members": "F3メンバー",
+      "member_name": "メンバー",
+      "level": "レベル",
+      "joined": "参加しました",
+      "total_deposited": "合計入金額",
+      "email": "電子メール",
+      "package": "パッケージ"
+    },
+    "commissions": {
+      "deposit_title": "入金手数料",
+      "deposit_row1": "直接紹介デポジット",
+      "deposit_row1_rate": "5% → 親",
+      "deposit_row2": "第2レベルの預金",
+      "deposit_row2_rate": "3% → 祖父母",
+      "deposit_total": "獲得した入金手数料の合計:",
+      "ai_title": "AI 確認 (パッケージ層)",
+      "ai_u1_desc": "確認者の上の 1 番目のアップライン",
+      "ai_u2_desc": "2番目のアップライン",
+      "ai_u3_desc": "3番目のアップライン",
+      "ai_rate_u1": "利益の15%",
+      "ai_rate_u2": "利益の10％",
+      "ai_rate_u3": "利益の5%",
+      "ai_total": "総利益手数料:"
+    },
+    "empty_team": "まだチームメンバーがいません。 紹介コードをシェアしてください！",
+    "toast_code_copied": "コードがコピーされました!",
+    "toast_link_copied": "リンクがコピーされました!"
+  },
+  "wallet": {
+    "deposit": {
+      "title": "デポジット",
+      "subtitle": "アカウントに資金を追加する",
+      "select_package": "投資パッケージの選択",
+      "package_label": "パッケージ",
+      "amount": "入金額",
+      "min_amount": "最低入金額: {min}",
+      "network": "ネットワーク",
+      "step_network": "転送ネットワークを選択してください",
+      "step_qr": "QRをスキャンするかアドレスをコピーする",
+      "step_tx": "トランザクションIDを入力してください",
+      "system_address": "システムデポジットアドレス",
+      "qr_loading": "QRを読み込み中",
+      "session_timer": "残り時間: {time}",
+      "session_expired": "セッションが期限切れになりました - ページを更新して再開してください",
+      "notice_title": "重要",
+      "notice_amount": "正確に {amount} USDT を送信します",
+      "notice_network": "{network} ネットワークのみを使用する",
+      "notice_tx": "送信後、ウォレットアプリからトランザクションハッシュ/TX IDをコピーします",
+      "notice_credit": "確認後、残高はすぐに更新されます。 管理者は後でオンチェーン TX を検証することもできます。",
+      "tx_hint": "ウォレット (Binance、Trust Wallet など) を開く → 取引履歴 → トランザクション ハッシュまたは TxID をコピー",
+      "tx_placeholder": "例えば 0xabc… または Tron TxID",
+      "tx_too_short": "TX ID が短すぎるようです — 確認してください",
+      "processing": "処理…",
+      "confirm_submit": "デポジット {amount} を確認します",
+      "success_immediate": "デポジットが記録されました。 残高が更新されました。",
+      "error_generic": "入金に失敗しました - もう一度お試しください",
+      "wallet_address": "このアドレスに入金してください",
+      "copy_address": "アドレスをコピー",
+      "confirm_btn": "支払いを送金しました",
+      "qr_title": "QRコードをスキャン",
+      "instructions": {
+        "title": "入金手順",
+        "step1": "投資パッケージを選択してください",
+        "step2": "USDT (TRC20) を上記のアドレスに送信します",
+        "step3": "5分以内に「支払いを送信しました」をクリックしてください",
+        "step4": "管理者の確認を待ちます (24 時間以内)"
+      },
+      "pending_notice": "あなたの入金は審査中です。 管理者の確認をお待ちください。",
+      "success": "入金リクエストが送信されました。 確認をお待ちください。"
+    },
+    "withdraw": {
+      "title": "撤回する",
+      "profit_tab": "利益の出金",
+      "capital_tab": "資本を引き出す",
+      "amount": "出金金額",
+      "min_amount": "最低額: 10ドル",
+      "wallet_address": "ウォレットアドレス (TRC20)",
+      "wallet_placeholder": "USDT TRC20 アドレスを入力してください",
+      "fee": "出金手数料(3%)",
+      "you_receive": "受け取ります",
+      "submit": "出金の送信",
+      "available": "出金可能",
+      "capital_locked": "首都はまだロックされています",
+      "capital_unlocked": "引き出し可能な資本",
+      "capital_warning": "資本を引き出すと投資が終了します。 このリクエストは管理者によって検討されます。",
+      "time_notice": "出金は毎日 22:00 ～ 24:00 の間に処理されます。",
+      "success": "出金リクエストが正常に送信されました。",
+      "error": {
+        "insufficient": "残高不足",
+        "below_minimum": "最低出金額を下回る金額",
+        "capital_locked": "首都はまだあと {days} 日間ロックされています",
+        "no_address": "ウォレットアドレスを入力してください"
+      }
+    },
+    "history": {
+      "title": "取引履歴",
+      "all": "全て",
+      "deposits": "預金",
+      "withdrawals": "引き出し",
+      "profits": "シグナルの利益",
+      "referrals": "紹介ボーナス",
+      "adjustments": "管理者の調整",
+      "type": {
+        "deposit": "デポジット",
+        "withdraw_profit": "利益の出金",
+        "withdraw_capital": "資本を引き出す",
+        "signal_profit": "シグナルの利益",
+        "signal_referral": "紹介利益",
+        "deposit_referral": "入金手数料",
+        "leader_bonus": "リーダーボーナス（レガシー）",
+        "admin_adjust": "管理者の調整"
+      }
+    }
+  },
+  "settings": {
+    "title": "設定",
+    "profile": {
+      "title": "プロフィール",
+      "full_name": "フルネーム",
+      "email": "電子メール",
+      "update": "プロフィールを更新する"
+    },
+    "password": {
+      "title": "パスワードを変更する",
+      "current": "現在のパスワード",
+      "new": "新しいパスワード",
+      "confirm": "新しいパスワードを確認する",
+      "submit": "パスワードを変更する",
+      "success": "パスワードが正常に変更されました",
+      "error": {
+        "wrong_current": "現在のパスワードが間違っています",
+        "mismatch": "新しいパスワードが一致しません"
+      }
+    },
+    "cccd": {
+      "title": "本人確認",
+      "subtitle": "国民 ID カード (片面) をアップロードします。",
+      "upload": "IDカードをアップロードする",
+      "uploaded": "ID カードがアップロードされました",
+      "change": "IDカードの変更",
+      "note": "国民 ID カードの鮮明な写真 (表面のみ) をアップロードしてください。",
+      "success": "ID カードが正常にアップロードされました"
+    }
+  },
+  "notifications": {
+    "title": "通知",
+    "mark_all_read": "すべて既読としてマーク",
+    "no_notifications": "まだ通知はありません",
+    "types": {
+      "deposit": "デポジット",
+      "withdrawal": "出金",
+      "signal": "取引シグナル",
+      "referral": "紹介ボーナス",
+      "admin": "管理者からの通知",
+      "system": "システム"
+    }
+  },
+  "admin": {
+    "ui": {
+      "badge_admin": "管理者",
+      "badge_sub_admin": "サブ管理者",
+      "mobile_menu": "メニュー"
+    },
+    "nav": {
+      "dashboard": "ダッシュボード",
+      "pending": "保留中",
+      "users": "ユーザー",
+      "signals": "シグナルセッション",
+      "deposits": "預金",
+      "withdrawals": "引き出し",
+      "transactions": "取引",
+      "compound": "複利",
+      "cccd": "本人確認",
+      "wallets": "財布",
+      "sub_admins": "サブ管理者の管理",
+      "settings": "設定"
+    },
+    "pending": {
+      "page_title": "保留中 - 管理者",
+      "subtitle": "保留中の入金および出金リクエストを承認または拒否する",
+      "tab_deposits": "預金",
+      "tab_profit": "利益の出金",
+      "tab_capital": "資本の引き出し（28日）",
+      "section_deposits": "保留中の預金",
+      "section_profit": "保留中の利益の出金",
+      "section_capital": "資本引き出し（28日間ロック）",
+      "requests_count": "{count} 件のリクエストが待機中です",
+      "empty_deposits": "保留中の入金はありません",
+      "empty_profit": "保留中の利益の出金はありません",
+      "empty_capital": "保留中の資本引き出しはありません",
+      "capital_alert": "これらは、28 日間のロック期間後に初期資本を引き出すリクエストです。",
+      "status_pending": "保留中",
+      "package_badge": "{amount} パッケージ",
+      "badge_capital": "資本",
+      "balance_label": "バランス",
+      "locked_capital_label": "資本",
+      "to_address": "受信者のアドレス",
+      "fee_label": "手数料",
+      "net_label": "ネット",
+      "approve": "承認する",
+      "reject": "拒否する",
+      "toast_approved": "トランザクションが承認されました",
+      "toast_rejected": "トランザクションが拒否されました",
+      "toast_process_failed": "トランザクションの処理に失敗しました",
+      "toast_adr_copied": "アドレスをコピーしました",
+      "toast_adr_copy_failed": "アドレスのコピーに失敗しました"
+    },
+    "dashboard": {
+      "title": "管理者ダッシュボード",
+      "total_users": "総ユーザー数",
+      "active_users": "アクティブユーザー",
+      "total_deposited": "合計入金額",
+      "total_withdrawn": "引き出し総額",
+      "pending_deposits": "保留中の入金",
+      "pending_withdrawals": "保留中の引き出し",
+      "total_balance": "合計ユーザー残高",
+      "manage_sessions_hint": "今日のセッションを管理する →"
+    },
+    "users": {
+      "title": "ユーザー管理",
+      "subtitle": "合計 {total} ユーザー",
+      "search": "メールアドレスまたは名前で検索",
+      "add_balance": "残高を追加",
+      "subtract_balance": "残高を差し引く",
+      "adjust_balance": "バランスを調整する",
+      "adjust_operation": "操作の種類",
+      "adjust_target": "対象分野",
+      "adjust_reason": "調整理由",
+      "adjust_reason_placeholder": "理由を入力してください (3 文字以上)...",
+      "new_balance": "調整後のバランス",
+      "target_balance": "利益バランス",
+      "target_capital": "ロックされた首都",
+      "confirm_add": "追加の確認",
+      "confirm_subtract": "減算の確認",
+      "adjust_success": "バランス調整が完了しました",
+      "adjust_failed": "バランス調整に失敗しました",
+      "error_amount": "無効な金額です",
+      "error_reason": "理由を入力してください",
+      "view_tree": "紹介ツリーを表示する",
+      "action_view_tree": "F0～F3 ツリー",
+      "action_adjust_balance": "バランスを調整する",
+      "action_disable_account": "アカウントを無効にする",
+      "action_enable_account": "アカウントを有効にする",
+      "referral_tree": "紹介ツリー",
+      "parent": "参照元",
+      "members": "メンバー",
+      "no_members": "まだメンバーがいません",
+      "disable": "アカウントを無効にする",
+      "enable": "アカウントを有効にする",
+      "status_updated": "ステータスが正常に更新されました",
+      "status_failed": "ステータスの更新に失敗しました",
+      "columns": {
+        "id": "ID",
+        "name": "名前",
+        "email": "電子メール",
+        "package": "パッケージ",
+        "balance": "利益バランス",
+        "capital": "ロックされた首都",
+        "f1": "F1 カウント",
+        "joined": "参加しました",
+        "status": "状態"
+      }
+    },
+    "signals": {
+      "title": "シグナルセッション",
+      "create_session": "セッションの作成",
+      "approve_profit": "利益の承認",
+      "bulk_approve": "一括承認",
+      "approve_row": "利益の承認",
+      "confirmations": "確認事項",
+      "profit_percent": "利益 ％",
+      "profit_amount": "利益額",
+      "columns": {
+        "user": "ユーザー",
+        "balance": "確認時の残高",
+        "amount": "信号量",
+        "profit": "利益",
+        "status": "状態",
+        "time": "確認済み"
+      }
+    },
+    "deposits": {
+      "title": "入金リクエスト",
+      "approve": "承認する",
+      "reject": "拒否する",
+      "columns": {
+        "user": "ユーザー",
+        "package": "パッケージ",
+        "amount": "額",
+        "network": "ネットワーク",
+        "date": "日付",
+        "status": "状態"
+      }
+    },
+    "withdrawals": {
+      "title": "出金リクエスト",
+      "profit_tab": "利益の出金",
+      "capital_tab": "資本の出金（28日間ロック）",
+      "approve": "承認する",
+      "reject": "拒否する",
+      "wallet": "ウォレットアドレス",
+      "columns": {
+        "user": "ユーザー",
+        "amount": "額",
+        "fee": "手数料",
+        "net": "純額",
+        "wallet": "ウォレットアドレス",
+        "date": "日付",
+        "status": "状態"
+      }
+    },
+    "transactions": {
+      "title": "取引履歴",
+      "deposit_referral_tab": "入金、紹介、出金",
+      "signal_compound_tab": "AIが確認＆複利",
+      "delete": "トランザクションの削除",
+      "delete_title": "取引記録の削除",
+      "delete_warning": "この操作は元に戻すことができません。",
+      "delete_confirm": "完全に削除",
+      "delete_success": "トランザクションが削除されました",
+      "delete_failed": "削除に失敗しました",
+      "btn_delete_row": "レコードの削除",
+      "columns": {
+        "user": "ユーザー",
+        "type": "タイプ",
+        "amount": "額",
+        "from": "メンバーより",
+        "level": "レベル",
+        "status": "状態",
+        "date": "日付",
+        "note": "注記"
+      }
+    },
+    "compound": {
+      "title": "複利 (Lãi chồng lãi)",
+      "subtitle": "AIが紹介手数料を確認（会員の入金利益の％）",
+      "beneficiary": "受益者",
+      "source_user": "メンバーより",
+      "level": "レベル",
+      "source_profit": "源泉利益",
+      "commission_rate": "レート",
+      "commission": "獲得したコミッション"
+    },
+    "cccd": {
+      "title": "本人確認（CCCD）",
+      "subtitle": "国民IDをアップロードしたユーザー",
+      "view": "ビューID",
+      "columns": {
+        "user": "ユーザー",
+        "email": "電子メール",
+        "uploaded": "アップロード日",
+        "action": "アクション"
+      }
+    },
+    "wallets": {
+      "title": "ウォレットの設定",
+      "pick_intro": "各ネットワークの受信ウォレットを選択します。 画像はパブリック フォルダーから読み込まれます。 ファイル名 (拡張子なし) がアドレスになります。",
+      "trc20_address": "USDT TRC20 — デポジットの受け取り",
+      "bep20_address": "USDT BEP20 — デポジットの受け取り",
+      "trc_label": "USDT TRC20ウォレットアドレス",
+      "bep_label": "USDT BEP20 ウォレット アドレス",
+      "wallet_n": "ウォレット番号{n}",
+      "address_label": "ウォレットアドレス",
+      "select_this": "このウォレットを選択してください",
+      "current_selection": "アクティブ",
+      "saved_trc": "TRC20受信アドレスが更新されました",
+      "saved_bep": "BEP20受信アドレスが更新されました",
+      "empty_folder": "{folder} に QR 画像が見つかりません。 各ウォレットのアドレスにちなんで名付けられた PNG/JPG ファイルを追加します。",
+      "deposit_hint": "これらのアドレスは入金ページでユーザーに表示されます。 ファイル名はアドレスと一致する必要があります (例: Txxxx.png または 0xabc.jpg)。",
+      "sub_admin_readonly": "サブ管理者: 表示のみ。 アクティブなウォレットを変更できません。",
+      "save": "ウォレットアドレスを保存する"
+    },
+    "settings": {
+      "title": "システム設定",
+      "trading": "取引設定",
+      "referral": "紹介設定",
+      "withdrawal": "出金設定"
+    },
+    "sub_admins": {
+      "title": "サブ管理者の管理",
+      "subtitle": "他のユーザーに限定的な管理者アクセスを許可する",
+      "add": "サブ管理者の追加",
+      "add_hint": "登録済みアカウントのメールアドレスを入力してサブ管理者アクセスを許可します",
+      "grant": "アクセスを許可する",
+      "add_success": "サブ管理者アクセスが正常に付与されました",
+      "add_failed": "アクセス権の付与に失敗しました",
+      "revoke": "アクセスの取り消し",
+      "revoke_title": "サブ管理者アクセスの取り消し",
+      "revoke_confirm": "このアカウントは直ちに副管理者権限を失います。",
+      "revoke_success": "サブ管理者アクセスが取り消されました",
+      "revoke_failed": "アクセス権の取り消しに失敗しました",
+      "empty": "まだサブ管理者がいません",
+      "permissions_title": "サブ管理者の権限",
+      "columns": {
+        "id": "ID",
+        "name": "名前",
+        "email": "電子メール",
+        "status": "状態",
+        "last_login": "最終ログイン",
+        "added": "追加した"
+      },
+      "perm": {
+        "view_deposits": "入金履歴を表示する",
+        "view_withdrawals": "出金履歴を表示する",
+        "view_transactions": "取引履歴の表示",
+        "view_users": "ユーザーと残高を表示する",
+        "view_tree": "参照ツリー F0 ～ F3 を表示する",
+        "approve_withdraw": "出金リクエストの承認",
+        "view_wallets": "ウォレットアドレスを表示する",
+        "no_edit_wallets": "ウォレットアドレスは編集できません",
+        "no_adjust_balance": "ユーザー残高を調整できない",
+        "no_delete_tx": "取引記録を削除できません",
+        "no_signals": "シグナルセッションを管理できない",
+        "no_settings": "システム設定にアクセスできません"
+      }
+    }
+  },
+  "errors": {
+    "not_found": "ページが見つかりません",
+    "unauthorized": "続行するにはログインしてください",
+    "forbidden": "このページにアクセスする権限がありません",
+    "server_error": "サーバーエラー。 後でもう一度試してください。",
+    "network_error": "ネットワークエラー。 接続を確認してください。"
+  }
+}

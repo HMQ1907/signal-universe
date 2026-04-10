@@ -6,6 +6,10 @@
       <!-- <p class="text-slate-400 text-sm mt-2 max-w-3xl leading-relaxed">{{ $t('admin.wallets.pick_intro') }}</p> -->
     </div>
 
+    <div v-if="walletsLoading" class="flex justify-center py-20 text-slate-500">
+      <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
+    </div>
+    <template v-else>
     <!-- TRC20 -->
     <section class="rounded-2xl border border-white/8 bg-slate-900/30 overflow-hidden">
       <div class="px-4 sm:px-6 py-4 border-b border-white/6 flex items-center gap-3 bg-indigo-500/5">
@@ -152,6 +156,7 @@
       <!-- <UAlert :description="$t('admin.wallets.deposit_hint')" color="neutral" variant="soft" /> -->
       <UAlert v-if="!isMainAdmin" :description="$t('admin.wallets.sub_admin_readonly')" color="info" variant="soft" />
     </div>
+    </template>
   </div>
 </template>
 
@@ -164,10 +169,12 @@ const { t } = useI18n()
 const { user: authUser } = useAuth()
 const isMainAdmin = computed(() => authUser.value?.is_admin === true)
 
-const { data: settings, refresh: refreshSettings } = await useFetch('/api/wallet/settings')
-const { data: assets } = await useFetch<{ trc: { address: string; src: string }[]; bep: { address: string; src: string }[] }>(
-  '/api/admin/wallet-assets'
+const { data: settings, refresh: refreshSettings, pending: pendingSettings } = useFetch('/api/wallet/settings', { lazy: true })
+const { data: assets, pending: pendingAssets } = useFetch<{ trc: { address: string; src: string }[]; bep: { address: string; src: string }[] }>(
+  '/api/admin/wallet-assets',
+  { lazy: true }
 )
+const walletsLoading = computed(() => pendingSettings.value || pendingAssets.value)
 
 const trcAssets = computed(() => assets.value?.trc ?? [])
 const bepAssets = computed(() => assets.value?.bep ?? [])

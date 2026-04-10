@@ -26,9 +26,10 @@ const navItems = [
   { to: '/signals', icon: 'i-heroicons-signal', label: 'nav.signals' },
   { to: '/tokens', icon: 'i-heroicons-chart-bar', label: 'nav.tokens' },
   { to: '/referral', icon: 'i-heroicons-users', label: 'nav.referral' },
-  { to: '/wallet', icon: 'i-heroicons-wallet', label: 'nav.wallet' },
+  { to: '/wallet/deposit', icon: 'i-heroicons-wallet', label: 'nav.wallet' },
   { to: '/settings', icon: 'i-heroicons-cog-6-tooth', label: 'nav.settings' }
 ]
 
-const isActive = (to: string) => route.path.startsWith(to)
+const isActive = (to: string) =>
+  to === '/wallet/deposit' ? route.path.startsWith('/wallet') : route.path.startsWith(to)
 </script>

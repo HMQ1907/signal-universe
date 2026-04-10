@@ -68,7 +68,10 @@
         </NuxtLink>
       </div>
 
-      <div class="grid md:grid-cols-1 gap-4 max-w-xl">
+      <div v-if="signalsPending" class="flex justify-center py-10 text-slate-500">
+        <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
+      </div>
+      <div v-else class="grid md:grid-cols-1 gap-4 max-w-xl">
         <div v-for="session in todaySessions" :key="session.time"
           class="flex items-center justify-between p-4 rounded-xl bg-slate-800/50 border"
           :class="session.isOpen ? 'border-indigo-500/30' : 'border-slate-700'">
@@ -108,7 +111,10 @@
         </NuxtLink>
       </div>
 
-      <div v-if="recentTx?.data?.length" class="space-y-3">
+      <div v-if="recentTxPending" class="flex justify-center py-12 text-slate-500">
+        <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
+      </div>
+      <div v-else-if="recentTx?.data?.length" class="space-y-3">
         <div v-for="tx in recentTx.data.slice(0, 5)" :key="tx.id"
           class="flex items-center justify-between py-3 border-b border-slate-800 last:border-0">
           <div class="flex items-center gap-3">
@@ -130,7 +136,7 @@
         </div>
       </div>
 
-      <div v-else class="text-center py-12 text-slate-500">
+      <div v-else-if="!recentTxPending" class="text-center py-12 text-slate-500">
         <UIcon name="i-heroicons-banknotes" class="text-4xl mb-3 text-slate-600" />
         <p>No transactions yet</p>
       </div>
@@ -144,10 +150,12 @@ useHead({ title: 'Dashboard - Signal Universe' })
 
 const { user, refreshUser } = useAuth()
 const { t } = useI18n()
-await refreshUser()
+onMounted(() => {
+  void refreshUser()
+})
 
-const { data: recentTx } = await useFetch('/api/wallet/history', { query: { limit: 5 } })
-const { data: signalBrief } = await useFetch('/api/signals/sessions', { key: 'dashboard-signals' })
+const { data: recentTx, pending: recentTxPending } = useFetch('/api/wallet/history', { query: { limit: 5 }, lazy: true })
+const { data: signalBrief, pending: signalsPending } = useFetch('/api/signals/sessions', { key: 'dashboard-signals', lazy: true })
 
 const displayDeFiTier = computed(() => signalBrief.value?.defi_tier ?? null)
 

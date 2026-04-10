@@ -1,41 +1,13 @@
+/** Max referral depth per request (safety). */
+const MAX_REFERRAL_DEPTH = 100
+
 export default defineEventHandler(async (event) => {
   const user = await requireAuth(event)
   const supabase = getSupabaseAdmin()
+  const rootId = Number(user.id)
 
-  const { data: f1Members } = await supabase
-    .from('users')
-    .select('id, email, full_name, investment_package, created_at')
-    .eq('referred_by', user.id)
-    .order('created_at', { ascending: false })
-
-  const f1Ids = f1Members?.map(m => m.id) || []
-
-  let f2Members: any[] = []
-  let f3Members: any[] = []
-
-  if (f1Ids.length > 0) {
-    const { data: f2 } = await supabase
-      .from('users')
-      .select('id, email, full_name, investment_package, created_at, referred_by')
-      .in('referred_by', f1Ids)
-      .order('created_at', { ascending: false })
-
-    f2Members = f2 || []
-    const f2Ids = f2Members.map(m => m.id)
-
-    if (f2Ids.length > 0) {
-      const { data: f3 } = await supabase
-        .from('users')
-        .select('id, email, full_name, investment_package, created_at, referred_by')
-        .in('referred_by', f2Ids)
-        .order('created_at', { ascending: false })
-
-      f3Members = f3 || []
-    }
-  }
-
-  const totalDeposits = async (userIds: number[]) => {
-    if (!userIds.length) return {}
+  const totalDepositsByUserIds = async (userIds: number[]) => {
+    if (!userIds.length) return {} as Record<number, number>
     const { data } = await supabase
       .from('transactions')
       .select('user_id, amount')
@@ -45,23 +17,67 @@ export default defineEventHandler(async (event) => {
 
     const totals: Record<number, number> = {}
     for (const t of data || []) {
-      totals[t.user_id] = (totals[t.user_id] || 0) + t.amount
+      const uid = Number(t.user_id)
+      totals[uid] = (totals[uid] || 0) + Number(t.amount)
     }
     return totals
   }
 
-  const allIds = [...f1Ids, ...f2Members.map(m => m.id), ...f3Members.map(m => m.id)]
-  const deposits = await totalDeposits(allIds)
+  type Row = {
+    id: number
+    email: string
+    full_name: string | null
+    investment_package: string | null
+    created_at: string
+    referred_by: number | null
+  }
+
+  let frontier: number[] = [rootId]
+  const membersFlat: Array<Row & { level: number }> = []
+
+  for (let depth = 0; depth < MAX_REFERRAL_DEPTH; depth++) {
+    const { data: children, error } = await supabase
+      .from('users')
+      .select('id, email, full_name, investment_package, created_at, referred_by')
+      .in('referred_by', frontier)
+      .order('created_at', { ascending: false })
+
+    if (error) throw createError({ statusCode: 500, message: error.message })
+    if (!children?.length) break
+
+    const level = depth + 1
+    for (const m of children as Row[]) {
+      membersFlat.push({ ...m, level })
+    }
+    frontier = children.map(c => Number(c.id))
+  }
+
+  const allIds = membersFlat.map(m => Number(m.id))
+  const deposits = await totalDepositsByUserIds(allIds)
+
+  let networkTotalDeposit = 0
+  for (const id of allIds) {
+    networkTotalDeposit += deposits[id] || 0
+  }
+
+  const countByLevel: Record<number, number> = {}
+  for (const m of membersFlat) {
+    countByLevel[m.level] = (countByLevel[m.level] || 0) + 1
+  }
+
+  const by_level = Object.entries(countByLevel)
+    .map(([level, count]) => ({ level: Number(level), count }))
+    .sort((a, b) => a.level - b.level)
 
   return {
-    f1: f1Members?.map(m => ({ ...m, total_deposited: deposits[m.id] || 0, level: 1 })) || [],
-    f2: f2Members.map(m => ({ ...m, total_deposited: deposits[m.id] || 0, level: 2 })),
-    f3: f3Members.map(m => ({ ...m, total_deposited: deposits[m.id] || 0, level: 3 })),
+    members: membersFlat.map(m => ({
+      ...m,
+      total_deposited: deposits[Number(m.id)] || 0
+    })),
     stats: {
-      f1_count: f1Members?.length || 0,
-      f2_count: f2Members.length,
-      f3_count: f3Members.length,
-      total: (f1Members?.length || 0) + f2Members.length + f3Members.length
+      by_level,
+      total: membersFlat.length,
+      network_total_deposit: networkTotalDeposit
     }
   }
 })

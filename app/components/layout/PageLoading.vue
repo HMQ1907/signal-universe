@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="loading"
-    class="fixed inset-0 z-50 flex items-center justify-center"
+    class="fixed inset-0 z-40 flex items-center justify-center"
     style="background: rgba(10, 15, 30, 0.8); backdrop-filter: blur(4px)"
   >
     <div class="flex flex-col items-center gap-4">
@@ -24,27 +24,56 @@
 </template>
 
 <script setup lang="ts">
-/** Only show overlay if navigation takes longer than this (avoids flash on fast client-side hops). */
-const SHOW_AFTER_MS = 80
+/** Full-screen overlay only if route setup stays slow (most pages use `useFetch(..., { lazy: true })` so this rarely shows). */
+const SHOW_AFTER_MS = 400
+/** Failsafe if page:finish never runs (broken navigation / errors). */
+const MAX_OVERLAY_MS = 12_000
 
 const loading = ref(false)
 const nuxtApp = useNuxtApp()
+const router = useRouter()
 let showTimer: ReturnType<typeof setTimeout> | null = null
+let maxTimer: ReturnType<typeof setTimeout> | null = null
 
-nuxtApp.hook('page:start', () => {
-  if (showTimer) clearTimeout(showTimer)
-  loading.value = false
-  showTimer = setTimeout(() => {
-    loading.value = true
-    showTimer = null
-  }, SHOW_AFTER_MS)
-})
-
-nuxtApp.hook('page:finish', () => {
+function clearLoading() {
   if (showTimer) {
     clearTimeout(showTimer)
     showTimer = null
   }
+  if (maxTimer) {
+    clearTimeout(maxTimer)
+    maxTimer = null
+  }
   loading.value = false
+}
+
+function armFailsafe() {
+  if (maxTimer) clearTimeout(maxTimer)
+  maxTimer = setTimeout(() => {
+    maxTimer = null
+    loading.value = false
+  }, MAX_OVERLAY_MS)
+}
+
+nuxtApp.hook('page:start', () => {
+  clearLoading()
+  showTimer = setTimeout(() => {
+    loading.value = true
+    showTimer = null
+    armFailsafe()
+  }, SHOW_AFTER_MS)
+})
+
+nuxtApp.hook('page:finish', () => {
+  clearLoading()
+})
+
+/** Router always completes or errors — backup if page:finish is missed. */
+router.afterEach(() => {
+  clearLoading()
+})
+
+router.onError(() => {
+  clearLoading()
 })
 </script>

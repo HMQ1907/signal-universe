@@ -29,6 +29,10 @@
 
     <!-- Tab A: Nạp / Rút / Hoa hồng -->
     <div v-if="mainTab === 0">
+      <div v-if="txPending" class="flex justify-center py-16 text-slate-500">
+        <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
+      </div>
+      <template v-else>
       <div class="flex flex-wrap gap-2 mb-4">
         <button
           v-for="tab in tabsA" :key="tab.value"
@@ -42,10 +46,15 @@
         </button>
       </div>
       <TxList :items="txGroupA" />
+      </template>
     </div>
 
     <!-- Tab B: AI Signals + Lãi kép -->
     <div v-if="mainTab === 1">
+      <div v-if="txPending" class="flex justify-center py-16 text-slate-500">
+        <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
+      </div>
+      <template v-else>
       <div class="flex flex-wrap gap-2 mb-4">
         <button
           v-for="tab in tabsB" :key="tab.value"
@@ -59,6 +68,7 @@
         </button>
       </div>
       <TxList :items="txGroupB" />
+      </template>
     </div>
   </div>
 </template>
@@ -91,7 +101,7 @@ const tabsB = [
   { label: 'Admin điều chỉnh', value: 'admin_adjust' },
 ]
 
-const { data: allTx } = await useFetch('/api/wallet/history', { query: { limit: 200 } })
+const { data: allTx, pending: txPending } = useFetch('/api/wallet/history', { query: { limit: 200 }, lazy: true })
 
 const groupATypes = ['deposit', 'withdraw_profit', 'withdraw_capital', 'deposit_referral']
 const groupBTypes = ['signal_profit', 'signal_referral', 'admin_adjust']

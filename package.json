@@ -5,12 +5,15 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "dev:reset": "nuxi cleanup . && nuxt dev",
+    "prepare:clean": "nuxi cleanup . && nuxt prepare",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "build:cf": "cross-env NITRO_PRESET=cloudflare-module nuxt build",
     "deploy:cf": "npm run build:cf && wrangler deploy",
     "postinstall": "nuxt prepare",
-    "seed": "tsx supabase/seed.ts"
+    "seed": "tsx supabase/seed.ts",
+    "locales:translate": "node scripts/translate-locales.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1027.0",
@@ -37,6 +40,7 @@
     "@vue/typescript-plugin": "^3.2.6",
     "cross-env": "^7.0.3",
     "dotenv": "^16.5.0",
-    "tsx": "^4.19.3"
+    "tsx": "^4.19.3",
+    "google-translate-api-x": "^10.7.2"
   }
 }

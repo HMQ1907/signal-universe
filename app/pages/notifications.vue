@@ -8,7 +8,10 @@
     </div>
 
     <div class="su-card">
-      <div v-if="notifications?.length" class="space-y-0">
+      <div v-if="pending" class="flex justify-center py-16 text-slate-500">
+        <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
+      </div>
+      <div v-else-if="notifications?.length" class="space-y-0">
         <div v-for="n in notifications" :key="n.id"
           class="flex items-start gap-4 py-4 border-b border-slate-800 last:border-0 cursor-pointer"
           :class="!n.is_read ? 'bg-primary-500/5' : ''"
@@ -28,7 +31,7 @@
         </div>
       </div>
 
-      <div v-else class="text-center py-16 text-slate-500">
+      <div v-else-if="!pending" class="text-center py-16 text-slate-500">
         <UIcon name="i-heroicons-bell" class="text-5xl mb-4 text-slate-700" />
         <p>{{ $t('notifications.no_notifications') }}</p>
       </div>
@@ -41,7 +44,7 @@ definePageMeta({ middleware: 'auth' })
 useHead({ title: 'Notifications - Signal Universe' })
 
 const toast = useToastCustom()
-const { data: notifications, refresh } = await useFetch<any[]>('/api/user/notifications', { key: 'notifications-page' })
+const { data: notifications, refresh, pending } = useFetch<any[]>('/api/user/notifications', { key: 'notifications-page', lazy: true })
 const unreadCount = computed(() => notifications.value?.filter(n => !n.is_read).length || 0)
 
 const markAllRead = async () => {

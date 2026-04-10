@@ -10,6 +10,10 @@
       </div>
     </div>
 
+    <div v-if="signalsLoading" class="flex justify-center py-20 text-slate-500">
+      <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
+    </div>
+    <template v-else>
     <!-- Sessions -->
     <div class="grid md:grid-cols-1 gap-6 mb-8 max-w-xl">
       <div v-for="session in sessions" :key="session.id" class="su-card">
@@ -97,6 +101,7 @@
         <p>Chưa có xác nhận nào cho ngày này</p>
       </div>
     </div>
+    </template>
 
     <!-- Create Session Modal -->
     <UModal v-model:open="showCreateSession" :title="$t('admin.signals.create_session')">
@@ -149,12 +154,15 @@ useHead({ title: 'Signals - Admin' })
 const toast = useToastCustom()
 const selectedDate = ref(new Date().toISOString().split('T')[0])
 
-const { data: signalData, refresh } = await useFetch('/api/admin/signals/sessions', {
+const { data: signalData, refresh, pending: pendingSessions } = useFetch('/api/admin/signals/sessions', {
   query: computed(() => ({ date: selectedDate.value })),
-  watch: [selectedDate]
+  watch: [selectedDate],
+  lazy: true
 })
 
-const { data: allSettings } = await useFetch<any[]>('/api/admin/settings', { key: 'admin-settings-signals' })
+const { data: allSettings, pending: pendingSettings } = useFetch<any[]>('/api/admin/settings', { key: 'admin-settings-signals', lazy: true })
+
+const signalsLoading = computed(() => pendingSessions.value || pendingSettings.value)
 
 const packageProfitPercent = computed(() => {
   const row = allSettings.value?.find((s: any) => s.key === 'max_daily_profit_percent')

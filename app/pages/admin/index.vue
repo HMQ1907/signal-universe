@@ -2,6 +2,10 @@
   <div>
     <h1 class="text-2xl font-bold text-white mb-8">{{ $t('admin.dashboard.title') }}</h1>
 
+    <div v-if="pending" class="flex justify-center py-20 text-slate-500">
+      <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
+    </div>
+    <template v-else>
     <!-- Stats Grid -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
       <div class="su-card" v-for="stat in statsCards" :key="stat.label">
@@ -45,6 +49,7 @@
         </div>
       </NuxtLink>
     </div>
+    </template>
   </div>
 </template>
 
@@ -53,7 +58,7 @@ definePageMeta({ layout: 'admin', middleware: 'admin' })
 
 const { t } = useI18n()
 useHead({ title: () => `${t('admin.dashboard.title')} - Signal Universe` })
-const { data: stats } = await useFetch('/api/admin/stats', { key: 'admin-stats' })
+const { data: stats, pending } = useFetch('/api/admin/stats', { key: 'admin-stats', lazy: true })
 
 const statsCards = computed(() => [
   { label: t('admin.dashboard.total_users'), value: stats.value?.total_users || 0, icon: 'i-heroicons-users', color: 'text-indigo-400', bgColor: 'bg-indigo-500/10' },

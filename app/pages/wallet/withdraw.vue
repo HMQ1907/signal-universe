@@ -181,10 +181,8 @@
 definePageMeta({ middleware: 'auth', pageTransition: false })
 useHead({ title: 'Rút tiền - Signal Universe' })
 
-const { t } = useI18n()
 const { user, refreshUser } = useAuth()
 const toast = useToastCustom()
-await refreshUser()
 
 const activeTab = ref(0)
 const loading = ref(false)
@@ -196,11 +194,14 @@ const tabs = ['Rút lợi nhuận', 'Rút vốn gốc (28 ngày)']
 const profitForm = reactive({ amount: 0 })
 const capitalForm = reactive({ amount: 0 })
 
-// User wallet
-const { data: profile } = await useFetch('/api/user/profile')
-const userWalletAddr = computed(() => (profile.value as any)?.wallet_address || '')
-const userWalletNetwork = computed(() => (profile.value as any)?.wallet_network || 'TRC20')
+/** Same data as `/api/user/profile` — middleware `init()` already fills `user`; avoid blocking `await` + duplicate fetch (was slow vs cached deposit page). */
+const userWalletAddr = computed(() => user.value?.wallet_address || '')
+const userWalletNetwork = computed(() => user.value?.wallet_network || 'TRC20')
 const hasWallet = computed(() => !!userWalletAddr.value)
+
+onMounted(() => {
+  void refreshUser()
+})
 
 const isCapitalUnlocked = computed(() => {
   if (!user.value?.first_deposit_at) return false

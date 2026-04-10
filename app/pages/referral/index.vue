@@ -26,23 +26,41 @@
       </div>
     </div>
 
-    <!-- Stats -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-      <div class="su-card text-center">
-        <p class="text-3xl font-black text-indigo-400">{{ stats?.direct_f1 || 0 }}</p>
-        <p class="text-slate-400 text-sm mt-1">{{ $t('referral.team.f1_members') }}</p>
+    <!-- Stats: F1…Fn (dynamic) + tổng thành viên + tổng nạp mạng -->
+    <div v-if="referralLoading" class="flex justify-center py-16 text-slate-500">
+      <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
+    </div>
+    <template v-else>
+    <div class="space-y-4 mb-6">
+      <div
+        v-if="(teamData?.stats?.by_level || []).length"
+        class="overflow-x-auto pb-1 -mx-1 px-1 [scrollbar-width:thin]"
+      >
+        <div class="flex gap-3 min-w-0">
+          <div
+            v-for="row in teamData?.stats?.by_level || []"
+            :key="row.level"
+            class="su-card shrink-0 w-[132px] sm:w-[148px] text-center snap-start"
+          >
+            <p class="text-3xl font-black" :class="levelCountClass(row.level)">{{ row.count }}</p>
+            <p class="text-slate-400 text-sm mt-1 leading-tight">
+              {{ $t('referral.team.fn_members', { n: row.level }) }}
+            </p>
+          </div>
+        </div>
       </div>
-      <div class="su-card text-center">
-        <p class="text-3xl font-black text-purple-400">{{ teamData?.stats?.f2_count || 0 }}</p>
-        <p class="text-slate-400 text-sm mt-1">{{ $t('referral.team.f2_members') }}</p>
-      </div>
-      <div class="su-card text-center">
-        <p class="text-3xl font-black text-pink-400">{{ teamData?.stats?.f3_count || 0 }}</p>
-        <p class="text-slate-400 text-sm mt-1">{{ $t('referral.team.f3_members') }}</p>
-      </div>
-      <div class="su-card text-center">
-        <p class="text-3xl font-black text-white">{{ teamData?.stats?.total || 0 }}</p>
-        <p class="text-slate-400 text-sm mt-1">{{ $t('referral.team.total_members') }}</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="su-card text-center">
+          <p class="text-3xl font-black text-white">{{ teamData?.stats?.total ?? 0 }}</p>
+          <p class="text-slate-400 text-sm mt-1">{{ $t('referral.team.total_members') }}</p>
+        </div>
+        <div class="su-card text-center border border-emerald-500/25 bg-emerald-500/6">
+          <p class="text-3xl font-black text-emerald-400">
+            ${{ networkDepositDisplay }}
+          </p>
+          <p class="text-slate-400 text-sm mt-1">{{ $t('referral.team.network_total_deposit') }}</p>
+        </div>
       </div>
     </div>
 
@@ -113,7 +131,7 @@
           <template #level-cell="{ row }">
             <UBadge
               :label="`F${row.original.level}`"
-              :color="row.original.level === 1 ? 'primary' : row.original.level === 2 ? 'secondary' : 'info'"
+              :color="levelBadgeColor(row.original.level)"
               variant="soft"
             />
           </template>
@@ -134,6 +152,7 @@
         <p>{{ $t('referral.empty_team') }}</p>
       </div>
     </div>
+    </template>
   </div>
 </template>
 
@@ -147,18 +166,36 @@ const config = useRuntimeConfig()
 
 useHead({ title: () => `${t('referral.title')} - Signal Universe` })
 
-const { data: stats } = await useFetch('/api/referral/stats', { key: 'referral-stats' })
-const { data: teamData } = await useFetch('/api/referral/team', { key: 'referral-team' })
+const { data: stats, pending: statsPending } = useFetch('/api/referral/stats', { key: 'referral-stats', lazy: true })
+const { data: teamData, pending: teamPending } = useFetch('/api/referral/team', { key: 'referral-team', lazy: true })
+const referralLoading = computed(() => statsPending.value || teamPending.value)
 
 const inviteLink = computed(() =>
   `${config.public.siteUrl || (typeof window !== 'undefined' ? window.location.origin : '')}/auth/register?ref=${user.value?.referral_code}`
 )
 
-const allMembers = computed(() => [
-  ...(teamData.value?.f1 || []),
-  ...(teamData.value?.f2 || []),
-  ...(teamData.value?.f3 || [])
-])
+const allMembers = computed(() => teamData.value?.members ?? [])
+
+const networkDepositDisplay = computed(() =>
+  Number(teamData.value?.stats?.network_total_deposit ?? 0).toFixed(2)
+)
+
+const levelCountClass = (level: number) => {
+  const c = [
+    'text-indigo-400',
+    'text-purple-400',
+    'text-pink-400',
+    'text-cyan-400',
+    'text-amber-400',
+    'text-emerald-400'
+  ]
+  return c[(level - 1) % c.length]
+}
+
+const levelBadgeColor = (level: number) => {
+  const colors = ['primary', 'secondary', 'success', 'info', 'warning', 'neutral'] as const
+  return colors[(level - 1) % colors.length]
+}
 
 const columns = computed(() => [
   { accessorKey: 'full_name', header: t('referral.team.member_name') },

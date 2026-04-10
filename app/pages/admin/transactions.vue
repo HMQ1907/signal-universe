@@ -18,6 +18,10 @@
     </div>
 
     <div class="su-card overflow-x-auto">
+      <div v-if="pending" class="flex justify-center py-16 text-slate-500">
+        <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
+      </div>
+      <template v-else>
       <table class="su-table">
         <thead>
           <tr>
@@ -88,6 +92,7 @@
         <UIcon name="i-heroicons-banknotes" class="text-4xl mb-3 text-slate-600" />
         <p class="text-sm">{{ $t('common.no_data') }}</p>
       </div>
+      </template>
     </div>
 
     <!-- Delete confirm modal -->
@@ -136,9 +141,10 @@ const tabs = computed(() => [
   { value: 'signal_compound', label: t('admin.transactions.signal_compound_tab') }
 ])
 
-const { data: txData, refresh } = await useFetch('/api/admin/transactions', {
+const { data: txData, refresh, pending } = useFetch('/api/admin/transactions', {
   query: computed(() => ({ tab: tab.value, limit: 100 })),
-  watch: [tab]
+  watch: [tab],
+  lazy: true
 })
 
 const transactions = computed(() => txData.value?.data || [])

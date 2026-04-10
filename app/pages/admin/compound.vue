@@ -4,6 +4,10 @@
     <p class="text-slate-400 text-sm mb-8">{{ $t('admin.compound.subtitle') }}</p>
 
     <div class="su-card overflow-x-auto">
+      <div v-if="pending" class="flex justify-center py-16 text-slate-500">
+        <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
+      </div>
+      <template v-else>
       <table class="su-table">
         <thead>
           <tr>
@@ -43,6 +47,7 @@
         <UIcon name="i-heroicons-arrow-path" class="text-4xl mb-3 text-slate-600" />
         <p>No compound interest records yet</p>
       </div>
+      </template>
     </div>
   </div>
 </template>
@@ -51,8 +56,9 @@
 definePageMeta({ layout: 'admin', middleware: 'admin' })
 useHead({ title: 'Compound Interest - Admin' })
 
-const { data: txData } = await useFetch('/api/admin/transactions', {
-  query: { tab: 'signal_compound', limit: 100 }
+const { data: txData, pending } = useFetch('/api/admin/transactions', {
+  query: { tab: 'signal_compound', limit: 100 },
+  lazy: true
 })
 
 const transactions = computed(() => (txData.value?.data || []).filter((t: any) => t.type === 'signal_referral'))

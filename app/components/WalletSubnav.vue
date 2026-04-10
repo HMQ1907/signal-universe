@@ -21,6 +21,6 @@
 
 <script setup lang="ts">
 const route = useRoute()
-const isDeposit = computed(() => route.path === '/wallet/deposit' || route.path === '/wallet')
+const isDeposit = computed(() => route.path === '/wallet/deposit')
 const isWithdraw = computed(() => route.path === '/wallet/withdraw')
 </script>

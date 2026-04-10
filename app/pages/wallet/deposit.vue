@@ -73,20 +73,47 @@
         </h3>
 
         <div class="flex flex-col items-center gap-4 mb-5">
-          <div class="p-3 rounded-2xl bg-white">
+          <div class="relative p-3 rounded-2xl bg-white">
+            <Transition
+              enter-active-class="transition-opacity duration-200"
+              leave-active-class="transition-opacity duration-200"
+              enter-from-class="opacity-0"
+              leave-to-class="opacity-0"
+            >
+              <div
+                v-if="qrBlockLoading"
+                class="absolute inset-0 z-10 flex items-center justify-center rounded-2xl bg-white/85 backdrop-blur-[2px]"
+                aria-hidden="true"
+              >
+                <span class="inline-flex flex-col items-center gap-2">
+                  <UIcon name="i-heroicons-arrow-path" class="size-9 text-indigo-500 animate-spin" />
+                  <span class="text-[10px] font-medium uppercase tracking-wide text-slate-500">{{ $t('wallet.deposit.qr_loading') }}</span>
+                </span>
+              </div>
+            </Transition>
             <img
               v-if="qrSrc"
+              :key="`${form.network}-${walletAddr}`"
               :src="qrSrc"
               alt="QR"
               width="180"
               height="180"
               class="rounded-lg block max-w-[180px] max-h-[180px] object-contain"
               @error="onImgError"
+              @load="onQrImageLoad"
             />
           </div>
           <div class="w-full">
             <p class="text-xs text-slate-500 mb-1.5">{{ form.network }} USDT — {{ $t('wallet.deposit.system_address') }}</p>
-            <div class="flex items-center gap-2 p-3 rounded-xl bg-slate-800/60 border border-white/8">
+            <div
+              class="relative flex items-center gap-2 p-3 rounded-xl bg-slate-800/60 border border-white/8 overflow-hidden transition-opacity duration-200"
+              :class="qrBlockLoading ? 'opacity-70' : 'opacity-100'"
+            >
+              <div
+                v-if="qrBlockLoading"
+                class="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-indigo-400/70 to-transparent animate-pulse"
+                aria-hidden="true"
+              />
               <code class="text-indigo-300 text-xs font-mono flex-1 break-all select-all">{{ walletAddr }}</code>
               <button type="button" class="shrink-0 p-1.5 rounded-lg hover:bg-white/10 transition-colors" @click="copyAddress">
                 <UIcon :name="copied ? 'i-heroicons-check' : 'i-heroicons-clipboard-document'"
@@ -173,7 +200,8 @@ const form = reactive({
   tx_hash: ''
 })
 
-const { data: settings } = await useFetch('/api/wallet/settings')
+/** Non-blocking: full-page loading overlay tracks `page:finish`; awaiting here delayed Rút→Nạp. Data fills in right after mount. */
+const { data: settings } = useFetch('/api/wallet/settings', { lazy: true })
 
 const minDeposit = computed(() => settings.value?.min_deposit ?? 200)
 
@@ -186,6 +214,47 @@ const walletAddr = computed(() =>
 const networkRef = toRef(form, 'network')
 const addressRef = computed(() => walletAddr.value || '')
 const { qrSrc, onImgError } = useWalletQrImage(networkRef, addressRef, { size: 180 })
+
+/** Shown when switching TRC20 ↔ BEP20 while the new QR image loads (not on internal ext retries). */
+const qrBlockLoading = ref(false)
+let qrLoadFailsafe: ReturnType<typeof setTimeout> | null = null
+
+function clearQrLoadFailsafe() {
+  if (qrLoadFailsafe) {
+    clearTimeout(qrLoadFailsafe)
+    qrLoadFailsafe = null
+  }
+}
+
+function startQrBlockLoading() {
+  if (!walletAddr.value) return
+  qrBlockLoading.value = true
+  clearQrLoadFailsafe()
+  qrLoadFailsafe = setTimeout(() => {
+    qrBlockLoading.value = false
+    qrLoadFailsafe = null
+  }, 8000)
+}
+
+function onQrImageLoad() {
+  qrBlockLoading.value = false
+  clearQrLoadFailsafe()
+}
+
+watch(
+  [() => form.network, walletAddr],
+  ([, addr], prev) => {
+    if (!prev) return
+    if (!addr) {
+      qrBlockLoading.value = false
+      clearQrLoadFailsafe()
+      return
+    }
+    startQrBlockLoading()
+  }
+)
+
+onUnmounted(() => clearQrLoadFailsafe())
 
 const canSubmit = computed(() =>
   form.amount >= minDeposit.value &&

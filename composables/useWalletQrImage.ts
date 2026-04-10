@@ -1,6 +1,10 @@
 import { computed, ref, watch, type Ref } from 'vue'
 
-const EXTS = ['png', 'jpg', 'jpeg', 'webp'] as const
+/** Match files in `public/images/wallet/` — TRC20 = png, BEP20 = jpg (avoid 404 + router noise on each switch). */
+const EXTS_BY_NETWORK: Record<'TRC20' | 'BEP20', readonly string[]> = {
+  TRC20: ['png', 'jpg', 'jpeg', 'webp'],
+  BEP20: ['jpg', 'jpeg', 'png', 'webp']
+}
 
 function addressVariants(network: 'TRC20' | 'BEP20', addr: string): string[] {
   if (network === 'BEP20') return [addr, addr.toLowerCase()]
@@ -35,7 +39,8 @@ export function useWalletQrImage(
     const folder = network.value === 'TRC20' ? 'trc' : 'bep'
     const variants = addressVariants(network.value, raw)
     const vi = Math.min(variantIdx.value, variants.length - 1)
-    const ext = EXTS[Math.min(extIdx.value, EXTS.length - 1)]
+    const exts = EXTS_BY_NETWORK[network.value]
+    const ext = exts[Math.min(extIdx.value, exts.length - 1)]!
     return `/images/wallet/${folder}/${variants[vi]}.${ext}`
   })
 
@@ -46,7 +51,8 @@ export function useWalletQrImage(
     const variants = addressVariants(network.value, raw)
     const vi = variantIdx.value
     const ei = extIdx.value
-    if (ei + 1 < EXTS.length) {
+    const exts = EXTS_BY_NETWORK[network.value]
+    if (ei + 1 < exts.length) {
       extIdx.value++
       return
     }

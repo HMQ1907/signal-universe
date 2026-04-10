@@ -13,6 +13,10 @@
     </div>
 
     <div class="su-card overflow-x-auto">
+      <div v-if="pending" class="flex justify-center py-16 text-slate-500">
+        <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
+      </div>
+      <template v-else>
       <table class="su-table">
         <thead>
           <tr>
@@ -74,6 +78,7 @@
         <UIcon name="i-heroicons-arrow-down-tray" class="text-4xl mb-3 text-slate-600" />
         <p>Không có giao dịch nạp {{ statusFilter === 'pending' ? 'chờ duyệt' : statusFilter === 'completed' ? 'đã duyệt' : 'bị từ chối' }}</p>
       </div>
+      </template>
     </div>
 
     <!-- Reject Modal -->
@@ -107,9 +112,10 @@ const rejectId = ref<number | null>(null)
 const rejectReason = ref('')
 const rejectLoading = ref(false)
 
-const { data: depositsData, refresh } = await useFetch('/api/admin/deposits', {
+const { data: depositsData, refresh, pending } = useFetch('/api/admin/deposits', {
   query: computed(() => ({ status: statusFilter.value, limit: 50 })),
-  watch: [statusFilter]
+  watch: [statusFilter],
+  lazy: true
 })
 
 const deposits = computed(() => depositsData.value?.data || [])

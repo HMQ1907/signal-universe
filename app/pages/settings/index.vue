@@ -103,7 +103,10 @@
       </h2>
       <p class="text-slate-400 text-sm mb-5">Địa chỉ ví sẽ được dùng khi bạn yêu cầu rút tiền. Chỉ nhận USDT.</p>
 
-      <div class="space-y-4">
+      <div v-if="profilePending" class="flex justify-center py-8 text-slate-500">
+        <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
+      </div>
+      <div v-else class="space-y-4">
         <!-- Network selector -->
         <div>
           <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Mạng ví</p>
@@ -202,7 +205,9 @@ const { user, refreshUser } = useAuth()
 const toast = useToastCustom()
 const { t } = useI18n()
 
-await refreshUser()
+onMounted(() => {
+  void refreshUser()
+})
 
 const profileForm = reactive({ full_name: user.value?.full_name || '' })
 const profileLoading = ref(false)
@@ -212,7 +217,7 @@ const passLoading = ref(false)
 const passError = ref('')
 
 // Wallet — profile API must include wallet_*; sync form when fetch completes
-const { data: profileData, refresh: refreshProfile } = await useFetch('/api/user/profile')
+const { data: profileData, refresh: refreshProfile, pending: profilePending } = useFetch('/api/user/profile', { lazy: true })
 const savedWalletAddr = computed(() => (profileData.value as any)?.wallet_address || '')
 const savedWalletNetwork = computed(() => (profileData.value as any)?.wallet_network || 'TRC20')
 

@@ -24,6 +24,10 @@
 
     <!-- Table -->
     <div class="su-card overflow-x-auto">
+      <div v-if="pending" class="flex justify-center py-16 text-slate-500">
+        <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
+      </div>
+      <template v-else>
       <table class="su-table">
         <thead>
           <tr>
@@ -104,6 +108,7 @@
         <UIcon name="i-heroicons-users" class="text-4xl mb-3 text-slate-600" />
         <p class="text-sm">{{ $t('common.no_data') }}</p>
       </div>
+      </template>
     </div>
 
     <!-- ─── Balance Adjust Modal ─── -->
@@ -217,8 +222,9 @@ const search = ref('')
 
 const isMainAdmin = computed(() => authUser.value?.is_admin === true)
 
-const { data: usersData, refresh } = await useFetch('/api/admin/users', {
-  query: computed(() => ({ search: search.value || undefined, limit: 50 }))
+const { data: usersData, refresh, pending } = useFetch('/api/admin/users', {
+  query: computed(() => ({ search: search.value || undefined, limit: 50 })),
+  lazy: true
 })
 
 const users = computed(() => usersData.value?.data || [])

@@ -46,7 +46,9 @@ const flags: Record<string, string> = {
   vi: '🇻🇳',
   zh: '🇨🇳',
   ms: '🇲🇾',
-  ru: '🇷🇺'
+  ru: '🇷🇺',
+  ja: '🇯🇵',
+  ko: '🇰🇷'
 }
 
 const localeList = computed(() => locales.value as { code: string; name: string }[])
@@ -57,7 +59,7 @@ const flag = (code: string) => flags[code] || '🌐'
 
 const selectLocale = async (code: string) => {
   isOpen.value = false
-  await setLocale(code as 'en' | 'vi' | 'zh' | 'ms' | 'ru')
+  await setLocale(code as 'en' | 'vi' | 'zh' | 'ms' | 'ru' | 'ja' | 'ko')
 }
 
 onClickOutside(rootRef, () => {

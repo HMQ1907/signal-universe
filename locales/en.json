@@ -468,6 +468,8 @@
     "team": {
       "title": "My Team",
       "total_members": "Total Members",
+      "fn_members": "F{n} members",
+      "network_total_deposit": "Network total deposited (capital)",
       "f1_members": "F1 Members",
       "f2_members": "F2 Members",
       "f3_members": "F3 Members",
@@ -511,6 +513,7 @@
       "step_qr": "Scan QR or copy address",
       "step_tx": "Enter transaction ID",
       "system_address": "System deposit address",
+      "qr_loading": "Loading QR",
       "session_timer": "Time left: {time}",
       "session_expired": "Session expired — refresh the page to start again",
       "notice_title": "Important",

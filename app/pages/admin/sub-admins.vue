@@ -33,6 +33,10 @@
 
     <!-- Table -->
     <div class="su-card overflow-x-auto">
+      <div v-if="pending" class="flex justify-center py-16 text-slate-500">
+        <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
+      </div>
+      <template v-else>
       <table class="su-table">
         <thead>
           <tr>
@@ -82,6 +86,7 @@
         <UIcon name="i-heroicons-shield-check" class="text-4xl mb-3 text-slate-600" />
         <p class="text-sm">{{ $t('admin.sub_admins.empty') }}</p>
       </div>
+      </template>
     </div>
 
     <!-- Add Sub Admin Modal -->
@@ -124,7 +129,7 @@ useHead({ title: 'Sub Admins - Admin' })
 const toast = useToastCustom()
 const { t } = useI18n()
 
-const { data: saData, refresh } = await useFetch('/api/admin/sub-admins')
+const { data: saData, refresh, pending } = useFetch('/api/admin/sub-admins', { lazy: true })
 const subAdmins = computed(() => saData.value?.data || [])
 
 const permissions = computed(() => [

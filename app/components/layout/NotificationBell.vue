@@ -21,6 +21,6 @@
 </template>
 
 <script setup lang="ts">
-const { data: notifications } = await useFetch('/api/user/notifications', { key: 'notifications' })
+const { data: notifications } = useFetch('/api/user/notifications', { key: 'notifications', lazy: true })
 const unreadCount = computed(() => notifications.value?.filter((n: any) => !n.is_read).length || 0)
 </script>

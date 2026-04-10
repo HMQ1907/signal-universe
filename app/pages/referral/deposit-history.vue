@@ -10,34 +10,34 @@
       </UButton>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
-      <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
-        <p class="text-gray-400 text-xs mb-1">{{ t('referral.depositHistory.yourTotal') }}</p>
-        <p class="text-white text-xl font-bold">${{ formatCurrency(data?.own.totalDeposited || 0) }}</p>
-      </div>
-      <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
-        <p class="text-gray-400 text-xs mb-1">{{ t('referral.depositHistory.f1Total') }}</p>
-        <p class="text-white text-xl font-bold">${{ formatCurrency(data?.summary.f1Total || 0) }}</p>
-      </div>
-      <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
-        <p class="text-gray-400 text-xs mb-1">{{ t('referral.depositHistory.f2Total') }}</p>
-        <p class="text-white text-xl font-bold">${{ formatCurrency(data?.summary.f2Total || 0) }}</p>
-      </div>
-      <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
-        <p class="text-gray-400 text-xs mb-1">{{ t('referral.depositHistory.networkTotal') }}</p>
-        <p class="text-amber-400 text-xl font-bold">${{ formatCurrency(data?.summary.networkTotal || 0) }}</p>
-      </div>
+    <div v-if="pending" class="bg-gray-900 border border-gray-800 rounded-xl p-12 flex justify-center text-gray-500 mb-6">
+      <UIcon name="i-heroicons-arrow-path" class="w-8 h-8 animate-spin" />
     </div>
 
-    <div v-if="pending" class="bg-gray-900 border border-gray-800 rounded-xl p-8 text-center">
-      <UIcon name="i-heroicons-arrow-path" class="w-8 h-8 text-gray-500 animate-spin mx-auto" />
-    </div>
-
-    <div v-else-if="error" class="bg-gray-900 border border-red-800 rounded-xl p-6 text-red-300">
+    <div v-else-if="error" class="bg-gray-900 border border-red-800 rounded-xl p-6 text-red-300 mb-6">
       {{ t('referral.depositHistory.loadError') }}
     </div>
 
     <template v-else-if="data">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
+        <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+          <p class="text-gray-400 text-xs mb-1">{{ t('referral.depositHistory.yourTotal') }}</p>
+          <p class="text-white text-xl font-bold">${{ formatCurrency(data.own.totalDeposited || 0) }}</p>
+        </div>
+        <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+          <p class="text-gray-400 text-xs mb-1">{{ t('referral.depositHistory.f1Total') }}</p>
+          <p class="text-white text-xl font-bold">${{ formatCurrency(data.summary.f1Total || 0) }}</p>
+        </div>
+        <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+          <p class="text-gray-400 text-xs mb-1">{{ t('referral.depositHistory.f2Total') }}</p>
+          <p class="text-white text-xl font-bold">${{ formatCurrency(data.summary.f2Total || 0) }}</p>
+        </div>
+        <div class="bg-gray-900 border border-gray-800 rounded-xl p-4">
+          <p class="text-gray-400 text-xs mb-1">{{ t('referral.depositHistory.networkTotal') }}</p>
+          <p class="text-amber-400 text-xl font-bold">${{ formatCurrency(data.summary.networkTotal || 0) }}</p>
+        </div>
+      </div>
+
       <section class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden mb-6">
         <div class="px-4 py-3 border-b border-gray-800">
           <h2 class="text-white font-semibold">{{ t('referral.depositHistory.yourHistory') }}</h2>
@@ -164,7 +164,7 @@ type DepositHistoryResponse = {
   }
 }
 
-const { data, pending, error } = await useFetch<DepositHistoryResponse>('/api/referral/deposit-history')
+const { data, pending, error } = useFetch<DepositHistoryResponse>('/api/referral/deposit-history', { lazy: true })
 
 const f1ById = computed(() => {
   const map = new Map<number, UserDepositHistory>()

@@ -3,6 +3,10 @@
     <h1 class="text-2xl font-bold text-white mb-2">{{ $t('admin.cccd.title') }}</h1>
     <p class="text-slate-400 text-sm mb-8">{{ $t('admin.cccd.subtitle') }}</p>
 
+    <div v-if="pending" class="flex justify-center py-20 text-slate-500">
+      <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
+    </div>
+    <template v-else>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       <div v-for="user in users" :key="user.id" class="su-card">
         <div class="mb-4">
@@ -29,6 +33,7 @@
       <UIcon name="i-heroicons-identification" class="text-5xl mb-4 text-slate-700" />
       <p>Chưa có user nào tải CCCD lên</p>
     </div>
+    </template>
 
     <!-- Image Viewer -->
     <UModal v-model:open="showImage" title="Xem CCCD">
@@ -43,7 +48,7 @@
 definePageMeta({ layout: 'admin', middleware: 'admin' })
 useHead({ title: 'CCCD Verification - Admin' })
 
-const { data: cccdData } = await useFetch('/api/admin/cccd', { query: { limit: 100 } })
+const { data: cccdData, pending } = useFetch('/api/admin/cccd', { query: { limit: 100 }, lazy: true })
 const users = computed(() => cccdData.value?.data || [])
 
 const showImage = ref(false)
