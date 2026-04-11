@@ -106,7 +106,7 @@
         <ul class="relative space-y-3 text-slate-400">
           <li class="flex gap-3">
             <UIcon name="i-heroicons-check-circle" class="mt-0.5 shrink-0 text-indigo-400" />
-            <span>Single daily signal window (11:00–23:59) — simple, predictable participation.</span>
+            <span>Single daily signal window (00:00–14:00) — simple, predictable participation.</span>
           </li>
           <li class="flex gap-3">
             <UIcon name="i-heroicons-check-circle" class="mt-0.5 shrink-0 text-indigo-400" />

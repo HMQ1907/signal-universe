@@ -36,7 +36,7 @@
                 {{ $t('signals.session_daily') }}
               </p>
               <p class="mt-1 text-sm text-slate-400">
-                {{ $t('signals.window_hours') }}
+                {{ windowHoursLabel }}
               </p>
             </div>
           </div>
@@ -49,7 +49,7 @@
               class="rounded-full px-3 py-1 text-xs font-semibold"
             />
             <div class="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-right text-[11px] font-medium text-slate-400">
-              11:00 - 23:59
+              {{ windowHoursLabel }}
             </div>
           </div>
         </div>
@@ -65,14 +65,14 @@
       <div v-if="isConfirmed" class="text-center mb-6 py-4">
         <UIcon name="i-heroicons-check-circle" class="text-green-400 text-4xl mb-2" />
         <p class="text-green-400 font-semibold">{{ $t('signals.confirmed') }}</p>
-        <p class="text-slate-400 text-sm">Signal amount: ${{ confirmation?.amount?.toFixed(2) }}</p>
+        <p class="text-slate-400 text-sm">{{ $t('signals.session_profit_preview') }}: ${{ confirmation?.amount?.toFixed(2) }}</p>
         <p v-if="confirmation?.profit_amount" class="text-green-400 font-bold">
           Profit: +${{ confirmation.profit_amount.toFixed(2) }}
         </p>
       </div>
 
       <UButton
-        v-if="isOpen && !isConfirmed && defiTier"
+        v-if="showConfirmButton"
         block
         :loading="loading"
         color="primary"
@@ -92,18 +92,18 @@
     <UModal v-model:open="showConfirmDialog" :title="$t('signals.confirm_dialog.title')">
       <template #body>
         <div class="space-y-4">
-          <p class="text-slate-400">{{ $t('signals.confirm_dialog.description') }}</p>
+          <!-- <p class="text-slate-400">{{ $t('signals.confirm_dialog.description') }}</p> -->
           <div class="p-4 rounded-xl bg-slate-800/50 space-y-2">
             <div class="flex justify-between">
               <span class="text-slate-400 text-sm">{{ $t('signals.confirm_dialog.tier_label') }}</span>
-              <span class="text-white font-semibold">${{ defiTier }}</span>
+              <span class="text-white font-semibold">${{ effectiveTier }}</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-400 text-sm">{{ $t('signals.confirm_dialog.balance_label') }}</span>
-              <span class="text-white font-semibold">${{ userBalance.toFixed(2) }}</span>
+              <span class="text-slate-400 text-sm">{{ $t('signals.confirm_dialog.total_balance_label') }}</span>
+              <span class="text-white font-semibold">${{ userTotalBalance.toFixed(2) }}</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-400 text-sm">{{ $t('signals.confirm_dialog.amount_label') }}</span>
+              <span class="text-slate-400 text-sm">{{ $t('signals.confirm_dialog.profit_preview_label') }}</span>
               <span class="text-indigo-400 font-bold">${{ signalAmount.toFixed(2) }}</span>
             </div>
           </div>
@@ -121,16 +121,26 @@
 </template>
 
 <script setup lang="ts">
+import { roundMoney2 } from '~/utils/money'
+import { getAiConfirmWindowEndDate, isAiConfirmWindowOpenAt } from '~/utils/aiConfirmWindow'
+import { packageTierFromTotalBalance } from '~/utils/investment'
+
 const props = defineProps<{
   sessions: any[]
   confirmations: Record<number, any>
-  userBalance: number
+  /** balance + locked_capital — 2% of this is session profit preview */
+  userTotalBalance: number
   defiTier: number | null
 }>()
 
 const emit = defineEmits<{ confirmed: [sessionId: number] }>()
 
 const { t } = useI18n()
+const config = useRuntimeConfig()
+const testAi = computed(() => !!config.public.testAi)
+const windowHoursLabel = computed(() =>
+  testAi.value ? t('signals.window_hours_test') : t('signals.window_hours')
+)
 const loading = ref(false)
 const showConfirmDialog = ref(false)
 const timeLeft = ref(0)
@@ -140,7 +150,7 @@ const session = computed(() => props.sessions.find(s => s.time_window === 'daily
 const confirmation = computed(() => session.value ? props.confirmations[session.value.id] : null)
 const isConfirmed = computed(() => !!confirmation.value)
 
-const signalAmount = computed(() => parseFloat((props.userBalance * 0.01).toFixed(2)))
+const signalAmount = computed(() => roundMoney2(props.userTotalBalance * 0.02))
 
 const isOpen = computed(() => {
   if (!session.value) return false
@@ -148,9 +158,19 @@ const isOpen = computed(() => {
   const now = new Date()
   const today = now.toISOString().split('T')[0]
   if (session.value.session_date !== today) return false
-  const h = now.getHours()
-  return h >= 11 && h <= 23
+  return isAiConfirmWindowOpenAt(now, testAi.value)
 })
+
+/** Tier for UI + confirm: saved package, or TEST_AI + inferred from total balance (≥$300). */
+const effectiveTier = computed(() => {
+  if (props.defiTier != null) return props.defiTier
+  if (testAi.value) return packageTierFromTotalBalance(props.userTotalBalance)
+  return null
+})
+
+const showConfirmButton = computed(
+  () => isOpen.value && !isConfirmed.value && effectiveTier.value != null
+)
 
 const sessionStatus = computed(() => {
   if (isConfirmed.value) return t('signals.confirmed')
@@ -166,8 +186,7 @@ const formatTime = (secs: number) => {
 
 const updateTimer = () => {
   const now = new Date()
-  const end = new Date(now)
-  end.setHours(23, 59, 59, 999)
+  const end = getAiConfirmWindowEndDate(now, testAi.value)
   timeLeft.value = Math.max(0, Math.floor((end.getTime() - now.getTime()) / 1000))
 }
 

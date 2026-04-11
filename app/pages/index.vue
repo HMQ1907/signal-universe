@@ -81,7 +81,7 @@
 
         <div class="mx-auto max-w-5xl text-center">
           <h1
-            class="mx-auto mb-5 max-w-4xl text-4xl font-black leading-[1.08] tracking-tight text-white md:text-6xl md:leading-[1.05]"
+            class="mx-auto mb-5 max-w-4xl text-4xl font-black leading-[1.08] tracking-tight text-white sm:text-5xl sm:leading-[1.06] md:text-6xl md:leading-[1.05]"
           >
             {{ $t("up.hero.title") }}
           </h1>
@@ -512,7 +512,7 @@
                 <span class="text-sm text-slate-400">{{
                   $t("home.packages.min_deposit")
                 }}</span>
-                <span class="font-semibold text-white">${{ pkg.amount }}</span>
+                <span class="font-semibold text-white">${{ pkg.amount.toLocaleString('en-US') }}</span>
               </div>
               <div class="flex items-center justify-between gap-3">
                 <span class="text-sm text-slate-400">{{
@@ -631,18 +631,27 @@
           <div
             class="su-card su-card-hover flex min-h-0 min-w-0 flex-col p-6 sm:p-8"
           >
-            <div class="mb-6 flex items-center gap-3">
-              <div
-                class="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500/10"
-              >
-                <UIcon
-                  name="i-heroicons-arrow-path"
-                  class="text-lg text-indigo-400"
-                />
+            <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div class="flex items-center gap-3 min-w-0">
+                <div
+                  class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-500/10"
+                >
+                  <UIcon
+                    name="i-heroicons-arrow-path"
+                    class="text-lg text-indigo-400"
+                  />
+                </div>
+                <h3 class="text-lg font-bold text-white">
+                  {{ $t("home.referral_section.profit_title") }}
+                </h3>
               </div>
-              <h3 class="text-lg font-bold text-white">
-                {{ $t("home.referral_section.profit_title") }}
-              </h3>
+              <div
+                v-if="user?.referral_code"
+                class="flex flex-wrap items-center gap-2 text-sm text-slate-300 sm:justify-end min-w-0"
+              >
+                <span class="text-slate-400 whitespace-nowrap">{{ $t("referral.my_code") }}</span>
+                <code class="font-mono text-indigo-400 truncate">{{ user.referral_code }}</code>
+              </div>
             </div>
             <div class="flex flex-1 flex-col gap-4">
               <div
@@ -669,6 +678,9 @@
             </div>
           </div>
         </div>
+        <p class="mt-8 text-center text-sm text-slate-400">
+          {{ $t("referral.commissions.network_profit_tagline") }}
+        </p>
       </div>
     </section>
   </div>
@@ -683,9 +695,7 @@ const { isWindowOpen: isSignalSessionWindowOpen } = useSignalSessionWindow();
 
 useHead({ title: "Signal Universe — Smart Trading Signal Platform" });
 
-/** Universe Pro hero banner (same asset as reference site). */
-const heroBannerVideoSrc =
-  "https://www.universepro.co/wp-content/uploads/2025/10/Banner-1.mp4";
+const heroBannerVideoSrc = "/video/main-vid.mp4";
 
 /** Public/ paths as runtime strings so Vite does not try to bundle missing .webp files. */
 const heroBannerLeftSrc = "/images/banner-left.png";
@@ -793,12 +803,12 @@ const roadmapPhases = computed(() => [
 ]);
 
 const packages = [
-  { amount: 200 },
   { amount: 300 },
   { amount: 500 },
   { amount: 1000 },
   { amount: 2000 },
   { amount: 5000 },
+  { amount: 10000 },
 ];
 
 const profitLevels = computed(() => [

@@ -8,21 +8,29 @@ export default defineEventHandler(async (event) => {
   const supabase = getSupabaseAdmin()
   await ensureDailySignalSessionForDate(supabase, date)
 
-  const { data: sessions } = await supabase
+  const { data: sessions, error: sessionsErr } = await supabase
     .from('signal_sessions')
     .select('*')
     .eq('session_date', date)
     .order('time_window')
 
+  if (sessionsErr) {
+    throw createError({ statusCode: 500, message: sessionsErr.message })
+  }
+
   const sessionIds = sessions?.map(s => s.id) || []
   let confirmations: any[] = []
 
   if (sessionIds.length > 0) {
-    const { data } = await supabase
+    const { data, error: confErr } = await supabase
       .from('signal_confirmations')
-      .select('*, user:users(email, full_name)')
+      .select('*, user:users!signal_confirmations_user_id_fkey(email, full_name)')
       .in('session_id', sessionIds)
       .order('confirmed_at', { ascending: true })
+
+    if (confErr) {
+      throw createError({ statusCode: 500, message: confErr.message })
+    }
     confirmations = data || []
   }
 

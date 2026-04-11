@@ -1,5 +1,7 @@
 import { customAlphabet } from 'nanoid'
 import bcrypt from 'bcryptjs'
+import { CAPITAL_LOCK_DAYS } from '../../app/utils/capital-lock'
+import { isAiConfirmWindowOpenAt } from '../../app/utils/aiConfirmWindow'
 
 const nanoid = customAlphabet('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 8)
 
@@ -78,22 +80,40 @@ export function getClientIp(event: import('h3').H3Event): string {
 }
 
 /** Allowed DeFi tiers (USD); highest tier where total balance >= tier applies */
-export const PACKAGE_TIERS_DESC = [5000, 2000, 1000, 500, 300, 200] as const
+export const PACKAGE_TIERS_DESC = [10000, 5000, 2000, 1000, 500, 300] as const
 
-export const INVESTMENT_PACKAGES = [200, 300, 500, 1000, 2000, 5000] as const
+export const INVESTMENT_PACKAGES = [300, 500, 1000, 2000, 5000, 10000] as const
 export type InvestmentPackage = (typeof INVESTMENT_PACKAGES)[number]
 
 export function isValidPackage(amount: number): amount is InvestmentPackage {
   return INVESTMENT_PACKAGES.includes(amount as InvestmentPackage)
 }
 
-/** Total = profit balance + locked capital. Returns null if below $200 (no DeFi tier). */
+/** Round USD to 2 decimals (half-up: 1.014 → 1.01, 1.016 → 1.02). */
+export function roundMoney2(n: number): number {
+  return Math.round(n * 100) / 100
+}
+
+/**
+ * Package tier locked at first deposit: highest tier in INVESTMENT_PACKAGES with tier <= amount
+ * (e.g. $1,000 → 1000, $750 → 500). Null if below minimum $300.
+ */
+export function packageTierFromFirstDepositAmount(amount: number): number | null {
+  if (amount < 300) return null
+  let best: number | null = null
+  for (const t of INVESTMENT_PACKAGES) {
+    if (amount >= t) best = t
+  }
+  return best
+}
+
+/** Total = profit balance + locked capital. Returns null if below $300 (no DeFi tier). */
 export function investmentTierFromTotal(total: number): number | null {
-  if (total < 200) return null
+  if (total < 300) return null
   for (const t of PACKAGE_TIERS_DESC) {
     if (total >= t) return t
   }
-  return 200
+  return 300
 }
 
 export function isWithdrawWindowOpen(): boolean {
@@ -102,16 +122,18 @@ export function isWithdrawWindowOpen(): boolean {
   return hours >= 22
 }
 
-/** AI confirm button: 11:00–23:59 local server time (same TZ as withdraw helpers). */
+/**
+ * AI confirm window (local server time; same TZ as withdraw helpers).
+ * If `TEST_AI=true` in env: 00:00–22:50. Otherwise: 00:00–14:59 (hour 0–14 inclusive).
+ */
 export function isDailyAiConfirmWindowOpen(): boolean {
-  const now = new Date()
-  const h = now.getHours()
-  return h >= 11 && h <= 23
+  const testAi = process.env.TEST_AI === 'true'
+  return isAiConfirmWindowOpenAt(new Date(), testAi)
 }
 
 export function getDaysUntilUnlock(firstDepositAt: string): number {
   const first = new Date(firstDepositAt)
-  const unlock = new Date(first.getTime() + 28 * 24 * 60 * 60 * 1000)
+  const unlock = new Date(first.getTime() + CAPITAL_LOCK_DAYS * 24 * 60 * 60 * 1000)
   const now = new Date()
   const diff = unlock.getTime() - now.getTime()
   return Math.max(0, Math.ceil(diff / (24 * 60 * 60 * 1000)))

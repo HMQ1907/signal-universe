@@ -33,6 +33,7 @@
             <th v-if="tab === 'signal_compound'">{{ $t('admin.transactions.columns.level') }}</th>
             <th>{{ $t('admin.transactions.columns.status') }}</th>
             <th>{{ $t('admin.transactions.columns.date') }}</th>
+            <th v-if="tab === 'deposit_referral'">{{ $t('admin.transactions.columns.admin_actor') }}</th>
             <th>{{ $t('admin.transactions.columns.note') }}</th>
             <th v-if="isMainAdmin">{{ $t('common.action') }}</th>
           </tr>
@@ -47,8 +48,8 @@
             <td>
               <UBadge :label="typeLabel(tx.type)" :color="typeColor(tx.type)" variant="soft" size="sm" />
             </td>
-            <td class="font-semibold" :class="isCredit(tx.type) ? 'text-green-400' : 'text-red-400'">
-              {{ isCredit(tx.type) ? '+' : '-' }}${{ tx.amount?.toFixed(2) }}
+            <td class="font-semibold" :class="isCredit(tx.type, tx) ? 'text-green-400' : 'text-red-400'">
+              {{ isCredit(tx.type, tx) ? '+' : '-' }}${{ tx.amount?.toFixed(2) }}
             </td>
             <td v-if="tab === 'signal_compound'" class="text-slate-400 text-xs">
               {{ tx.from_user?.email || '—' }}
@@ -71,9 +72,19 @@
               />
             </td>
             <td class="text-slate-400 text-xs whitespace-nowrap">{{ new Date(tx.created_at).toLocaleString() }}</td>
-            <td class="text-slate-400 text-xs max-w-32 truncate">{{ tx.admin_note || tx.adjust_reason || '—' }}</td>
+            <td v-if="tab === 'deposit_referral'" class="text-slate-400 text-xs max-w-[10rem]">
+              <template v-if="tx.type === 'admin_adjust'">
+                <p class="text-white font-medium truncate">{{ tx.processed_by_admin?.full_name || '—' }}</p>
+                <p class="text-slate-500 truncate">{{ tx.processed_by_admin?.email || (tx.processed_by ? `#${tx.processed_by}` : '—') }}</p>
+              </template>
+              <span v-else class="text-slate-600">—</span>
+            </td>
+            <td class="text-slate-400 text-xs max-w-[14rem]">
+              <span class="line-clamp-2">{{ adminTxNote(tx) }}</span>
+            </td>
             <td v-if="isMainAdmin" class="min-w-28">
               <UButton
+                v-if="tx.type === 'admin_adjust'"
                 size="sm"
                 class="min-h-9 font-semibold"
                 leading-icon="i-heroicons-trash"
@@ -83,6 +94,7 @@
               >
                 {{ $t('admin.transactions.btn_delete_row') }}
               </UButton>
+              <span v-else class="text-slate-600 text-xs">—</span>
             </td>
           </tr>
         </tbody>
@@ -109,8 +121,8 @@
           </div>
           <div class="flex justify-between">
             <span class="text-slate-400">{{ $t('common.amount') }}</span>
-            <span class="font-semibold" :class="isCredit(deletingTx.type) ? 'text-green-400' : 'text-red-400'">
-              ${{ deletingTx.amount?.toFixed(2) }}
+            <span class="font-semibold" :class="isCredit(deletingTx.type, deletingTx) ? 'text-green-400' : 'text-red-400'">
+              {{ isCredit(deletingTx.type, deletingTx) ? '+' : '-' }}${{ deletingTx.amount?.toFixed(2) }}
             </span>
           </div>
         </div>
@@ -171,7 +183,23 @@ const typeColor = (type: string) => {
   return map[type] || 'neutral'
 }
 
-const isCredit = (type: string) => !['withdraw_profit', 'withdraw_capital'].includes(type)
+/** Green / plus = credit to user; red / minus = debit (withdrawals + admin subtract). */
+const isCredit = (type: string, tx?: any) => {
+  if (type === 'admin_adjust') {
+    const r = String(tx?.adjust_reason ?? '')
+    if (/\]\s*subtract\s*:/.test(r)) return false
+    if (/\]\s*add\s*:/.test(r)) return true
+    return true
+  }
+  return !['withdraw_profit', 'withdraw_capital'].includes(type)
+}
+
+function adminTxNote(tx: any) {
+  if (tx.type !== 'admin_adjust') return tx.admin_note || tx.adjust_reason || '—'
+  const parts = [tx.adjust_reason]
+  if (tx.admin_note) parts.push(tx.admin_note)
+  return parts.filter(Boolean).join(' · ') || '—'
+}
 
 // Delete
 const showDeleteModal = ref(false)

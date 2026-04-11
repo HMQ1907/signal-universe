@@ -3,7 +3,7 @@
     <!-- Welcome -->
     <div class="mb-8">
       <h1 class="text-2xl font-bold text-white">
-        {{ $t('dashboard.welcome') }}, <span class="gradient-text">{{ user?.full_name || user?.email }}</span>
+        {{ $t('dashboard.welcome') }}
       </h1>
       <p class="text-slate-400 text-sm mt-1">{{ new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}</p>
     </div>
@@ -21,7 +21,7 @@
           </div>
         </div>
         <p class="text-3xl font-black text-white">${{ (user?.balance || 0).toFixed(2) }}</p>
-        <p class="text-xs text-slate-500 mt-1">Available to withdraw</p>
+        <p class="text-xs text-slate-500 mt-1">{{ $t('dashboard.profit_balance_hint') }}</p>
       </div>
 
       <!-- Locked Capital -->
@@ -49,10 +49,13 @@
           </div>
         </div>
         <p class="text-3xl font-black text-white">
-          {{ displayDeFiTier ? `$${displayDeFiTier}` : '-' }}
+          <template v-if="showDeFiPackageTier">${{ displayDeFiTier }}</template>
+          <template v-else>{{ $t('dashboard.not_invested') }}</template>
         </p>
         <p class="text-xs text-slate-500 mt-1">
-          {{ displayDeFiTier ? $t('dashboard.package_auto') : $t('dashboard.package_none') }}
+          <template v-if="showDeFiPackageTier">{{ $t('dashboard.package_auto') }}</template>
+          <template v-else-if="hasFirstDeposit && !displayDeFiTier">{{ $t('dashboard.below_defi_tier') }}</template>
+          <template v-else>{{ $t('dashboard.not_invested_hint') }}</template>
         </p>
       </div>
     </div>
@@ -145,6 +148,8 @@
 </template>
 
 <script setup lang="ts">
+import { CAPITAL_LOCK_DAYS } from '~/utils/capital-lock'
+
 definePageMeta({ middleware: 'auth' })
 useHead({ title: 'Dashboard - Signal Universe' })
 
@@ -158,15 +163,18 @@ const { data: recentTx, pending: recentTxPending } = useFetch('/api/wallet/histo
 const { data: signalBrief, pending: signalsPending } = useFetch('/api/signals/sessions', { key: 'dashboard-signals', lazy: true })
 
 const displayDeFiTier = computed(() => signalBrief.value?.defi_tier ?? null)
+/** Tier from balance alone can appear before any deposit; only show $ tier after first deposit. */
+const hasFirstDeposit = computed(() => !!user.value?.first_deposit_at)
+const showDeFiPackageTier = computed(() => hasFirstDeposit.value && displayDeFiTier.value != null)
 
 const capitalStatus = computed(() => {
-  if (!user.value?.first_deposit_at) return { text: 'No investment', class: 'text-slate-500' }
+  if (!user.value?.first_deposit_at) return { text: t('dashboard.capital_no_investment'), class: 'text-slate-500' }
   const first = new Date(user.value.first_deposit_at)
-  const unlock = new Date(first.getTime() + 28 * 24 * 60 * 60 * 1000)
+  const unlock = new Date(first.getTime() + CAPITAL_LOCK_DAYS * 24 * 60 * 60 * 1000)
   const now = new Date()
-  if (now >= unlock) return { text: 'Capital available for withdrawal', class: 'text-green-400' }
+  if (now >= unlock) return { text: t('dashboard.capital_unlocked'), class: 'text-green-400' }
   const daysLeft = Math.ceil((unlock.getTime() - now.getTime()) / (24 * 60 * 60 * 1000))
-  return { text: `Locked - ${daysLeft} days remaining`, class: 'text-amber-400' }
+  return { text: t('dashboard.capital_locked_days', { days: daysLeft }), class: 'text-amber-400' }
 })
 
 const todaySessions = computed(() => {
@@ -179,21 +187,33 @@ const todaySessions = computed(() => {
   const now = new Date()
   const today = now.toISOString().split('T')[0]
   const h = now.getHours()
-  const isOpen = s.session_date === today && s.status === 'open' && h >= 11 && h <= 23
+  const isOpen = s.session_date === today && s.status === 'open' && h >= 0 && h <= 14
   const confirmed = !!conf[s.id]
   return [{ time: 'daily', label: t('dashboard.signal_daily'), isOpen, confirmed }]
 })
 
-const quickStats = computed(() => [
-  { label: 'F1 Members', value: user.value?.f1_count || 0, color: 'text-indigo-400' },
-  { label: 'Referral Code', value: user.value?.referral_code || '-', color: 'text-purple-400' },
-  { label: 'Total Balance', value: `$${((user.value?.balance || 0) + (user.value?.locked_capital || 0)).toFixed(2)}`, color: 'text-white' },
-  {
-    label: 'Package Status',
-    value: displayDeFiTier.value ? `Tier $${displayDeFiTier.value}` : 'None',
-    color: displayDeFiTier.value ? 'text-green-400' : 'text-slate-500'
+const quickStats = computed(() => {
+  const tier = displayDeFiTier.value
+  const deposited = !!user.value?.first_deposit_at
+  let pkgValue: string
+  let pkgColor: string
+  if (deposited && tier) {
+    pkgValue = `Tier $${tier}`
+    pkgColor = 'text-green-400'
+  } else if (!deposited) {
+    pkgValue = t('dashboard.not_invested')
+    pkgColor = 'text-slate-500'
+  } else {
+    pkgValue = t('dashboard.below_defi_tier_short')
+    pkgColor = 'text-amber-400'
   }
-])
+  return [
+    { label: 'F1 Members', value: user.value?.f1_count || 0, color: 'text-indigo-400' },
+    { label: 'Referral Code', value: user.value?.referral_code || '-', color: 'text-purple-400' },
+    { label: 'Total Balance', value: `$${((user.value?.balance || 0) + (user.value?.locked_capital || 0)).toFixed(2)}`, color: 'text-white' },
+    { label: t('dashboard.quick_stats.package_tier'), value: pkgValue, color: pkgColor }
+  ]
+})
 
 const txIcon = (type: string) => {
   const icons: Record<string, string> = {

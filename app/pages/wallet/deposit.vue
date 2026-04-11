@@ -187,7 +187,7 @@ const copied = ref(false)
 const loading = ref(false)
 const error = ref('')
 
-const packages = [200, 300, 500, 1000, 2000, 5000]
+const packages = [300, 500, 1000, 2000, 5000, 10000]
 const networks = [
   { id: 'TRC20' as const, label: 'TRC20 (Tron)', coin: 'USDT · TRC20' },
   { id: 'BEP20' as const, label: 'BEP20 (BSC)', coin: 'USDT · BEP20' }
@@ -195,7 +195,7 @@ const networks = [
 
 const form = reactive({
   /** Default to minimum package so the field never shows confusing $0 */
-  amount: 200,
+  amount: 300,
   network: 'TRC20' as 'TRC20' | 'BEP20',
   tx_hash: ''
 })
@@ -203,7 +203,7 @@ const form = reactive({
 /** Non-blocking: full-page loading overlay tracks `page:finish`; awaiting here delayed Rút→Nạp. Data fills in right after mount. */
 const { data: settings } = useFetch('/api/wallet/settings', { lazy: true })
 
-const minDeposit = computed(() => settings.value?.min_deposit ?? 200)
+const minDeposit = computed(() => settings.value?.min_deposit ?? 300)
 
 const walletAddr = computed(() =>
   form.network === 'TRC20'

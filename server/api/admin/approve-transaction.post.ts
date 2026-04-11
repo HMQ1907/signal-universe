@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { applyApprovedDepositCredits } from '~~/server/utils/depositApproval'
+import { revertDepositCredits } from '~~/server/utils/depositApproval'
 
 const schema = z.object({
   transactionId: z.number(),
@@ -43,6 +43,21 @@ export default defineEventHandler(async (event) => {
   const newStatus = action === 'approve' ? 'completed' : 'rejected'
   const user = tx.user as any
 
+  if (action === 'reject' && tx.type === 'deposit') {
+    await revertDepositCredits(supabase, {
+      id: tx.id,
+      amount: Number(tx.amount),
+      user_id: tx.user_id,
+      is_first_deposit: tx.is_first_deposit,
+      created_at: tx.created_at
+    })
+  }
+
+  const mergedNote =
+    action === 'reject' && note?.trim()
+      ? [tx.admin_note, `Rejected: ${note.trim()}`].filter(Boolean).join(' | ')
+      : note?.trim() || tx.admin_note || null
+
   // Update transaction status
   await supabase
     .from('transactions')
@@ -50,15 +65,13 @@ export default defineEventHandler(async (event) => {
       status: newStatus,
       processed_by: admin.id,
       processed_at: new Date().toISOString(),
-      admin_note: note || null
+      admin_note: mergedNote
     })
     .eq('id', transactionId)
 
   // Handle balance changes based on type and action
   if (action === 'approve') {
-    if (tx.type === 'deposit') {
-      await applyApprovedDepositCredits(supabase, user, tx.amount)
-    }
+    // Deposits: user was credited on submit; approve only marks completed (handled above, no extra credit)
     // For approved withdrawals: balance was NOT deducted at request time,
     // so we need to deduct it now
     if (tx.type === 'withdraw_profit') {

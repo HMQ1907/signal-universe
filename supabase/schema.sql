@@ -30,14 +30,16 @@ CREATE TABLE users (
   email VARCHAR(255) UNIQUE NOT NULL,
   password_hash VARCHAR(255) NOT NULL,
   full_name VARCHAR(255),
+  phone VARCHAR(32) DEFAULT NULL,
+  phone_country VARCHAR(16) DEFAULT '+84',
 
   -- Balances
   balance DECIMAL(18,2) DEFAULT 0.00,          -- profit balance (withdrawable)
-  locked_capital DECIMAL(18,2) DEFAULT 0.00,   -- principal locked for 28 days
+  locked_capital DECIMAL(18,2) DEFAULT 0.00,   -- principal locked until eligible for withdraw_capital (see site_settings capital_lock_days)
 
   -- Investment info
-  investment_package INT DEFAULT NULL,          -- 200,300,500,1000,2000,5000
-  first_deposit_at TIMESTAMP WITH TIME ZONE DEFAULT NULL,  -- for 28-day lock
+  investment_package INT DEFAULT NULL,          -- 300,500,1000,2000,5000,10000 (legacy 200 may exist)
+  first_deposit_at TIMESTAMP WITH TIME ZONE DEFAULT NULL,  -- anchor for capital lock period
   first_deposit_amount DECIMAL(18,2) DEFAULT NULL,         -- snapshot of first completed deposit principal
 
   -- CCCD
@@ -94,6 +96,10 @@ CREATE TABLE transactions (
   -- Referral fields
   from_user_id BIGINT REFERENCES users(id) ON DELETE SET NULL,  -- who generated this bonus
   referral_level INT DEFAULT NULL,  -- F1, F2, F3
+  source_deposit_id BIGINT REFERENCES transactions(id) ON DELETE SET NULL,  -- deposit_referral: originating deposit tx
+
+  -- Deposit-only: true if this row was credited as the member's first deposit (for reject reversal)
+  is_first_deposit BOOLEAN DEFAULT NULL,
 
   -- Signal fields
   signal_session_id BIGINT DEFAULT NULL,  -- linked to signal session
@@ -111,14 +117,16 @@ CREATE TABLE transactions (
 );
 
 CREATE INDEX idx_transactions_user_id ON transactions(user_id);
+CREATE INDEX idx_transactions_user_deposit_completed ON transactions (user_id) WHERE type = 'deposit' AND status = 'completed';
 CREATE INDEX idx_transactions_type ON transactions(type);
 CREATE INDEX idx_transactions_status ON transactions(status);
 CREATE INDEX idx_transactions_created_at ON transactions(created_at DESC);
 CREATE INDEX idx_transactions_signal_session_id ON transactions(signal_session_id);
+CREATE INDEX idx_transactions_source_deposit_id ON transactions(source_deposit_id) WHERE source_deposit_id IS NOT NULL;
 
 -- =============================================
 -- Signal Sessions Table
--- One logical session per day (time_window = 'daily'); confirm window 11:00–23:59 server/local time in app
+-- One logical session per day (time_window = 'daily'); confirm window 00:00–14:59 server/local time in app
 -- =============================================
 
 CREATE TABLE signal_sessions (
@@ -146,10 +154,11 @@ CREATE TABLE signal_confirmations (
   user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   session_id BIGINT NOT NULL REFERENCES signal_sessions(id) ON DELETE CASCADE,
 
-  amount DECIMAL(18,2) NOT NULL,        -- 1% of user balance at confirmation time
-  package_tier INT NOT NULL,             -- DeFi tier (200/300/500/...) at confirm; referral base
-  profit_amount DECIMAL(18,2) DEFAULT NULL,  -- filled by admin when approving
-  balance_snapshot DECIMAL(18,2) NOT NULL,  -- user balance at confirmation time
+  amount DECIMAL(18,2) NOT NULL,        -- session profit = 2% of total balance at confirm; credited on admin approval
+  package_tier INT NOT NULL,             -- fixed investment package tier (first deposit); referral label
+  profit_amount DECIMAL(18,2) DEFAULT NULL,  -- filled when approving (same as amount)
+  balance_snapshot DECIMAL(18,2) NOT NULL,  -- profit balance at confirmation time
+  total_balance_snapshot DECIMAL(18,2),     -- balance + locked_capital at confirmation time
 
   status VARCHAR(20) DEFAULT 'pending',  -- pending, approved, rejected
   processed_by BIGINT REFERENCES users(id) ON DELETE SET NULL,
@@ -240,15 +249,15 @@ CREATE TABLE site_settings (
 INSERT INTO site_settings (key, value, description) VALUES
   ('trc20_wallet_address', '', 'USDT TRC20 deposit wallet address'),
   ('bep20_wallet_address', '', 'USDT BEP20 deposit wallet address'),
-  ('min_deposit', '200', 'Minimum deposit (USD)'),
+  ('min_deposit', '300', 'Minimum deposit (USD)'),
   ('min_withdraw', '10', 'Minimum withdrawal (USD)'),
   ('withdraw_fee_percent', '3', 'Withdrawal fee (%)'),
   ('withdraw_time_start', '22:00', 'Withdrawal window start'),
   ('withdraw_time_end', '24:00', 'Withdrawal window end'),
-  ('capital_lock_days', '28', 'Capital lock period (days)'),
+  ('capital_lock_days', '36', 'Capital lock period (days); app enforcement uses app/utils/capital-lock.ts'),
   ('deposit_confirm_window', '5', 'Minutes to confirm deposit via I have sent the payment button'),
   ('signal_profit_percent', '1', 'Signal uses X% of balance'),
-  ('max_daily_profit_percent', '2', 'AI approve: credit to user = this % of package tier (e.g. 2% of $200 = $4)'),
+  ('max_daily_profit_percent', '2', 'AI approve: credit to user = this % of package tier (e.g. 2% of $300 = $6)'),
   ('deposit_referral_f1', '5', 'Deposit commission when depositor is direct referral (paid to parent %)'),
   ('deposit_referral_f2', '3', 'Deposit commission when depositor is 2nd-level (paid to grandparent %)'),
   ('signal_referral_f1', '15', 'AI confirm referral: 1st upline (% of credited profit, not package)'),

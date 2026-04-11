@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
 
   const { data: tx } = await supabase
     .from('transactions')
-    .select('*, user:users(*)')
+    .select('*, user:users!transactions_user_id_fkey(*)')
     .eq('id', txId)
     .in('type', ['withdraw_profit', 'withdraw_capital'])
     .eq('status', 'pending')

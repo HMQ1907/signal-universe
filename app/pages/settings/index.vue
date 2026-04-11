@@ -99,9 +99,9 @@
     <div class="su-card mb-6 overflow-visible">
       <h2 class="text-white font-bold mb-2 flex items-center gap-2">
         <UIcon name="i-heroicons-wallet" class="text-indigo-400" />
-        Ví rút tiền của tôi
+        {{ $t('settings.wallet.title') }}
       </h2>
-      <p class="text-slate-400 text-sm mb-5">Địa chỉ ví sẽ được dùng khi bạn yêu cầu rút tiền. Chỉ nhận USDT.</p>
+      <p class="text-slate-400 text-sm mb-5">{{ $t('settings.wallet.description') }}</p>
 
       <div v-if="profilePending" class="flex justify-center py-8 text-slate-500">
         <UIcon name="i-heroicons-arrow-path" class="size-8 animate-spin" />
@@ -109,7 +109,7 @@
       <div v-else class="space-y-4">
         <!-- Network selector -->
         <div>
-          <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Mạng ví</p>
+          <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">{{ $t('settings.wallet.network_label') }}</p>
           <div class="grid grid-cols-2 gap-2">
             <button
               v-for="net in ['TRC20', 'BEP20']" :key="net"
@@ -126,7 +126,7 @@
 
         <!-- Address input -->
         <div>
-          <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Địa chỉ ví {{ walletForm.network }}</p>
+          <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">{{ $t('settings.wallet.address_label', { network: walletForm.network }) }}</p>
           <input
             v-model="walletForm.address"
             type="text"
@@ -137,7 +137,7 @@
 
         <!-- Current wallet display -->
         <div v-if="savedWalletAddr" class="p-3 rounded-xl bg-slate-800/40 border border-white/6">
-          <p class="text-xs text-slate-500 mb-1">Ví hiện tại đang lưu</p>
+          <p class="text-xs text-slate-500 mb-1">{{ $t('settings.wallet.saved_label') }}</p>
           <div class="flex items-center gap-2">
             <span class="text-xs font-semibold px-2 py-0.5 rounded-full"
               :class="savedWalletNetwork === 'BEP20' ? 'bg-yellow-500/20 text-yellow-400' : 'bg-red-500/20 text-red-400'">
@@ -157,7 +157,7 @@
           class="mt-1 shrink-0"
           @click="saveWallet"
         >
-          Lưu địa chỉ ví
+          {{ $t('settings.wallet.save') }}
         </UButton>
       </div>
     </div>
@@ -173,7 +173,7 @@
       <div v-if="user?.cccd_url" class="mb-4">
         <div class="relative inline-block">
           <img :src="user.cccd_url" alt="CCCD" class="w-64 h-40 object-cover rounded-xl border border-slate-700" />
-          <UBadge label="Uploaded" color="success" variant="soft" class="absolute top-2 right-2" />
+          <UBadge :label="$t('settings.cccd.badge_uploaded')" color="success" variant="soft" class="absolute top-2 right-2" />
         </div>
       </div>
 
@@ -181,7 +181,7 @@
         @click="triggerFileInput">
         <UIcon name="i-heroicons-cloud-arrow-up" class="text-4xl text-slate-600 mb-3" />
         <p class="text-slate-400 text-sm">{{ user?.cccd_url ? $t('settings.cccd.change') : $t('settings.cccd.upload') }}</p>
-        <p class="text-slate-600 text-xs mt-1">JPG, PNG • Max 5MB</p>
+        <p class="text-slate-600 text-xs mt-1">{{ $t('settings.cccd.file_hint') }}</p>
         <input ref="fileInput" type="file" accept="image/*" class="hidden" @change="handleFileUpload" />
       </div>
 
@@ -189,7 +189,7 @@
 
       <div v-if="cccdLoading" class="mt-4">
         <UProgress animation="carousel" />
-        <p class="text-slate-400 text-sm text-center mt-2">Uploading...</p>
+        <p class="text-slate-400 text-sm text-center mt-2">{{ $t('settings.cccd.uploading') }}</p>
       </div>
     </div>
   </div>
@@ -199,11 +199,12 @@
 import { authInputUiLeading } from '~/utils/auth-form-ui'
 
 definePageMeta({ middleware: 'auth' })
-useHead({ title: 'Settings - Signal Universe' })
 
 const { user, refreshUser } = useAuth()
 const toast = useToastCustom()
 const { t } = useI18n()
+
+useHead({ title: () => `${t('settings.title')} - Signal Universe` })
 
 onMounted(() => {
   void refreshUser()
@@ -244,7 +245,7 @@ const walletError = ref('')
 const saveWallet = async () => {
   walletError.value = ''
   if (!walletForm.address?.trim()) {
-    walletError.value = 'Vui lòng nhập địa chỉ ví'
+    walletError.value = t('settings.wallet.error_empty')
     return
   }
   walletLoading.value = true
@@ -253,7 +254,7 @@ const saveWallet = async () => {
       method: 'PATCH',
       body: { wallet_address: walletForm.address.trim(), wallet_network: walletForm.network }
     })
-    toast.success('Đã lưu địa chỉ ví thành công')
+    toast.success(t('settings.wallet.toast_saved'))
     await refreshUser()
     await refreshProfile()
   } catch (e: any) {
@@ -271,10 +272,10 @@ const updateProfile = async () => {
   profileLoading.value = true
   try {
     await $fetch('/api/user/profile', { method: 'PATCH', body: { full_name: profileForm.full_name } })
-    toast.success('Profile updated')
+    toast.success(t('settings.profile.success'))
     await refreshUser()
   } catch (e: any) {
-    toast.error(e?.data?.message || 'Update failed')
+    toast.error(e?.data?.message || t('settings.profile.error'))
   } finally {
     profileLoading.value = false
   }
@@ -297,7 +298,7 @@ const changePassword = async () => {
     passForm.new_password = ''
     passForm.confirm = ''
   } catch (e: any) {
-    passError.value = e?.data?.message || 'Password change failed'
+    passError.value = e?.data?.message || t('settings.password.error_generic')
   } finally {
     passLoading.value = false
   }
@@ -310,7 +311,7 @@ const handleFileUpload = async (event: Event) => {
   if (!file) return
 
   if (file.size > 5 * 1024 * 1024) {
-    cccdError.value = 'File size must be less than 5MB'
+    cccdError.value = t('settings.cccd.error_file_size')
     return
   }
 
@@ -327,7 +328,7 @@ const handleFileUpload = async (event: Event) => {
       toast.success(t('settings.cccd.success'))
       await refreshUser()
     } catch (e: any) {
-      cccdError.value = e?.data?.message || 'Upload failed'
+      cccdError.value = e?.data?.message || t('settings.cccd.upload_failed')
     } finally {
       cccdLoading.value = false
     }

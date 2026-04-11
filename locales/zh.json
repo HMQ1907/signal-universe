@@ -56,7 +56,9 @@
     "admin": "管理后台",
     "tokens": "行情",
     "language": "语言",
-    "platform": "平台"
+    "platform": "平台",
+    "menu": "菜单",
+    "close_menu": "关闭菜单"
   },
   "tokens": {
     "badge": "实时分析",
@@ -191,35 +193,35 @@
     "features": {
       "title": "为什么选择 Signal Universe？",
       "subtitle": "交易成功所需的一切",
-      "signal": { "title": "AI交易信号", "description": "每日一次AI确认（11:00–23:59）。DeFi等级按总余额自动划分（$200+）。每次确认使用利润余额的1%。" },
+      "signal": { "title": "AI交易信号", "description": "每日一次AI确认（00:00–14:00）。DeFi等级由首次充值锁定（$300–$10,000）。每次确认：待结算利润=总余额（可提现收益+锁定本金）的2%，保留两位小数，管理员批准后入账。" },
       "referral": { "title": "推荐计划", "description": "充值奖励：直属上级获5%存款佣金，二级上级获3%。AI确认：最多三代上级分别获得该成员已入账利润的15%/10%/5%（非套餐本金）。" },
       "ai_commission": { "title": "AI确认奖励", "description": "当团队确认每日AI信号时，最多三代上级可获得该成员入账利润的15%、10%和5%（管理员批准后）。" },
       "secure": { "title": "安全透明", "description": "所有交易均记录和追踪。管理员批准利润确保完全透明。" }
     },
     "how_it_works": {
       "title": "如何运作",
-      "step1": { "title": "注册并充值", "description": "创建账户并充值最少$200以激活DeFi套餐。" },
-      "step2": { "title": "确认AI（每日一次）", "description": "在11:00–23:59之间确认一次AI信号，使用利润余额的1%。" },
-      "step3": { "title": "获取收益", "description": "管理员批准您的AI确认。您按套餐等级获得利润比例（默认2%，例如$200档约$4）。" },
+      "step1": { "title": "注册并充值", "description": "创建账户并充值最少$300以激活DeFi套餐。" },
+      "step2": { "title": "确认AI（每日一次）", "description": "在00:00–14:00之间确认一次AI信号。本时段待结算利润=总余额的2%（四舍五入到两位小数）。" },
+      "step3": { "title": "获取收益", "description": "管理员批准后，入账利润等于确认时总余额的2%。" },
       "step4": { "title": "提现并成长", "description": "随时提取利润。建立推荐网络以获得额外佣金。" }
     },
     "packages": {
       "title": "投资套餐",
       "subtitle": "选择适合您目标的套餐",
       "defi_badge": "DeFi",
-      "min_deposit": "最低充值",
-      "daily_profit": "每日收益",
+      "min_deposit": "投资本金",
+      "daily_profit": "预估收益",
       "max_profit": "最高2%/天",
       "join": "立即开始",
       "popular": "最受欢迎",
-      "feature_signals": "每日一次 AI 信号确认窗口",
-      "feature_referral": "充值与利润的推荐佣金"
+      "feature_signals": "每日 1 个 AI 信号",
+      "feature_referral": "推荐系统奖励"
     },
     "referral_section": {
       "title": "推荐计划",
       "subtitle": "多级佣金回报",
       "deposit_title": "充值佣金",
-      "profit_title": "利润分成（上级）",
+      "profit_title": "利润奖励",
       "f1_label": "F1",
       "f2_label": "F2",
       "direct_referral": "直推",
@@ -227,14 +229,14 @@
       "u1_label": "U1",
       "u2_label": "U2",
       "u3_label": "U3",
-      "u1_desc": "第 1 代上级（确认人之上）",
-      "u2_desc": "第 2 代上级",
-      "u3_desc": "第 3 代上级",
+      "u1_desc": "上级第1线",
+      "u2_desc": "上级第2线",
+      "u3_desc": "上级第3线",
       "rate_deposit_f1": "5%",
       "rate_deposit_f2": "3%",
-      "rate_profit_u1": "入账利润的 15%",
-      "rate_profit_u2": "入账利润的 10%",
-      "rate_profit_u3": "入账利润的 5%"
+      "rate_profit_u1": "+15%",
+      "rate_profit_u2": "+10%",
+      "rate_profit_u3": "+5%"
     },
     "platform": {
       "title": "平台如何运作",
@@ -245,7 +247,7 @@
       },
       "daily_window": {
         "title": "每日确认窗口",
-        "description": "每天都会在 11:00 到 23:59 之间开放一次 AI 确认窗口。"
+        "description": "每天都会在 00:00 到 14:00 之间开放一次 AI 确认窗口。"
       },
       "review": {
         "title": "管理员审核流程",
@@ -262,11 +264,11 @@
       "items": {
         "one": {
           "question": "如何激活 DeFi 等级？",
-          "answer": "至少充值 200 美元，平台会根据您的总余额自动分配等级。"
+          "answer": "至少充值 300 美元，平台会根据您的总余额自动分配等级。"
         },
         "two": {
           "question": "什么时候可以确认 AI 信号？",
-          "answer": "每天仅可在 11:00–23:59 的窗口内确认一次。"
+          "answer": "每天仅可在 00:00–14:00 的窗口内确认一次。"
         },
         "three": {
           "question": "利润如何处理？",
@@ -322,16 +324,16 @@
     },
     "forgot_password": { "title": "重置密码", "subtitle": "输入邮箱获取重置码", "email": "电子邮件", "submit": "发送重置码", "back_to_login": "返回登录", "code_sent": "重置码已发送到您的邮箱", "enter_code": "输入发送到以下邮箱的6位验证码", "new_password": "新密码", "confirm_new_password": "确认新密码", "reset_submit": "重置密码", "success": "密码重置成功，请登录。" }
   },
-  "dashboard": { "title": "控制台", "welcome": "欢迎回来", "profit_balance": "利润余额", "locked_capital": "锁定资金", "total_balance": "总余额", "investment_package": "投资套餐", "package_none": "暂无套餐", "capital_locked_until": "资金锁定至", "capital_unlocked": "资金可提取", "quick_stats": { "total_deposited": "总充值", "total_profit": "总利润", "total_referral": "推荐奖励", "direct_members": "直属会员(F1)" }, "signals_today": "今日信号", "signal_14": "14:00信号", "signal_21": "21:00信号", "recent_transactions": "最近交易" },
-  "investment": { "title": "投资套餐", "subtitle": "选择并激活您的DeFi投资套餐", "current_package": "当前套餐", "no_package": "暂无套餐", "select_package": "选择套餐", "signals_per_day": "AI 确认/天", "signals_per_day_value": "1", "upgrade": "升级套餐", "topup": "追加投资", "packages": { "200": { "name": "入门版", "description": "适合新手" }, "300": { "name": "基础版", "description": "稳健增长" }, "500": { "name": "标准版", "description": "均衡投资" }, "1000": { "name": "进阶版", "description": "更高回报" }, "2000": { "name": "高级版", "description": "高效交易" }, "5000": { "name": "精英版", "description": "最大潜力" } }, "rules": { "title": "投资规则", "rule1": "最低$200激活DeFi套餐", "rule2": "首次充值起资金锁定28天", "rule3": "每个信号使用账户余额的1%", "rule4": "每日最高利润2%", "rule5": "利润可随时提取", "rule6": "资金提取需管理员审核" } },
-  "signals": { "title": "交易信号", "subtitle": "每日一次 AI 确认，11:00–23:59（当地时间）", "session_daily": "每日 AI 确认", "session_14": "下午场", "session_21": "晚间场", "confirm_btn": "确认AI信号", "confirmed": "已确认", "waiting": "等待开场", "window_opens_hint": "11:00 起开放", "session_open": "进行中", "session_closed": "已结束", "time_remaining": "按钮有效期", "confirm_amount": "信号金额（余额1%）", "confirm_dialog": { "title": "确认AI信号", "description": "您将确认此交易信号，将使用当前余额的1%。", "amount_label": "信号金额", "balance_label": "当前余额", "warning": "此操作不可撤销。", "confirm": "确认", "cancel": "取消" }, "history": { "title": "信号历史", "session": "场次", "amount": "金额", "profit": "利润", "status": "状态" }, "no_package": "您需要有效的投资套餐才能确认信号。", "insufficient_balance": "余额不足，无法确认信号。", "already_confirmed": "您已确认过此场次。" },
-  "referral": { "title": "我的推荐网络", "my_code": "我的推荐码", "invite_link": "邀请链接", "share": "分享推荐链接赚取佣金", "commission_structure": { "title": "佣金结构", "deposit_bonus": "充值佣金", "profit_bonus": "利润佣金（复利）", "f1": "一级(F1)", "f2": "二级(F2)", "f3": "三级(F3)" }, "team": { "title": "我的团队", "total_members": "总成员", "fn_members": "F{n}成员", "network_total_deposit": "网络总充值（本金）", "f1_members": "F1成员", "f2_members": "F2成员", "f3_members": "F3成员", "member_name": "成员", "level": "级别", "joined": "加入时间", "total_deposited": "总充值", "email": "邮箱", "package": "套餐" }, "commissions": { "deposit_title": "充值佣金", "deposit_row1": "直属下级充值", "deposit_row1_rate": "5% → 上级", "deposit_row2": "二级网络充值", "deposit_row2_rate": "3% → 上上级", "deposit_total": "累计充值佣金：", "ai_title": "AI确认（按套餐）", "ai_u1_desc": "确认人上方第一线", "ai_u2_desc": "第二线", "ai_u3_desc": "第三线", "ai_rate_u1": "利润的15%", "ai_rate_u2": "利润的10%", "ai_rate_u3": "利润的5%", "ai_total": "累计利润佣金：" }, "empty_team": "暂无团队成员，请分享您的推荐码！", "toast_code_copied": "已复制推荐码！", "toast_link_copied": "已复制链接！", "leader_bonus": { "title": "领导者奖励", "subtitle": "基于直属F1成员数量的每周奖励", "current_level": "当前领导级别", "next_level": "下一级别", "f1_needed": "还需F1成员", "weekly_bonus": "每周奖励", "levels": { "1": "Leader 1 (≥10 F1) - $50/周", "2": "Leader 2 (≥20 F1) - $100/周", "3": "Leader 3 (≥50 F1) - $200/周", "4": "Leader 4 (≥100 F1) - $500/周", "5": "Leader 5 (≥200 F1) - $1,000/周" } } },
+  "dashboard": { "title": "控制台", "welcome": "今天就开始用AI赚钱", "profit_balance": "可提现收益", "profit_balance_hint": "（可提现）", "locked_capital": "投资中的资金", "total_balance": "总余额", "investment_package": "参与中的套餐", "capital_no_investment": "暂无投资", "capital_locked_days": "锁定 — 还剩{days}天", "package_none": "暂无套餐", "not_invested": "尚未投资", "not_invested_hint": "至少充值 $300 以激活并获得等级", "below_defi_tier": "总余额未达到 DeFi 等级门槛（$300）", "below_defi_tier_short": "低于 $300 门槛", "capital_locked_until": "资金锁定至", "capital_unlocked": "资金可提取", "quick_stats": { "total_deposited": "总充值", "total_profit": "总利润", "total_referral": "推荐奖励", "direct_members": "直属会员(F1)", "package_tier": "套餐等级" }, "signals_today": "今日信号", "signal_14": "14:00信号", "signal_21": "21:00信号", "recent_transactions": "最近交易" },
+  "investment": { "title": "投资套餐", "subtitle": "等级由首次充值一次性确定（$300–$10,000）且永久固定。", "package_locked_hint": "您的套餐由首次充值确定，之后不可更改。", "active_package_btn": "您的套餐", "not_your_package": "—", "current_package": "当前套餐", "no_package": "暂无套餐", "select_package": "选择套餐", "signals_per_day": "AI 确认/天", "signals_per_day_value": "1", "upgrade": "升级套餐", "topup": "追加投资", "packages": { "200": { "name": "入门版", "description": "适合新手" }, "300": { "name": "基础版", "description": "稳健增长" }, "500": { "name": "标准版", "description": "均衡投资" }, "1000": { "name": "进阶版", "description": "更高回报" }, "2000": { "name": "高级版", "description": "高效交易" }, "5000": { "name": "精英版", "description": "最大潜力" }, "10000": { "name": "钻石版", "description": "顶级套餐" } }, "rules": { "title": "投资规则", "rule1": "首次充值至少$300；等级为$300、$500、$1k、$2k、$5k、$10k之一（由首次充值锁定）", "rule2": "首次充值起资金锁定28天", "rule3": "每次AI确认：待结算利润=总余额（可提现收益+锁定本金）的2%，保留两位小数", "rule4": "每日最高利润2%", "rule5": "利润可随时提取", "rule6": "资金提取需管理员审核" } },
+  "signals": { "title": "交易信号", "subtitle": "每日一次 AI 确认，00:00–14:00（当地时间）", "session_daily": "每日 AI 确认", "window_hours": "00:00 – 14:00", "window_hours_test": "00:00 – 22:50（测试）", "window_closes_in": "距离窗口关闭", "session_14": "下午场", "session_21": "晚间场", "confirm_btn": "确认AI信号", "confirmed": "已确认", "waiting": "等待开场", "window_opens_hint": "00:00 起开放", "session_open": "进行中", "session_closed": "已结束", "time_remaining": "按钮有效期", "confirm_amount": "本时段利润（总余额的2%）", "session_profit_preview": "本时段利润（待结算）", "confirm_dialog": { "title": "确认AI信号", "description": "今日确认一次AI信号。待结算利润=总余额（可提现收益+锁定本金）的2%，保留两位小数。上级按入账利润获得15%/10%/5%。", "amount_label": "待结算利润", "balance_label": "可提现收益", "tier_label": "DeFi等级（首次充值）", "total_balance_label": "总余额（收益+本金）", "profit_preview_label": "待结算利润（2%）", "warning": "此操作不可撤销。", "confirm": "确认", "cancel": "取消" }, "history": { "title": "信号历史", "session": "场次", "amount": "金额", "profit": "利润", "status": "状态" }, "no_package": "您需要有效的投资套餐才能确认信号。", "insufficient_balance": "余额不足，无法确认信号。", "already_confirmed": "您已确认过此场次。" },
+  "referral": { "title": "我的推荐网络", "my_code": "我的推荐码", "invite_link": "邀请链接", "share": "分享推荐链接赚取佣金", "commission_structure": { "title": "佣金结构", "deposit_bonus": "充值佣金", "profit_bonus": "利润佣金（复利）", "f1": "一级(F1)", "f2": "二级(F2)", "f3": "三级(F3)" }, "team": { "title": "我的团队", "section_hint": "您的全部下级（F1、F2…）。总充值仅统计已完成的充值记录，不含收益或余额。", "showing_count": "显示 {n} / {total}", "search_placeholder": "按姓名或邮箱搜索…", "filter_level": "级别", "filter_all": "全部", "filter_no_match": "没有符合条件的成员。", "total_members": "总成员", "fn_members": "F{n}成员", "network_total_deposit": "网络总充值（本金）", "f1_members": "F1成员", "f2_members": "F2成员", "f3_members": "F3成员", "member_name": "姓名", "level": "级别", "joined": "加入时间", "total_deposited": "总充值", "email": "邮箱", "package": "套餐" }, "commissions": { "deposit_title": "充值奖励", "deposit_row1": "F1（直推）", "deposit_row1_rate": "+5%", "deposit_row2": "F2（间推）", "deposit_row2_rate": "+3%", "deposit_hint": "仅按成员首次充值计算：F1 5%、F2 3%，基数为该次首次充值金额。", "deposit_total": "充值奖励合计：", "ai_title": "利润奖励", "ai_context": "AI 确认（按套餐）", "ai_u1_desc": "上级第1线", "ai_u2_desc": "上级第2线", "ai_u3_desc": "上级第3线", "ai_rate_u1": "+15%", "ai_rate_u2": "+10%", "ai_rate_u3": "+5%", "ai_hint": "团队产生利润时您即可获得奖励。", "ai_total": "利润奖励合计：", "network_profit_tagline": "从您的网络最高可获得15%利润" }, "empty_team": "暂无团队成员，请分享您的推荐码！", "toast_code_copied": "已复制推荐码！", "toast_link_copied": "已复制链接！", "leader_bonus": { "title": "领导者奖励", "subtitle": "基于直属F1成员数量的每周奖励", "current_level": "当前领导级别", "next_level": "下一级别", "f1_needed": "还需F1成员", "weekly_bonus": "每周奖励", "levels": { "1": "Leader 1 (≥10 F1) - $50/周", "2": "Leader 2 (≥20 F1) - $100/周", "3": "Leader 3 (≥50 F1) - $200/周", "4": "Leader 4 (≥100 F1) - $500/周", "5": "Leader 5 (≥200 F1) - $1,000/周" } } },
   "wallet": {
-    "deposit": { "title": "充值", "subtitle": "向账户添加资金", "select_package": "选择投资套餐", "package_label": "套餐", "amount": "充值金额", "min_amount": "最低充值：$200", "network": "网络", "wallet_address": "充值地址", "copy_address": "复制地址", "confirm_btn": "我已转账", "qr_title": "扫描二维码", "instructions": { "title": "充值说明", "step1": "选择投资套餐", "step2": "发送USDT(TRC20)至上方地址", "step3": "在5分钟内点击\"我已转账\"", "step4": "等待管理员确认（24小时内）" }, "pending_notice": "您的充值正在审核中，请等待管理员确认。", "success": "充值申请已提交，请等待确认。" },
+    "deposit": { "title": "充值", "subtitle": "向账户添加资金", "select_package": "选择投资套餐", "package_label": "套餐", "amount": "充值金额", "min_amount": "最低充值：{min}", "network": "网络", "wallet_address": "充值地址", "copy_address": "复制地址", "confirm_btn": "我已转账", "qr_title": "扫描二维码", "instructions": { "title": "充值说明", "step1": "选择投资套餐", "step2": "发送USDT(TRC20)至上方地址", "step3": "在5分钟内点击\"我已转账\"", "step4": "等待管理员确认（24小时内）" }, "pending_notice": "您的充值正在审核中，请等待管理员确认。", "success": "充值申请已提交，请等待确认。" },
     "withdraw": { "title": "提款", "profit_tab": "提取利润", "capital_tab": "提取本金", "amount": "提款金额", "min_amount": "最低：$10", "wallet_address": "您的钱包地址(TRC20)", "wallet_placeholder": "输入USDT TRC20地址", "fee": "提款手续费(3%)", "you_receive": "实际到账", "submit": "提交申请", "available": "可提取", "capital_locked": "本金仍在锁定中", "capital_unlocked": "本金可提取", "capital_warning": "提取本金将关闭您的投资，此申请将由管理员审核。", "time_notice": "每日22:00-24:00处理提款", "success": "提款申请提交成功。", "error": { "insufficient": "余额不足", "below_minimum": "低于最低提款金额", "capital_locked": "本金还锁定{days}天", "no_address": "请输入钱包地址" } },
     "history": { "title": "交易历史", "all": "全部", "deposits": "充值", "withdrawals": "提款", "profits": "信号利润", "referrals": "推荐奖励", "adjustments": "管理员调整", "type": { "deposit": "充值", "withdraw_profit": "提取利润", "withdraw_capital": "提取本金", "signal_profit": "信号利润", "signal_referral": "推荐利润", "deposit_referral": "充值佣金", "leader_bonus": "领导者奖励", "admin_adjust": "管理员调整" } }
   },
-  "settings": { "title": "设置", "profile": { "title": "个人资料", "full_name": "姓名", "email": "邮箱", "update": "更新资料" }, "password": { "title": "修改密码", "current": "当前密码", "new": "新密码", "confirm": "确认新密码", "submit": "修改密码", "success": "密码修改成功", "error": { "wrong_current": "当前密码错误", "mismatch": "两次密码不一致" } }, "cccd": { "title": "身份验证", "subtitle": "上传身份证（一面）", "upload": "上传身份证", "uploaded": "已上传身份证", "change": "更换身份证", "note": "请上传清晰的身份证正面照片", "success": "身份证上传成功" } },
+  "settings": { "title": "设置", "profile": { "title": "个人资料", "full_name": "姓名", "email": "邮箱", "update": "更新资料", "success": "资料已更新", "error": "更新失败" }, "password": { "title": "修改密码", "current": "当前密码", "new": "新密码", "confirm": "确认新密码", "submit": "修改密码", "success": "密码修改成功", "error": { "wrong_current": "当前密码错误", "mismatch": "两次密码不一致" }, "error_generic": "修改密码失败" }, "wallet": { "title": "我的提现钱包", "description": "提现时将使用此地址。仅支持 USDT。", "network_label": "钱包网络", "address_label": "{network} 钱包地址", "saved_label": "当前已保存", "save": "保存钱包地址", "error_empty": "请输入钱包地址", "toast_saved": "钱包地址已保存", "error_save": "保存失败" }, "cccd": { "title": "身份验证", "subtitle": "身份证或护照 — 仅上传一张清晰照片", "upload": "上传身份证/护照", "uploaded": "证件已上传", "change": "更换证件照片", "note": "请上传一张清晰的身份证正面或护照照片页。", "success": "证件上传成功", "file_hint": "JPG、PNG • 最大 5MB", "uploading": "上传中…", "error_file_size": "文件须小于 5MB", "badge_uploaded": "已上传", "upload_failed": "上传失败" } },
   "notifications": { "title": "通知", "mark_all_read": "全部标为已读", "no_notifications": "暂无通知", "types": { "deposit": "充值", "withdrawal": "提款", "signal": "交易信号", "referral": "推荐奖励", "leader": "领导者奖励", "admin": "管理员通知", "system": "系统" } },
   "admin": { "nav": { "dashboard": "仪表盘", "pending": "待审核", "users": "用户管理", "signals": "信号场次", "deposits": "充值审核", "withdrawals": "提款审核", "transactions": "交易记录", "compound": "复利记录", "leader": "领导者奖励", "cccd": "身份验证", "wallets": "钱包设置", "settings": "系统设置" }, "dashboard": { "title": "管理员仪表盘", "total_users": "总用户数", "active_users": "活跃用户", "total_deposited": "总充值", "total_withdrawn": "总提款", "pending_deposits": "待审充值", "pending_withdrawals": "待审提款", "total_balance": "用户总余额" }, "users": { "title": "用户管理", "search": "按邮箱或姓名搜索", "add_balance": "增加余额", "subtract_balance": "减少余额", "adjust_balance": "调整余额", "adjust_reason": "调整原因", "view_tree": "查看推荐树", "referral_tree": "推荐树", "disable": "禁用账户", "enable": "启用账户", "columns": { "id": "ID", "name": "姓名", "email": "邮箱", "package": "套餐", "balance": "利润余额", "capital": "锁定本金", "f1": "F1数量", "joined": "注册时间", "status": "状态" } }, "signals": { "title": "信号场次管理", "create_session": "创建场次", "approve_profit": "批准利润", "bulk_approve": "批量批准", "confirmations": "确认列表", "profit_percent": "利润%", "profit_amount": "利润金额", "columns": { "user": "用户", "balance": "确认时余额", "amount": "信号金额", "profit": "利润", "status": "状态", "time": "确认时间" } }, "deposits": { "title": "充值审核", "approve": "批准", "reject": "拒绝", "columns": { "user": "用户", "package": "套餐", "amount": "金额", "network": "网络", "date": "日期", "status": "状态" } }, "withdrawals": { "title": "提款审核", "profit_tab": "利润提款", "capital_tab": "本金提款(28天锁定)", "approve": "批准", "reject": "拒绝", "wallet": "钱包地址", "columns": { "user": "用户", "amount": "金额", "fee": "手续费", "net": "实际金额", "wallet": "钱包地址", "date": "日期", "status": "状态" } }, "transactions": { "title": "交易历史", "deposit_referral_tab": "充值&充值佣金&提款", "signal_compound_tab": "AI确认&复利记录" }, "compound": { "title": "复利记录", "subtitle": "来自团队成员信号利润的推荐佣金", "beneficiary": "受益人", "source_user": "来自成员", "level": "级别", "source_profit": "源利润", "commission_rate": "比率", "commission": "获得佣金" }, "leader": { "title": "领导者奖励管理", "week": "周", "generate": "生成周奖励", "pay": "标记已支付", "columns": { "user": "用户", "f1_count": "F1数量", "level": "领导级别", "bonus": "奖励", "week": "周", "status": "状态" } }, "cccd": { "title": "身份验证(CCCD)", "subtitle": "已上传身份证的用户", "view": "查看身份证", "columns": { "user": "用户", "email": "邮箱", "uploaded": "上传日期", "action": "操作" } }, "wallets": { "title": "钱包设置", "trc20_address": "USDT TRC20收款地址", "save": "保存钱包地址" }, "settings": { "title": "系统设置", "trading": "交易设置", "referral": "推荐设置", "leader": "领导者奖励设置", "withdrawal": "提款设置" } },
   "errors": { "not_found": "页面未找到", "unauthorized": "请登录后继续", "forbidden": "您没有权限访问此页面", "server_error": "服务器错误，请稍后再试。", "network_error": "网络错误，请检查连接。" }

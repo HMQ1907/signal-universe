@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { applyApprovedDepositCredits } from '~~/server/utils/depositApproval'
 
 const schema = z.object({
-  amount: z.number().min(200),
+  amount: z.number().min(300),
   network: z.enum(['TRC20', 'BEP20']),
   tx_hash: z.string().min(10, 'Transaction ID must be at least 10 characters')
 })
@@ -40,17 +40,30 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: 'Deposit wallet is not configured for this network' })
   }
 
+  const { data: dbUser, error: userErr } = await supabase
+    .from('users')
+    .select('id, email, balance, locked_capital, referred_by, investment_package, first_deposit_at')
+    .eq('id', user.id)
+    .single()
+
+  if (userErr || !dbUser) {
+    throw createError({ statusCode: 500, message: 'Failed to load user' })
+  }
+
+  const isFirstDeposit = !dbUser.first_deposit_at
+
   const { data: inserted, error: txError } = await supabase
     .from('transactions')
     .insert({
       user_id: user.id,
       type: 'deposit',
       amount,
-      status: 'completed',
+      status: 'pending',
       network,
       wallet_address: walletAddress,
       tx_hash,
-      admin_note: `Auto-credited. TX: ${tx_hash}`
+      is_first_deposit: isFirstDeposit,
+      admin_note: `TX: ${tx_hash} — credited; pending admin verification`
     })
     .select('id')
     .single()
@@ -59,24 +72,13 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 500, message: 'Failed to record deposit' })
   }
 
-  const { data: dbUser, error: userErr } = await supabase
-    .from('users')
-    .select('id, email, balance, locked_capital, referred_by, investment_package, first_deposit_at')
-    .eq('id', user.id)
-    .single()
-
-  if (userErr || !dbUser) {
-    await supabase.from('transactions').delete().eq('id', inserted.id)
-    throw createError({ statusCode: 500, message: 'Failed to load user' })
-  }
-
   try {
-    await applyApprovedDepositCredits(supabase, dbUser, amount)
+    await applyApprovedDepositCredits(supabase, dbUser, amount, { depositTxId: inserted.id })
   } catch (e) {
     console.error(e)
     await supabase.from('transactions').delete().eq('id', inserted.id)
     throw createError({ statusCode: 500, message: 'Failed to apply deposit credit' })
   }
 
-  return { success: true, message: 'Deposit credited successfully', amount }
+  return { success: true, message: 'Deposit recorded; balance updated pending TX verification', amount, pending: true }
 })

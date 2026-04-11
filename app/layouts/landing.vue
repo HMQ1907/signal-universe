@@ -15,15 +15,20 @@
       />
     </div>
     <LayoutHeader class="relative z-10" />
-    <main class="relative z-10 min-w-0">
+    <main
+      class="relative z-10 min-w-0"
+      :class="isLoggedIn ? 'pb-[calc(4.5rem+env(safe-area-inset-bottom))] lg:pb-0' : ''"
+    >
       <slot />
     </main>
     <LandingFooter />
+    <LayoutMobileNav v-if="isLoggedIn" />
   </div>
 </template>
 
 <script setup lang="ts">
-const { init } = useAuth()
+const { init, user } = useAuth()
+const isLoggedIn = computed(() => !!user.value)
 // Plugin auth.server.ts handles SSR init with cookies.
 // This ensures auth state is populated on client-side navigation too.
 if (import.meta.client) {

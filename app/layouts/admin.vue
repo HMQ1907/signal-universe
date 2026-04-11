@@ -29,6 +29,7 @@
             v-for="item in visibleNavItems"
             :key="item.to"
             :to="item.to"
+            :prefetch="false"
             class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150"
             :class="isActive(item.to)
               ? 'bg-indigo-500/15 text-indigo-300 border border-indigo-500/25'
@@ -97,6 +98,7 @@
                 v-for="item in visibleNavItems"
                 :key="item.to"
                 :to="item.to"
+                :prefetch="false"
                 class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all"
                 :class="isActive(item.to)
                   ? 'bg-indigo-500/15 text-indigo-300 border border-indigo-500/25'

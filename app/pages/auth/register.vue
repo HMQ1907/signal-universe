@@ -183,6 +183,11 @@ const schema = z
     email: z.string().email(),
     password: z.string().min(8, t('auth.register.error.password_weak')),
     confirm_password: z.string(),
+    phone: z
+      .string()
+      .transform((s) => s.trim())
+      .refine((s) => s.length >= 8, { message: t('auth.register.error.phone_required') }),
+    phone_country: z.string().min(1),
     referral_code: z.string().optional()
   })
   .refine(d => d.password === d.confirm_password, {
@@ -200,8 +205,8 @@ const handleRegister = async () => {
         email: state.email,
         password: state.password,
         full_name: state.full_name,
-        phone: state.phone || undefined,
-        phone_country: state.phone_country || undefined,
+        phone: state.phone.trim(),
+        phone_country: state.phone_country || '+84',
         referral_code: state.referral_code || undefined
       }
     })

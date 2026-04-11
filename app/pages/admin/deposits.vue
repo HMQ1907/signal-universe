@@ -24,6 +24,7 @@
             <th>{{ $t('admin.deposits.columns.user') }}</th>
             <th>{{ $t('admin.deposits.columns.package') }}</th>
             <th>{{ $t('admin.deposits.columns.amount') }}</th>
+            <th>{{ $t('admin.deposits.columns.tx_hash') }}</th>
             <th>{{ $t('admin.deposits.columns.network') }}</th>
             <th>{{ $t('admin.deposits.columns.date') }}</th>
             <th>{{ $t('admin.deposits.columns.status') }}</th>
@@ -41,6 +42,14 @@
               <UBadge v-if="tx.package_selected" :label="`$${tx.package_selected}`" color="primary" variant="soft" />
             </td>
             <td class="text-green-400 font-bold">${{ tx.amount?.toFixed(2) }}</td>
+            <td class="max-w-[14rem] align-top">
+              <code
+                v-if="tx.tx_hash"
+                class="block text-xs text-slate-300 break-all font-mono"
+                :title="tx.tx_hash"
+              >{{ tx.tx_hash }}</code>
+              <span v-else class="text-slate-600 text-xs">—</span>
+            </td>
             <td class="text-slate-300">{{ tx.network }}</td>
             <td class="text-slate-400 text-sm">{{ new Date(tx.created_at).toLocaleString() }}</td>
             <td>
@@ -112,9 +121,12 @@ const rejectId = ref<number | null>(null)
 const rejectReason = ref('')
 const rejectLoading = ref(false)
 
+const depositsQuery = computed(() => ({ status: statusFilter.value, limit: 50 }))
+
 const { data: depositsData, refresh, pending } = useFetch('/api/admin/deposits', {
-  query: computed(() => ({ status: statusFilter.value, limit: 50 })),
-  watch: [statusFilter],
+  query: depositsQuery,
+  watch: [depositsQuery],
+  server: false,
   lazy: true
 })
 

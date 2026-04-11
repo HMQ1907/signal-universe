@@ -1,3 +1,6 @@
+import { roundMoney2 } from '~~/server/utils/helpers'
+import { createNotification } from '~~/server/utils/supabase'
+
 export default defineEventHandler(async (event) => {
   const admin = await requireAdmin(event)
   const confirmationId = Number(getRouterParam(event, 'id'))
@@ -6,7 +9,7 @@ export default defineEventHandler(async (event) => {
   const supabase = getSupabaseAdmin()
   const { data: confirmation } = await supabase
     .from('signal_confirmations')
-    .select('*, user:users(*)')
+    .select('*, user:users!signal_confirmations_user_id_fkey(*)')
     .eq('id', confirmationId)
     .eq('status', 'pending')
     .single()
@@ -14,20 +17,15 @@ export default defineEventHandler(async (event) => {
   if (!confirmation) throw createError({ statusCode: 404, message: 'Confirmation not found' })
 
   const user = confirmation.user as any
-  const packageTier = confirmation.package_tier || 200
+  const packageTier = confirmation.package_tier || 300
 
-  const { data: profitSettings } = await supabase
-    .from('site_settings')
-    .select('key, value')
-    .in('key', ['max_daily_profit_percent', 'signal_referral_f1', 'signal_referral_f2', 'signal_referral_f3'])
+  /** Profit locked at confirm time: 2% of total balance, stored in confirmation.amount */
+  const profitAmount = roundMoney2(Number(confirmation.amount))
 
-  const settingsMap: Record<string, number> = {}
-  for (const s of profitSettings || []) settingsMap[s.key] = Number(s.value)
+  const { data: freshUser } = await supabase.from('users').select('balance').eq('id', user.id).single()
+  const currentBalance = freshUser?.balance ?? user.balance ?? 0
 
-  const pkgProfitPercent = settingsMap.max_daily_profit_percent ?? 2
-  const profitAmount = parseFloat((packageTier * (pkgProfitPercent / 100)).toFixed(2))
-
-  await supabase.from('users').update({ balance: user.balance + profitAmount }).eq('id', user.id)
+  await supabase.from('users').update({ balance: roundMoney2(currentBalance + profitAmount) }).eq('id', user.id)
 
   await supabase.from('signal_confirmations').update({
     profit_amount: profitAmount,
@@ -43,6 +41,14 @@ export default defineEventHandler(async (event) => {
     status: 'completed',
     signal_session_id: confirmation.session_id
   })
+
+  const { data: profitSettings } = await supabase
+    .from('site_settings')
+    .select('key, value')
+    .in('key', ['signal_referral_f1', 'signal_referral_f2', 'signal_referral_f3'])
+
+  const settingsMap: Record<string, number> = {}
+  for (const s of profitSettings || []) settingsMap[s.key] = Number(s.value)
 
   const rates = [
     (settingsMap.signal_referral_f1 || 15) / 100,
@@ -60,9 +66,9 @@ export default defineEventHandler(async (event) => {
 
     if (!upline) break
 
-    const commission = parseFloat((profitAmount * rates[i]).toFixed(2))
+    const commission = roundMoney2(profitAmount * rates[i])
     if (commission > 0) {
-      await supabase.from('users').update({ balance: upline.balance + commission }).eq('id', upline.id)
+      await supabase.from('users').update({ balance: roundMoney2(upline.balance + commission) }).eq('id', upline.id)
       await supabase.from('transactions').insert({
         user_id: upline.id,
         type: 'signal_referral',
@@ -85,7 +91,7 @@ export default defineEventHandler(async (event) => {
   await createNotification(
     user.id,
     'Signal Profit Approved',
-    `Your AI confirm profit of $${profitAmount.toFixed(2)} (${pkgProfitPercent}% of $${packageTier} package) has been credited.`
+    `Your AI confirm profit of $${profitAmount.toFixed(2)} (2% of total balance at confirm time) has been credited. Package tier $${packageTier}.`
   )
 
   return { success: true, profit_amount: profitAmount, package_tier: packageTier }

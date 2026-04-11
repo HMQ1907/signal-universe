@@ -20,7 +20,8 @@
           <tr>
             <th>{{ $t('admin.signals.columns.user') }}</th>
             <th>Phiên</th>
-            <th>{{ $t('admin.signals.columns.balance') }}</th>
+            <th>{{ $t('admin.signals.columns.profit_balance') }}</th>
+            <th>{{ $t('admin.signals.columns.total_at_confirm') }}</th>
             <th>Gói đầu tư</th>
             <th>{{ $t('admin.signals.columns.amount') }}</th>
             <th>Ước tính cộng</th>
@@ -37,7 +38,8 @@
               <p class="text-slate-400 text-xs">{{ c.user?.email }}</p>
             </td>
             <td class="text-slate-300 text-sm">{{ getSession(c.session_id)?.time_window }}</td>
-            <td class="text-slate-300">${{ c.balance_snapshot?.toFixed(2) }}</td>
+            <td class="text-slate-300 tabular-nums">${{ (c.balance_snapshot ?? 0).toFixed(2) }}</td>
+            <td class="text-white font-medium tabular-nums">${{ (c.total_balance_snapshot ?? 0).toFixed(2) }}</td>
             <td class="text-slate-300">${{ c.package_tier ?? '-' }}</td>
             <td class="text-indigo-400">${{ c.amount?.toFixed(2) }}</td>
             <td class="text-slate-300">{{ c.status === 'pending' ? `$${estCredit(c).toFixed(2)}` : '—' }}</td>
@@ -76,7 +78,12 @@
         <div class="space-y-3">
           <p class="text-slate-400 text-sm">User: {{ selectedConfirmation?.user?.email }}</p>
           <p class="text-slate-400 text-sm">Gói: ${{ selectedConfirmation?.package_tier ?? '—' }}</p>
-          <p class="text-slate-400 text-sm">Số dư lúc xác nhận: ${{ selectedConfirmation?.balance_snapshot?.toFixed(2) }}</p>
+          <p class="text-slate-400 text-sm">
+            {{ $t('admin.signals.columns.profit_balance') }}: ${{ (selectedConfirmation?.balance_snapshot ?? 0).toFixed(2) }}
+          </p>
+          <p class="text-slate-400 text-sm">
+            {{ $t('admin.signals.columns.total_at_confirm') }}: ${{ (selectedConfirmation?.total_balance_snapshot ?? 0).toFixed(2) }}
+          </p>
           <p class="text-green-400 text-sm font-semibold">
             Cộng cho user: ${{ selectedConfirmation ? estCredit(selectedConfirmation).toFixed(2) : '0.00' }}
             <span class="text-slate-500 font-normal"> ({{ packageProfitPercent }}% × gói)</span>
@@ -99,7 +106,16 @@ definePageMeta({ layout: 'admin', middleware: ['admin', 'main-admin'] })
 useHead({ title: 'Signals - Admin' })
 
 const toast = useToastCustom()
-const selectedDate = ref(new Date().toISOString().split('T')[0])
+
+/** YYYY-MM-DD in local calendar (not UTC) — matches session_date user sees when confirming AI. */
+function localDateInputValue(d = new Date()) {
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${y}-${m}-${day}`
+}
+
+const selectedDate = ref(localDateInputValue())
 
 const { data: signalData, refresh, pending: pendingSessions } = useFetch('/api/admin/signals/sessions', {
   query: computed(() => ({ date: selectedDate.value })),

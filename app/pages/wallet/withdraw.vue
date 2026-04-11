@@ -178,6 +178,8 @@
 </template>
 
 <script setup lang="ts">
+import { CAPITAL_LOCK_DAYS } from '~/utils/capital-lock'
+
 definePageMeta({ middleware: 'auth', pageTransition: false })
 useHead({ title: 'Rút tiền - Signal Universe' })
 
@@ -206,13 +208,13 @@ onMounted(() => {
 const isCapitalUnlocked = computed(() => {
   if (!user.value?.first_deposit_at) return false
   const first = new Date(user.value.first_deposit_at)
-  return new Date() >= new Date(first.getTime() + 28 * 24 * 60 * 60 * 1000)
+  return new Date() >= new Date(first.getTime() + CAPITAL_LOCK_DAYS * 24 * 60 * 60 * 1000)
 })
 
 const daysRemaining = computed(() => {
-  if (!user.value?.first_deposit_at) return 28
+  if (!user.value?.first_deposit_at) return CAPITAL_LOCK_DAYS
   const first = new Date(user.value.first_deposit_at)
-  const unlock = new Date(first.getTime() + 28 * 24 * 60 * 60 * 1000)
+  const unlock = new Date(first.getTime() + CAPITAL_LOCK_DAYS * 24 * 60 * 60 * 1000)
   return Math.max(0, Math.ceil((unlock.getTime() - Date.now()) / (24 * 60 * 60 * 1000)))
 })
 

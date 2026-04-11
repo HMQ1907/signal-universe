@@ -13,6 +13,10 @@ export default defineEventHandler(async (event) => {
 
   if (!tx) throw createError({ statusCode: 404, message: 'Transaction not found' })
 
+  if (tx.type !== 'admin_adjust') {
+    throw createError({ statusCode: 400, message: 'Only admin balance adjustment records can be deleted' })
+  }
+
   await supabase.from('transactions').delete().eq('id', txId)
 
   await logAdminAction(admin.id, 'delete_transaction', {

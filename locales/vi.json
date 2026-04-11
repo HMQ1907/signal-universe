@@ -59,7 +59,9 @@
     "admin": "Quản trị",
     "tokens": "Thị trường",
     "language": "Ngôn ngữ",
-    "platform": "Nền tảng"
+    "platform": "Nền tảng",
+    "menu": "Menu",
+    "close_menu": "Đóng menu"
   },
   "tokens": {
     "badge": "Phân tích trực tiếp",
@@ -196,7 +198,7 @@
       "subtitle": "Mọi thứ bạn cần để thành công trong giao dịch",
       "signal": {
         "title": "Tín hiệu AI Giao dịch",
-        "description": "Một lần xác nhận AI mỗi ngày (11:00–23:59). Cấp DeFi tự động theo tổng số dư ($200+). Mỗi lần xác nhận dùng 1% số dư lợi nhuận."
+        "description": "Một lần xác nhận AI mỗi ngày (00:00–14:00). Cấp DeFi cố định theo lần nạp đầu ($300–$10.000). Mỗi phiên: lợi nhuận chờ = 2% tổng số dư (lợi nhuận + vốn khóa), làm tròn 2 chữ số, sau khi admin duyệt."
       },
       "referral": {
         "title": "Chương trình Giới thiệu",
@@ -213,43 +215,43 @@
     },
     "how_it_works": {
       "title": "Cách Hoạt Động",
-      "step1": { "title": "Đăng ký & Nạp tiền", "description": "Tạo tài khoản và nạp tối thiểu 200 USD để kích hoạt gói DeFi." },
-      "step2": { "title": "Xác nhận AI (mỗi ngày một lần)", "description": "Trong khung 11:00–23:59, xác nhận tín hiệu AI một lần. Dùng 1% số dư lợi nhuận." },
-      "step3": { "title": "Nhận Lợi nhuận", "description": "Quản trị viên duyệt xác nhận AI. Bạn nhận tỷ lệ theo cấp gói (mặc định 2%/ngày; ví dụ gói 200 USD ~ 4 USD)." },
+      "step1": { "title": "Đăng ký & Nạp tiền", "description": "Tạo tài khoản và nạp tối thiểu 300 USD để kích hoạt gói DeFi." },
+      "step2": { "title": "Xác nhận AI (mỗi ngày một lần)", "description": "Trong khung 00:00–14:00, xác nhận tín hiệu AI một lần. Lợi nhuận phiên chờ = 2% tổng số dư (làm tròn 2 chữ số)." },
+      "step3": { "title": "Nhận Lợi nhuận", "description": "Admin duyệt xác nhận AI. Số tiền được cộng = 2% tổng số dư tại thời điểm xác nhận." },
       "step4": { "title": "Rút & Phát triển", "description": "Rút lợi nhuận bất cứ lúc nào. Xây dựng mạng lưới để kiếm thêm hoa hồng." }
     },
     "packages": {
-      "title": "Gói Đầu tư",
-      "subtitle": "Chọn gói phù hợp với mục tiêu của bạn",
+      "title": "Danh mục đầu tư AI",
+      "subtitle": "Tạo thu nhập thụ động mỗi ngày với AI trading",
       "defi_badge": "DeFi",
-      "min_deposit": "Nạp tối thiểu",
-      "daily_profit": "Lợi nhuận/ngày",
+      "min_deposit": "Số vốn đầu tư",
+      "daily_profit": "Lợi nhuận ước tính",
       "max_profit": "Tối đa 2%/ngày",
       "join": "Bắt đầu",
       "popular": "Phổ biến nhất",
-      "feature_signals": "Một khung xác nhận tín hiệu AI mỗi ngày",
-      "feature_referral": "Hoa hồng giới thiệu khi nạp tiền và khi có lợi nhuận"
+      "feature_signals": "1 tín hiệu AI mỗi ngày",
+      "feature_referral": "Nhận thưởng từ hệ thống giới thiệu"
     },
     "referral_section": {
-      "title": "Chương trình giới thiệu",
-      "subtitle": "Nhận hoa hồng nhiều cấp",
-      "deposit_title": "Hoa hồng nạp tiền",
-      "profit_title": "Chia sẻ lợi nhuận (tuyến trên)",
+      "title": "Kiếm tiền từ hệ thống giới thiệu",
+      "subtitle": "Nhận thưởng từ hoạt động của mạng lưới của bạn mỗi ngày",
+      "deposit_title": "Thưởng từ nạp tiền",
+      "profit_title": "Thưởng từ lợi nhuận",
       "f1_label": "F1",
       "f2_label": "F2",
-      "direct_referral": "Giới thiệu trực tiếp",
-      "second_level": "Giới thiệu cấp 2",
+      "direct_referral": "(Trực tiếp)",
+      "second_level": "(Gián tiếp)",
       "u1_label": "U1",
       "u2_label": "U2",
       "u3_label": "U3",
-      "u1_desc": "Tuyến trên 1 (của người xác nhận)",
-      "u2_desc": "Tuyến trên 2",
-      "u3_desc": "Tuyến trên 3",
-      "rate_deposit_f1": "5%",
-      "rate_deposit_f2": "3%",
-      "rate_profit_u1": "15% lợi nhuận được cộng",
-      "rate_profit_u2": "10% lợi nhuận được cộng",
-      "rate_profit_u3": "5% lợi nhuận được cộng"
+      "u1_desc": "Tuyến trên cấp 1",
+      "u2_desc": "Tuyến trên cấp 2",
+      "u3_desc": "Tuyến trên cấp 3",
+      "rate_deposit_f1": "+5%",
+      "rate_deposit_f2": "+3%",
+      "rate_profit_u1": "+15%",
+      "rate_profit_u2": "+10%",
+      "rate_profit_u3": "+5%"
     },
     "platform": {
       "title": "Điều gì làm nền tảng này hoạt động",
@@ -260,7 +262,7 @@
       },
       "daily_window": {
         "title": "Khung xác nhận hằng ngày",
-        "description": "Mỗi ngày có một khung xác nhận AI mở từ 11:00 đến 23:59."
+        "description": "Mỗi ngày có một khung xác nhận AI mở từ 00:00 đến 14:00."
       },
       "review": {
         "title": "Quy trình duyệt của admin",
@@ -277,11 +279,11 @@
       "items": {
         "one": {
           "question": "Làm sao để kích hoạt cấp DeFi?",
-          "answer": "Nạp tối thiểu 200 USD. Nền tảng sẽ tự động gán cấp dựa trên tổng số dư của bạn."
+          "answer": "Nạp tối thiểu 300 USD. Nền tảng sẽ tự động gán cấp dựa trên tổng số dư của bạn."
         },
         "two": {
           "question": "Khi nào tôi có thể xác nhận tín hiệu AI?",
-          "answer": "Một lần mỗi ngày trong khung 11:00–23:59."
+          "answer": "Một lần mỗi ngày trong khung 00:00–14:00."
         },
         "three": {
           "question": "Lợi nhuận được xử lý như thế nào?",
@@ -348,7 +350,8 @@
         "email_exists": "Email đã được đăng ký",
         "password_mismatch": "Mật khẩu không khớp",
         "invalid_referral": "Mã giới thiệu không hợp lệ",
-        "password_weak": "Mật khẩu phải có ít nhất 8 ký tự"
+        "password_weak": "Mật khẩu phải có ít nhất 8 ký tự",
+        "phone_required": "Vui lòng nhập số điện thoại (ít nhất 8 chữ số)"
       }
     },
     "forgot_password": {
@@ -367,12 +370,19 @@
   },
   "dashboard": {
     "title": "Bảng điều khiển",
-    "welcome": "Chào mừng trở lại",
-    "profit_balance": "Số dư lợi nhuận",
-    "locked_capital": "Vốn đang khóa",
+    "welcome": "Bắt đầu kiếm tiền với AI ngay hôm nay",
+    "profit_balance": "Lợi nhuận khả dụng",
+    "profit_balance_hint": "(có thể rút)",
+    "locked_capital": "Vốn đang đầu tư",
     "total_balance": "Tổng số dư",
-    "investment_package": "Gói đầu tư",
+    "investment_package": "Gói đang tham gia",
+    "capital_no_investment": "Chưa có khoản đầu tư",
+    "capital_locked_days": "Khóa — còn {days} ngày",
     "package_none": "Chưa có gói",
+    "not_invested": "Chưa đầu tư",
+    "not_invested_hint": "Nạp tối thiểu $300 để kích hoạt và được xếp cấp gói",
+    "below_defi_tier": "Tổng số dư chưa đạt ngưỡng gói DeFi ($300)",
+    "below_defi_tier_short": "Dưới ngưỡng $300",
     "signal_daily": "Xác nhận AI hằng ngày",
     "package_auto": "Cấp gói tự động theo tổng số dư",
     "capital_locked_until": "Vốn khóa đến",
@@ -381,7 +391,8 @@
       "total_deposited": "Tổng đã nạp",
       "total_profit": "Tổng lợi nhuận",
       "total_referral": "Hoa hồng giới thiệu",
-      "direct_members": "Thành viên trực tiếp (F1)"
+      "direct_members": "Thành viên trực tiếp (F1)",
+      "package_tier": "Cấp gói"
     },
     "signals_today": "Tín hiệu hôm nay",
     "signal_14": "Tín hiệu 14:00",
@@ -390,7 +401,10 @@
   },
   "investment": {
     "title": "Gói Đầu tư",
-    "subtitle": "Chọn và kích hoạt gói DeFi của bạn",
+    "subtitle": "Gói được xác định một lần từ lần nạp đầu ($300–$10.000) và cố định vĩnh viễn.",
+    "package_locked_hint": "Gói của bạn đã cố định từ lần nạp đầu và không thể đổi.",
+    "active_package_btn": "Gói của bạn",
+    "not_your_package": "—",
     "current_package": "Gói hiện tại",
     "no_package": "Chưa có gói đầu tư",
     "select_package": "Chọn gói",
@@ -404,13 +418,14 @@
       "500": { "name": "Standard", "description": "Đầu tư cân bằng" },
       "1000": { "name": "Advanced", "description": "Lợi nhuận cao hơn" },
       "2000": { "name": "Premium", "description": "Giao dịch hiệu suất cao" },
-      "5000": { "name": "Elite", "description": "Tiềm năng tối đa" }
+      "5000": { "name": "Elite", "description": "Tiềm năng tối đa" },
+      "10000": { "name": "Diamond", "description": "Gói cao cấp nhất" }
     },
     "rules": {
       "title": "Quy tắc đầu tư",
-      "rule1": "Tối thiểu $200 để kích hoạt gói DeFi",
+      "rule1": "Tối thiểu $300 lần nạp đầu; gói là một trong $300, $500, $1k, $2k, $5k, $10k (cố định từ lần nạp đầu)",
       "rule2": "Vốn bị khóa 28 ngày kể từ lần nạp đầu tiên",
-      "rule3": "Mỗi tín hiệu sử dụng 1% số dư tài khoản",
+      "rule3": "Mỗi lần xác nhận AI: lợi nhuận chờ = 2% tổng số dư (lợi nhuận + vốn khóa), làm tròn 2 chữ số",
       "rule4": "Lợi nhuận tối đa 2% mỗi ngày",
       "rule5": "Có thể rút lợi nhuận bất cứ lúc nào",
       "rule6": "Rút vốn cần admin xem xét"
@@ -418,24 +433,30 @@
   },
   "signals": {
     "title": "Tín hiệu Giao dịch",
-    "subtitle": "Một lần xác nhận AI mỗi ngày, 11:00–23:59 (giờ địa phương)",
+    "subtitle": "Một lần xác nhận AI mỗi ngày, 00:00–14:00 (giờ địa phương)",
     "session_daily": "Xác nhận AI hằng ngày",
-    "window_hours": "11:00 – 23:59",
+    "window_hours": "00:00 – 14:00",
+    "window_hours_test": "00:00 – 22:50 (test)",
+    "window_closes_in": "Khung giờ đóng sau",
     "session_14": "Phiên Chiều",
     "session_21": "Phiên Tối",
     "confirm_btn": "Xác nhận AI",
     "confirmed": "Đã xác nhận",
     "waiting": "Chờ phiên giao dịch",
-    "window_opens_hint": "Mở từ 11:00",
+    "window_opens_hint": "Mở từ 00:00",
     "session_open": "Phiên đang mở",
     "session_closed": "Phiên đã đóng",
     "time_remaining": "Nút còn hiệu lực",
-    "confirm_amount": "Số tiền tín hiệu (1% số dư)",
+    "confirm_amount": "Lợi nhuận phiên (2% tổng số dư)",
+    "session_profit_preview": "Lợi nhuận phiên (chờ duyệt)",
     "confirm_dialog": {
       "title": "Xác nhận Tín hiệu AI",
-      "description": "Bạn đang xác nhận tín hiệu giao dịch. Sẽ sử dụng 1% số dư hiện tại của bạn.",
-      "amount_label": "Số tiền tín hiệu",
-      "balance_label": "Số dư hiện tại",
+      "description": "Bạn xác nhận một tín hiệu AI trong ngày. Lợi nhuận chờ = 2% tổng số dư (lợi nhuận + vốn khóa), làm tròn 2 chữ số. Tuyến trên nhận 15% / 10% / 5% trên lợi nhuận được cộng sau khi admin duyệt.",
+      "amount_label": "Lợi nhuận chờ",
+      "balance_label": "Số dư lợi nhuận",
+      "tier_label": "Cấp DeFi (theo lần nạp đầu)",
+      "total_balance_label": "Tổng số dư (lợi nhuận + vốn)",
+      "profit_preview_label": "Lợi nhuận chờ (2%)",
       "warning": "Hành động này không thể hoàn tác.",
       "confirm": "Xác nhận",
       "cancel": "Hủy"
@@ -452,7 +473,7 @@
     "already_confirmed": "Bạn đã xác nhận phiên này rồi."
   },
   "referral": {
-    "title": "Mạng lưới Giới thiệu",
+    "title": "Mạng lưới Giới thiệu - Kiếm đến 15% lợi nhuận từ mạng lưới của bạn",
     "my_code": "Mã giới thiệu của tôi",
     "invite_link": "Link mời",
     "share": "Chia sẻ link giới thiệu để kiếm hoa hồng",
@@ -466,13 +487,19 @@
     },
     "team": {
       "title": "Đội nhóm của tôi",
+      "section_hint": "Toàn bộ thành viên tuyến dưới (F1, F2, …). Cột tổng nạp chỉ cộng giao dịch nạp đã hoàn thành — không gồm lợi nhuận hay số dư ví.",
+      "showing_count": "Hiển thị {n} / {total}",
+      "search_placeholder": "Tìm theo tên hoặc email…",
+      "filter_level": "Cấp",
+      "filter_all": "Tất cả",
+      "filter_no_match": "Không có thành viên khớp bộ lọc hoặc từ khóa.",
       "total_members": "Tổng thành viên",
       "fn_members": "Thành viên F{n}",
       "network_total_deposit": "Tổng nạp mạng lưới (vốn gốc)",
       "f1_members": "Thành viên F1",
       "f2_members": "Thành viên F2",
       "f3_members": "Thành viên F3",
-      "member_name": "Thành viên",
+      "member_name": "Họ tên",
       "level": "Cấp",
       "joined": "Ngày tham gia",
       "total_deposited": "Tổng đã nạp",
@@ -480,20 +507,24 @@
       "package": "Gói"
     },
     "commissions": {
-      "deposit_title": "Hoa hồng nạp tiền",
-      "deposit_row1": "Nạp từ F1 trực tiếp",
-      "deposit_row1_rate": "5% → cấp trên (F0)",
-      "deposit_row2": "Nạp cấp 2 (F2 của bạn)",
-      "deposit_row2_rate": "3% → ông bà (F0 của F1)",
-      "deposit_total": "Tổng hoa hồng nạp đã nhận:",
-      "ai_title": "Xác nhận AI (theo gói)",
-      "ai_u1_desc": "Tuyến 1 trên người xác nhận",
-      "ai_u2_desc": "Tuyến 2",
-      "ai_u3_desc": "Tuyến 3",
-      "ai_rate_u1": "15% lợi nhuận",
-      "ai_rate_u2": "10% lợi nhuận",
-      "ai_rate_u3": "5% lợi nhuận",
-      "ai_total": "Tổng hoa hồng lợi nhuận:"
+      "deposit_title": "Thưởng từ nạp tiền",
+      "deposit_row1": "F1 (Trực tiếp)",
+      "deposit_row1_rate": "+5%",
+      "deposit_row2": "F2 (Gián tiếp)",
+      "deposit_row2_rate": "+3%",
+      "deposit_hint": "Mỗi lần nạp đều tính: F1 5%, F2 3% trên số tiền nạp đó (điều chỉnh trong cài đặt).",
+      "deposit_total": "Tổng thưởng nạp:",
+      "ai_title": "Thưởng từ lợi nhuận",
+      "ai_context": "Xác nhận AI (theo gói)",
+      "ai_u1_desc": "Tuyến trên cấp 1",
+      "ai_u2_desc": "Tuyến trên cấp 2",
+      "ai_u3_desc": "Tuyến trên cấp 3",
+      "ai_rate_u1": "+15%",
+      "ai_rate_u2": "+10%",
+      "ai_rate_u3": "+5%",
+      "ai_hint": "Nhận thưởng mỗi khi đội nhóm có lợi nhuận.",
+      "ai_total": "Tổng thưởng lợi nhuận:",
+      "network_profit_tagline": "Kiếm đến 15% lợi nhuận từ mạng lưới của bạn"
     },
     "empty_team": "Chưa có thành viên nào. Hãy chia sẻ mã giới thiệu của bạn!",
     "toast_code_copied": "Đã sao chép mã!",
@@ -540,7 +571,7 @@
       "tx_too_short": "TX ID quá ngắn — vui lòng kiểm tra lại",
       "processing": "Đang xử lý…",
       "confirm_submit": "Xác nhận nạp {amount}",
-      "success_immediate": "Đã ghi nhận nạp tiền. Số dư đã được cộng.",
+      "success_immediate": "Đã ghi nhận nạp tiền; số dư/vốn đã được cộng. Admin sẽ xác minh mã giao dịch.",
       "error_generic": "Nạp tiền thất bại, vui lòng thử lại",
       "wallet_address": "Địa chỉ ví nạp tiền",
       "copy_address": "Sao chép địa chỉ",
@@ -606,7 +637,9 @@
       "title": "Hồ sơ",
       "full_name": "Họ và tên",
       "email": "Email",
-      "update": "Cập nhật hồ sơ"
+      "update": "Cập nhật hồ sơ",
+      "success": "Cập nhật hồ sơ thành công",
+      "error": "Cập nhật hồ sơ thất bại"
     },
     "password": {
       "title": "Đổi mật khẩu",
@@ -618,16 +651,33 @@
       "error": {
         "wrong_current": "Mật khẩu hiện tại không đúng",
         "mismatch": "Mật khẩu mới không khớp"
-      }
+      },
+      "error_generic": "Đổi mật khẩu thất bại"
+    },
+    "wallet": {
+      "title": "Ví rút tiền của tôi",
+      "description": "Địa chỉ ví sẽ được dùng khi bạn yêu cầu rút tiền. Chỉ nhận USDT.",
+      "network_label": "Mạng ví",
+      "address_label": "Địa chỉ ví {network}",
+      "saved_label": "Ví hiện tại đang lưu",
+      "save": "Lưu địa chỉ ví",
+      "error_empty": "Vui lòng nhập địa chỉ ví",
+      "toast_saved": "Đã lưu địa chỉ ví thành công",
+      "error_save": "Lưu ví thất bại"
     },
     "cccd": {
       "title": "Xác minh danh tính",
-      "subtitle": "Tải lên Căn cước công dân (1 mặt)",
-      "upload": "Tải lên CCCD",
-      "uploaded": "Đã tải lên CCCD",
-      "change": "Đổi ảnh CCCD",
-      "note": "Vui lòng tải ảnh rõ nét mặt trước của CCCD",
-      "success": "Tải lên CCCD thành công"
+      "subtitle": "CCCD hoặc hộ chiếu — chỉ tải ảnh rõ nét (1 ảnh)",
+      "upload": "Tải lên CCCD / hộ chiếu",
+      "uploaded": "Đã tải lên giấy tờ",
+      "change": "Đổi ảnh giấy tờ",
+      "note": "Vui lòng tải một ảnh rõ nét mặt trước CCCD hoặc trang ảnh hộ chiếu.",
+      "success": "Tải lên giấy tờ thành công",
+      "file_hint": "JPG, PNG • Tối đa 5MB",
+      "uploading": "Đang tải lên…",
+      "error_file_size": "Dung lượng phải dưới 5MB",
+      "badge_uploaded": "Đã tải",
+      "upload_failed": "Tải lên thất bại"
     }
   },
   "notifications": {
@@ -709,14 +759,14 @@
     "users": {
       "title": "Quản lý Người dùng",
       "subtitle": "Tổng {total} người dùng",
-      "search": "Tìm theo email hoặc tên",
+      "search": "Tìm theo email, tên hoặc SĐT",
       "add_balance": "Cộng tiền",
       "subtract_balance": "Trừ tiền",
       "adjust_balance": "Điều chỉnh số dư",
       "adjust_operation": "Loại điều chỉnh",
       "adjust_target": "Đối tượng điều chỉnh",
       "adjust_reason": "Lý do điều chỉnh",
-      "adjust_reason_placeholder": "Nhập lý do (tối thiểu 3 ký tự)...",
+      "adjust_reason_placeholder": "Ghi chú (không bắt buộc)",
       "new_balance": "Số dư sau điều chỉnh",
       "target_balance": "Số dư lợi nhuận",
       "target_capital": "Vốn khóa",
@@ -743,6 +793,7 @@
         "id": "ID",
         "name": "Tên",
         "email": "Email",
+        "phone": "SĐT",
         "package": "Gói",
         "balance": "Số dư lợi nhuận",
         "capital": "Vốn khóa",
@@ -763,6 +814,8 @@
       "columns": {
         "user": "Người dùng",
         "balance": "Số dư khi xác nhận",
+        "profit_balance": "Lợi nhuận khả dụng",
+        "total_at_confirm": "Tổng (lợi nhuận + vốn)",
         "amount": "Số tiền tín hiệu",
         "profit": "Lợi nhuận",
         "status": "Trạng thái",
@@ -777,6 +830,7 @@
         "user": "Người dùng",
         "package": "Gói",
         "amount": "Số tiền",
+        "tx_hash": "Mã giao dịch (TX ID)",
         "network": "Mạng",
         "date": "Ngày",
         "status": "Trạng thái"
@@ -785,11 +839,13 @@
     "withdrawals": {
       "title": "Duyệt Rút tiền",
       "profit_tab": "Rút lợi nhuận",
+      "all_tab": "Tất cả loại",
       "capital_tab": "Rút vốn gốc (28 ngày)",
     "approve": "Duyệt",
     "reject": "Từ chối",
       "wallet": "Địa chỉ ví",
       "columns": {
+        "type": "Loại",
         "user": "Người dùng",
         "amount": "Số tiền",
         "fee": "Phí",
@@ -818,6 +874,7 @@
         "level": "Cấp",
         "status": "Trạng thái",
         "date": "Ngày",
+        "admin_actor": "Người thực hiện",
         "note": "Ghi chú"
       }
     },

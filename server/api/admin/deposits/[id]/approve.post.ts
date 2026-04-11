@@ -1,6 +1,6 @@
-import { applyApprovedDepositCredits } from '~~/server/utils/depositApproval'
 import { createNotification, logAdminAction } from '~~/server/utils/supabase'
 
+/** User was already credited on submit; admin only confirms TX and marks completed. */
 export default defineEventHandler(async (event) => {
   const admin = await requireAdmin(event)
   const txId = Number(getRouterParam(event, 'id'))
@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
 
   const { data: tx } = await supabase
     .from('transactions')
-    .select('*, user:users(*)')
+    .select('*, user:users!transactions_user_id_fkey(*)')
     .eq('id', txId)
     .eq('type', 'deposit')
     .eq('status', 'pending')
@@ -17,8 +17,6 @@ export default defineEventHandler(async (event) => {
   if (!tx) throw createError({ statusCode: 404, message: 'Transaction not found' })
 
   const user = tx.user as any
-
-  await applyApprovedDepositCredits(supabase, user, tx.amount)
 
   await supabase
     .from('transactions')
@@ -33,8 +31,8 @@ export default defineEventHandler(async (event) => {
 
   await createNotification(
     user.id,
-    'Deposit Approved',
-    `Your deposit of $${tx.amount} has been approved. Your DeFi tier follows your total balance.`
+    'Deposit verified',
+    `Your deposit of $${tx.amount} has been verified.`
   )
 
   return { success: true }

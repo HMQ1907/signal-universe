@@ -11,12 +11,25 @@ export default defineEventHandler(async (event) => {
 
   if (!user) throw createError({ statusCode: 404, message: 'User not found' })
 
-  const { data: f1 } = await supabase
-    .from('users')
-    .select('id, email, full_name, investment_package, created_at, balance')
-    .eq('referred_by', userId)
+  /** F1 and parent are independent — run in parallel to cut round-trips. */
+  const [f1Res, parentRes] = await Promise.all([
+    supabase
+      .from('users')
+      .select('id, email, full_name, investment_package, created_at, balance')
+      .eq('referred_by', userId),
+    user.referred_by
+      ? supabase
+          .from('users')
+          .select('id, email, full_name, referral_code')
+          .eq('id', user.referred_by)
+          .single()
+      : Promise.resolve({ data: null as null })
+  ])
 
-  const f1Ids = f1?.map(u => u.id) || []
+  const f1 = f1Res.data || []
+  const parent = parentRes.data ?? null
+
+  const f1Ids = f1.map(u => u.id)
   let f2: any[] = []
   let f3: any[] = []
 
@@ -37,15 +50,5 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  let parent = null
-  if (user.referred_by) {
-    const { data: parentUser } = await supabase
-      .from('users')
-      .select('id, email, full_name, referral_code')
-      .eq('id', user.referred_by)
-      .single()
-    parent = parentUser
-  }
-
-  return { user, parent, f1: f1 || [], f2, f3 }
+  return { user, parent, f1, f2, f3 }
 })

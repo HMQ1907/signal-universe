@@ -5,7 +5,7 @@
       <p class="text-slate-400 text-sm mt-1">{{ $t('signals.subtitle') }}</p>
     </div>
 
-    <UAlert v-if="signalData && !signalData.defi_tier" :description="$t('signals.no_package')"
+    <UAlert v-if="showPackageWarning" :description="$t('signals.no_package')"
       color="warning" variant="soft" icon="i-heroicons-exclamation-triangle" class="mb-8">
       <template #description>
         {{ $t('signals.no_package') }}
@@ -21,7 +21,7 @@
         v-else
         :sessions="signalData?.sessions || []"
         :confirmations="signalData?.user_confirmations || {}"
-        :user-balance="signalData?.user_balance ?? user?.balance ?? 0"
+        :user-total-balance="userTotalForSignals"
         :defi-tier="signalData?.defi_tier ?? null"
         @confirmed="handleConfirm"
       />
@@ -67,8 +67,24 @@ useHead({ title: 'Trading Signals - Signal Universe' })
 
 const { user, refreshUser } = useAuth()
 const toast = useToastCustom()
+const runtimeConfig = useRuntimeConfig()
 
 const { data: signalData, refresh: refreshSessions, pending: sessionsPending } = useFetch('/api/signals/sessions', { key: 'signal-sessions', lazy: true })
+
+const userTotalForSignals = computed(() => {
+  if (signalData.value?.user_total_balance != null) return signalData.value.user_total_balance as number
+  const b = user.value?.balance ?? 0
+  const l = user.value?.locked_capital ?? 0
+  return Math.round((b + l) * 100) / 100
+})
+
+/** Hide “need package” when TEST_AI and total ≥ $300 (tier inferred for confirm). */
+const showPackageWarning = computed(() => {
+  if (!signalData.value) return false
+  if (signalData.value.defi_tier) return false
+  if (runtimeConfig.public.testAi && userTotalForSignals.value >= 300) return false
+  return true
+})
 const { data: historyData, refresh: refreshHistory, pending: historyPending } = useFetch('/api/signals/history', { key: 'signal-history', lazy: true })
 
 const handleConfirm = async (sessionId: number) => {

@@ -3,7 +3,9 @@
     <h1 class="text-2xl font-bold text-white mb-8">{{ $t('admin.withdrawals.title') }}</h1>
 
     <div class="flex flex-wrap gap-3 mb-6">
-      <div class="flex gap-2">
+      <div class="flex gap-2 flex-wrap">
+        <UButton :color="typeFilter === 'all' ? 'indigo' : 'gray'" :variant="typeFilter === 'all' ? 'solid' : 'ghost'"
+          @click="typeFilter = 'all'">{{ $t('admin.withdrawals.all_tab') }}</UButton>
         <UButton :color="typeFilter === 'profit' ? 'indigo' : 'gray'" :variant="typeFilter === 'profit' ? 'solid' : 'ghost'"
           @click="typeFilter = 'profit'">{{ $t('admin.withdrawals.profit_tab') }}</UButton>
         <UButton :color="typeFilter === 'capital' ? 'amber' : 'gray'" :variant="typeFilter === 'capital' ? 'solid' : 'ghost'"
@@ -33,6 +35,7 @@
         <thead>
           <tr>
             <th>#ID</th>
+            <th>{{ $t('admin.withdrawals.columns.type') }}</th>
             <th>{{ $t('admin.withdrawals.columns.user') }}</th>
             <th>{{ $t('admin.withdrawals.columns.amount') }}</th>
             <th>{{ $t('admin.withdrawals.columns.fee') }}</th>
@@ -46,6 +49,14 @@
         <tbody>
           <tr v-for="tx in withdrawals" :key="tx.id">
             <td class="text-slate-400 text-xs">#{{ tx.id }}</td>
+            <td>
+              <UBadge
+                size="sm"
+                variant="soft"
+                :color="tx.type === 'withdraw_capital' ? 'amber' : 'indigo'"
+                :label="tx.type === 'withdraw_capital' ? $t('wallet.history.type.withdraw_capital') : $t('wallet.history.type.withdraw_profit')"
+              />
+            </td>
             <td>
               <p class="text-white text-sm">{{ tx.user?.full_name || '-' }}</p>
               <p class="text-slate-400 text-xs">{{ tx.user?.email }}</p>
@@ -121,7 +132,7 @@ useHead({ title: 'Withdrawals - Admin' })
 const toast = useToastCustom()
 const { user: authUser } = useAuth()
 const isMainAdmin = computed(() => authUser.value?.is_admin === true)
-const typeFilter = ref('profit')
+const typeFilter = ref<'all' | 'profit' | 'capital'>('all')
 const statusFilter = ref('pending')
 const processingId = ref<number | null>(null)
 const showReject = ref(false)
@@ -129,9 +140,17 @@ const rejectId = ref<number | null>(null)
 const rejectReason = ref('')
 const rejectLoading = ref(false)
 
+/** Single query object so useFetch watches once (avoids duplicate refetches on tab change). */
+const withdrawalsQuery = computed(() => ({
+  type: typeFilter.value,
+  status: statusFilter.value,
+  limit: 50
+}))
+
 const { data: wData, refresh, pending } = useFetch('/api/admin/withdrawals', {
-  query: computed(() => ({ type: typeFilter.value, status: statusFilter.value, limit: 50 })),
-  watch: [typeFilter, statusFilter],
+  query: withdrawalsQuery,
+  watch: [withdrawalsQuery],
+  server: false,
   lazy: true
 })
 

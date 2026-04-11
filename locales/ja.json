@@ -59,7 +59,9 @@
     "admin": "管理者パネル",
     "tokens": "市場",
     "language": "言語",
-    "platform": "プラットフォーム"
+    "platform": "プラットフォーム",
+    "menu": "メニュー",
+    "close_menu": "メニューを閉じる"
   },
   "tokens": {
     "badge": "ライブ分析",
@@ -196,7 +198,7 @@
       "subtitle": "取引で成功するために必要なものすべて",
       "signal": {
         "title": "AI取引シグナル",
-        "description": "1 日あたり 1 回の AI 確認 (11:00 ～ 23:59)。 DeFi レベルは、合計残高 (200 ドル以上) から自動的に適用されます。 各確認には利益残高の 1% が使用されます。"
+        "description": "1 日あたり 1 回の AI 確認 (00:00 ～ 14:00)。 DeFi レベルは初回入金で固定 ($300–$10,000)。各確認の保留利益は合計残高（利益＋ロック資本）の 2%（小数第2位）、管理者承認後に反映。"
       },
       "referral": {
         "title": "紹介プログラム",
@@ -215,15 +217,15 @@
       "title": "仕組み",
       "step1": {
         "title": "登録と入金",
-        "description": "アカウントを作成し、DeFi パッケージをアクティブ化するには、最低 200 ドルを入金してください。"
+        "description": "アカウントを作成し、DeFi パッケージをアクティブ化するには、最低 300 ドルを入金してください。"
       },
       "step2": {
         "title": "AI確認（1日1回）",
-        "description": "11:00～23:59の間にAI信号を1回確認します。 利益残高の 1% が使用されます。"
+        "description": "00:00～14:00の間にAI信号を1回確認します。セッション保留利益は合計残高の2%（小数第2位まで）。"
       },
       "step3": {
         "title": "利益を得る",
-        "description": "管理者が AI 確認を承認します。 パッケージ階層の一定の割合を利益として受け取ります (デフォルトは 2%、例: $200 階層では $4)。"
+        "description": "管理者が AI 確認を承認すると、確認時点の合計残高の 2% が利益として付与されます。"
       },
       "step4": {
         "title": "撤退と成長",
@@ -234,19 +236,19 @@
       "title": "投資パッケージ",
       "subtitle": "目的に合ったパッケージをお選びください",
       "defi_badge": "DeFiアクセス",
-      "min_deposit": "分。 デポジット",
-      "daily_profit": "一日の利益",
+      "min_deposit": "投資元本",
+      "daily_profit": "想定利益",
       "max_profit": "最大 2%/日",
       "join": "始めましょう",
       "popular": "最も人気のある",
-      "feature_signals": "1 日あたり 1 つの AI 信号確認ウィンドウ",
-      "feature_referral": "入金と利益に対する紹介手数料"
+      "feature_signals": "1日1回のAIシグナル",
+      "feature_referral": "紹介システムからの報酬"
     },
     "referral_section": {
       "title": "紹介プログラム",
       "subtitle": "複数のレベルでコミッションを獲得",
       "deposit_title": "入金手数料",
-      "profit_title": "利益分配（アップライン）",
+      "profit_title": "利益報酬",
       "f1_label": "F1",
       "f2_label": "F2",
       "direct_referral": "直接紹介",
@@ -254,14 +256,14 @@
       "u1_label": "U1",
       "u2_label": "U2",
       "u3_label": "U3",
-      "u1_desc": "1 番目のアップライン (確認者)",
-      "u2_desc": "2番目のアップライン",
-      "u3_desc": "3番目のアップライン",
+      "u1_desc": "アップライン レベル1",
+      "u2_desc": "アップライン レベル2",
+      "u3_desc": "アップライン レベル3",
       "rate_deposit_f1": "5%",
       "rate_deposit_f2": "3%",
-      "rate_profit_u1": "貸方利益の 15%",
-      "rate_profit_u2": "貸方利益の 10%",
-      "rate_profit_u3": "貸方利益の5%"
+      "rate_profit_u1": "+15%",
+      "rate_profit_u2": "+10%",
+      "rate_profit_u3": "+5%"
     },
     "platform": {
       "title": "プラットフォームを機能させるもの",
@@ -272,7 +274,7 @@
       },
       "daily_window": {
         "title": "毎日の確認ウィンドウ",
-        "description": "AI 確認ウィンドウは毎日 11:00 から 23:59 の間に 1 つ開きます。"
+        "description": "AI 確認ウィンドウは毎日 00:00 から 14:00 の間に 1 つ開きます。"
       },
       "review": {
         "title": "管理者のレビューフロー",
@@ -289,11 +291,11 @@
       "items": {
         "one": {
           "question": "DeFi 層を有効にするにはどうすればよいですか?",
-          "answer": "少なくとも 200 ドルを入金してください。 プラットフォームは、合計残高からティアを自動的に割り当てます。"
+          "answer": "少なくとも 300 ドルを入金してください。 プラットフォームは、合計残高からティアを自動的に割り当てます。"
         },
         "two": {
           "question": "AI信号はいつ確認できますか？",
-          "answer": "11:00 ～ 23:59 の時間帯に 1 日 1 回。"
+          "answer": "00:00 ～ 14:00 の時間帯に 1 日 1 回。"
         },
         "three": {
           "question": "利益はどのように扱われますか?",
@@ -379,19 +381,27 @@
   },
   "dashboard": {
     "title": "ダッシュボード",
-    "welcome": "おかえり",
-    "profit_balance": "利益バランス",
-    "locked_capital": "ロックされた首都",
+    "welcome": "今日からAIで収益を始めましょう",
+    "profit_balance": "利用可能な利益",
+    "profit_balance_hint": "（出金可能）",
+    "locked_capital": "投資中の元本",
     "total_balance": "合計残高",
-    "investment_package": "投資パッケージ",
+    "investment_package": "参加中のパッケージ",
+    "capital_no_investment": "まだ投資がありません",
+    "capital_locked_days": "ロック中 — 残り{days}日",
     "package_none": "アクティブなパッケージがありません",
+    "not_invested": "未投資",
+    "not_invested_hint": "最低$300を入金して有効化し、ティアを取得",
+    "below_defi_tier": "合計残高がDeFiティアの閾値（$300）未満です",
+    "below_defi_tier_short": "$300未満",
     "capital_locked_until": "資本は次までロックされます",
     "capital_unlocked": "引き出し可能な資本",
     "quick_stats": {
       "total_deposited": "合計入金額",
       "total_profit": "総利益",
       "total_referral": "合計紹介ボーナス",
-      "direct_members": "直接会員（F1）"
+      "direct_members": "直接会員（F1）",
+      "package_tier": "パッケージ層"
     },
     "signals_today": "今日のAI確認",
     "signal_daily": "毎日のAI確認",
@@ -402,7 +412,10 @@
   },
   "investment": {
     "title": "投資パッケージ",
-    "subtitle": "DeFi レベルは合計残高 ($200+) から自動的に設定されます",
+    "subtitle": "初回入金で一度だけティアが決まり ($300–$10,000)、以後は変更できません。",
+    "package_locked_hint": "パッケージは初回入金で固定され、変更できません。",
+    "active_package_btn": "あなたのパッケージ",
+    "not_your_package": "—",
     "current_package": "現在のパッケージ",
     "no_package": "アクティブなパッケージがありません",
     "select_package": "パッケージの選択",
@@ -434,13 +447,17 @@
       "5000": {
         "name": "エリート",
         "description": "最大の可能性"
+      },
+      "10000": {
+        "name": "ダイヤモンド",
+        "description": "最上位パッケージ"
       }
     },
     "rules": {
       "title": "投資ルール",
-      "rule1": "DeFi / AI 確認のための合計残高は最低 200 ドル。 自動ティア: $200、$300、$500、$1,000、$2,000、$5,000",
+      "rule1": "初回入金は最低 $300。ティアは $300、$500、$1k、$2k、$5k、$10k のいずれか（初回入金で固定）",
       "rule2": "資本は最初の入金から 28 日間ロックされます",
-      "rule3": "各シグナルはアカウント残高の 1% を使用します",
+      "rule3": "各 AI 確認: 保留利益 = 合計残高（利益＋ロック資本）の 2%、小数第2位に丸め",
       "rule4": "1 日あたり最大 2% の利益",
       "rule5": "利益はいつでも出金可能",
       "rule6": "資本の引き出しには管理者の審査が必要です"
@@ -448,11 +465,12 @@
   },
   "signals": {
     "title": "取引シグナル",
-    "subtitle": "1 日あたり 1 回の AI 確認、11:00 ～ 23:59 (現地時間)",
+    "subtitle": "1 日あたり 1 回の AI 確認、00:00 ～ 14:00 (現地時間)",
     "session_daily": "毎日のAI確認",
-    "window_hours": "11:00～23:59",
+    "window_hours": "00:00～14:00",
+    "window_hours_test": "00:00～22:50（テスト）",
     "window_closes_in": "窓が閉まる",
-    "window_opens_hint": "11:00開店",
+    "window_opens_hint": "00:00開店",
     "session_14": "午後のセッション",
     "session_21": "イブニングセッション",
     "confirm_btn": "AI信号を確認する",
@@ -461,13 +479,16 @@
     "session_open": "セッションが開いています",
     "session_closed": "セッションは終了しました",
     "time_remaining": "使用可能なボタン",
-    "confirm_amount": "信号量（残高の1％）",
+    "confirm_amount": "セッション利益（合計残高の2%）",
+    "session_profit_preview": "セッション利益（保留）",
     "confirm_dialog": {
       "title": "AI信号を確認する",
-      "description": "今日は AI シグナルを 1 つ確認しました。 これには利益残高の 1% が使用されます。 紹介報酬には現在の DeFi レベルが使用されます。",
-      "amount_label": "信号量",
+      "description": "今日 1 回 AI シグナルを確認します。保留利益は合計残高（利益＋ロック資本）の 2%、小数第2位。管理者承認後、アップラインは付与利益の 15%/10%/5%。",
+      "amount_label": "保留利益",
       "balance_label": "利益残高",
-      "tier_label": "DeFi層（紹介ベース）",
+      "tier_label": "DeFi 層（初回入金）",
+      "total_balance_label": "合計残高（利益＋資本）",
+      "profit_preview_label": "保留利益（2%）",
       "warning": "この操作は元に戻すことができません。",
       "confirm": "確認する",
       "cancel": "キャンセル"
@@ -479,7 +500,7 @@
       "profit": "利益",
       "status": "状態"
     },
-    "no_package": "DeFi / AI 確認には少なくとも 200 ドルの合計残高 (利益 + ロックされた資本) が必要です。",
+    "no_package": "DeFi / AI 確認には少なくとも 300 ドルの合計残高 (利益 + ロックされた資本) が必要です。",
     "insufficient_balance": "信号を確認するにはバランスが不十分です。",
     "already_confirmed": "あなたはすでにこのセッションを確認しています。"
   },
@@ -498,13 +519,19 @@
     },
     "team": {
       "title": "私のチーム",
+      "section_hint": "あなたの下線（F1、F2…）全員。合計入金は完了した入金のみ（利益や残高は含みません）。",
+      "showing_count": "{n} / {total} 件を表示",
+      "search_placeholder": "名前またはメールで検索…",
+      "filter_level": "レベル",
+      "filter_all": "すべて",
+      "filter_no_match": "該当するメンバーがいません。",
       "total_members": "総会員数",
       "fn_members": "F{n} 人のメンバー",
       "network_total_deposit": "ネットワークの合計入金（資本）",
       "f1_members": "F1メンバー",
       "f2_members": "F2メンバー",
       "f3_members": "F3メンバー",
-      "member_name": "メンバー",
+      "member_name": "氏名",
       "level": "レベル",
       "joined": "参加しました",
       "total_deposited": "合計入金額",
@@ -512,20 +539,24 @@
       "package": "パッケージ"
     },
     "commissions": {
-      "deposit_title": "入金手数料",
-      "deposit_row1": "直接紹介デポジット",
-      "deposit_row1_rate": "5% → 親",
-      "deposit_row2": "第2レベルの預金",
-      "deposit_row2_rate": "3% → 祖父母",
-      "deposit_total": "獲得した入金手数料の合計:",
-      "ai_title": "AI 確認 (パッケージ層)",
-      "ai_u1_desc": "確認者の上の 1 番目のアップライン",
-      "ai_u2_desc": "2番目のアップライン",
-      "ai_u3_desc": "3番目のアップライン",
-      "ai_rate_u1": "利益の15%",
-      "ai_rate_u2": "利益の10％",
-      "ai_rate_u3": "利益の5%",
-      "ai_total": "総利益手数料:"
+      "deposit_title": "入金報酬",
+      "deposit_row1": "F1（直接）",
+      "deposit_row1_rate": "+5%",
+      "deposit_row2": "F2（間接）",
+      "deposit_row2_rate": "+3%",
+      "deposit_hint": "入金のたびにその金額の F1 5%、F2 3%（サイト設定で変更可能）。",
+      "deposit_total": "入金報酬の合計:",
+      "ai_title": "利益報酬",
+      "ai_context": "AI確認（パッケージ層）",
+      "ai_u1_desc": "アップライン レベル1",
+      "ai_u2_desc": "アップライン レベル2",
+      "ai_u3_desc": "アップライン レベル3",
+      "ai_rate_u1": "+15%",
+      "ai_rate_u2": "+10%",
+      "ai_rate_u3": "+5%",
+      "ai_hint": "チームに利益が出るたびに報酬を獲得できます。",
+      "ai_total": "利益報酬の合計:",
+      "network_profit_tagline": "ネットワークから最大15%の利益を獲得"
     },
     "empty_team": "まだチームメンバーがいません。 紹介コードをシェアしてください！",
     "toast_code_copied": "コードがコピーされました!",
@@ -557,7 +588,7 @@
       "tx_too_short": "TX ID が短すぎるようです — 確認してください",
       "processing": "処理…",
       "confirm_submit": "デポジット {amount} を確認します",
-      "success_immediate": "デポジットが記録されました。 残高が更新されました。",
+      "success_immediate": "入金を記録しました。残高は反映済みです。管理者がTXを確認します。",
       "error_generic": "入金に失敗しました - もう一度お試しください",
       "wallet_address": "このアドレスに入金してください",
       "copy_address": "アドレスをコピー",
@@ -623,7 +654,9 @@
       "title": "プロフィール",
       "full_name": "フルネーム",
       "email": "電子メール",
-      "update": "プロフィールを更新する"
+      "update": "プロフィールを更新する",
+      "success": "プロフィールを更新しました",
+      "error": "更新に失敗しました"
     },
     "password": {
       "title": "パスワードを変更する",
@@ -635,16 +668,33 @@
       "error": {
         "wrong_current": "現在のパスワードが間違っています",
         "mismatch": "新しいパスワードが一致しません"
-      }
+      },
+      "error_generic": "パスワードの変更に失敗しました"
+    },
+    "wallet": {
+      "title": "出金用ウォレット",
+      "description": "出金申請時に使用するアドレスです。USDT のみ。",
+      "network_label": "ウォレットのネットワーク",
+      "address_label": "{network} ウォレットアドレス",
+      "saved_label": "保存中のアドレス",
+      "save": "アドレスを保存",
+      "error_empty": "ウォレットアドレスを入力してください",
+      "toast_saved": "アドレスを保存しました",
+      "error_save": "保存に失敗しました"
     },
     "cccd": {
       "title": "本人確認",
-      "subtitle": "国民 ID カード (片面) をアップロードします。",
-      "upload": "IDカードをアップロードする",
-      "uploaded": "ID カードがアップロードされました",
-      "change": "IDカードの変更",
-      "note": "国民 ID カードの鮮明な写真 (表面のみ) をアップロードしてください。",
-      "success": "ID カードが正常にアップロードされました"
+      "subtitle": "身分証またはパスポート — 鮮明な写真は1枚のみ",
+      "upload": "身分証 / パスポートをアップロード",
+      "uploaded": "書類をアップロードしました",
+      "change": "書類写真を変更",
+      "note": "身分証の表面またはパスポートの顔写真ページの鮮明な写真を1枚アップロードしてください。",
+      "success": "書類のアップロードに成功しました",
+      "file_hint": "JPG、PNG • 最大 5MB",
+      "uploading": "アップロード中…",
+      "error_file_size": "5MB 未満のファイルにしてください",
+      "badge_uploaded": "済",
+      "upload_failed": "アップロードに失敗しました"
     }
   },
   "notifications": {
@@ -778,6 +828,8 @@
       "columns": {
         "user": "ユーザー",
         "balance": "確認時の残高",
+        "profit_balance": "利用可能な利益",
+        "total_at_confirm": "合計（利益＋元本）",
         "amount": "信号量",
         "profit": "利益",
         "status": "状態",
@@ -799,12 +851,14 @@
     },
     "withdrawals": {
       "title": "出金リクエスト",
+      "all_tab": "すべて",
       "profit_tab": "利益の出金",
       "capital_tab": "資本の出金（28日間ロック）",
       "approve": "承認する",
       "reject": "拒否する",
       "wallet": "ウォレットアドレス",
       "columns": {
+        "type": "タイプ",
         "user": "ユーザー",
         "amount": "額",
         "fee": "手数料",
@@ -833,6 +887,7 @@
         "level": "レベル",
         "status": "状態",
         "date": "日付",
+        "admin_actor": "実行者",
         "note": "注記"
       }
     },

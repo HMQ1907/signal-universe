@@ -1,10 +1,10 @@
 import { z } from 'zod'
 
 const schema = z.object({
-  amount: z.number().positive(),
+  amount: z.coerce.number().positive(),
   operation: z.enum(['add', 'subtract']),
   target: z.enum(['balance', 'capital']).default('balance'),
-  reason: z.string().min(3)
+  reason: z.string().optional().transform((s) => (s ?? '').trim())
 })
 
 export default defineEventHandler(async (event) => {
@@ -15,6 +15,7 @@ export default defineEventHandler(async (event) => {
   if (!parsed.success) throw createError({ statusCode: 400, message: 'Invalid input' })
 
   const { amount, operation, target, reason } = parsed.data
+  const reasonLine = reason || '(no note)'
   const supabase = getSupabaseAdmin()
 
   const { data: user } = await supabase
@@ -25,7 +26,7 @@ export default defineEventHandler(async (event) => {
 
   if (!user) throw createError({ statusCode: 404, message: 'User not found' })
 
-  const currentValue = target === 'capital' ? user.locked_capital : user.balance
+  const currentValue = Number(target === 'capital' ? user.locked_capital ?? 0 : user.balance ?? 0)
   if (operation === 'subtract' && currentValue < amount) {
     throw createError({ statusCode: 400, message: 'Insufficient balance' })
   }
@@ -41,8 +42,8 @@ export default defineEventHandler(async (event) => {
     type: 'admin_adjust',
     amount,
     status: 'completed',
-    admin_note: reason,
-    adjust_reason: `[${target}] ${operation}: ${reason}`,
+    admin_note: reason || '',
+    adjust_reason: `[${target}] ${operation}: ${reasonLine}`,
     processed_by: admin.id,
     processed_at: new Date().toISOString()
   })
@@ -52,13 +53,13 @@ export default defineEventHandler(async (event) => {
     oldValue: currentValue.toString(),
     newValue: newValue.toString(),
     amountChange: adjustAmount,
-    note: `[${target}] ${reason}`
+    note: `[${target}] ${reasonLine}`
   })
 
   await createNotification(
     userId,
     'Balance Adjusted',
-    `Your ${target === 'capital' ? 'capital' : 'profit balance'} has been ${operation === 'add' ? 'credited' : 'debited'} by $${amount}. Reason: ${reason}`
+    `Your ${target === 'capital' ? 'capital' : 'profit balance'} has been ${operation === 'add' ? 'credited' : 'debited'} by $${amount}.${reason ? ` Note: ${reason}` : ''}`
   )
 
   return { success: true, new_value: newValue }

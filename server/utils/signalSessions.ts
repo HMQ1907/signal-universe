@@ -1,5 +1,5 @@
 /**
- * One fixed "daily" session per calendar day (11:00–23:59 app local time for confirm window).
+ * One fixed "daily" session per calendar day (00:00–14:59 app local time for confirm window).
  * Rows are ensured automatically — admins do not create sessions manually.
  */
 export async function ensureDailySignalSessionForDate(

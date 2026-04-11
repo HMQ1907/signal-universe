@@ -66,7 +66,9 @@ export default defineNuxtConfig({
       supabaseKey: process.env.SUPABASE_KEY,
       siteName: 'Signal Universe',
       siteDescription: 'Smart Trading Signal Platform',
-      telegramSupportLink: process.env.TELEGRAM_SUPPORT_LINK || 'https://t.me/signal_universe'
+      telegramSupportLink: process.env.TELEGRAM_SUPPORT_LINK || 'https://t.me/signal_universe',
+      /** When true, AI confirm window is 00:00–22:50 (else 00:00–14:59). Must match server `TEST_AI`. */
+      testAi: process.env.TEST_AI === 'true'
     }
   },
 

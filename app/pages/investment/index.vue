@@ -3,6 +3,7 @@
     <div class="mb-8">
       <h1 class="text-2xl font-bold text-white">{{ $t('investment.title') }}</h1>
       <p class="text-slate-400 text-sm mt-1">{{ $t('investment.subtitle') }}</p>
+      <p v-if="user?.investment_package" class="text-amber-400/90 text-sm mt-2">{{ $t('investment.package_locked_hint') }}</p>
     </div>
 
     <!-- Current Package -->
@@ -59,23 +60,27 @@
           </div>
         </div>
 
-        <NuxtLink :to="`/wallet/deposit?pkg=${pkg.amount}`">
+        <UButton
+          v-if="user?.investment_package"
+          block
+          :disabled="true"
+          :color="user?.investment_package === pkg.amount ? 'success' : 'neutral'"
+          :variant="user?.investment_package === pkg.amount ? 'soft' : 'outline'"
+          class="cursor-default"
+        >
+          {{
+            user?.investment_package === pkg.amount
+              ? $t('investment.active_package_btn')
+              : $t('investment.not_your_package')
+          }}
+        </UButton>
+        <NuxtLink v-else :to="`/wallet/deposit?pkg=${pkg.amount}`">
           <UButton
             block
-            :disabled="user?.investment_package === pkg.amount"
-            :color="
-              user?.investment_package === pkg.amount
-                ? 'success'
-                : pkg.amount === 500
-                  ? 'primary'
-                  : 'neutral'
-            "
-            :variant="
-              user?.investment_package === pkg.amount ? 'soft' : pkg.amount === 500 ? 'solid' : 'outline'
-            "
-            :class="user?.investment_package === pkg.amount ? 'cursor-default opacity-90' : ''"
+            :color="pkg.amount === 500 ? 'primary' : 'neutral'"
+            :variant="pkg.amount === 500 ? 'solid' : 'outline'"
           >
-            {{ user?.investment_package === pkg.amount ? 'Active Package' : $t('investment.select_package') }}
+            {{ $t('investment.select_package') }}
           </UButton>
         </NuxtLink>
       </div>
@@ -107,7 +112,7 @@ onMounted(() => {
 })
 
 const packages = [
-  { amount: 200 }, { amount: 300 }, { amount: 500 },
-  { amount: 1000 }, { amount: 2000 }, { amount: 5000 }
+  { amount: 300 }, { amount: 500 },
+  { amount: 1000 }, { amount: 2000 }, { amount: 5000 }, { amount: 10000 }
 ]
 </script>

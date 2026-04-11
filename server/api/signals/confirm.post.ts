@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { investmentTierFromTotal, isDailyAiConfirmWindowOpen } from '~~/server/utils/helpers'
+import { isDailyAiConfirmWindowOpen, packageTierFromFirstDepositAmount, roundMoney2 } from '~~/server/utils/helpers'
 
 const schema = z.object({
   session_id: z.number()
@@ -29,23 +29,42 @@ export default defineEventHandler(async (event) => {
   }
 
   if (!isDailyAiConfirmWindowOpen()) {
-    throw createError({ statusCode: 400, message: 'AI confirm window is closed (open 11:00–23:59)' })
+    const test = process.env.TEST_AI === 'true'
+    throw createError({
+      statusCode: 400,
+      message: test
+        ? 'AI confirm window is closed (open 00:00–22:50)'
+        : 'AI confirm window is closed (open 00:00–14:00)'
+    })
   }
 
   const { data: fullUser } = await supabase
     .from('users')
-    .select('balance, locked_capital')
+    .select('balance, locked_capital, investment_package')
     .eq('id', user.id)
     .single()
 
-  if (!fullUser || fullUser.balance < 1) {
-    throw createError({ statusCode: 400, message: 'Insufficient balance' })
+  if (!fullUser) {
+    throw createError({ statusCode: 400, message: 'User not found' })
   }
 
-  const totalForTier = (fullUser.balance || 0) + (fullUser.locked_capital || 0)
-  const packageTier = investmentTierFromTotal(totalForTier)
+  const totalBalance = roundMoney2((fullUser.balance || 0) + (fullUser.locked_capital || 0))
+  if (totalBalance < 300) {
+    throw createError({ statusCode: 400, message: 'Minimum $300 total balance required for AI confirm' })
+  }
+
+  const testAi = process.env.TEST_AI === 'true'
+  let packageTier = fullUser.investment_package as number | null
   if (!packageTier) {
-    throw createError({ statusCode: 400, message: 'Minimum $200 total balance required for DeFi / AI confirm' })
+    if (testAi) {
+      const derived = packageTierFromFirstDepositAmount(totalBalance)
+      if (derived == null) {
+        throw createError({ statusCode: 400, message: 'Minimum $300 total balance required for AI confirm' })
+      }
+      packageTier = derived
+    } else {
+      throw createError({ statusCode: 400, message: 'Investment package not set (complete first deposit first)' })
+    }
   }
 
   const { data: existing } = await supabase
@@ -57,18 +76,20 @@ export default defineEventHandler(async (event) => {
 
   if (existing) throw createError({ statusCode: 400, message: 'Already confirmed this session' })
 
-  const signalAmount = parseFloat((fullUser.balance * 0.01).toFixed(2))
+  /** Session profit credited on admin approval = 2% of total balance (profit + locked) at confirm time. */
+  const sessionProfitAmount = roundMoney2(totalBalance * 0.02)
 
   const { error } = await supabase.from('signal_confirmations').insert({
     user_id: user.id,
     session_id: session.id,
-    amount: signalAmount,
+    amount: sessionProfitAmount,
     package_tier: packageTier,
     balance_snapshot: fullUser.balance,
+    total_balance_snapshot: totalBalance,
     status: 'pending'
   })
 
   if (error) throw createError({ statusCode: 500, message: 'Failed to confirm signal' })
 
-  return { success: true, amount: signalAmount, package_tier: packageTier }
+  return { success: true, amount: sessionProfitAmount, package_tier: packageTier }
 })

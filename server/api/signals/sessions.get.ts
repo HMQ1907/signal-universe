@@ -1,4 +1,4 @@
-import { investmentTierFromTotal } from '~~/server/utils/helpers'
+import { roundMoney2 } from '~~/server/utils/helpers'
 import { ensureDailySignalSessionForDate } from '~~/server/utils/signalSessions'
 
 export default defineEventHandler(async (event) => {
@@ -37,13 +37,16 @@ export default defineEventHandler(async (event) => {
 
   const bal = fullUser?.balance ?? user.balance
   const locked = fullUser?.locked_capital ?? 0
-  const defiTier = investmentTierFromTotal(bal + locked)
+  const userTotalBalance = roundMoney2(bal + locked)
+  /** Fixed package from first deposit; AI eligibility uses this + min total $300 */
+  const defiTier = fullUser?.investment_package ?? null
 
   return {
     sessions: sessions || [],
     user_confirmations: userConfirmations,
     user_balance: bal,
     user_locked_capital: locked,
+    user_total_balance: userTotalBalance,
     defi_tier: defiTier,
     user_package: fullUser?.investment_package ?? user.investment_package
   }

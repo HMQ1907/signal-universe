@@ -21,7 +21,7 @@
 
     <!-- Quick Actions -->
     <div class="grid md:grid-cols-3 gap-4">
-      <NuxtLink to="/admin/deposits">
+      <NuxtLink to="/admin/deposits" :prefetch="false">
         <div class="su-card su-card-hover cursor-pointer">
           <div class="flex items-center gap-3 mb-2">
             <UIcon name="i-heroicons-arrow-down-tray" class="text-green-400 text-xl" />
@@ -30,7 +30,7 @@
           <p class="text-3xl font-black text-green-400">{{ stats?.pending_deposits || 0 }}</p>
         </div>
       </NuxtLink>
-      <NuxtLink to="/admin/withdrawals">
+      <NuxtLink to="/admin/withdrawals" :prefetch="false">
         <div class="su-card su-card-hover cursor-pointer">
           <div class="flex items-center gap-3 mb-2">
             <UIcon name="i-heroicons-arrow-up-tray" class="text-red-400 text-xl" />
@@ -39,7 +39,7 @@
           <p class="text-3xl font-black text-red-400">{{ stats?.pending_withdrawals || 0 }}</p>
         </div>
       </NuxtLink>
-      <NuxtLink to="/admin/signals">
+      <NuxtLink to="/admin/signals" :prefetch="false">
         <div class="su-card su-card-hover cursor-pointer">
           <div class="flex items-center gap-3 mb-2">
             <UIcon name="i-heroicons-signal" class="text-indigo-400 text-xl" />

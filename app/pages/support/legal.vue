@@ -8,7 +8,7 @@
         <p>All investments carry risk. Past performance does not guarantee future results. Only invest what you can afford to lose.</p>
         <h2 class="text-white font-bold text-xl">Platform Rules</h2>
         <ul class="space-y-2 list-disc pl-5">
-          <li>Minimum deposit: $200</li>
+          <li>Minimum deposit: $300</li>
           <li>Capital locked for 28 days from first deposit</li>
           <li>Minimum withdrawal: $10, with 3% fee</li>
           <li>Withdrawal window: 22:00-24:00 daily</li>

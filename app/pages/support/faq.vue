@@ -21,11 +21,11 @@ const openFaq = ref<number | null>(null)
 const toggleFaq = (i: number) => { openFaq.value = openFaq.value === i ? null : i }
 
 const faqs = [
-  { q: 'What is Signal Universe?', a: 'Signal Universe is a smart trading signal platform with one daily AI confirmation window (11:00–23:59), transparent DeFi tiers, and referral rewards—built for clear, disciplined participation.' },
-  { q: 'How do I get started?', a: 'Register an account, reach at least $200 total balance to activate your DeFi tier, then confirm the daily AI signal once during the open window.' },
+  { q: 'What is Signal Universe?', a: 'Signal Universe is a smart trading signal platform with one daily AI confirmation window (00:00–14:00), transparent DeFi tiers, and referral rewards—built for clear, disciplined participation.' },
+  { q: 'How do I get started?', a: 'Register an account, make a first deposit of at least $300 (your DeFi package tier is set from that first deposit and stays fixed), then confirm the daily AI signal once during the open window.' },
   { q: 'When can I withdraw my capital?', a: 'Your initial deposit (capital) is locked for 28 days from the first deposit date. After 28 days, you can submit a capital withdrawal request for admin review.' },
-  { q: 'How are trading profits calculated?', a: 'Each signal uses 1% of your account balance. Admin approves profits, with a maximum of 2% daily profit on your total balance.' },
-  { q: 'How does the referral program work?', a: 'You earn 5% commission when your F1 referrals deposit, and 3% from F2 deposits. For trading profits, you earn 15% from F1, 10% from F2, and 5% from F3 members.' },
+  { q: 'How are trading profits calculated?', a: 'When you confirm the daily AI signal, the pending session profit is 2% of your total balance (available profit plus locked capital), rounded to two decimals. After admin approval, that amount is credited to your profit balance. Up to three uplines earn 15%, 10%, and 5% of that credited profit.' },
+  { q: 'How does the referral program work?', a: 'On each referral’s deposit: you earn 5% as the direct referrer (F1) and 3% as the grand-referrer (F2) of that deposit amount (rates from site settings). Applies to every deposit, not only the first.' },
   { q: 'What is the Leader Bonus?', a: 'Based on your direct F1 member count, you can earn weekly bonuses from $50 (10+ F1) up to $1,000 (200+ F1). Bonuses are calculated every Monday.' },
   { q: 'When can I withdraw profits?', a: 'Profit withdrawals are processed between 22:00-24:00 daily, with a minimum of $10 and a 3% processing fee.' }
 ]

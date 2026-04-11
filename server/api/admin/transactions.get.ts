@@ -15,12 +15,24 @@ export default defineEventHandler(async (event) => {
 
   const types = typeMap[tab] || typeMap.deposit_referral
 
-  const { data, count } = await supabase
+  const { data, count, error } = await supabase
     .from('transactions')
-    .select('*, user:users(email, full_name), from_user:users!transactions_from_user_id_fkey(email, full_name)', { count: 'exact' })
+    .select(
+      [
+        '*',
+        'user:users!transactions_user_id_fkey(email, full_name)',
+        'from_user:users!transactions_from_user_id_fkey(email, full_name)',
+        'processed_by_admin:users!transactions_processed_by_fkey(email, full_name)'
+      ].join(', '),
+      { count: 'exact' }
+    )
     .in('type', types)
     .order('created_at', { ascending: false })
     .range(offset, offset + limit - 1)
+
+  if (error) {
+    throw createError({ statusCode: 500, message: error.message })
+  }
 
   return { data: data || [], total: count || 0 }
 })

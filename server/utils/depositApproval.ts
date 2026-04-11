@@ -1,37 +1,54 @@
-import { investmentTierFromTotal } from '~~/server/utils/helpers'
+import { packageTierFromFirstDepositAmount, roundMoney2 } from '~~/server/utils/helpers'
 import { sendDepositConfirmationEmail } from '~~/server/utils/email'
 import { createNotification } from '~~/server/utils/supabase'
 
 /**
- * First completed deposit: principal → locked_capital + balance (tier / pool).
- * Later deposits: only increase balance (treated as profit); locked_capital stays the first principal only.
+ * First completed deposit: principal → locked_capital only (not balance). Package tier from first deposit amount.
+ * Profit balance (`balance`) is for withdraw_profit; principal is withdrawn via withdraw_capital after lock.
+ * Later deposits: increase profit balance only; locked_capital and investment_package unchanged.
+ * Deposit referral (F1 5%, F2 3% by default): on every completed deposit of the member, from that deposit amount.
+ *
+ * @param opts.depositTxId — store on deposit_referral rows so admin reject can reverse F1/F2.
  */
-export async function applyApprovedDepositCredits(supabase: any, user: any, depositAmount: number) {
+export async function applyApprovedDepositCredits(
+  supabase: any,
+  user: any,
+  depositAmount: number,
+  opts?: { depositTxId?: number }
+) {
   const isFirstDeposit = !user.first_deposit_at
 
   let newLockedCapital = user.locked_capital || 0
-  const newBalance = (user.balance || 0) + depositAmount
+  let newBalance = user.balance || 0
 
   if (isFirstDeposit) {
     newLockedCapital += depositAmount
+    // Do not add principal to `balance` — otherwise user could withdraw it as "profit" immediately.
+  } else {
+    newBalance += depositAmount
   }
 
-  const tier = investmentTierFromTotal(newBalance + newLockedCapital)
-
-  const updateData: any = {
+  const updateData: Record<string, unknown> = {
     locked_capital: newLockedCapital,
-    investment_package: tier,
     balance: newBalance
   }
 
   if (isFirstDeposit) {
+    const pkg = packageTierFromFirstDepositAmount(depositAmount)
+    if (pkg == null) {
+      throw new Error('First deposit below minimum tier ($300)')
+    }
+    updateData.investment_package = pkg
     updateData.first_deposit_at = new Date().toISOString()
     updateData.first_deposit_amount = depositAmount
   }
 
   await supabase.from('users').update(updateData).eq('id', user.id)
 
-  sendDepositConfirmationEmail(user.email, depositAmount, tier ?? 0).catch(e => console.error('Failed to send deposit email:', e))
+  const tierForEmail = isFirstDeposit
+    ? (updateData.investment_package as number)
+    : (user.investment_package ?? 0)
+  sendDepositConfirmationEmail(user.email, depositAmount, tierForEmail).catch(e => console.error('Failed to send deposit email:', e))
 
   const { data: settings } = await supabase
     .from('site_settings')
@@ -40,8 +57,8 @@ export async function applyApprovedDepositCredits(supabase: any, user: any, depo
 
   const settingsMap: Record<string, number> = {}
   for (const s of settings || []) settingsMap[s.key] = Number(s.value)
-  const rateToParent = (settingsMap.deposit_referral_f1 || 5) / 100
-  const rateToGrandparent = (settingsMap.deposit_referral_f2 || 3) / 100
+  const rateF1 = (settingsMap.deposit_referral_f1 || 5) / 100
+  const rateF2 = (settingsMap.deposit_referral_f2 || 3) / 100
 
   const ancestorIds: number[] = []
   let cur: number | null = user.referred_by
@@ -51,25 +68,30 @@ export async function applyApprovedDepositCredits(supabase: any, user: any, depo
     cur = p?.referred_by ?? null
   }
 
-  if (ancestorIds.length === 1) {
+  const srcId = opts?.depositTxId
+
+  if (ancestorIds.length >= 1) {
     await payOneDepositReferral(
       supabase,
-      ancestorIds[0],
+      ancestorIds[0]!,
       user,
       depositAmount,
-      rateToParent,
+      rateF1,
       1,
-      'direct referral deposit'
+      'F1 deposit',
+      srcId
     )
-  } else if (ancestorIds.length === 2) {
+  }
+  if (ancestorIds.length >= 2) {
     await payOneDepositReferral(
       supabase,
-      ancestorIds[1],
+      ancestorIds[1]!,
       user,
       depositAmount,
-      rateToGrandparent,
+      rateF2,
       2,
-      '2nd-level referral deposit (grandparent)'
+      'F2 deposit',
+      srcId
     )
   }
 }
@@ -81,9 +103,10 @@ async function payOneDepositReferral(
   depositAmount: number,
   rate: number,
   referralLevel: number,
-  label: string
+  label: string,
+  sourceDepositId?: number
 ) {
-  const commission = parseFloat((depositAmount * rate).toFixed(2))
+  const commission = roundMoney2(depositAmount * rate)
   if (commission <= 0) return
 
   const { data: earner } = await supabase.from('users').select('id, balance, email').eq('id', earnerId).single()
@@ -98,12 +121,93 @@ async function payOneDepositReferral(
     status: 'completed',
     from_user_id: fromUser.id,
     referral_level: referralLevel,
+    source_deposit_id: sourceDepositId ?? null,
     admin_note: `${rate * 100}% ${label} from ${fromUser.email} deposit $${depositAmount}`
   })
 
   await createNotification(
     earner.id,
     'Deposit referral commission',
-    `You earned $${commission.toFixed(2)} (${rate * 100}%) from ${label}: ${fromUser.email} deposited $${depositAmount.toFixed(2)}.`
+    `You earned $${commission.toFixed(2)} (${rate * 100}%) from ${label}: ${fromUser.email} deposit $${depositAmount.toFixed(2)}.`
   )
+}
+
+/**
+ * Undo credits from a pending deposit when admin rejects (wrong TX id, etc.).
+ * Reverses member balance/capital and any F1/F2 deposit_referral linked via source_deposit_id.
+ */
+export async function revertDepositCredits(
+  supabase: any,
+  depositTx: {
+    id: number
+    amount: number
+    user_id: number
+    is_first_deposit?: boolean | null
+    created_at?: string
+  }
+) {
+  const { data: user } = await supabase
+    .from('users')
+    .select('id, balance, locked_capital, investment_package, first_deposit_at, first_deposit_amount')
+    .eq('id', depositTx.user_id)
+    .single()
+
+  if (!user) {
+    throw createError({ statusCode: 404, message: 'User not found' })
+  }
+
+  const { data: earliest } = await supabase
+    .from('transactions')
+    .select('id')
+    .eq('user_id', depositTx.user_id)
+    .eq('type', 'deposit')
+    .in('status', ['pending', 'completed'])
+    .order('created_at', { ascending: true })
+    .limit(1)
+    .maybeSingle()
+
+  const amt = Number(depositTx.amount)
+  const isFirst =
+    depositTx.is_first_deposit === true ||
+    (depositTx.is_first_deposit !== false &&
+      earliest?.id === depositTx.id &&
+      user.first_deposit_amount != null &&
+      Math.abs(Number(user.first_deposit_amount) - amt) < 0.01)
+
+  if (isFirst) {
+    await supabase
+      .from('users')
+      .update({
+        locked_capital: Math.max(0, Number(user.locked_capital || 0) - amt),
+        investment_package: null,
+        first_deposit_at: null,
+        first_deposit_amount: null
+      })
+      .eq('id', user.id)
+  } else {
+    await supabase
+      .from('users')
+      .update({
+        balance: Math.max(0, Number(user.balance || 0) - amt)
+      })
+      .eq('id', user.id)
+  }
+
+  const { data: refTxs } = await supabase
+    .from('transactions')
+    .select('id, user_id, amount')
+    .eq('source_deposit_id', depositTx.id)
+    .eq('type', 'deposit_referral')
+    .eq('status', 'completed')
+
+  for (const rt of refTxs || []) {
+    const { data: earner } = await supabase.from('users').select('balance').eq('id', rt.user_id).single()
+    if (earner) {
+      await supabase
+        .from('users')
+        .update({ balance: Math.max(0, Number(earner.balance || 0) - Number(rt.amount)) })
+        .eq('id', rt.user_id)
+    }
+    await supabase.from('transactions').update({ status: 'cancelled' }).eq('id', rt.id)
+  }
 }

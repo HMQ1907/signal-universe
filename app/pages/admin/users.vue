@@ -34,6 +34,7 @@
             <th>{{ $t('admin.users.columns.id') }}</th>
             <th>{{ $t('admin.users.columns.name') }}</th>
             <th>{{ $t('admin.users.columns.email') }}</th>
+            <th>{{ $t('admin.users.columns.phone') }}</th>
             <th>{{ $t('admin.users.columns.package') }}</th>
             <th>{{ $t('admin.users.columns.balance') }}</th>
             <th>{{ $t('admin.users.columns.capital') }}</th>
@@ -48,6 +49,10 @@
             <td class="text-slate-500 text-xs font-mono">#{{ u.id }}</td>
             <td class="text-white font-medium">{{ u.full_name || '-' }}</td>
             <td class="text-slate-300 text-sm">{{ u.email }}</td>
+            <td class="text-slate-300 text-sm whitespace-nowrap">
+              <template v-if="u.phone">{{ u.phone_country ? `${u.phone_country} ` : '' }}{{ u.phone }}</template>
+              <span v-else class="text-slate-600">—</span>
+            </td>
             <td>
               <UBadge v-if="u.investment_package" :label="`$${u.investment_package}`" color="primary" variant="soft" size="sm" />
               <span v-else class="text-slate-600 text-xs">—</span>
@@ -72,6 +77,7 @@
                   leading-icon="i-heroicons-squares-2x2"
                   color="neutral"
                   variant="outline"
+                  :loading="treeLoading && treeLoadingUserId === u.id"
                   @click="viewTree(u)"
                 >
                   {{ $t('admin.users.action_view_tree') }}
@@ -172,7 +178,7 @@
           <UButton block color="neutral" variant="outline" class="flex-1 ring-1 ring-white/15" @click="showAdjust = false">{{ $t('common.cancel') }}</UButton>
           <UButton block class="flex-1" :loading="adjustLoading"
             :color="adjustForm.operation === 'add' ? 'success' : 'error'"
-            :disabled="!adjustForm.amount || !adjustForm.reason" @click="submitAdjust">
+            :disabled="!adjustForm.amount || adjustForm.amount <= 0" @click="submitAdjust">
             {{ adjustForm.operation === 'add' ? $t('admin.users.confirm_add') : $t('admin.users.confirm_subtract') }}
             ${{ (adjustForm.amount || 0).toFixed(2) }}
           </UButton>
@@ -183,7 +189,11 @@
     <!-- ─── Tree Modal ─── -->
     <UModal v-model:open="showTree" :title="$t('admin.users.referral_tree')" :description="selectedUser?.email">
       <template #body>
-        <div v-if="treeData" class="space-y-4">
+        <div v-if="treeLoading" class="flex flex-col items-center justify-center gap-3 py-14 text-slate-400">
+          <UIcon name="i-heroicons-arrow-path" class="size-10 animate-spin text-indigo-400" />
+          <p class="text-sm">{{ $t('common.loading') }}</p>
+        </div>
+        <div v-else-if="treeData" class="space-y-4">
           <div v-if="treeData.parent" class="p-3 rounded-xl bg-slate-800/50 border border-white/6 text-sm flex items-center gap-2">
             <UIcon name="i-heroicons-arrow-up" class="text-slate-500" />
             <span class="text-slate-400">{{ $t('admin.users.parent') }}:</span>
@@ -235,6 +245,8 @@ const showAdjust = ref(false)
 const showTree = ref(false)
 const adjustLoading = ref(false)
 const treeData = ref<any>(null)
+const treeLoading = ref(false)
+const treeLoadingUserId = ref<number | null>(null)
 
 const adjustForm = reactive({
   amount: 0 as number,
@@ -287,10 +299,6 @@ const submitAdjust = async () => {
     toast.error(t('admin.users.error_amount'))
     return
   }
-  if (!adjustForm.reason.trim()) {
-    toast.error(t('admin.users.error_reason'))
-    return
-  }
   adjustLoading.value = true
   try {
     await $fetch(`/api/admin/users/${selectedUser.value.id}/adjust-balance`, {
@@ -314,10 +322,27 @@ const submitAdjust = async () => {
 
 const viewTree = async (u: any) => {
   selectedUser.value = u
-  const data = await $fetch(`/api/admin/users/${u.id}/tree`)
-  treeData.value = data
+  treeData.value = null
   showTree.value = true
+  treeLoading.value = true
+  treeLoadingUserId.value = u.id
+  try {
+    treeData.value = await $fetch(`/api/admin/users/${u.id}/tree`)
+  } catch (e: any) {
+    toast.error(e?.data?.message || 'Failed to load referral tree')
+    showTree.value = false
+  } finally {
+    treeLoading.value = false
+    treeLoadingUserId.value = null
+  }
 }
+
+watch(showTree, (open) => {
+  if (!open) {
+    treeData.value = null
+    treeLoading.value = false
+  }
+})
 
 const levelEntries = computed(() => {
   if (!treeData.value) return []
